@@ -3,7 +3,8 @@
 #audible_bell = false
 #clickable_url = true
 #dynamic_title = true
-font = Anonymous Pro 11
+#font = Anonymous Pro 11
+font = Hack 10
 #fullscreen = true
 #geometry = 640x480
 #icon_name = terminal
@@ -72,46 +73,90 @@ scrollback_lines = 10000
 #color14 = #93e0e3
 #color15 = #ffffff
 
+# COLOR SCHEMES
+
 # Gruvbox stuff
+#[colors]
+## hard contrast: background = #1d2021
+##background = #282828
+#background = #1d2021
+## soft contrast: background = #32302f
+#foreground = #ebdbb2
+#foreground_bold = #ebdbb2
+
+## dark0 + gray
+#color0 = #282828
+#color8 = #928374
+
+## neutral_red + bright_red
+#color1 = #cc241d
+#color9 = #fb4934
+
+## neutral_green + bright_green
+#color2 = #98971a
+#color10 = #b8bb26
+
+## neutral_yellow + bright_yellow
+#color3 = #d79921
+#color11 = #fabd2f
+
+## neutral_blue + bright_blue
+#color4 = #458588
+#color12 = #83a598
+
+## neutral_purple + bright_purple
+#color5 = #b16286
+#color13 = #d3869b
+
+## neutral_aqua + faded_aqua
+#color6 = #689d6a
+#color14 = #8ec07c
+
+## light4 + light1
+#color7 = #a89984
+#color15 = #ebdbb2
+
+# Material stuff
 [colors]
-# hard contrast: background = #1d2021
-#background = #282828
-background = #1d2021
-# soft contrast: background = #32302f
-foreground = #ebdbb2
-foreground_bold = #ebdbb2
 
-# dark0 + gray
-color0 = #282828
-color8 = #928374
+# special
+foreground      = #aeb1b2
+foreground_bold = #aeb1b2
+cursor          = #aeb1b2
+background      = #191919
 
-# neutral_red + bright_red
-color1 = #cc241d
-color9 = #fb4934
+# black
+color0  = #373636
+color8  = #575959
 
-# neutral_green + bright_green
-color2 = #98971a
-color10 = #b8bb26
+# red
+color1  = #cf5972
+color9  = #e66d87
 
-# neutral_yellow + bright_yellow
-color3 = #d79921
-color11 = #fabd2f
+# green
+color2  = #76b069
+color10 = #87cf76
 
-# neutral_blue + bright_blue
-color4 = #458588
-color12 = #83a598
+# yellow
+color3  = #cbab62
+color11 = #e3c175
 
-# neutral_purple + bright_purple
-color5 = #b16286
-color13 = #d3869b
+# blue
+color4  = #5e9bde
+color12 = #76b0f2
 
-# neutral_aqua + faded_aqua
-color6 = #689d6a
-color14 = #8ec07c
+# magenta
+color5  = #9272d5
+color13 = #aa8aeb
 
-# light4 + light1
-color7 = #a89984
-color15 = #ebdbb2
+# cyan
+color6  = #59bac3
+color14 = #6bd4dd
+
+# white
+color7  = #aeb1b2
+color15 = #c5c8c9
+
 
 [hints]
 #font = Monospace 12
