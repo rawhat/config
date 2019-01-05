@@ -60,11 +60,18 @@ Plug 'mtscout6/vim-cjsx'
 "Plug 'Shougo/deoplete.nvim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'mhartington/nvim-typescript', { 'build': './install.sh', 'for': ['typescript', 'typescript.tsx']}
 "Plug 'mhartington/nvim-typescript', { 'build': './install.sh' }
 "Plug 'peitalin/vim-jsx-typescript'
 "Plug 'ianks/vim-tsx'
+
+" python
+Plug 'zchee/deoplete-jedi'
+
+" go
+Plug 'zchee/deoplete-go', { 'do': 'make' }
 
 " general
 Plug 'sheerun/vim-polyglot'
@@ -95,9 +102,18 @@ Plug 'tpope/vim-surround'
 "Plug 'ctrlpvim/ctrlp.vim'
 
 " Completion packages "
-Plug 'unblevable/quick-scope'
-Plug 'valloric/youcompleteme'
-Plug 'yggdroot/indentline'
+Plug 'slashmili/alchemist.vim'
+Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+"Plug 'unblevable/quick-scope'
+"Plug 'valloric/youcompleteme'
+"Plug 'yggdroot/indentline'
 "Plug 'zxqfl/tabnine-vim'
 
 call plug#end()
@@ -236,8 +252,8 @@ let g:ale_linters = {'coffee': ['coffeelint'], 'js': ['eslint'], 'typescript': [
 let g:ale_typescript_tsserver_use_global=1
 let g:indent_guides_enable_on_vim_startup=1
 nnoremap <c-p> :FZF<cr>
-"let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 
 let g:ale_javascript_eslint_use_global = 1
 
@@ -269,9 +285,13 @@ map <C-n> :NERDTreeToggle<CR>
 "let &t_ut=''
 
 " YCM stuff
-let g:ycm_seed_identifiers_with_syntax=1
-let g:ycm_global_ycm_extra_conf = '/home/amanning/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-let g:ycm_collect_identifiers_from_tag_files = 1
-set completeopt=longest,menu
-set shortmess+=c
+"let g:ycm_seed_identifiers_with_syntax=1
+"let g:ycm_global_ycm_extra_conf = '/home/amanning/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
+"let g:ycm_confirm_extra_conf=0
+"let g:ycm_collect_identifiers_from_tag_files = 1
+"set completeopt=longest,menu
+"set shortmess+=c
+
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
+inoremap <expr><tab> pumvisibile() ? "\<c-n>" : "\<tab>"
