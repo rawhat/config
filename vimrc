@@ -22,7 +22,7 @@ set wildmode=longest:full,full
 call plug#begin('~/.vim/plugged')
 
 " COLORSCHEMES
-Plug 'fenetikm/falcon'
+"Plug 'fenetikm/falcon'
 "Plug 'tyrannicaltoucan/vim-quantum'
 "Plug 'morhetz/gruvbox'
 "Plug 'ajmwagar/vim-deus'
@@ -30,7 +30,7 @@ Plug 'fenetikm/falcon'
 "Plug 'srcery-colors/srcery-vim'
 "Plug 'arcticicestudio/nord-vim'
 "Plug 'ayu-theme/ayu-vim'
-"Plug 'drewtempelmeyer/palenight.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 "Plug 'junegunn/seoul256.vim'
 "Plug 'joshdick/onedark.vim'
 "Plug 'jpo/vim-railscasts-theme'
@@ -87,7 +87,8 @@ Plug 'w0rp/ale'
 
 " OTHER
 Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
+"Plug 'bling/vim-airline'
+Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -104,7 +105,8 @@ Plug 'tpope/vim-surround'
 
 " Completion packages "
 Plug 'slashmili/alchemist.vim'
-Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
+"Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx']}
+Plug 'mhartington/nvim-typescript', {'do': 'sh install.sh \| UpdateRemotePlugins'}
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -220,14 +222,15 @@ endif
 "colorscheme ayu
 
 " Palenight
-"set background=dark
-"let g:airline_theme='palenight'
-"colorscheme palenight
+set background=dark
+let g:lightline = { 'colorscheme': 'palenight' }
+colorscheme palenight
+let g:palenight_terminal_italics=1
 
 " Falcon
-colorscheme falcon
-let g:falcon_airline = 1
-let g:airline_theme = 'falcon'
+"colorscheme falcon
+"let g:falcon_airline = 1
+"let g:airline_theme = 'falcon'
 
 set backupdir=$HOME/tmp
 set directory=$HOME/tmp
@@ -243,7 +246,7 @@ let g:jsx_ext_required = 0
 "let g:deoplete#enable_at_startup=1
 
 " set filetypes as typescript.jsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.ts,*.tsx,*.jsx set filetype=typescript.tsx
 
 " match opening JSX tag color
 "hi link xmlEndTag xmlTag
