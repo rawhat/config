@@ -22,7 +22,8 @@ set wildmode=longest:full,full
 call plug#begin('~/.vim/plugged')
 
 " COLORSCHEMES
-Plug 'tyrannicaltoucan/vim-quantum'
+Plug 'fenetikm/falcon'
+"Plug 'tyrannicaltoucan/vim-quantum'
 "Plug 'morhetz/gruvbox'
 "Plug 'ajmwagar/vim-deus'
 "Plug 'jacoborus/tender.vim'
@@ -193,11 +194,11 @@ endif
 "let g:seoul256_srgb = 1
 
 " Quantum
-set background=dark
-let g:quantum_black=1
-let g:quantum_italics=1
-let g:airline_theme='quantum'
-colorscheme quantum
+"set background=dark
+"let g:quantum_black=1
+"let g:quantum_italics=1
+"let g:airline_theme='quantum'
+"colorscheme quantum
 
 " Tender
 "colorscheme tender
@@ -223,6 +224,10 @@ colorscheme quantum
 "let g:airline_theme='palenight'
 "colorscheme palenight
 
+" Falcon
+colorscheme falcon
+let g:falcon_airline = 1
+let g:airline_theme = 'falcon'
 
 set backupdir=$HOME/tmp
 set directory=$HOME/tmp
