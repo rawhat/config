@@ -19,7 +19,8 @@ set $mod Mod1
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:DejaVu Sans Mono 10
+#font pango:DejaVu Sans Mono 10
+font pango:Fira Code 10
 
 # Before i3 v4.8, we used to recommend this one as the default:
 # font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
@@ -32,7 +33,8 @@ font pango:DejaVu Sans Mono 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec termite -e /usr/bin/fish
+#bindsym $mod+Return exec termite -e /usr/bin/fish
+bindsym $mod+Return exec /home/amanning/.local/kitty.app/bin/kitty --config /home/amanning/.config/kitty/kitty.conf
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -197,3 +199,6 @@ client.urgent #373b41 #cc6666 #ffffff #cc6666
 
 # no window title
 new_window 1pixel
+
+# background
+exec --no-startup-id feh --bg-scale /home/amanning/Pictures/sun-synthwave-wallpaper.jpg
