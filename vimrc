@@ -1,5 +1,5 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+set nocompatible
+filetype off
 
 set encoding=utf-8
 
@@ -19,10 +19,15 @@ set softtabstop=2
 set wildmenu
 set wildmode=longest:full,full
 
-call plug#begin('~/.vim/plugged')
+"call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " COLORSCHEMES
 "Plug 'fenetikm/falcon'
+"Plug 'trevordmiller/nova-vim'
+"Plug 'NLKNguyen/papercolor-theme'
+"Plug 'jnurmine/Zenburn'
+"Plug 'romainl/Apprentice'
 "Plug 'tyrannicaltoucan/vim-quantum'
 "Plug 'morhetz/gruvbox'
 "Plug 'ajmwagar/vim-deus'
@@ -61,7 +66,6 @@ Plug 'mtscout6/vim-cjsx'
 "Plug 'Shougo/deoplete.nvim'
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'mhartington/nvim-typescript', { 'build': './install.sh', 'for': ['typescript', 'typescript.tsx']}
 "Plug 'mhartington/nvim-typescript', { 'build': './install.sh' }
@@ -70,9 +74,6 @@ Plug 'HerringtonDarkholme/yats.vim'
 
 " python
 Plug 'zchee/deoplete-jedi'
-
-" go
-Plug 'zchee/deoplete-go', { 'do': 'make' }
 
 " general
 Plug 'sheerun/vim-polyglot'
@@ -100,13 +101,15 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'unblevable/quick-scope'
+Plug 'yggdroot/indentline'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'ctrlpvim/ctrlp.vim'
 
 " Completion packages "
 Plug 'slashmili/alchemist.vim'
-"Plug 'mhartington/nvim-typescript', { 'do': './install.sh', 'for': ['typescript', 'typescript.tsx']}
-Plug 'mhartington/nvim-typescript', {'do': 'sh install.sh \| UpdateRemotePlugins'}
+"Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
+Plug 'mhartington/nvim-typescript', { 'build': './install.sh', 'for': ['typescript', 'typescript.tsx']}
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -114,9 +117,7 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-"Plug 'unblevable/quick-scope'
 "Plug 'valloric/youcompleteme'
-"Plug 'yggdroot/indentline'
 "Plug 'zxqfl/tabnine-vim'
 
 call plug#end()
@@ -192,7 +193,7 @@ endif
 
 " Seoul256
 "colo seoul256
-"let g:seoul256_background = 235
+"let g:seoul256_background = 200
 "let g:seoul256_srgb = 1
 
 " Quantum
@@ -223,9 +224,21 @@ endif
 
 " Palenight
 set background=dark
-let g:lightline = { 'colorscheme': 'palenight' }
 colorscheme palenight
 let g:palenight_terminal_italics=1
+
+" Apprentice
+"colorscheme apprentice
+
+" Zenburn
+"colorscheme zenburn
+
+" Papercolor
+"set background=dark
+"colorscheme PaperColor
+
+" Nova
+"colorscheme nova
 
 " Falcon
 "colorscheme falcon
@@ -236,7 +249,7 @@ set backupdir=$HOME/tmp
 set directory=$HOME/tmp
 
 set colorcolumn=81
-highlight ColorColumn ctermbg=0 guibg=darkgrey
+highlight ColorColumn ctermbg=1 guibg=darkgray
 set number
 
 
@@ -260,8 +273,8 @@ let g:ale_linters = {'coffee': ['coffeelint'], 'js': ['eslint'], 'typescript': [
 let g:ale_typescript_tsserver_use_global=1
 let g:indent_guides_enable_on_vim_startup=1
 nnoremap <c-p> :FZF<cr>
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
-"let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
+"let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 
 let g:ale_javascript_eslint_use_global = 1
 
@@ -292,6 +305,18 @@ map <C-n> :NERDTreeToggle<CR>
 " Fix background
 "let &t_ut=''
 
+" Lightline config
+let g:lightline = {
+      \ 'colorscheme': 'palenight',
+      \ 'active': {
+      \ 'left': [ ['mode', 'paste'],
+      \           ['gitbranch', 'readonly', 'relativepath', 'modified']]
+      \ },
+      \ 'component_function': {
+      \ 'gitbranch': 'fugitive#head'
+      \ }
+      \ }
+
 " YCM stuff
 "let g:ycm_seed_identifiers_with_syntax=1
 "let g:ycm_global_ycm_extra_conf = '/home/amanning/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'
@@ -300,6 +325,6 @@ map <C-n> :NERDTreeToggle<CR>
 "set completeopt=longest,menu
 "set shortmess+=c
 
+" Deoplete stuff
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#go#gocode_binary = '~/go/bin/gocode'
-inoremap <expr><tab> pumvisibile() ? "\<c-n>" : "\<tab>"
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
