@@ -25,28 +25,75 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'drewtempelmeyer/palenight.vim'
 
 " LANGUAGES
-
-" js
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'othree/es.next.syntax.vim'
-
 " cs
 Plug 'kchmck/vim-coffee-script'
 Plug 'mtscout6/vim-cjsx'
-
+" clojure
+Plug 'guns/vim-clojure-static'
+" crystal
+Plug 'rhysd/vim-crystal'
+" csv
+Plug 'chrisbra/csv.vim'
+" dockerfile
+Plug 'ekalinin/Dockerfile.vim'
+" elixir
+Plug 'elixir-editors/vim-elixir'
+" elm
+Plug 'ElmCast/elm-vim'
+" fish
+Plug 'georgewitteman/vim-fish'
+" git
+Plug 'tpope/vim-git'
+" go
+Plug 'fatih/vim-go'
+" graphql
+Plug 'jparise/vim-graphql'
+" haskell
+Plug 'neovimhaskell/haskell-vim'
+" js
+Plug 'Quramy/vim-js-pretty-template'
+Plug 'pangloss/vim-javascript'
+" json
+Plug 'elzr/vim-json'
+" nginx
+Plug 'chr4/nginx.vim'
+" nim
+Plug 'zah/nim.vim'
+" ocaml
+Plug 'ocaml/vim-ocaml'
+" psql
+Plug 'lifepillar/pgsql.vim'
+" proto
+Plug 'uarun/vim-protobuf'
+" purescript
+Plug 'purescript-contrib/purescript-vim'
+" python
+Plug 'vim-python/python-syntax'
+" reason
+Plug 'reasonml-editor/vim-reason-plus'
+" rust
+Plug 'rust-lang/rust.vim'
+" ruby
+Plug 'vim-ruby/vim-ruby'
+" sbt
+Plug 'derekwyatt/vim-sbt'
+" scala
+Plug 'derekwyatt/vim-scala'
+" svelte
+Plug 'evanleck/vim-svelte'
+" toml
+Plug 'cespare/vim-toml'
 " ts
 Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
-"Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
-
-" python
-" Plug 'zchee/deoplete-jedi'
-
-" scala
-"Plug 'derekwyatt/vim-scala'
+Plug 'othree/es.next.syntax.vim'
+" xml
+Plug 'amadeus/vim-xml'
+" yaml
+Plug 'stephpy/vim-yaml'
 
 " general
-Plug 'sheerun/vim-polyglot'
+Plug 'mattn/emmet-vim'
 
 " LINTING / LS
 Plug 'w0rp/ale'
@@ -67,20 +114,18 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'unblevable/quick-scope'
 Plug 'yggdroot/indentline'
+Plug 'norcalli/nvim-colorizer.lua'
+
+" buffers
+Plug 'jeetsukumaran/vim-buffergator'
 
 " coc.vim
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-" coc extensions
-Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-rls', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
-
-" Not working with Plug (yet?)
-"Plug 'neoclide/coc-elixir', {'do': 'yarn install --frozen-lockfile'}
-"Plug 'neoclide/coc-go', {'do': 'yarn install --frozen-lockfile'}
-
 call plug#end()
+
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-rls', 'coc-elixir', 'coc-go', 'coc-python']
 
 syntax enable
 filetype plugin indent on
@@ -114,22 +159,13 @@ set colorcolumn=81
 highlight ColorColumn ctermbg=1 guibg=darkgray
 set number
 
-
 let g:jsx_ext_required = 0
 
 " set filetypes as typescript.jsx
 autocmd BufNewFile,BufRead *.ts,*.tsx,*.jsx set filetype=typescript.tsx
 
-" set filetypes as scala
-au BufRead,BufNewFile *.sbt set filetype=scala
-
-    " \ 'py': ['pylint'],
-let g:ale_linters = {
-      \ 'js': ['eslint'],
-      \ 'typescript': ['tsserver']
-      \ }
-let g:ale_go_langserver_executable = 'gopls'
-let g:ale_typescript_tsserver_use_global=1
+let g:ale_linters = {}
+let g:ale_fixers = {}
 let g:indent_guides_enable_on_vim_startup=1
 nnoremap <c-p> :FZF<cr>
 
@@ -137,10 +173,9 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 
 let g:ale_javascript_eslint_use_global = 1
 
-let g:polyglot_disabled = ['python-indent', 'typescript-vim']
 " `rg` searching
 if executable('rg')
-  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:ackprg = 'rg --vimgrep --no-heading --smart-case'
   cnoreabbrev ag Ack
 endif
 
@@ -168,10 +203,6 @@ let g:lightline = {
       \ }
       \ }
 
-" Deoplete stuff
-" let g:deoplete#enable_at_startup = 1
-" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
 " Clipboard!
 set clipboard=unnamedplus
 
@@ -198,8 +229,6 @@ set hidden
 set nobackup
 set nowritebackup
 
-set cmdheight=2
-
 set updatetime=300
 
 set shortmess+=c
@@ -224,3 +253,8 @@ function! s:check_back_space() abort
 endfunction
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+let mapleader=";"
+
+" jsx colors
+let g:vim_jsx_pretty_colorful_config=1
