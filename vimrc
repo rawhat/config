@@ -22,7 +22,8 @@ set wildmode=longest:full,full
 call plug#begin('~/.local/share/nvim/plugged')
 
 " COLORSCHEMES
-Plug 'drewtempelmeyer/palenight.vim'
+"Plug 'drewtempelmeyer/palenight.vim'
+Plug 'dracula/vim'
 
 " LANGUAGES
 " cs
@@ -55,6 +56,8 @@ Plug 'Quramy/vim-js-pretty-template'
 Plug 'pangloss/vim-javascript'
 " json
 Plug 'elzr/vim-json'
+" jsonnet
+Plug 'google/vim-jsonnet'
 " nginx
 Plug 'chr4/nginx.vim'
 " nim
@@ -69,6 +72,7 @@ Plug 'uarun/vim-protobuf'
 Plug 'purescript-contrib/purescript-vim'
 " python
 Plug 'vim-python/python-syntax'
+"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " reason
 Plug 'reasonml-editor/vim-reason-plus'
 " rust
@@ -84,9 +88,8 @@ Plug 'evanleck/vim-svelte'
 " toml
 Plug 'cespare/vim-toml'
 " ts
-Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'maxmellon/vim-jsx-pretty'
-Plug 'othree/es.next.syntax.vim'
 " xml
 Plug 'amadeus/vim-xml'
 " yaml
@@ -116,6 +119,9 @@ Plug 'unblevable/quick-scope'
 Plug 'yggdroot/indentline'
 Plug 'norcalli/nvim-colorizer.lua'
 
+" markdown
+Plug 'plasticboy/vim-markdown'
+
 " buffers
 Plug 'jeetsukumaran/vim-buffergator'
 
@@ -125,7 +131,7 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " CoC extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-rls', 'coc-elixir', 'coc-go', 'coc-python']
+let g:coc_global_extensions = ['coc-tsserver', 'coc-rls', 'coc-elixir', 'coc-go', 'coc-python', 'coc-yaml']
 
 syntax enable
 filetype plugin indent on
@@ -148,9 +154,12 @@ endif
 " Colorscheme stuff
 
 " Palenight
-set background=dark
-colorscheme palenight
-let g:palenight_terminal_italics=1
+"set background=dark
+"colorscheme palenight
+"let g:palenight_terminal_italics=1
+
+" Dracula
+colorscheme dracula
 
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
@@ -158,13 +167,14 @@ let g:palenight_terminal_italics=1
 set colorcolumn=81
 highlight ColorColumn ctermbg=1 guibg=darkgray
 set number
+set relativenumber
 
-let g:jsx_ext_required = 0
+let g:jsx_ext_required = 1
 
 " set filetypes as typescript.jsx
-autocmd BufNewFile,BufRead *.ts,*.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-let g:ale_linters = {}
+let g:ale_linters = {'py': ['pylint']}
 let g:ale_fixers = {}
 let g:indent_guides_enable_on_vim_startup=1
 nnoremap <c-p> :FZF<cr>
@@ -190,9 +200,10 @@ vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
 map <C-n> :NERDTreeToggle<CR>
 
+"     \ 'colorscheme': 'palenight',
 " Lightline config
 let g:lightline = {
-      \ 'colorscheme': 'palenight',
+      \ 'colorscheme': 'dracula',
       \ 'active': {
       \ 'left': [ ['mode', 'paste'],
       \           ['gitbranch', 'cocstatus', 'readonly', 'relativepath', 'modified']]
@@ -254,7 +265,26 @@ endfunction
 
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+nmap <silent> gd <Plug>(coc-definition)
+
 let mapleader=";"
 
 " jsx colors
 let g:vim_jsx_pretty_colorful_config=1
+
+" Don't fold
+let g:vim_markdown_folding_disabled=1
+
+" python colors
+let g:python_highlight_all=1

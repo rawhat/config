@@ -35,7 +35,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec termite -e /usr/bin/fish
-bindsym $mod+Return exec /home/amanning/.local/kitty.app/bin/kitty --config /home/amanning/.config/kitty/kitty.conf
+#bindsym $mod+Return exec /home/amanning/.local/kitty.app/bin/kitty --config /home/amanning/.config/kitty/kitty.conf
+bindsym $mod+Return exec /usr/bin/alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -131,9 +132,9 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 # lock system
-bindsym $mod+Shift+x exec i3lock -c 000000
+#bindsym $mod+Shift+x exec i3lock -c 000000
 # lock with blur (if installed)
-#bindsym $mod+Shift+x exec $HOME/.i3/lock -b=0x8 -n
+bindsym $mod+Shift+x exec $HOME/.i3/lock -b=0x8 -n
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -214,7 +215,7 @@ for_window [class="^.*"] border pixel 3
 exec --no-startup-id feh --bg-scale $HOME/Pictures/wallpapers/duskerooni.png
 
 # i3-gaps
-gaps inner 5
-gaps outer 5
-smart_borders no_gaps
-default_border pixel 3
+#gaps inner 5
+#gaps outer 5
+#smart_borders no_gaps
+#default_border pixel 3

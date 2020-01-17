@@ -16,26 +16,49 @@
 ;
 ;==========================================================
 
-[colors]
-background = #292d3e
-background-alt = #292d3e
-foreground = #dbe0ff
-foreground-alt = #dbe0ff
-foreground-dim = #dbe0ff
-primary = #ffcb6b
-secondary = #82aaff
-alert = #f07178
+; was using palenight
+;[colors]
+;background = #292d3e
+;background-alt = #292d3e
+;foreground = #dbe0ff
+;foreground-alt = #dbe0ff
+;foreground-dim = #dbe0ff
+;primary = #ffcb6b
+;secondary = #82aaff
+;alert = #f07178
 
 ;high = #268bd2
 ;high-alt = #0c2b41
 
-red=     #f07178
-green=   #c3e88d
-yellow=  #ffcb6b
-blue=    #82aaff
-magenta= #c792ea
-cyan=    #89ddff
-white=   #d0d0d0
+;red=     #f07178
+;green=   #c3e88d
+;yellow=  #ffcb6b
+;blue=    #82aaff
+;magenta= #c792ea
+;cyan=    #89ddff
+;white=   #d0d0d0
+
+; Dracula
+[colors]
+background = #282a36
+background-alt = #282a36
+foreground = #f8f8f2
+foreground-alt = #f8f8f2
+foreground-dim = #f8f8f2
+primary = #bd93f9
+secondary = #50fa7b
+alert = #ff5555
+
+;high = 
+;high-alt =
+
+red=#ff5555
+green=#50fa7b
+yellow=#f1fa8c
+blue=#6272a4
+magenta=#ff79c6
+cyan=#8be9fd
+white=#f8f8f2
 
 [bar/left-bar]
 monitor = ${env:MONITOR:DVI-D-0}
