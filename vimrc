@@ -46,7 +46,7 @@ Plug 'georgewitteman/vim-fish'
 " git
 Plug 'tpope/vim-git'
 " go
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 " graphql
 Plug 'jparise/vim-graphql'
 " haskell
@@ -72,7 +72,6 @@ Plug 'uarun/vim-protobuf'
 Plug 'purescript-contrib/purescript-vim'
 " python
 Plug 'vim-python/python-syntax'
-"Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 " reason
 Plug 'reasonml-editor/vim-reason-plus'
 " rust
@@ -133,7 +132,9 @@ call plug#end()
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver', 'coc-rls', 'coc-elixir', 'coc-go', 'coc-python', 'coc-yaml']
 
-syntax enable
+if !exists("g:syntax_on")
+  syntax enable
+endif
 filetype plugin indent on
 
 if (has("termguicolors"))
@@ -173,6 +174,8 @@ let g:jsx_ext_required = 1
 
 " set filetypes as typescript.jsx
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+au BufRead,BufNewFile *.go set filetype=go
 
 let g:ale_linters = {'py': ['pylint']}
 let g:ale_fixers = {}
@@ -288,3 +291,23 @@ let g:vim_markdown_folding_disabled=1
 
 " python colors
 let g:python_highlight_all=1
+
+" golang
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+" was slow with these
+"let g:go_highlight_extra_types = 1
+"let g:go_highlight_build_constraints = 1
+"let g:go_highlight_generate_tags = 1
+let g:go_code_completion_enabled = 0
+
+" vim-js-pretty-template
+autocmd FileType javascript JsPreTmpl
+autocmd FileType javascript.jsx JsPreTmpl
+autocmd FileType typescript JsPreTmpl
+autocmd FileType typescript.tsx JsPreTmpl
+
+autocmd BufReadPost *.tsx,*.ts,*.jsx,*.js :syntax sync fromstart
