@@ -87,6 +87,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'vim-ruby/vim-ruby'
 " sbt
 Plug 'derekwyatt/vim-sbt'
+" scss
+Plug 'cakebaker/scss-syntax.vim'
 " scala
 Plug 'derekwyatt/vim-scala'
 " svelte
@@ -102,8 +104,17 @@ Plug 'amadeus/vim-xml'
 " yaml
 Plug 'stephpy/vim-yaml'
 
-" general
+" # general
+" emmet
 Plug 'mattn/emmet-vim'
+" * for visual selections
+Plug 'nelstrom/vim-visual-star-search'
+" :noh on cursor move
+Plug 'haya14busa/is.vim'
+" run tests
+Plug 'janko/vim-test'
+" shell commands
+Plug 'tpope/vim-eunuch'
 
 " LINTING / LS
 Plug 'w0rp/ale'
@@ -303,6 +314,11 @@ endfunction
 nmap <silent> gd <Plug>(coc-definition)
 
 let mapleader=";"
+
+nnoremap <C-l> <C-w><C-l>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-j> <C-w><C-j>
 
 " jsx colors
 let g:vim_jsx_pretty_colorful_config=1
