@@ -22,8 +22,12 @@ set wildmode=longest:full,full
 call plug#begin('~/.local/share/nvim/plugged')
 
 " COLORSCHEMES
-"Plug 'drewtempelmeyer/palenight.vim'
+Plug 'drewtempelmeyer/palenight.vim'
 Plug 'dracula/vim'
+Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
+Plug 'haishanh/night-owl.vim'
+Plug 'morhetz/gruvbox'
+Plug 'cocopon/iceberg.vim'
 
 " LANGUAGES
 " cs
@@ -53,7 +57,8 @@ Plug 'jparise/vim-graphql'
 Plug 'neovimhaskell/haskell-vim'
 " js
 Plug 'Quramy/vim-js-pretty-template'
-Plug 'pangloss/vim-javascript'
+"Plug 'pangloss/vim-javascript'
+Plug 'yuezk/vim-js'
 " json
 Plug 'elzr/vim-json'
 " jsonnet
@@ -68,6 +73,8 @@ Plug 'ocaml/vim-ocaml'
 Plug 'lifepillar/pgsql.vim'
 " proto
 Plug 'uarun/vim-protobuf'
+" Pug
+Plug 'digitaltoad/vim-pug'
 " purescript
 Plug 'purescript-contrib/purescript-vim'
 " python
@@ -88,6 +95,7 @@ Plug 'evanleck/vim-svelte'
 Plug 'cespare/vim-toml'
 " ts
 Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'leafgarland/typescript-vim'
 Plug 'maxmellon/vim-jsx-pretty'
 " xml
 Plug 'amadeus/vim-xml'
@@ -132,25 +140,21 @@ call plug#end()
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver', 'coc-rls', 'coc-elixir', 'coc-go', 'coc-python', 'coc-yaml']
 
-if !exists("g:syntax_on")
-  syntax enable
-endif
 filetype plugin indent on
 
-if (has("termguicolors"))
-  set termguicolors
-endif
+syntax on
+set termguicolors
 
 " Term GUI Colors
-if (has("nvim"))
-  "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-endif
+"if (has("nvim"))
+  ""For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+  "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+"endif
 
 " use 256 colors in terminal
-if !has("gui_running")
-  set t_Co=256
-endif
+"if !has("gui_running")
+set t_Co=256
+"endif
 
 " Colorscheme stuff
 
@@ -161,6 +165,23 @@ endif
 
 " Dracula
 colorscheme dracula
+
+" Gruvbox Material
+"set background=dark
+"let g:gruvbox_material_background = 'hard'
+"colorscheme gruvbox-material
+
+" Night Owl
+"colorscheme night-owl
+
+" Gruvbox
+"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_italic = 1
+"colorscheme gruvbox
+"set background=dark
+
+" Iceberg
+" colorscheme iceberg
 
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
@@ -310,4 +331,12 @@ autocmd FileType javascript.jsx JsPreTmpl
 autocmd FileType typescript JsPreTmpl
 autocmd FileType typescript.tsx JsPreTmpl
 
-autocmd BufReadPost *.tsx,*.ts,*.jsx,*.js :syntax sync fromstart
+" json
+let g:vim_json_syntax_conceal = 0
+
+" rust
+let g:rustc_path = trim(system('which rustc'))
+
+"autocmd BufReadPost *.tsx,*.ts,*.jsx,*.js :syntax sync fromstart
+autocmd BufNewFile,BufRead *.cjs set filetype=javascript syntax=javascript
+autocmd BufNewFile,BufRead *.jade set filetype=pug
