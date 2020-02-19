@@ -23,11 +23,24 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 " COLORSCHEMES
 Plug 'drewtempelmeyer/palenight.vim'
-Plug 'dracula/vim'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
 Plug 'haishanh/night-owl.vim'
 Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
+Plug 'ayu-theme/ayu-vim'
+Plug 'kaicataldo/material.vim'
+Plug 'ajmwagar/vim-deus'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'mhartington/oceanic-next'
+Plug 'joshdick/onedark.vim'
+Plug 'kyoz/purify', { 'rtp': 'vim' }
+Plug 'jnurmine/Zenburn'
+Plug 'dhruvasagar/vim-railscasts-theme'
+Plug 'arcticicestudio/nord-vim'
+Plug 'phanviet/vim-monokai-pro'
+Plug 'chriskempson/base16-vim'
+Plug 'mike-hearn/base16-vim-lightline'
 
 " LANGUAGES
 " cs
@@ -56,9 +69,10 @@ Plug 'jparise/vim-graphql'
 " haskell
 Plug 'neovimhaskell/haskell-vim'
 " js
-Plug 'Quramy/vim-js-pretty-template'
+"Plug 'Quramy/vim-js-pretty-template'
 "Plug 'pangloss/vim-javascript'
-Plug 'yuezk/vim-js'
+"Plug 'yuezk/vim-js'
+Plug 'othree/yajs.vim'
 " json
 Plug 'elzr/vim-json'
 " jsonnet
@@ -98,6 +112,7 @@ Plug 'cespare/vim-toml'
 " ts
 Plug 'HerringtonDarkholme/yats.vim'
 "Plug 'leafgarland/typescript-vim'
+"Plug 'ianks/vim-tsx'
 Plug 'maxmellon/vim-jsx-pretty'
 " xml
 Plug 'amadeus/vim-xml'
@@ -138,7 +153,7 @@ Plug 'yggdroot/indentline'
 Plug 'norcalli/nvim-colorizer.lua'
 
 " markdown
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 
 " buffers
 Plug 'jeetsukumaran/vim-buffergator'
@@ -170,12 +185,12 @@ set t_Co=256
 " Colorscheme stuff
 
 " Palenight
+"let g:palenight_terminal_italics=1
 "set background=dark
 "colorscheme palenight
-"let g:palenight_terminal_italics=1
 
 " Dracula
-colorscheme dracula
+"colorscheme dracula
 
 " Gruvbox Material
 "set background=dark
@@ -187,12 +202,62 @@ colorscheme dracula
 
 " Gruvbox
 "let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast = 'hard'
+"let g:gruvbox_bold = 1
 "let g:gruvbox_italic = 1
-"colorscheme gruvbox
 "set background=dark
+"colorscheme gruvbox
 
 " Iceberg
 " colorscheme iceberg
+
+" Ayu
+"let ayucolor="mirage"
+"let ayucolor="dark"
+"colorscheme ayu
+
+" Material
+"let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
+"let g:material_theme_style = 'palenight'
+"let g:material_theme_style = 'palenight'
+"let g:material_terminal_italics = 1
+"colorscheme material
+
+" Deus
+"set background=dark
+"colors deus
+"let g:deus_termcolors=256
+
+" PaperColor
+"set background=dark
+"colorscheme PaperColor
+
+"Oceanic Next
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+"colorscheme OceanicNext
+
+" OneDark
+"let g:onedark_terminal_italics=1
+"colorscheme onedark
+
+" purify
+"colorscheme purify
+
+" Zenburn
+"colorscheme zenburn
+
+" railscasts
+"colorscheme railscasts
+
+" nord
+"colorscheme nord
+
+" monokai pro
+"colorscheme monokai_pro
+
+" base-16
+colorscheme base16-ocean
 
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
@@ -205,13 +270,15 @@ set relativenumber
 let g:jsx_ext_required = 1
 
 " set filetypes as typescript.jsx
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.ts set filetype=typescript
+autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 au BufRead,BufNewFile *.go set filetype=go
 
 let g:ale_linters = {'py': ['pylint']}
 let g:ale_fixers = {}
 let g:indent_guides_enable_on_vim_startup=1
+let g:indentLine_char_list = ['▏'] ", '┆', '┊', '|']
 nnoremap <c-p> :FZF<cr>
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
@@ -238,7 +305,7 @@ map <C-n> :NERDTreeToggle<CR>
 "     \ 'colorscheme': 'palenight',
 " Lightline config
 let g:lightline = {
-      \ 'colorscheme': 'dracula',
+      \ 'colorscheme': 'base16_oceanicnext',
       \ 'active': {
       \ 'left': [ ['mode', 'paste'],
       \           ['gitbranch', 'cocstatus', 'readonly', 'relativepath', 'modified']]
@@ -324,7 +391,8 @@ nnoremap <C-j> <C-w><C-j>
 let g:vim_jsx_pretty_colorful_config=1
 
 " Don't fold
-let g:vim_markdown_folding_disabled=1
+"let g:vim_markdown_folding_disabled=1
+"let g:vim_markdown_folding_style_pythonic = 1
 
 " python colors
 let g:python_highlight_all=1
@@ -342,10 +410,10 @@ let g:go_highlight_operators = 1
 let g:go_code_completion_enabled = 0
 
 " vim-js-pretty-template
-autocmd FileType javascript JsPreTmpl
-autocmd FileType javascript.jsx JsPreTmpl
-autocmd FileType typescript JsPreTmpl
-autocmd FileType typescript.tsx JsPreTmpl
+"autocmd FileType javascript JsPreTmpl
+"autocmd FileType javascript.jsx JsPreTmpl
+"autocmd FileType typescript JsPreTmpl
+"autocmd FileType typescript.tsx JsPreTmpl
 
 " json
 let g:vim_json_syntax_conceal = 0
@@ -356,3 +424,18 @@ let g:rustc_path = trim(system('which rustc'))
 "autocmd BufReadPost *.tsx,*.ts,*.jsx,*.js :syntax sync fromstart
 autocmd BufNewFile,BufRead *.cjs set filetype=javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jade set filetype=pug
+
+" italics fixes
+let &t_ZH="\e[3m"
+let &t_ZR="\e[23m"
+
+" test
+function! SynStack ()
+    for i1 in synstack(line("."), col("."))
+        let i2 = synIDtrans(i1)
+        let n1 = synIDattr(i1, "name")
+        let n2 = synIDattr(i2, "name")
+        echo n1 "->" n2
+    endfor
+endfunction
+map gm :call SynStack()<CR>
