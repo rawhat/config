@@ -127,7 +127,7 @@ Plug 'janko/vim-test'
 Plug 'tpope/vim-eunuch'
 
 " LINTING / LS
-Plug 'w0rp/ale'
+"Plug 'w0rp/ale'
 
 " OTHER
 " displays symbols on site for add/delete/change
@@ -172,7 +172,15 @@ Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 " CoC extensions
-let g:coc_global_extensions = ['coc-tsserver', 'coc-rls', 'coc-elixir', 'coc-go', 'coc-python', 'coc-yaml']
+let g:coc_global_extensions = [
+      \ 'coc-eslint',
+      \ 'coc-tsserver',
+      \ 'coc-rls',
+      \ 'coc-elixir',
+      \ 'coc-go',
+      \ 'coc-python',
+      \ 'coc-yaml'
+      \ ]
 
 filetype plugin indent on
 
