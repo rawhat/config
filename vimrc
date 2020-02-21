@@ -69,9 +69,6 @@ Plug 'jparise/vim-graphql'
 " haskell
 Plug 'neovimhaskell/haskell-vim'
 " js
-"Plug 'Quramy/vim-js-pretty-template'
-"Plug 'pangloss/vim-javascript'
-"Plug 'yuezk/vim-js'
 Plug 'othree/yajs.vim'
 " json
 Plug 'elzr/vim-json'
@@ -111,8 +108,6 @@ Plug 'evanleck/vim-svelte'
 Plug 'cespare/vim-toml'
 " ts
 Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'leafgarland/typescript-vim'
-"Plug 'ianks/vim-tsx'
 Plug 'maxmellon/vim-jsx-pretty'
 " xml
 Plug 'amadeus/vim-xml'
@@ -135,22 +130,35 @@ Plug 'tpope/vim-eunuch'
 Plug 'w0rp/ale'
 
 " OTHER
+" displays symbols on site for add/delete/change
 Plug 'airblade/vim-gitgutter'
+" modified status bar
 Plug 'itchyny/lightline.vim'
+" line 'em up
 Plug 'godlygeek/tabular'
+" fuzzy find
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'lilydjwg/colorizer'
+" search!
 Plug 'mileszs/ack.vim'
+" highlights trailing whitespace
 Plug 'ntpeters/vim-better-whitespace'
+" auto-add matching symbols (, ", etc
 Plug 'raimondi/delimitmate'
+" ez commenting
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
+" git good
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
+" ("'happy times'")
+Plug 'machakann/vim-sandwich'
+" highlight/jump to characters in line
 Plug 'unblevable/quick-scope'
+" fancy indent helper
 Plug 'yggdroot/indentline'
+" highlights hex colors rgb(200, 200, 200)
 Plug 'norcalli/nvim-colorizer.lua'
+" displays buffers at the top
+Plug 'ap/vim-buftabline'
 
 " markdown
 "Plug 'plasticboy/vim-markdown'
@@ -300,7 +308,7 @@ inoremap <A-Down> <Esc>:m .+1<CR>==gi
 inoremap <A-Up> <Esc>:m .-2<CR>==gi
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
-map <C-n> :NERDTreeToggle<CR>
+"map <C-n> :NERDTreeToggle<CR>
 
 "     \ 'colorscheme': 'palenight',
 " Lightline config
@@ -439,3 +447,18 @@ function! SynStack ()
     endfor
 endfunction
 map gm :call SynStack()<CR>
+
+" file explorer
+map <C-n> :Lexplore<CR>
+let g:netrw_winsize=25
+
+" emmet
+autocmd FileType html,css,javascript.jsx,typescript.react,typescript.tsx EmmetInstall
+let g:user_emmet_settings = {
+\ 'typescript' : {
+\     'extends' : 'jsx',
+\ },
+\ 'typescript.tsx' : {
+\     'extends' : 'jsx',
+\ },
+\}
