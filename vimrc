@@ -41,6 +41,10 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'phanviet/vim-monokai-pro'
 Plug 'chriskempson/base16-vim'
 Plug 'mike-hearn/base16-vim-lightline'
+Plug 'nightsense/snow'
+Plug 'nightsense/cosmic_latte'
+Plug 'ajh17/Spacegray.vim'
+Plug 'romainl/Apprentice'
 
 " LANGUAGES
 " cs
@@ -159,6 +163,10 @@ Plug 'yggdroot/indentline'
 Plug 'norcalli/nvim-colorizer.lua'
 " displays buffers at the top
 Plug 'ap/vim-buftabline'
+" `mix format`
+Plug 'mhinz/vim-mix-format'
+" adjust color scheme
+Plug 'zefei/vim-colortuner'
 
 " markdown
 "Plug 'plasticboy/vim-markdown'
@@ -167,7 +175,7 @@ Plug 'ap/vim-buftabline'
 Plug 'jeetsukumaran/vim-buffergator'
 
 " coc.vim
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim'
 
 call plug#end()
 
@@ -175,7 +183,7 @@ call plug#end()
 let g:coc_global_extensions = [
       \ 'coc-eslint',
       \ 'coc-tsserver',
-      \ 'coc-rls',
+      \ 'coc-rust-analyzer',
       \ 'coc-elixir',
       \ 'coc-go',
       \ 'coc-python',
@@ -217,7 +225,7 @@ set t_Co=256
 "colorscheme night-owl
 
 " Gruvbox
-"let g:gruvbox_contrast_dark = 'hard'
+"let g:gruvbox_contrast_dark = 'medium'
 "let g:gruvbox_contrast = 'hard'
 "let g:gruvbox_bold = 1
 "let g:gruvbox_italic = 1
@@ -228,14 +236,14 @@ set t_Co=256
 " colorscheme iceberg
 
 " Ayu
-"let ayucolor="mirage"
+let ayucolor="mirage"
 "let ayucolor="dark"
-"colorscheme ayu
+colorscheme ayu
 
 " Material
 "let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
 "let g:material_theme_style = 'palenight'
-"let g:material_theme_style = 'palenight'
+"let g:material_theme_style = 'darker'
 "let g:material_terminal_italics = 1
 "colorscheme material
 
@@ -273,7 +281,23 @@ set t_Co=256
 "colorscheme monokai_pro
 
 " base-16
-colorscheme base16-ocean
+"colorscheme base16-ocean
+
+" snow
+"set background=dark
+"colorscheme snow
+
+" cosmic_latte
+"set background=dark
+"colorscheme cosmic_latte
+
+" spacegray
+"let g:spacegray_use_italics = 1
+"let g:spacegray_low_contrast = 1
+"colorscheme spacegray
+
+" apprentice
+"colorscheme apprentice
 
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
@@ -304,7 +328,7 @@ let g:ale_javascript_eslint_use_global = 1
 " `rg` searching
 if executable('rg')
   let g:ackprg = 'rg --vimgrep --no-heading --smart-case'
-  cnoreabbrev ag Ack
+  cnoreabbrev rg Ack
 endif
 
 autocmd VimEnter * nmap <silent> <C-k> <Plug>(ale_previous_wrap)
@@ -319,9 +343,10 @@ vnoremap <A-Up> :m '<-2<CR>gv=gv
 "map <C-n> :NERDTreeToggle<CR>
 
 "     \ 'colorscheme': 'palenight',
+"     \ 'colorscheme': 'base16_oceanicnext',
 " Lightline config
 let g:lightline = {
-      \ 'colorscheme': 'base16_oceanicnext',
+      \ 'colorscheme': 'ayu',
       \ 'active': {
       \ 'left': [ ['mode', 'paste'],
       \           ['gitbranch', 'cocstatus', 'readonly', 'relativepath', 'modified']]
@@ -343,11 +368,11 @@ if has("fname_case")
 endif
 
 " Unbind the cursor keys in insert, normal and visual modes.
-for prefix in ['i', 'n', 'v', 'c']
-  for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    exe prefix . "noremap " . key . " <Nop>"
-  endfor
-endfor
+"for prefix in ['i', 'n', 'v', 'c']
+  "for key in ['<Up>', '<Down>', '<Left>', '<Right>']
+    "exe prefix . "noremap " . key . " <Nop>"
+  "endfor
+"endfor
 
 " no preview
 set completeopt-=preview
@@ -394,7 +419,70 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+nmap <leader>k <Plug>(coc-diagnostic-prev)
+nmap <leader>j <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)"
+
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end'
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Mappings using CoCList:
+" Show all diagnostics.
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 let mapleader=";"
 
@@ -418,9 +506,10 @@ let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
 let g:go_highlight_operators = 1
 " was slow with these
-"let g:go_highlight_extra_types = 1
+let g:go_highlight_extra_types = 1
 "let g:go_highlight_build_constraints = 1
 "let g:go_highlight_generate_tags = 1
 let g:go_code_completion_enabled = 0
@@ -470,3 +559,21 @@ let g:user_emmet_settings = {
 \     'extends' : 'jsx',
 \ },
 \}
+
+let &t_SI.="\e[5 q"
+let &t_SR.="\e[4 q"
+let &t_EI.="\e[1 q"
+
+highlight CocErrorSign ctermfg=Red guifg=#bf616a
+highlight CocWarningSign ctermfg=Yellow guifg=#ebcb8b
+
+" get color under cursor
+" :echo synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")
+
+let g:mix_format_on_save = 1
+
+nmap <silent> <Leader>j <Plug>(coc-diagnostic-next)
+nmap <silent> <Leader>k <Plug>(coc-diagnostic-prev)
+
+" debug
+"let g:node_client_debug = 1
