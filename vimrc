@@ -45,6 +45,8 @@ Plug 'nightsense/snow'
 Plug 'nightsense/cosmic_latte'
 Plug 'ajh17/Spacegray.vim'
 Plug 'romainl/Apprentice'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'w0ng/vim-hybrid'
 
 " LANGUAGES
 " cs
@@ -64,8 +66,12 @@ Plug 'elixir-editors/vim-elixir'
 Plug 'ElmCast/elm-vim'
 " fish
 Plug 'georgewitteman/vim-fish'
+" fsharp
+Plug 'kongo2002/fsharp-vim'
 " git
 Plug 'tpope/vim-git'
+" gleam
+Plug 'gleam-lang/gleam.vim'
 " go
 Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 " graphql
@@ -93,7 +99,8 @@ Plug 'digitaltoad/vim-pug'
 " purescript
 Plug 'purescript-contrib/purescript-vim'
 " python
-Plug 'vim-python/python-syntax'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+"Plug 'vim-python/python-syntax'
 " reason
 Plug 'reasonml-editor/vim-reason-plus'
 " rust
@@ -175,25 +182,44 @@ Plug 'zefei/vim-colortuner'
 Plug 'jeetsukumaran/vim-buffergator'
 
 " coc.vim
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" nerdtree
+"Plug 'preservim/nerdtree'
+
+" icons
+Plug 'ryanoasis/vim-devicons'
+
+" fern
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-renderer-devicons.vim'
 
 call plug#end()
 
 " CoC extensions
 let g:coc_global_extensions = [
-      \ 'coc-eslint',
+      "\ 'coc-eslint',
       \ 'coc-tsserver',
       \ 'coc-rust-analyzer',
       \ 'coc-elixir',
-      \ 'coc-go',
+      "\ 'coc-go',
       \ 'coc-python',
-      \ 'coc-yaml'
+      \ 'coc-yaml',
+      \ 'coc-reason',
+      \ 'coc-fsharp'
       \ ]
 
 filetype plugin indent on
 
-syntax on
-set termguicolors
+" re-sourcing fix
+if !exists('g:syntax_on')
+  syntax on
+  let g:syntax_on = 1
+end
+
+if !&termguicolors
+  set termguicolors
+end
 
 " Term GUI Colors
 "if (has("nvim"))
@@ -236,9 +262,9 @@ set t_Co=256
 " colorscheme iceberg
 
 " Ayu
-let ayucolor="mirage"
+"let ayucolor="mirage"
 "let ayucolor="dark"
-colorscheme ayu
+"colorscheme ayu
 
 " Material
 "let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
@@ -299,6 +325,17 @@ colorscheme ayu
 " apprentice
 "colorscheme apprentice
 
+" nightfly
+if !exists('g:colors_name')
+  colorscheme nightfly
+  let g:nightflyCursorColor = 1
+endif
+
+" hybrid
+"let g:hybrid_custom_term_colors = 1
+"set background=dark
+"colorscheme hybrid
+
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
 
@@ -340,13 +377,27 @@ inoremap <A-Down> <Esc>:m .+1<CR>==gi
 inoremap <A-Up> <Esc>:m .-2<CR>==gi
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
-"map <C-n> :NERDTreeToggle<CR>
+
+" fern
+map <C-n> :Fern . -drawer -toggle -reveal=%<CR>
+let g:fern#renderer = "devicons"
+
+function! s:init_fern() abort
+  nmap <buffer><expr> l fern#smart#leaf('<Plug>(fern-action-open)', '<Plug>(fern-action-expand)', '<Plug>(fern-action-collapse)')
+endfunction
+
+augroup my-fern
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
 
 "     \ 'colorscheme': 'palenight',
 "     \ 'colorscheme': 'base16_oceanicnext',
+"     \ 'colorscheme': 'ayu',
+"
 " Lightline config
 let g:lightline = {
-      \ 'colorscheme': 'ayu',
+      \ 'colorscheme': 'nightfly',
       \ 'active': {
       \ 'left': [ ['mode', 'paste'],
       \           ['gitbranch', 'cocstatus', 'readonly', 'relativepath', 'modified']]
@@ -358,7 +409,7 @@ let g:lightline = {
       \ }
 
 " Clipboard!
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 
 " bazel stuff
 autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel 	setf bzl
@@ -440,6 +491,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)"
+nmap <silent> <leader>co <Plug>(coc-list-outline)
+"nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>
 
 
 " Highlight the symbol and its references when holding the cursor.
@@ -546,8 +599,8 @@ endfunction
 map gm :call SynStack()<CR>
 
 " file explorer
-map <C-n> :Lexplore<CR>
-let g:netrw_winsize=25
+"map <C-n> :Lexplore<CR>
+"let g:netrw_winsize=25
 
 " emmet
 autocmd FileType html,css,javascript.jsx,typescript.react,typescript.tsx EmmetInstall
@@ -576,4 +629,7 @@ nmap <silent> <Leader>j <Plug>(coc-diagnostic-next)
 nmap <silent> <Leader>k <Plug>(coc-diagnostic-prev)
 
 " debug
-"let g:node_client_debug = 1
+let g:node_client_debug = 1
+
+" fix CRA reloading
+set backupcopy=yes
