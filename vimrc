@@ -47,6 +47,11 @@ Plug 'ajh17/Spacegray.vim'
 Plug 'romainl/Apprentice'
 Plug 'bluz71/vim-nightfly-guicolors'
 Plug 'w0ng/vim-hybrid'
+Plug 'bluz71/vim-moonfly-colors'
+Plug 'franbach/miramare'
+Plug 'sainnhe/sonokai'
+Plug 'embark-theme/vim', { 'as': 'embark' }
+Plug 'ghifarit53/tokyonight-vim'
 
 " LANGUAGES
 " cs
@@ -175,24 +180,25 @@ Plug 'mhinz/vim-mix-format'
 " adjust color scheme
 Plug 'zefei/vim-colortuner'
 
-" markdown
-"Plug 'plasticboy/vim-markdown'
-
 " buffers
 Plug 'jeetsukumaran/vim-buffergator'
 
 " coc.vim
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-" nerdtree
-"Plug 'preservim/nerdtree'
-
-" icons
+" file type icons
 Plug 'ryanoasis/vim-devicons'
 
-" fern
+" project file browser
 Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/fern-renderer-devicons.vim'
+Plug 'lambdalisue/nerdfont.vim'
+Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+
+" run things asynchronously
+Plug 'skywind3000/asyncrun.vim'
+
+" neovim terminal manager
+Plug 'kassio/neoterm'
 
 call plug#end()
 
@@ -206,7 +212,8 @@ let g:coc_global_extensions = [
       \ 'coc-python',
       \ 'coc-yaml',
       \ 'coc-reason',
-      \ 'coc-fsharp'
+      \ 'coc-fsharp',
+      \ 'coc-deno'
       \ ]
 
 filetype plugin indent on
@@ -326,15 +333,41 @@ set t_Co=256
 "colorscheme apprentice
 
 " nightfly
-if !exists('g:colors_name')
-  colorscheme nightfly
-  let g:nightflyCursorColor = 1
-endif
+"if !exists('g:colors_name')
+"let g:nightflyCursorColor = 1
+"colorscheme nightfly
+"endif
+
+" moonfly
+"colorscheme moonfly
+"let g:moonflyCursorColor = 1
 
 " hybrid
 "let g:hybrid_custom_term_colors = 1
 "set background=dark
 "colorscheme hybrid
+
+" miramare
+"let g:miramare_enable_italic = 1
+"colorscheme miramare
+
+" sonokai
+"let g:sonokai_style = 'andromeda'
+"let g:sonokai_style = 'atlantis'
+"let g:sonokai_style = 'maia'
+"let g:sonokai_style = 'shusia'
+"let g:sonokai_enable_italic = 1
+"let g:sonokai_disable_italic_comment = 1
+"colorscheme sonokai
+
+" embark
+"colorscheme embark
+
+" tokyo-night
+"let g:tokyonight_style = 'night'
+let g:tokyonight_style = 'storm'
+let g:tokyonight_enable_italic = 1
+colorscheme tokyonight
 
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
@@ -380,7 +413,7 @@ vnoremap <A-Up> :m '<-2<CR>gv=gv
 
 " fern
 map <C-n> :Fern . -drawer -toggle -reveal=%<CR>
-let g:fern#renderer = "devicons"
+let g:fern#renderer = "nerdfont"
 
 function! s:init_fern() abort
   nmap <buffer><expr> l fern#smart#leaf('<Plug>(fern-action-open)', '<Plug>(fern-action-expand)', '<Plug>(fern-action-collapse)')
@@ -394,10 +427,13 @@ augroup END
 "     \ 'colorscheme': 'palenight',
 "     \ 'colorscheme': 'base16_oceanicnext',
 "     \ 'colorscheme': 'ayu',
+"     \ 'colorscheme': 'miramare',
+"     \ 'colorscheme': 'nightfly',
+"     \ 'colorscheme': 'tokyo-night',
 "
 " Lightline config
 let g:lightline = {
-      \ 'colorscheme': 'nightfly',
+      \ 'colorscheme': 'tokyonight',
       \ 'active': {
       \ 'left': [ ['mode', 'paste'],
       \           ['gitbranch', 'cocstatus', 'readonly', 'relativepath', 'modified']]
@@ -407,6 +443,8 @@ let g:lightline = {
       \ 'cocstatus': 'coc#status'
       \ }
       \ }
+" Hide mode, because we already see it on lightline
+set noshowmode
 
 " Clipboard!
 "set clipboard=unnamedplus
@@ -633,3 +671,30 @@ let g:node_client_debug = 1
 
 " fix CRA reloading
 set backupcopy=yes
+
+" open quickfix window when asyncrun
+let g:asyncrun_open = 10
+" use local errorformat
+let g:asyncrun_local = 1
+" shortcut for if i'm lazy
+cnoreabbrev ar AsyncRun
+" some bindings for running/stopping
+nmap <silent> <Leader>ar :AsyncRun
+nmap <silent> <Leader>aw :AsyncRun -raw
+nmap <silent> <Leader>as :AsyncStop
+" shortcuts to open/close
+nmap <silent> <Leader>co :copen<CR>
+nmap <silent> <Leader>cc :cclose<CR>
+
+" disable nerdcommenter bindings to avoid clashes with <Leader>cc above
+let g:NERDCreateDefaultMappings = 0
+vmap <Leader>c<space> <Plug>NERDCommenterToggle
+nmap <Leader>c<space> <Plug>NERDCommenterToggle
+
+let g:term_buf = 1
+
+execute 'nnoremap <silent> <Leader>` :botright ' . g:term_buf . 'Ttoggle resize=20<CR>'
+execute 'tnoremap <silent> <Leader>` :botright ' . g:term_buf . 'Ttoggle resize=20<CR>'
+
+nnoremap <silent> <Leader>m` <C-W>T
+tnoremap <Esc> <C-\><C-n>
