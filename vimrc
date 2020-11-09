@@ -153,7 +153,7 @@ Plug 'itchyny/lightline.vim'
 " line 'em up
 Plug 'godlygeek/tabular'
 " fuzzy find
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " search!
 Plug 'mileszs/ack.vim'
@@ -447,7 +447,7 @@ let g:lightline = {
 set noshowmode
 
 " Clipboard!
-"set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 " bazel stuff
 autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel 	setf bzl
@@ -697,4 +697,8 @@ execute 'nnoremap <silent> <Leader>` :botright ' . g:term_buf . 'Ttoggle resize=
 execute 'tnoremap <silent> <Leader>` :botright ' . g:term_buf . 'Ttoggle resize=20<CR>'
 
 nnoremap <silent> <Leader>m` <C-W>T
-tnoremap <Esc> <C-\><C-n>
+" properly bind esc if it's not neovim
+if has("nvim")
+  au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+  au FileType fzf tunmap <buffer> <Esc>
+endif
