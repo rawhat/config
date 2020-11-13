@@ -129,6 +129,8 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'amadeus/vim-xml'
 " yaml
 Plug 'stephpy/vim-yaml'
+" zig
+Plug 'ziglang/zig.vim'
 
 " # general
 " emmet
