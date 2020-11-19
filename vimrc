@@ -214,8 +214,8 @@ let g:coc_global_extensions = [
       \ 'coc-python',
       \ 'coc-yaml',
       \ 'coc-reason',
-      \ 'coc-fsharp',
-      \ 'coc-deno'
+      \ 'coc-fsharp'
+      "\ 'coc-deno'
       \ ]
 
 filetype plugin indent on
