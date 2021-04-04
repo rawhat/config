@@ -28,7 +28,8 @@ Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
 Plug 'haishanh/night-owl.vim'
 Plug 'morhetz/gruvbox'
 Plug 'cocopon/iceberg.vim'
-Plug 'ayu-theme/ayu-vim'
+"Plug 'ayu-theme/ayu-vim'
+Plug 'Luxed/ayu-vim'
 Plug 'kaicataldo/material.vim'
 Plug 'ajmwagar/vim-deus'
 Plug 'NLKNguyen/papercolor-theme'
@@ -83,6 +84,8 @@ Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
 Plug 'jparise/vim-graphql'
 " haskell
 Plug 'neovimhaskell/haskell-vim'
+" java
+Plug 'uiiaoo/java-syntax.vim'
 " js
 Plug 'othree/yajs.vim'
 " json
@@ -206,16 +209,12 @@ call plug#end()
 
 " CoC extensions
 let g:coc_global_extensions = [
-      "\ 'coc-eslint',
       \ 'coc-tsserver',
       \ 'coc-rust-analyzer',
       \ 'coc-elixir',
-      "\ 'coc-go',
       \ 'coc-python',
       \ 'coc-yaml',
-      \ 'coc-reason',
       \ 'coc-fsharp'
-      "\ 'coc-deno'
       \ ]
 
 filetype plugin indent on
@@ -335,10 +334,10 @@ set t_Co=256
 "colorscheme apprentice
 
 " nightfly
-"if !exists('g:colors_name')
-"let g:nightflyCursorColor = 1
-"colorscheme nightfly
-"endif
+if !exists('g:colors_name')
+  let g:nightflyCursorColor = 1
+  colorscheme nightfly
+endif
 
 " moonfly
 "colorscheme moonfly
@@ -363,19 +362,21 @@ set t_Co=256
 "colorscheme sonokai
 
 " embark
+"let g:embark_terminal_italics = 1
 "colorscheme embark
 
 " tokyo-night
 "let g:tokyonight_style = 'night'
-let g:tokyonight_style = 'storm'
-let g:tokyonight_enable_italic = 1
-colorscheme tokyonight
+"let g:tokyonight_style = 'storm'
+"let g:tokyonight_enable_italic = 1
+"colorscheme tokyonight
 
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
 
 set colorcolumn=81
-highlight ColorColumn ctermbg=1 guibg=darkgray
+" set column to theme black (from nightfly)
+highlight ColorColumn ctermbg=0 guibg=#24283b
 set number
 set relativenumber
 
@@ -586,6 +587,9 @@ nnoremap <C-j> <C-w><C-j>
 
 " jsx colors
 let g:vim_jsx_pretty_colorful_config=1
+
+" java too stronk
+highlight link JavaIdentifier NONE
 
 " Don't fold
 "let g:vim_markdown_folding_disabled=1
