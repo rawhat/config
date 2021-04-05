@@ -58,82 +58,44 @@ Plug 'ghifarit53/tokyonight-vim'
 " cs
 Plug 'kchmck/vim-coffee-script'
 Plug 'mtscout6/vim-cjsx'
-" clojure
-Plug 'guns/vim-clojure-static'
-" crystal
+"" crystal
 Plug 'rhysd/vim-crystal'
-" csv
+"" csv
 Plug 'chrisbra/csv.vim'
-" dockerfile
+"" dockerfile
 Plug 'ekalinin/Dockerfile.vim'
-" elixir
+"" elixir
 Plug 'elixir-editors/vim-elixir'
-" elm
-Plug 'ElmCast/elm-vim'
-" fish
+"" fish
 Plug 'georgewitteman/vim-fish'
-" fsharp
+"" fsharp
 Plug 'kongo2002/fsharp-vim'
-" git
+"" git
 Plug 'tpope/vim-git'
-" gleam
+"" gleam
 Plug 'gleam-lang/gleam.vim'
-" go
-Plug 'fatih/vim-go', {'do': ':GoInstallBinaries'}
-" graphql
-Plug 'jparise/vim-graphql'
-" haskell
-Plug 'neovimhaskell/haskell-vim'
-" java
-Plug 'uiiaoo/java-syntax.vim'
-" js
-Plug 'othree/yajs.vim'
-" json
-Plug 'elzr/vim-json'
-" jsonnet
+"" jsonnet
 Plug 'google/vim-jsonnet'
-" nginx
+"" nginx
 Plug 'chr4/nginx.vim'
-" nim
+"" nim
 Plug 'zah/nim.vim'
-" ocaml
-Plug 'ocaml/vim-ocaml'
-" psql
+"" psql
 Plug 'lifepillar/pgsql.vim'
-" proto
+"" proto
 Plug 'uarun/vim-protobuf'
-" Pug
+"" Pug
 Plug 'digitaltoad/vim-pug'
-" purescript
+"" purescript
 Plug 'purescript-contrib/purescript-vim'
-" python
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
-"Plug 'vim-python/python-syntax'
-" reason
+"" reason
 Plug 'reasonml-editor/vim-reason-plus'
-" rust
-Plug 'rust-lang/rust.vim'
-" ruby
-Plug 'vim-ruby/vim-ruby'
-" sbt
+"" sbt
 Plug 'derekwyatt/vim-sbt'
-" scss
+"" scss
 Plug 'cakebaker/scss-syntax.vim'
-" scala
-Plug 'derekwyatt/vim-scala'
-" svelte
-Plug 'evanleck/vim-svelte'
-" toml
-Plug 'cespare/vim-toml'
-" ts
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'maxmellon/vim-jsx-pretty'
-" xml
+"" xml
 Plug 'amadeus/vim-xml'
-" yaml
-Plug 'stephpy/vim-yaml'
-" zig
-Plug 'ziglang/zig.vim'
 
 " # general
 " emmet
@@ -205,6 +167,9 @@ Plug 'skywind3000/asyncrun.vim'
 " neovim terminal manager
 Plug 'kassio/neoterm'
 
+" tree sitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 call plug#end()
 
 " CoC extensions
@@ -229,16 +194,7 @@ if !&termguicolors
   set termguicolors
 end
 
-" Term GUI Colors
-"if (has("nvim"))
-  ""For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-  "let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-"endif
-
-" use 256 colors in terminal
-"if !has("gui_running")
 set t_Co=256
-"endif
 
 " Colorscheme stuff
 
@@ -383,29 +339,22 @@ set relativenumber
 let g:jsx_ext_required = 1
 
 " set filetypes as typescript.jsx
-autocmd BufNewFile,BufRead *.ts set filetype=typescript
-autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
+"autocmd BufNewFile,BufRead *.ts set filetype=typescript
+"autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
-au BufRead,BufNewFile *.go set filetype=go
+"au BufRead,BufNewFile *.go set filetype=go
 
-let g:ale_linters = {'py': ['pylint']}
-let g:ale_fixers = {}
 let g:indent_guides_enable_on_vim_startup=1
-let g:indentLine_char_list = ['▏'] ", '┆', '┊', '|']
+let g:indentLine_char_list = ['▏']
 nnoremap <c-p> :FZF<cr>
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
-
-let g:ale_javascript_eslint_use_global = 1
 
 " `rg` searching
 if executable('rg')
   let g:ackprg = 'rg --vimgrep --no-heading --smart-case'
   cnoreabbrev rg Ack
 endif
-
-autocmd VimEnter * nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-autocmd VimEnter * nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 nnoremap <A-Down> :m .+1<CR>==
 nnoremap <A-Up> :m .-2<CR>==
@@ -427,13 +376,6 @@ augroup my-fern
   autocmd FileType fern call s:init_fern()
 augroup END
 
-"     \ 'colorscheme': 'palenight',
-"     \ 'colorscheme': 'base16_oceanicnext',
-"     \ 'colorscheme': 'ayu',
-"     \ 'colorscheme': 'miramare',
-"     \ 'colorscheme': 'nightfly',
-"     \ 'colorscheme': 'tokyo-night',
-"
 " Lightline config
 let g:lightline = {
       \ 'colorscheme': 'tokyonight',
@@ -458,13 +400,6 @@ if has("fname_case")
   " There is another check for BUILD further below.
   autocmd BufRead,BufNewFile BUILD			setf bzl
 endif
-
-" Unbind the cursor keys in insert, normal and visual modes.
-"for prefix in ['i', 'n', 'v', 'c']
-  "for key in ['<Up>', '<Down>', '<Left>', '<Right>']
-    "exe prefix . "noremap " . key . " <Nop>"
-  "endfor
-"endfor
 
 " no preview
 set completeopt-=preview
@@ -585,38 +520,6 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-k> <C-w><C-k>
 nnoremap <C-j> <C-w><C-j>
 
-" jsx colors
-let g:vim_jsx_pretty_colorful_config=1
-
-" java too stronk
-highlight link JavaIdentifier NONE
-
-" Don't fold
-"let g:vim_markdown_folding_disabled=1
-"let g:vim_markdown_folding_style_pythonic = 1
-
-" python colors
-let g:python_highlight_all=1
-
-" golang
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_operators = 1
-" was slow with these
-let g:go_highlight_extra_types = 1
-"let g:go_highlight_build_constraints = 1
-"let g:go_highlight_generate_tags = 1
-let g:go_code_completion_enabled = 0
-
-" vim-js-pretty-template
-"autocmd FileType javascript JsPreTmpl
-"autocmd FileType javascript.jsx JsPreTmpl
-"autocmd FileType typescript JsPreTmpl
-"autocmd FileType typescript.tsx JsPreTmpl
-
 " json
 let g:vim_json_syntax_conceal = 0
 
@@ -641,10 +544,6 @@ function! SynStack ()
     endfor
 endfunction
 map gm :call SynStack()<CR>
-
-" file explorer
-"map <C-n> :Lexplore<CR>
-"let g:netrw_winsize=25
 
 " emmet
 autocmd FileType html,css,javascript.jsx,typescript.react,typescript.tsx EmmetInstall
