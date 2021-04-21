@@ -79,14 +79,10 @@ Plug 'janko/vim-test'
 " shell commands
 Plug 'tpope/vim-eunuch'
 
-" LINTING / LS
-"Plug 'w0rp/ale'
-
 " OTHER
 " displays symbols on site for add/delete/change
 Plug 'airblade/vim-gitgutter'
 " modified status bar
-"Plug 'itchyny/lightline.vim'
 Plug 'hoob3rt/lualine.nvim'
 " line 'em up
 Plug 'godlygeek/tabular'
@@ -100,15 +96,15 @@ Plug 'ntpeters/vim-better-whitespace'
 " auto-add matching symbols (, ", etc
 Plug 'raimondi/delimitmate'
 " ez commenting
-Plug 'scrooloose/nerdcommenter'
+Plug 'b3nj5m1n/kommentary'
 " git good
 Plug 'tpope/vim-fugitive'
 " ("'happy times'")
-Plug 'machakann/vim-sandwich'
+Plug 'blackCauldron7/surround.nvim'
 " highlight/jump to characters in line
 Plug 'unblevable/quick-scope'
 " fancy indent helper
-Plug 'yggdroot/indentline'
+Plug 'lukas-reineke/indent-blankline.nvim', { 'branch': 'lua' }
 " highlights hex colors rgb(200, 200, 200)
 Plug 'norcalli/nvim-colorizer.lua'
 " displays buffers at the top
@@ -127,20 +123,24 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " file type icons
 Plug 'kyazdani42/nvim-web-devicons'
 
-" project file browser
-Plug 'lambdalisue/fern.vim'
-Plug 'lambdalisue/nerdfont.vim'
-Plug 'lambdalisue/fern-renderer-nerdfont.vim'
+" file tree
+Plug 'kyazdani42/nvim-tree.lua'
 
 " run things asynchronously
 Plug 'skywind3000/asyncrun.vim'
 
 " neovim terminal manager
-Plug 'kassio/neoterm'
+Plug 'akinsho/nvim-toggleterm.lua'
 
 " tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/playground'
+
+" autocompletes html tags
+Plug 'windwp/nvim-ts-autotag'
+
+" markdown preview
+Plug 'npxbr/glow.nvim', {'do': ':GlowInstall'}
 
 call plug#end()
 
@@ -152,7 +152,8 @@ let g:coc_global_extensions = [
       \ 'coc-python',
       \ 'coc-yaml',
       \ 'coc-fsharp',
-      \ 'coc-prettier'
+      \ 'coc-prettier',
+      \ 'coc-lua'
       \ ]
 
 filetype plugin indent on
@@ -199,18 +200,8 @@ inoremap <A-Up> <Esc>:m .-2<CR>==gi
 vnoremap <A-Down> :m '>+1<CR>gv=gv
 vnoremap <A-Up> :m '<-2<CR>gv=gv
 
-" fern
-map <C-n> :Fern . -drawer -toggle -reveal=%<CR>
-let g:fern#renderer = "nerdfont"
-
-function! s:init_fern() abort
-  nmap <buffer><expr> l fern#smart#leaf('<Plug>(fern-action-open)', '<Plug>(fern-action-expand)', '<Plug>(fern-action-collapse)')
-endfunction
-
-augroup my-fern
-  autocmd! *
-  autocmd FileType fern call s:init_fern()
-augroup END
+" nvim tree
+nnoremap <C-n> :NvimTreeToggle<CR>
 
 " Clipboard!
 set clipboard=unnamedplus
@@ -279,8 +270,8 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-nmap <leader>k <Plug>(coc-diagnostic-prev)
-nmap <leader>j <Plug>(coc-diagnostic-next)
+nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
+nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -400,19 +391,6 @@ nmap <silent> <Leader>as :AsyncStop
 nmap <silent> <Leader>co :copen<CR>
 nmap <silent> <Leader>cc :cclose<CR>
 
-" disable nerdcommenter bindings to avoid clashes with <Leader>cc above
-let g:NERDCreateDefaultMappings = 0
-vmap <Leader>c<space> <Plug>NERDCommenterToggle
-nmap <Leader>c<space> <Plug>NERDCommenterToggle
-
-let g:term_buf = 1
-
-execute 'nnoremap <silent> <Leader>` :botright ' . g:term_buf . 'Ttoggle resize=20<CR>'
-execute 'tnoremap <silent> <Leader>` :botright ' . g:term_buf . 'Ttoggle resize=20<CR>'
-
-nnoremap <silent> <Leader>m` <C-W>T
-" properly bind esc if it's not neovim
-if has("nvim")
-  au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
-  au FileType fzf tunmap <buffer> <Esc>
-endif
+" comment toggling
+vmap <silent> <Leader>c<space> <Plug>kommentary_visual_default
+nmap <silent> <Leader>c<space> <Plug>kommentary_line_default
