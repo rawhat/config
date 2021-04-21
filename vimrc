@@ -22,39 +22,6 @@ set wildmode=longest:full,full
 call plug#begin('~/.local/share/nvim/plugged')
 
 " COLORSCHEMES
-"Plug 'drewtempelmeyer/palenight.vim'
-"Plug 'dracula/vim', { 'as': 'dracula' }
-"Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
-"Plug 'haishanh/night-owl.vim'
-"Plug 'morhetz/gruvbox'
-"Plug 'cocopon/iceberg.vim'
-"Plug 'Luxed/ayu-vim'
-"Plug 'kaicataldo/material.vim'
-"Plug 'ajmwagar/vim-deus'
-"Plug 'NLKNguyen/papercolor-theme'
-"Plug 'mhartington/oceanic-next'
-"Plug 'joshdick/onedark.vim'
-"Plug 'kyoz/purify', { 'rtp': 'vim' }
-"Plug 'jnurmine/Zenburn'
-"Plug 'dhruvasagar/vim-railscasts-theme'
-"Plug 'arcticicestudio/nord-vim'
-"Plug 'phanviet/vim-monokai-pro'
-"Plug 'chriskempson/base16-vim'
-"Plug 'mike-hearn/base16-vim-lightline'
-"Plug 'nightsense/snow'
-"Plug 'nightsense/cosmic_latte'
-"Plug 'ajh17/Spacegray.vim'
-"Plug 'romainl/Apprentice'
-"Plug 'bluz71/vim-nightfly-guicolors'
-"Plug 'w0ng/vim-hybrid'
-"Plug 'bluz71/vim-moonfly-colors'
-"Plug 'franbach/miramare'
-"Plug 'sainnhe/sonokai'
-"Plug 'embark-theme/vim', { 'as': 'embark' }
-"Plug 'ghifarit53/tokyonight-vim'
-"Plug 'tjdevries/colorbuddy.nvim'
-"Plug 'marko-cerovac/material.nvim'
-"Plug 'yonlu/omni.vim'
 Plug 'folke/tokyonight.nvim'
 
 " LANGUAGES
@@ -97,9 +64,6 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'derekwyatt/vim-sbt'
 "" scss
 Plug 'cakebaker/scss-syntax.vim'
-"" typescript
-"Plug 'HerringtonDarkholme/yats.vim'
-"Plug 'maxmellon/vim-jsx-pretty'
 "" xml
 Plug 'amadeus/vim-xml'
 
@@ -161,7 +125,6 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " file type icons
-"Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 
 " project file browser
@@ -205,166 +168,15 @@ set termguicolors
 set t_Co=256
 
 " Colorscheme stuff
-
-" Palenight
-"let g:palenight_terminal_italics=1
-"set background=dark
-"colorscheme palenight
-
-" Dracula
-"colorscheme dracula
-
-" Gruvbox Material
-"set background=dark
-"let g:gruvbox_material_background = 'hard'
-"colorscheme gruvbox-material
-
-" Night Owl
-"colorscheme night-owl
-
-" Gruvbox
-"let g:gruvbox_contrast_dark = 'medium'
-"let g:gruvbox_contrast = 'hard'
-"let g:gruvbox_bold = 1
-"let g:gruvbox_italic = 1
-"set background=dark
-"colorscheme gruvbox
-
-" Iceberg
-" colorscheme iceberg
-
-" Ayu
-"let ayucolor="mirage"
-"let ayucolor="dark"
-"colorscheme ayu
-
-" Material
-"let g:material_theme_style = 'default' | 'palenight' | 'ocean' | 'lighter' | 'darker'
-"let g:material_theme_style = 'palenight'
-"let g:material_theme_style = 'darker'
-"let g:material_terminal_italics = 1
-"colorscheme material
-
-" Deus
-"set background=dark
-"colors deus
-"let g:deus_termcolors=256
-
-" PaperColor
-"set background=dark
-"colorscheme PaperColor
-
-"Oceanic Next
-"let g:oceanic_next_terminal_bold = 1
-"let g:oceanic_next_terminal_italic = 1
-"colorscheme OceanicNext
-
-" OneDark
-"let g:onedark_terminal_italics=1
-"colorscheme onedark
-
-" purify
-"colorscheme purify
-
-" Zenburn
-"colorscheme zenburn
-
-" railscasts
-"colorscheme railscasts
-
-" nord
-"colorscheme nord
-
-" monokai pro
-"colorscheme monokai_pro
-
-" base-16
-"colorscheme base16-ocean
-
-" snow
-"set background=dark
-"colorscheme snow
-
-" cosmic_latte
-"set background=dark
-"colorscheme cosmic_latte
-
-" spacegray
-"let g:spacegray_use_italics = 1
-"let g:spacegray_low_contrast = 1
-"colorscheme spacegray
-
-" apprentice
-"colorscheme apprentice
-
-" nightfly
-"if !exists('g:colors_name')
-  "let g:nightflyCursorColor = 1
-  "colorscheme nightfly
-"endif
-
-" moonfly
-"colorscheme moonfly
-"let g:moonflyCursorColor = 1
-
-" hybrid
-"let g:hybrid_custom_term_colors = 1
-"set background=dark
-"colorscheme hybrid
-
-" miramare
-"let g:miramare_enable_italic = 1
-"colorscheme miramare
-
-" sonokai
-"let g:sonokai_style = 'andromeda'
-"let g:sonokai_style = 'atlantis'
-"let g:sonokai_style = 'maia'
-"let g:sonokai_style = 'shusia'
-"let g:sonokai_enable_italic = 1
-"let g:sonokai_disable_italic_comment = 1
-"colorscheme sonokai
-
-" embark
-"let g:embark_terminal_italics = 1
-"colorscheme embark
-
-" tokyo-night
-"let g:tokyonight_style = 'night'
-"let g:tokyonight_style = 'storm'
-"let g:tokyonight_enable_italic = 1
-"colorscheme tokyonight
-
-" other material
-"let g:material_style = 'darker'
-"let g:material_style = 'lighter'
-"let g:material_style = 'default'
-"let g:material_style = 'oceanic'
-"let g:material_style = 'palenight'
-"let g:material_style = 'deep ocean'
-"let g:material_italic_comments = 1
-
-" omni
-"colorscheme omni
-
-" tokyonight nvim
 let g:tokyonight_style = 'night'
 colorscheme tokyonight
 
-" set backupdir=$HOME/tmp
-" set directory=$HOME/tmp
-
 set colorcolumn=81
-" set column to theme black (from nightfly)
 highlight ColorColumn ctermbg=0 guibg=#24283b
 set number
 set relativenumber
 
 let g:jsx_ext_required = 1
-
-" set filetypes as typescript.jsx
-"autocmd BufNewFile,BufRead *.ts set filetype=typescript
-"autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
 au BufRead,BufNewFile *.go set filetype=go
 
@@ -399,21 +211,6 @@ augroup my-fern
   autocmd! *
   autocmd FileType fern call s:init_fern()
 augroup END
-
-" Lightline config
-let g:lightline = {
-      \ 'colorscheme': 'tokyonight',
-      \ 'active': {
-      \ 'left': [ ['mode', 'paste'],
-      \           ['gitbranch', 'cocstatus', 'readonly', 'relativepath', 'modified']]
-      \ },
-      \ 'component_function': {
-      \ 'gitbranch': 'fugitive#head',
-      \ 'cocstatus': 'coc#status'
-      \ }
-      \ }
-" Hide mode, because we already see it on lightline
-set noshowmode
 
 " Clipboard!
 set clipboard=unnamedplus
@@ -482,7 +279,6 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
 nmap <leader>k <Plug>(coc-diagnostic-prev)
 nmap <leader>j <Plug>(coc-diagnostic-next)
 
@@ -492,8 +288,6 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)"
 nmap <silent> <leader>co <Plug>(coc-list-outline)
-"nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>
-
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -504,7 +298,6 @@ nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
 xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
 
 augroup mygroup
   autocmd!
@@ -550,8 +343,6 @@ let g:vim_json_syntax_conceal = 0
 " rust
 let g:rustc_path = trim(system('which rustc'))
 
-"autocmd BufReadPost *.tsx,*.ts,*.jsx,*.js :syntax sync fromstart
-"autocmd BufNewFile,BufRead *.cjs set filetype=javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jade set filetype=pug
 
 " italics fixes
@@ -584,16 +375,10 @@ let &t_SI.="\e[5 q"
 let &t_SR.="\e[4 q"
 let &t_EI.="\e[1 q"
 
-highlight CocErrorSign ctermfg=Red guifg=#bf616a
-highlight CocWarningSign ctermfg=Yellow guifg=#ebcb8b
-
-" get color under cursor
-" :echo synIDattr(synIDtrans(synID(line("."), col("."), 1)), "fg")
+"highlight CocErrorSign ctermfg=Red guifg=#bf616a
+"highlight CocWarningSign ctermfg=Yellow guifg=#ebcb8b
 
 let g:mix_format_on_save = 1
-
-nmap <silent> <Leader>j <Plug>(coc-diagnostic-next)
-nmap <silent> <Leader>k <Plug>(coc-diagnostic-prev)
 
 " debug
 let g:node_client_debug = 1
