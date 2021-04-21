@@ -22,37 +22,40 @@ set wildmode=longest:full,full
 call plug#begin('~/.local/share/nvim/plugged')
 
 " COLORSCHEMES
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'dracula/vim', { 'as': 'dracula' }
-Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
-Plug 'haishanh/night-owl.vim'
-Plug 'morhetz/gruvbox'
-Plug 'cocopon/iceberg.vim'
-"Plug 'ayu-theme/ayu-vim'
-Plug 'Luxed/ayu-vim'
-Plug 'kaicataldo/material.vim'
-Plug 'ajmwagar/vim-deus'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'mhartington/oceanic-next'
-Plug 'joshdick/onedark.vim'
-Plug 'kyoz/purify', { 'rtp': 'vim' }
-Plug 'jnurmine/Zenburn'
-Plug 'dhruvasagar/vim-railscasts-theme'
-Plug 'arcticicestudio/nord-vim'
-Plug 'phanviet/vim-monokai-pro'
-Plug 'chriskempson/base16-vim'
-Plug 'mike-hearn/base16-vim-lightline'
-Plug 'nightsense/snow'
-Plug 'nightsense/cosmic_latte'
-Plug 'ajh17/Spacegray.vim'
-Plug 'romainl/Apprentice'
-Plug 'bluz71/vim-nightfly-guicolors'
-Plug 'w0ng/vim-hybrid'
-Plug 'bluz71/vim-moonfly-colors'
-Plug 'franbach/miramare'
-Plug 'sainnhe/sonokai'
-Plug 'embark-theme/vim', { 'as': 'embark' }
-Plug 'ghifarit53/tokyonight-vim'
+"Plug 'drewtempelmeyer/palenight.vim'
+"Plug 'dracula/vim', { 'as': 'dracula' }
+"Plug 'gruvbox-material/vim', {'as': 'gruvbox-material'}
+"Plug 'haishanh/night-owl.vim'
+"Plug 'morhetz/gruvbox'
+"Plug 'cocopon/iceberg.vim'
+"Plug 'Luxed/ayu-vim'
+"Plug 'kaicataldo/material.vim'
+"Plug 'ajmwagar/vim-deus'
+"Plug 'NLKNguyen/papercolor-theme'
+"Plug 'mhartington/oceanic-next'
+"Plug 'joshdick/onedark.vim'
+"Plug 'kyoz/purify', { 'rtp': 'vim' }
+"Plug 'jnurmine/Zenburn'
+"Plug 'dhruvasagar/vim-railscasts-theme'
+"Plug 'arcticicestudio/nord-vim'
+"Plug 'phanviet/vim-monokai-pro'
+"Plug 'chriskempson/base16-vim'
+"Plug 'mike-hearn/base16-vim-lightline'
+"Plug 'nightsense/snow'
+"Plug 'nightsense/cosmic_latte'
+"Plug 'ajh17/Spacegray.vim'
+"Plug 'romainl/Apprentice'
+"Plug 'bluz71/vim-nightfly-guicolors'
+"Plug 'w0ng/vim-hybrid'
+"Plug 'bluz71/vim-moonfly-colors'
+"Plug 'franbach/miramare'
+"Plug 'sainnhe/sonokai'
+"Plug 'embark-theme/vim', { 'as': 'embark' }
+"Plug 'ghifarit53/tokyonight-vim'
+"Plug 'tjdevries/colorbuddy.nvim'
+"Plug 'marko-cerovac/material.nvim'
+"Plug 'yonlu/omni.vim'
+Plug 'folke/tokyonight.nvim'
 
 " LANGUAGES
 " cs
@@ -94,6 +97,9 @@ Plug 'reasonml-editor/vim-reason-plus'
 Plug 'derekwyatt/vim-sbt'
 "" scss
 Plug 'cakebaker/scss-syntax.vim'
+"" typescript
+"Plug 'HerringtonDarkholme/yats.vim'
+"Plug 'maxmellon/vim-jsx-pretty'
 "" xml
 Plug 'amadeus/vim-xml'
 
@@ -116,7 +122,8 @@ Plug 'tpope/vim-eunuch'
 " displays symbols on site for add/delete/change
 Plug 'airblade/vim-gitgutter'
 " modified status bar
-Plug 'itchyny/lightline.vim'
+"Plug 'itchyny/lightline.vim'
+Plug 'hoob3rt/lualine.nvim'
 " line 'em up
 Plug 'godlygeek/tabular'
 " fuzzy find
@@ -154,7 +161,8 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " file type icons
-Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 
 " project file browser
 Plug 'lambdalisue/fern.vim'
@@ -169,6 +177,7 @@ Plug 'kassio/neoterm'
 
 " tree sitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
 
 call plug#end()
 
@@ -179,7 +188,8 @@ let g:coc_global_extensions = [
       \ 'coc-elixir',
       \ 'coc-python',
       \ 'coc-yaml',
-      \ 'coc-fsharp'
+      \ 'coc-fsharp',
+      \ 'coc-prettier'
       \ ]
 
 filetype plugin indent on
@@ -190,9 +200,7 @@ if !exists('g:syntax_on')
   let g:syntax_on = 1
 end
 
-if !&termguicolors
-  set termguicolors
-end
+set termguicolors
 
 set t_Co=256
 
@@ -290,10 +298,10 @@ set t_Co=256
 "colorscheme apprentice
 
 " nightfly
-if !exists('g:colors_name')
-  let g:nightflyCursorColor = 1
-  colorscheme nightfly
-endif
+"if !exists('g:colors_name')
+  "let g:nightflyCursorColor = 1
+  "colorscheme nightfly
+"endif
 
 " moonfly
 "colorscheme moonfly
@@ -327,6 +335,22 @@ endif
 "let g:tokyonight_enable_italic = 1
 "colorscheme tokyonight
 
+" other material
+"let g:material_style = 'darker'
+"let g:material_style = 'lighter'
+"let g:material_style = 'default'
+"let g:material_style = 'oceanic'
+"let g:material_style = 'palenight'
+"let g:material_style = 'deep ocean'
+"let g:material_italic_comments = 1
+
+" omni
+"colorscheme omni
+
+" tokyonight nvim
+let g:tokyonight_style = 'night'
+colorscheme tokyonight
+
 " set backupdir=$HOME/tmp
 " set directory=$HOME/tmp
 
@@ -342,7 +366,7 @@ let g:jsx_ext_required = 1
 "autocmd BufNewFile,BufRead *.ts set filetype=typescript
 "autocmd BufNewFile,BufRead *.tsx set filetype=typescript.tsx
 
-"au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.go set filetype=go
 
 let g:indent_guides_enable_on_vim_startup=1
 let g:indentLine_char_list = ['▏']
@@ -527,7 +551,7 @@ let g:vim_json_syntax_conceal = 0
 let g:rustc_path = trim(system('which rustc'))
 
 "autocmd BufReadPost *.tsx,*.ts,*.jsx,*.js :syntax sync fromstart
-autocmd BufNewFile,BufRead *.cjs set filetype=javascript syntax=javascript
+"autocmd BufNewFile,BufRead *.cjs set filetype=javascript syntax=javascript
 autocmd BufNewFile,BufRead *.jade set filetype=pug
 
 " italics fixes
