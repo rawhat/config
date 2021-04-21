@@ -26,9 +26,21 @@ require('lualine').setup {
   extensions = { 'fzf', 'fugitive' },
   sections = {
     lualine_b = {
-      {'diagnostics', sources = {'coc'}}
+      {'diagnostics', sources = {'coc'}},
     },
   },
 }
 
+require('nvim-ts-autotag').setup()
+
+require('toggleterm').setup {
+  size = 40,
+  open_mapping = [[<leader>`]],
+}
+
+vim.api.nvim_exec([[
+  au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+]], false)
+
+vim.g.indent_blankline_show_first_indent_level = false
 EOF
