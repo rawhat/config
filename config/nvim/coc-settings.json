@@ -1,13 +1,17 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": [
-    "javascript",
-    "typescript",
-    "typescript-react",
-    "typescript.tsx"
-  ],
   "languageserver": {
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
+      "initializationOptions": {
+         "cache": {
+           "directory": "/tmp/ccls"
+         }
+       }
+    },
     "crystal": {
-      "command": "/home/alex/crystals/scry/bin/scry",
+      "command": "crystalline",
       "filetypes": ["crystal"],
       "rootPatterns": ["shard.yml", ".git"]
     },
@@ -24,11 +28,14 @@
     },
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"],
       "initializationOptions": {
         "usePlaceholders": true
       }
+    },
+    "java": {
+      "command": "/home/alex/java-language-server/dist/lang_server_linux.sh",
+      "filetypes": ["java"]
     },
     "metals": {
       "command": "metals-vim",
@@ -45,7 +52,6 @@
     }
   },
   "java.errors.incompleteClasspath.severity": "ignore",
-  "java.home": "/usr/lib/jvm/java-8-openjdk-amd64",
   "java.import.bazel.enabled": true,
   "java.jdt.ls.vmargs": "-Dfile.encoding=UTF-8",
   "java.trace.server": "verbose",
@@ -53,6 +59,17 @@
   "rust-analyzer.checkOnSave.command": "clippy",
   "tsserver.formatOnType": true,
   "tsserver.log": "verbose",
-  "tsserver.npm": "~/.asdf/shims/npm",
-  "tsserver.trace.server": "verbose"
+  "tsserver.trace.server": "verbose",
+  "elixirLS.projectDir": ".",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "rust",
+    "elixir",
+    "elm",
+    "typescript",
+    "typescript.react",
+    "typescript.tsx",
+    "javascript",
+    "javascript.react",
+    "jsx"
+  ]
 }
