@@ -270,8 +270,10 @@ else
   inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
+" nmap <silent> <leader>k <Plug>(coc-diagnostic-prev)
+" nmap <silent> <leader>j <Plug>(coc-diagnostic-next)
+" nmap <leader>k <Plug>(coc-diagnostic-prev)
+" nmap <leader>j <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -394,3 +396,7 @@ nmap <silent> <Leader>cc :cclose<CR>
 " comment toggling
 vmap <silent> <Leader>c<space> <Plug>kommentary_visual_default
 nmap <silent> <Leader>c<space> <Plug>kommentary_line_default
+
+" less harsh coc-nvim highlights
+highlight CocErrorSign ctermfg=Red guifg=#bf616a
+highlight CocWarningSign ctermfg=Yellow guifg=#ebcb8b
