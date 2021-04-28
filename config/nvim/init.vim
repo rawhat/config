@@ -14,10 +14,9 @@ local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 -- }
 
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained",
+  ensure_installed = "all",
   highlight = {
     enable = true,
-    -- disable = { "tsx", "typescript" },
   },
 }
 
@@ -26,10 +25,16 @@ require('lualine').setup {
   extensions = { 'fzf', 'fugitive' },
   sections = {
     lualine_b = {
+      { 'branch' },
       {'diagnostics', sources = {'coc'}},
     },
+    lualine_c = {
+      { 'filename', { full_path = true }},
+    }
   },
 }
+
+require('surround').setup{}
 
 require('nvim-ts-autotag').setup()
 
@@ -40,7 +45,19 @@ require('toggleterm').setup {
 
 vim.api.nvim_exec([[
   au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
+  au FileType fzf tunmap <buffer> <Esc>
 ]], false)
 
 vim.g.indent_blankline_show_first_indent_level = false
+
+vim.api.nvim_set_keymap('n', '<leader>j', '<Plug>(coc-diagnostic-next)', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>k', '<Plug>(coc-diagnostic-prev)', { silent = true })
+
+vim.g["buftabline_numbers"] = 1
+vim.g["buftabline_separators"] = 1
+vim.api.nvim_set_keymap('n', '<leader>h', ':bprev<cr>', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>l', ':bnext<cr>', { silent = true })
+
+vim.g["gitgutter_map_keys"] = 0
+
 EOF
