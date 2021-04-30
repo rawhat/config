@@ -25,7 +25,7 @@ vim.wo.relativenumber = true
 
 vim.wo.colorcolumn = "81"
 
-vim.g.clipboard = 'unnamedplus'
+vim.o.clipboard = 'unnamedplus'
 
 vim.cmd[[
   autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel setf bzl
@@ -44,7 +44,7 @@ vim.g.nowritebackup = true
 vim.g.updatetime = 300
 
 -- ???
--- vim.g.shortmess = vim.g.shortmess + c
+vim.o.shortmess = vim.o.shortmess .. 'c'
 vim.g.signcolumn = "yes"
 
 vim.g.mapleader = ";"
