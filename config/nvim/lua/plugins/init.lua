@@ -14,6 +14,9 @@ vim.cmd('packadd packer.nvim')
 
 require('packer').startup(function(use)
 
+  -- manage packer
+  use { 'wbthomason/packer.nvim', opt = true }
+
   -- LANGUAGES
   -- cs
   use 'kchmck/vim-coffee-script'
