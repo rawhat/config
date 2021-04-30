@@ -38,7 +38,7 @@ require('nvim-ts-autotag').setup()
 
 require('toggleterm').setup {
   size = 40,
-  open_mapping = [[<leader>`]],
+  open_mapping = "<leader>`",
 }
 
 vim.api.nvim_exec([[
@@ -93,11 +93,6 @@ vim.api.nvim_set_keymap('n', 'gi', '<Plug>(coc-implementation)', { silent = true
 vim.api.nvim_set_keymap('n', 'gr', '<Plug>(coc-references)', { silent = true })
 vim.api.nvim_set_keymap('n', '<leader>co', '<Plug>(coc-list-outline)', { silent = true })
 
--- Do I want this?
-vim.cmd[[
-  autocmd CursorHold * silent call CocActionAsync('highlight')
-]]
-
 vim.api.nvim_set_keymap('n', '<leader>rn', '<Plug>(coc-rename)', {})
 
 vim.api.nvim_set_keymap('x', '<leader>f', '<Plug>(coc-format-selected)', {})
@@ -111,19 +106,9 @@ vim.g["node_client_debug"] = 1
 vim.api.nvim_set_keymap('n', '<leader>co', ':copen<cr>', {})
 vim.api.nvim_set_keymap('n', '<leader>cc', ':cclose<cr>', {})
 
-vim.highlight.create('CocErrorSign', { ctermfg = "Red", guifg = "bf616a" })
-vim.highlight.create('CocWarningSign', { ctermfg = "Yellow", guifg = "ebcb8b" })
-
 -- end CoC settings
 
 vim.cmd[[filetype plugin indent on]]
-
--- Theme
-vim.g["tokyonight_style"] = "night"
-vim.cmd('colorscheme tokyonight')
-
--- colorz
-vim.cmd[[highlight ColorColumn ctermbg=0, guibg=#24283b]]
 
 -- Might be unnecessary post-treesitter
 vim.g["jsx_ext_required"] = 1
@@ -155,14 +140,6 @@ vim.api.nvim_set_keymap('v', '<A-Up>', ":m '<-2<cr>gv=gv", { noremap = true })
 -- nvim-tree
 vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<cr>', {})
 
--- json
--- needed ???
-vim.g["vim_json_syntax_conceal"] = 0
-
--- rust
--- prob can do this better
--- vim.g["rustc_path"] = vim.cmd[[trim(system('which rust'))]]
-
 vim.g["mix_format_on_save"] = 1
 
 -- asyncrun
@@ -176,8 +153,17 @@ vim.api.nvim_set_keymap('n', '<leader>aw', ':AsyncRun -raw', { silent = true })
 vim.api.nvim_set_keymap('n', '<leader>as', ':AsyncStop', { silent = true })
 
 -- kommentary
-vim.api.nvim_set_keymap('v', '<leader>c<space>', '<Plug>kommentary_visual_default', {})
-vim.api.nvim_set_keymap('n', '<leader>c<space>', '<Plug>kommentary_line_default', {})
+vim.api.nvim_set_keymap('v', '<leader>c<space>', '<Plug>kommentary_visual_default', { silent = true })
+vim.api.nvim_set_keymap('n', '<leader>c<space>', '<Plug>kommentary_line_default', { silent = true })
 
 -- fzf
 vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
+
+-- Theme
+vim.g["tokyonight_style"] = "night"
+vim.cmd[[colorscheme tokyonight]]
+
+-- less hard coc-nvim error color
+vim.api.nvim_command[[
+  autocmd ColorScheme * highlight CocErrorSign guifg=#bf616a
+]]
