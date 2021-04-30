@@ -14,9 +14,6 @@ vim.cmd('packadd packer.nvim')
 
 require('packer').startup(function(use)
 
-  -- COLORSCHEMES
-  use 'folke/tokyonight.nvim'
-
   -- LANGUAGES
   -- cs
   use 'kchmck/vim-coffee-script'
@@ -134,5 +131,8 @@ require('packer').startup(function(use)
 
   -- markdown preview
   use { 'npxbr/glow.nvim', run = ':GlowInstall' }
+
+  -- COLORSCHEMES
+  use 'folke/tokyonight.nvim'
 
 end)
