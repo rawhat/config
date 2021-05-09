@@ -18,13 +18,89 @@ require 'nvim-treesitter.configs'.setup {
   },
 }
 
+-- enable compltion
+require 'compe'.setup {
+  enabled = true;
+  autocomplete = true;
+  debug = false;
+  min_length = 1;
+  preselect = 'enable';
+  throttle_time = 80;
+  source_timeout = 200;
+  incomplete_delay = 400;
+  max_abbr_width = 100;
+  max_kind_width = 100;
+  max_menu_width = 100;
+  documentation = true;
+
+  source = {
+    path = true;
+    buffer = true;
+    calc = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    vsnip = true;
+    ultisnips = true;
+  };
+}
+
+-- https://github.com/MaskRay/ccls
+require 'lspconfig'.ccls.setup {}
+
+-- should add crystalline here
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
+if not lspconfig.crystalline then
+  configs.crystalline = {
+    default_config = {
+      cmd = { "crystalline" };
+      filetypes = { "crystal" };
+      root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+      end;
+      root_patterns = { "shard.yml", ".git" };
+    }
+  }
+end
+lspconfig.crystalline.setup {}
+
+-- https://github.com/elixir-lsp/elixir-ls
+require 'lspconfig'.elixirls.setup {
+  cmd = { "/home/alex/bin/elixir-ls/language_server.sh" };
+}
+-- npm i -g @elm-tooling/elm-language-server
+require 'lspconfig'.elmls.setup {
+  cmd = { "elm-language-server" },
+}
+require 'lspconfig'.gopls.setup {}
+require 'lspconfig'.jdtls.setup {
+  cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" }
+}
+
+-- `metals` covered by `nvim-metals`
+
+-- npm i -g pyright
+require 'lspconfig'.pyright.setup {}
+
+-- https://rust-analyzer.github.io/manual.html#installation
+require 'lspconfig'.rust_analyzer.setup {
+  settings = {
+    ["rust-analyzer"] = {
+      ["checkOnSave.command"] = "clippy"
+    }
+  }
+}
+
+-- npm i -g typescript-language-server
+require 'lspconfig'.tsserver.setup {}
+
 require('lualine').setup {
   options = { theme = 'tokyonight' },
   extensions = { 'fzf', 'fugitive' },
   sections = {
     lualine_b = {
       { 'branch' },
-      {'diagnostics', sources = {'coc'}},
+      {'diagnostics', sources = {'nvim_lsp'}},
     },
     lualine_c = {
       { 'filename', { full_path = true }},
@@ -53,21 +129,7 @@ vim.g["buftabline_separators"] = 1
 
 vim.g["gitgutter_map_keys"] = 0
 
--- CoC settings
-vim.g["coc_global_extensions"] = {
-  'coc-tsserver',
-  'coc-rust-analyzer',
-  'coc-elixir',
-  'coc-python',
-  'coc-yaml',
-  'coc-fsharp',
-  'coc-prettier',
-  'coc-lua'
-}
-
 vim.g["node_client_debug"] = 1
-
--- end CoC settings
 
 vim.cmd[[filetype plugin indent on]]
 
@@ -101,8 +163,3 @@ vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 -- Theme
 vim.g["tokyonight_style"] = "night"
 vim.cmd[[colorscheme tokyonight]]
-
--- less hard coc-nvim error color
-vim.api.nvim_command[[
-  autocmd ColorScheme * highlight CocErrorSign guifg=#bf616a
-]]
