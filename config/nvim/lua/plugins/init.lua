@@ -110,8 +110,10 @@ require('packer').startup(function(use)
   -- buffers
   use 'jeetsukumaran/vim-buffergator'
 
-  -- coc.vim
-  use { 'neoclide/coc.nvim', branch = 'release' }
+  -- some `lsp` configs
+  use 'neovim/nvim-lspconfig'
+  use 'hrsh7th/nvim-compe'
+  use 'scalameta/nvim-metals'
 
   -- file type icons
   use 'kyazdani42/nvim-web-devicons'
