@@ -18,6 +18,9 @@ require 'nvim-treesitter.configs'.setup {
   },
 }
 
+require 'go'.setup()
+vim.cmd[[autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()]]
+
 -- enable compltion
 require 'compe'.setup {
   enabled = true;
@@ -67,15 +70,31 @@ lspconfig.crystalline.setup {}
 -- https://github.com/elixir-lsp/elixir-ls
 require 'lspconfig'.elixirls.setup {
   cmd = { "/home/alex/bin/elixir-ls/language_server.sh" };
+  --[[ settings = {
+    filetypes = { "elixir" };
+    root_dir = function(name)
+      return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+    end;
+  } ]]
 }
 -- npm i -g @elm-tooling/elm-language-server
 require 'lspconfig'.elmls.setup {
   cmd = { "elm-language-server" },
 }
 require 'lspconfig'.gopls.setup {}
-require 'lspconfig'.jdtls.setup {
-  cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" }
-}
+
+if not lspconfig.java then
+  configs.java = {
+    default_config = {
+      cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" };
+      filetypes = { "java" };
+      root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+      end;
+    }
+  }
+end
+lspconfig.java.setup {}
 
 -- `metals` covered by `nvim-metals`
 
@@ -94,21 +113,35 @@ require 'lspconfig'.rust_analyzer.setup {
 -- npm i -g typescript-language-server
 require 'lspconfig'.tsserver.setup {}
 
+require 'trouble'.setup()
+
 require('lualine').setup {
   options = { theme = 'tokyonight' },
   extensions = { 'fzf', 'fugitive' },
   sections = {
     lualine_b = {
       { 'branch' },
-      {'diagnostics', sources = {'nvim_lsp'}},
+      { 'diagnostics', sources = {'nvim_lsp'} },
     },
     lualine_c = {
-      { 'filename', { full_path = true }},
+      { 'filename', { path = 1 }},
     }
   },
 }
 
-require('surround').setup{}
+require('surround').setup {}
+vim.g.surround_pairs = {
+  nestable = {
+    {"(", ")"},
+    {"[", "]"},
+    {"{", "}"}
+  },
+  linear = {
+    {"'", "'"},
+    {'"', '"'},
+    {" ", " "}
+  }
+}
 
 require('nvim-ts-autotag').setup()
 

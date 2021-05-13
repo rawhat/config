@@ -36,6 +36,9 @@ vim.cmd[[
   set completeopt-=preview
 ]]
 
+-- for toggle term, reuse the same term
+vim.o.hidden = true
+
 -- These are set for CoC
 vim.g.hidden = true
 vim.g.nobackup = true

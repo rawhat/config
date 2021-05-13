@@ -32,8 +32,20 @@ vim.api.nvim_set_keymap('n', '<leader>j', '<Cmd>lua vim.lsp.diagnostic.goto_next
 vim.api.nvim_set_keymap('n', '<leader>k', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', { silent = true })
 vim.api.nvim_set_keymap('n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', { noremap = true, silent = true })
 
+-- trouble
+vim.api.nvim_set_keymap('n', '<leader>xx', '<cmd>TroubleToggle<cr>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>gR', '<cmd>Trouble lsp_references<cr>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>gD', '<cmd>Trouble lsp_definitions<cr>', { silent = true, noremap = true })
+
 -- Binding `fzf` to ctrl-p
-vim.api.nvim_set_keymap('n', '<C-p>', ':FZF<cr>', { noremap = true })
+-- vim.api.nvim_set_keymap('n', '<C-p>', ':FZF<cr>', { noremap = true })
+
+-- telescope
+vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ag', '<cmd>Telescope live_grep<cr>', { noremap = true })
+-- probably won't use these very much, if ever...
+vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true })
 
 -- ???
 vim.api.nvim_set_keymap('n', '<A-Down>', ':m .+1<cr>', { noremap = true })
