@@ -150,6 +150,17 @@ require('toggleterm').setup {
   open_mapping = "<leader>`",
 }
 
+require('telescope').setup {
+  extensions = {
+    fzf = {
+      override_generic_sorter = true,
+      override_file_sorter = true,
+      -- case_mode = "smart_case",
+    }
+  }
+}
+require('telescope').load_extension('fzf')
+
 vim.api.nvim_exec([[
   au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
   au FileType fzf tunmap <buffer> <Esc>
