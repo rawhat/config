@@ -37,6 +37,8 @@ require('packer').startup(function(use)
   use 'tpope/vim-git'
   ---- gleam
   use 'gleam-lang/gleam.vim'
+  ---- go
+  use 'ray-x/go.nvim'
   ---- jsonnet
   use 'google/vim-jsonnet'
   ---- nginx
@@ -80,8 +82,12 @@ require('packer').startup(function(use)
   -- line 'em up
   use 'godlygeek/tabular'
   -- fuzzy find
-  use  { 'junegunn/fzf', run = "fzf#install()" }
-  use 'junegunn/fzf.vim'
+  -- use  { 'junegunn/fzf', run = "fzf#install()" }
+  -- use 'junegunn/fzf.vim'
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'} }
+  }
   -- search!
   use 'mileszs/ack.vim'
   -- highlights trailing whitespace
@@ -114,6 +120,8 @@ require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   use 'hrsh7th/nvim-compe'
   use 'scalameta/nvim-metals'
+  use 'alexaandru/nvim-lspupdate'
+  use 'folke/trouble.nvim'
 
   -- file type icons
   use 'kyazdani42/nvim-web-devicons'
