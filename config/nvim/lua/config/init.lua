@@ -47,12 +47,14 @@ require 'compe'.setup {
   };
 }
 
+-- lsp config
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
+
 -- https://github.com/MaskRay/ccls
 require 'lspconfig'.ccls.setup {}
 
--- should add crystalline here
-local lspconfig = require('lspconfig')
-local configs = require('lspconfig/configs')
+-- https://github.com/elbywan/crystalline
 if not lspconfig.crystalline then
   configs.crystalline = {
     default_config = {
@@ -83,6 +85,7 @@ require 'lspconfig'.elmls.setup {
 }
 require 'lspconfig'.gopls.setup {}
 
+-- https://github.com/georgewfraser/java-language-server
 if not lspconfig.java then
   configs.java = {
     default_config = {
