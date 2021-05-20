@@ -28,7 +28,7 @@ require('packer').startup(function(use)
   ---- dockerfile
   use 'ekalinin/Dockerfile.vim'
   ---- elixir
-  use 'elixir-editors/vim-elixir'
+  -- use 'elixir-editors/vim-elixir'
   ---- fish
   use 'georgewitteman/vim-fish'
   ---- fsharp
@@ -145,6 +145,12 @@ require('packer').startup(function(use)
 
   -- markdown preview
   use { 'npxbr/glow.nvim', run = ':GlowInstall' }
+
+  -- display function signatures while typing
+  -- use 'ray-x/lsp_signature.nvim'
+
+  -- show pictograms on completion dropdown
+  use 'onsails/lspkind-nvim'
 
   -- COLORSCHEMES
   use 'folke/tokyonight.nvim'

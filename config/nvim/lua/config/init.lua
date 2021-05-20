@@ -71,7 +71,8 @@ lspconfig.crystalline.setup {}
 
 -- https://github.com/elixir-lsp/elixir-ls
 require 'lspconfig'.elixirls.setup {
-  cmd = { "/home/alex/bin/elixir-ls/language_server.sh" };
+  cmd = { "elixir-ls" };
+  -- cmd = { "/home/alex/bin/elixir-ls/language_server.sh" };
   --[[ settings = {
     filetypes = { "elixir" };
     root_dir = function(name)
@@ -117,6 +118,10 @@ require 'lspconfig'.rust_analyzer.setup {
 require 'lspconfig'.tsserver.setup {}
 
 require 'trouble'.setup()
+
+-- require 'lsp_signature'.on_attach()
+
+require 'lspkind'.init()
 
 require('lualine').setup {
   options = { theme = 'tokyonight' },
@@ -170,6 +175,7 @@ vim.api.nvim_exec([[
 ]], false)
 
 vim.g["indent_blankline_show_first_indent_level"] = false
+-- vim.g["indent_blankline_space_char"] = "·"
 
 vim.g["buftabline_numbers"] = 1
 vim.g["buftabline_separators"] = 1
@@ -186,6 +192,10 @@ vim.g["jsx_ext_required"] = 1
 -- Needed?
 vim.cmd[[
   au BufRead,BufNewFile *.go set filetype=go
+]]
+
+vim.cmd[[
+  autocmd BufNewFile,BufRead *.ex set ft=elixir
 ]]
 
 -- Indent lines
