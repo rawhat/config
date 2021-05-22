@@ -16,8 +16,6 @@ vim.o.softtabstop = 2
 vim.g.wildmenu = true
 vim.g.wildmode = "longest:full,full"
 
-vim.g.termguicolors = true
-
 vim.g.t_Co = "256"
 
 vim.wo.number = true
@@ -53,3 +51,5 @@ vim.g.signcolumn = "yes"
 vim.g.mapleader = ";"
 
 vim.g.backupcopy = "yes"
+
+vim.o.termguicolors = true
