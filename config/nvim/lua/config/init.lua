@@ -100,6 +100,37 @@ if not lspconfig.java then
 end
 lspconfig.java.setup {}
 
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+require 'lspconfig'.sumneko_lua.setup {
+  cmd = {"lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      filetypes = { "lua" },
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  }
+}
+
 -- `metals` covered by `nvim-metals`
 
 -- npm i -g pyright
@@ -124,7 +155,7 @@ require 'trouble'.setup()
 require 'lspkind'.init()
 
 require('lualine').setup {
-  options = { theme = 'tokyonight' },
+  options = { theme = 'nightfly' },
   extensions = { 'fzf', 'fugitive' },
   sections = {
     lualine_b = {
@@ -196,6 +227,7 @@ vim.cmd[[
 
 vim.cmd[[
   autocmd BufNewFile,BufRead *.ex set ft=elixir
+  autocmd BufNewFile,BufRead *.exs set ft=elixir
 ]]
 
 -- Indent lines
@@ -218,5 +250,12 @@ vim.cmd[[cnoreabbrev ar AsyncRun]]
 vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 
 -- Theme
-vim.g["tokyonight_style"] = "night"
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme nightfly]]
+
+-- vim.g["tokyonight_style"] = "night"
+-- vim.cmd[[colorscheme tokyonight]]
+
+-- vim.g.ayu_mirage = true
+-- vim.cmd[[colorscheme ayu]]
+
+-- require('nord').set()

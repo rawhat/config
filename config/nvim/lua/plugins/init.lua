@@ -153,6 +153,9 @@ require('packer').startup(function(use)
   use 'onsails/lspkind-nvim'
 
   -- COLORSCHEMES
-  use 'folke/tokyonight.nvim'
+  -- use 'folke/tokyonight.nvim'
+  -- use 'Shatur95/neovim-ayu'
+  use 'bluz71/vim-nightfly-guicolors'
+  -- use 'shaunsingh/nord.nvim'
 
 end)
