@@ -1,10 +1,10 @@
 # Path to Oh My Fish install.
-set -q XDG_DATA_HOME
-  and set -gx OMF_PATH "$XDG_DATA_HOME/omf"
-  or set -gx OMF_PATH "$HOME/.local/share/omf"
+#set -q XDG_DATA_HOME
+#  and set -gx OMF_PATH "$XDG_DATA_HOME/omf"
+#  or set -gx OMF_PATH "$HOME/.local/share/omf"
 
 # Load Oh My Fish configuration.
-source $OMF_PATH/init.fish
+#source $OMF_PATH/init.fish
 
 #alias getkey "aws ssm get-parameters --with-decryption --name"
 
@@ -18,26 +18,28 @@ function ls
   exa $argv
 end
 
-function fd
-  fdfind $argv
-end
+#function fd
+  #fdfind $argv
+#end
 
 function code
-  "/c/Program Files/Microsoft VS Code/Code.exe" $argv
+  "/mnt/c/Program Files/Microsoft VS Code/Code.exe" $argv
 end
 
-#set DISPLAY (cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-#set DISPLAY 172.23.16.1:0
-if test -e ipconfig.exe
-  set DISPLAY (ipconfig.exe | grep -A 10 WSL | grep IPv4 | awk '{print $14; exit;}')
+set DISPLAY (ip route | awk '/^default/{print $3; exit}')
+
+function display
+  set -lx DISPLAY (string join ":" $DISPLAY "1")
+  $argv[1]
 end
 
 function monitor
   echo $DISPLAY
-  set -lx DISPLAY (string join ":" $DISPLAY "1")
   echo $DISPLAY
   i3
 end
+
+set JAVA_HOME "/usr/lib/jvm/default"
 
 #function i3
   #env DISPLAY=:0 i3
@@ -61,24 +63,9 @@ function gitiles
   end
 end
 
-function gitile
-  set vistar_root $HOME"/vistar/vistar"
-
-  set is_vistar_path (string match -e $vistar_root (pwd))
-
-  if set -q is_vistar_path
-    set path (string replace $vistar_root '' (pwd))
-    set file_path $argv[1]
-
-    echo "http://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/develop"$path"/"$file_path
-  else
-    echo "Invalid path.  Must be within vistar root"
-  end
-end
-
+set PATH $HOME/bin $PATH
 set PATH $PATH $HOME/.cargo/bin
 set PATH $PATH $HOME/.bin
-set PATH $PATH $HOME/bin
 set PATH $PATH $HOME/sbt/bin
 
 set PATH $PATH $HOME/.yarn/bin
@@ -99,14 +86,18 @@ set GOPATH $GOPATH "/home/alex/.asdf/installs/go/1.15.2/packages/bin"
 set GOROOT $HOME/go
 set PATH $PATH $GOPATH
 
+set PATH $PATH $HOME/.dotnet/tools
+
+set EDITOR nvim
+
 #set -x DOCKER_HOST tcp://0.0.0.0:2375
 source ~/.asdf/asdf.fish
-
-set JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
 
 set BAT_THEME ""base16""
 
 set AWS_REGION "us-east-1"
+
+set LIBGL_ALWAYS_INDIRECT 0
 
 function amm --description 'Scala REPL'
   sh -c 'amm "$@"' amm $argv
@@ -139,3 +130,21 @@ function pyfy
   set files (for file in $outputs; echo "$PWD/$file"; end)
   bazel run //tools/pyfmt -- -i $files
 end
+
+function trafdb
+  set db $argv[1]
+  test -z $db; and set db "development"
+  env AWS_REGION=us-east-1 bazel run //tools/psql -- -key /$db/trafficking/db/user -key /$db/trafficking/db/password -- -U vistar -h vistar-db.cl9vznw0mj2u.us-east-1.rds.amazonaws.com -p 5432 api-$db
+end
+
+function batdiff
+  set branch $argv[1]
+  test -z $branch; and set branch "master"
+  git diff --name-only --diff-filter=d $branch | xargs bat --diff
+end
+
+set STARSHIP_CONFIG $HOME/.config/starship.toml
+starship init fish | source
+
+# opam configuration
+source /home/alex/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
