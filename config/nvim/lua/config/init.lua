@@ -1,16 +1,3 @@
-local vim = vim
-
--- tree-sitter
--- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
--- parser_config.elixir = {
---   install_info = {
---     url = "~/tree-sitter-elixir",
---     files = {"src/parser.c", "src/scanner.cc"},
---   },
---   filetype = "elixir",
---   used_by = {},
--- }
-
 require 'nvim-treesitter.configs'.setup {
   ensure_installed = "all",
   highlight = {
@@ -18,10 +5,14 @@ require 'nvim-treesitter.configs'.setup {
   },
 }
 
+vim.cmd[[
+  au BufRead,BufNewFile *.fish set filetype=fish
+]]
+
 require 'go'.setup()
 vim.cmd[[autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()]]
 
--- enable compltion
+-- enable completion
 require 'compe'.setup {
   enabled = true;
   autocomplete = true;
@@ -72,18 +63,13 @@ lspconfig.crystalline.setup {}
 -- https://github.com/elixir-lsp/elixir-ls
 require 'lspconfig'.elixirls.setup {
   cmd = { "elixir-ls" };
-  -- cmd = { "/home/alex/bin/elixir-ls/language_server.sh" };
-  --[[ settings = {
-    filetypes = { "elixir" };
-    root_dir = function(name)
-      return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-    end;
-  } ]]
 }
+
 -- npm i -g @elm-tooling/elm-language-server
 require 'lspconfig'.elmls.setup {
   cmd = { "elm-language-server" },
 }
+
 require 'lspconfig'.gopls.setup {}
 
 -- https://github.com/georgewfraser/java-language-server
@@ -131,22 +117,50 @@ require 'lspconfig'.sumneko_lua.setup {
   }
 }
 
+require 'lspconfig'.zls.setup({})
+
+vim.cmd[[
+  autocmd BufNewFile,BufRead *.zig set ft=zig
+  autocmd BufNewFile,BufRead *.zir set ft=zig
+]]
+
 -- `metals` covered by `nvim-metals`
+-- do we really have to do this?
+vim.cmd[[
+  augroup lsp
+    autocmd!
+    autocmd FileType scala,sbt lua require("metals").initialize_or_attach(METALS_CONFIG)
+  augroup end
+]]
+METALS_CONFIG = require("metals").bare_config
+METALS_CONFIG.init_options.statusBarProvider = "on"
+
 
 -- npm i -g pyright
-require 'lspconfig'.pyright.setup {}
+require 'lspconfig'.pyright.setup({
+  --[[ root_dir = function(filename)
+    return lspconfig.util.path.dirname(filename)
+  end ]]
+  root_dir = function(fname)
+    return lspconfig.util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
+      lspconfig.util.path.dirname(fname)
+  end
+})
+
+-- pipx install 'python-language-server[all]'
+-- require 'lspconfig'.pyls.setup({})
 
 -- https://rust-analyzer.github.io/manual.html#installation
-require 'lspconfig'.rust_analyzer.setup {
+require 'lspconfig'.rust_analyzer.setup({
   settings = {
     ["rust-analyzer"] = {
       ["checkOnSave.command"] = "clippy"
     }
   }
-}
+})
 
 -- npm i -g typescript-language-server
-require 'lspconfig'.tsserver.setup {}
+require 'lspconfig'.tsserver.setup({})
 
 require 'trouble'.setup()
 
@@ -155,7 +169,7 @@ require 'trouble'.setup()
 require 'lspkind'.init()
 
 require('lualine').setup {
-  options = { theme = 'nightfly' },
+  options = { theme = 'tokyonight' },
   extensions = { 'fzf', 'fugitive' },
   sections = {
     lualine_b = {
@@ -168,12 +182,11 @@ require('lualine').setup {
   },
 }
 
-require('surround').setup {}
 vim.g.surround_pairs = {
   nestable = {
     {"(", ")"},
     {"[", "]"},
-    {"{", "}"}
+    {"{", "}"},
   },
   linear = {
     {"'", "'"},
@@ -181,15 +194,28 @@ vim.g.surround_pairs = {
     {" ", " "}
   }
 }
+require('surround').setup {}
 
 require('nvim-ts-autotag').setup()
 
 require('toggleterm').setup {
   size = 40,
   open_mapping = "<leader>`",
+  insert_mappings = false,
 }
 
 require('telescope').setup {
+  vimgrep_arguments = {
+    'rg',
+    '--vimgrep',
+    '--hidden',
+    '--color=never',
+    '--no-heading',
+    '--with-filename',
+    '--line-number',
+    '--column',
+    '--smart-case'
+  },
   extensions = {
     fzf = {
       override_generic_sorter = true,
@@ -198,14 +224,18 @@ require('telescope').setup {
     }
   }
 }
+
 require('telescope').load_extension('fzf')
+
+require 'which-key'.setup {}
 
 vim.api.nvim_exec([[
   au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
   au FileType fzf tunmap <buffer> <Esc>
 ]], false)
 
-vim.g["indent_blankline_show_first_indent_level"] = false
+vim.g.indent_blankline_show_first_indent_level = false
+vim.g.indent_blankLine_char = "│"
 -- vim.g["indent_blankline_space_char"] = "·"
 
 vim.g["buftabline_numbers"] = 1
@@ -249,13 +279,19 @@ vim.cmd[[cnoreabbrev ar AsyncRun]]
 -- fzf
 vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 
--- Theme
-vim.cmd[[colorscheme nightfly]]
+-- which key
 
--- vim.g["tokyonight_style"] = "night"
--- vim.cmd[[colorscheme tokyonight]]
+-- Theme
+-- vim.cmd[[colorscheme nightfly]]
+
+vim.g.tokyonight_style = "night"
+vim.cmd[[colorscheme tokyonight]]
 
 -- vim.g.ayu_mirage = true
 -- vim.cmd[[colorscheme ayu]]
 
 -- require('nord').set()
+
+-- "default", "dark", "doom"
+-- vim.g.neon_style = "dark"
+-- vim.cmd[[colorscheme neon]]

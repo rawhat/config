@@ -1,55 +1,63 @@
-vim.g.encoding = "utf-8"
+vim.opt.encoding = "utf-8"
 
-vim.wo.scrolloff = 3
+vim.opt.scrolloff = 3
 
-vim.o.hlsearch = true
-vim.o.incsearch = true
-vim.o.showmatch = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
+vim.opt.hlsearch = true
+vim.opt.incsearch = true
+vim.opt.showmatch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
-vim.o.expandtab = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
+vim.opt.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 
-vim.g.wildmenu = true
-vim.g.wildmode = "longest:full,full"
+vim.opt.wildmenu = true
+vim.opt.wildmode = "longest:full,full"
 
 vim.g.t_Co = "256"
 
-vim.wo.number = true
-vim.wo.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 
-vim.wo.colorcolumn = "81"
+vim.opt.colorcolumn = "81"
 
-vim.o.clipboard = 'unnamedplus'
+vim.opt.clipboard = 'unnamedplus'
 
 vim.cmd[[
   autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel setf bzl
   autocmd BufRead,BufNewFile BUILD setf bzl
 ]]
 
+--[[
 vim.cmd[[
   set completeopt-=preview
 ]]
+--]]
+
+vim.opt.completeopt = { "menuone", "noselect" }
 
 -- for toggle term, reuse the same term
-vim.o.hidden = true
+vim.opt.hidden = true
 
 -- These are set for CoC
 vim.g.hidden = true
 vim.g.nobackup = true
 vim.g.nowritebackup = true
 
-vim.g.updatetime = 300
+vim.opt.updatetime = 300
 
--- ???
-vim.o.shortmess = vim.o.shortmess .. 'c'
-vim.g.signcolumn = "yes"
+vim.opt.shortmess = vim.opt.shortmess + 'c'
+
+-- always show column to left of numbers for lsp/git symbols
+vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = ";"
 
 vim.g.backupcopy = "yes"
 
-vim.o.termguicolors = true
+vim.opt.termguicolors = true
+
+-- how dare you
+vim.g.python_recommended_style = 0
