@@ -31,11 +31,17 @@ vim.api.nvim_set_keymap('n', 'K', "<Cmd>lua vim.lsp.buf.hover()<cr>", { noremap 
 vim.api.nvim_set_keymap('n', '<leader>j', '<Cmd>lua vim.lsp.diagnostic.goto_next()<cr>', { silent = true })
 vim.api.nvim_set_keymap('n', '<leader>k', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<cr>', { silent = true })
 vim.api.nvim_set_keymap('n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<cr>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<cr>', { silent = true, noremap = true })
 
 -- trouble
 vim.api.nvim_set_keymap('n', '<leader>xx', '<cmd>TroubleToggle<cr>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>gR', '<cmd>Trouble lsp_references<cr>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>gD', '<cmd>Trouble lsp_definitions<cr>', { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble lsp_workspace_diagnostics<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble lsp_document_diagnostics<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", { silent = true, noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent = true, noremap = true })
 
 -- Binding `fzf` to ctrl-p
 -- vim.api.nvim_set_keymap('n', '<C-p>', ':FZF<cr>', { noremap = true })

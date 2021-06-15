@@ -26,11 +26,11 @@ require('packer').startup(function(use)
   ---- csv
   use 'chrisbra/csv.vim'
   ---- dockerfile
-  use 'ekalinin/Dockerfile.vim'
+  -- use 'ekalinin/Dockerfile.vim'
   ---- elixir
   -- use 'elixir-editors/vim-elixir'
   ---- fish
-  use 'georgewitteman/vim-fish'
+  -- use 'georgewitteman/vim-fish'
   ---- fsharp
   use 'kongo2002/fsharp-vim'
   ---- git
@@ -58,7 +58,7 @@ require('packer').startup(function(use)
   ---- sbt
   use 'derekwyatt/vim-sbt'
   ---- scss
-  use 'cakebaker/scss-syntax.vim'
+  -- use 'cakebaker/scss-syntax.vim'
   ---- xml
   use 'amadeus/vim-xml'
 
@@ -152,10 +152,14 @@ require('packer').startup(function(use)
   -- show pictograms on completion dropdown
   use 'onsails/lspkind-nvim'
 
+  -- which key???
+  use 'folke/which-key.nvim'
+
   -- COLORSCHEMES
-  -- use 'folke/tokyonight.nvim'
+  use 'folke/tokyonight.nvim'
   -- use 'Shatur95/neovim-ayu'
   use 'bluz71/vim-nightfly-guicolors'
   -- use 'shaunsingh/nord.nvim'
+  -- use 'rafamadriz/neon'
 
 end)
