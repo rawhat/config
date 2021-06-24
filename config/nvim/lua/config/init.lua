@@ -154,7 +154,9 @@ require 'lspconfig'.pyright.setup({
 require 'lspconfig'.rust_analyzer.setup({
   settings = {
     ["rust-analyzer"] = {
-      ["checkOnSave.command"] = "clippy"
+      checkOnSave = {
+        command = "clippy",
+      }
     }
   }
 })
@@ -191,7 +193,8 @@ vim.g.surround_pairs = {
   linear = {
     {"'", "'"},
     {'"', '"'},
-    {" ", " "}
+    {" ", " "},
+    {"`", "`"}
   }
 }
 require('surround').setup {}
@@ -204,28 +207,45 @@ require('toggleterm').setup {
   insert_mappings = false,
 }
 
-require('telescope').setup {
-  vimgrep_arguments = {
-    'rg',
-    '--vimgrep',
-    '--hidden',
-    '--color=never',
-    '--no-heading',
-    '--with-filename',
-    '--line-number',
-    '--column',
-    '--smart-case'
-  },
-  extensions = {
-    fzf = {
-      override_generic_sorter = true,
-      override_file_sorter = true,
-      -- case_mode = "smart_case",
-    }
-  }
-}
+local snap = require('snap')
+local fzf = snap.get('consumer.fzf')
+-- local fzy = snap.get('consumer.fzy')
+local limit = snap.get('consumer.limit')
+local rg_file = snap.get('producer.ripgrep.file')
+local rg_vimgrep = snap.get('producer.ripgrep.vimgrep').args({
+  "--vimgrep",
+  "--hidden",
+  "--no-heading",
+  "--with-filename",
+  "--line-number",
+  "--column",
+  "--smart-case"
+})
+local select_file = snap.get('select.file')
+local select_vimgrep = snap.get('select.vimgrep')
+local preview_file = snap.get('preview.file')
+local preview_vimgrep = snap.get('preview.vimgrep')
 
-require('telescope').load_extension('fzf')
+-- fuzzy find
+snap.register.map({'n'}, {'<C-p>'}, function()
+  snap.run {
+    producer = fzf(rg_file),
+    select = select_file.select,
+    multiselect = select_file.multiselect,
+    views = { preview_file }
+  }
+end)
+
+-- livegrep
+snap.register.map({'n'}, {'<leader>ag'}, function()
+  snap.run {
+    producer = limit(10000, rg_vimgrep),
+    select = select_vimgrep.select,
+    multiselect = select_vimgrep.multiselect,
+    views = { preview_vimgrep },
+    initial_filter = vim.fn.expand('<cword>')
+  }
+end)
 
 require 'which-key'.setup {}
 
@@ -238,17 +258,18 @@ vim.g.indent_blankline_show_first_indent_level = false
 vim.g.indent_blankLine_char = "│"
 -- vim.g["indent_blankline_space_char"] = "·"
 
-vim.g["buftabline_numbers"] = 1
-vim.g["buftabline_separators"] = 1
+vim.g.buftabline_numbers = 1
+vim.g.buftabline_separators = 1
 
-vim.g["gitgutter_map_keys"] = 0
+-- vim.g["gitgutter_map_keys"] = 0
+require('gitsigns').setup()
 
-vim.g["node_client_debug"] = 1
+vim.g.node_client_debug = 1
 
 vim.cmd[[filetype plugin indent on]]
 
 -- Might be unnecessary post-treesitter
-vim.g["jsx_ext_required"] = 1
+vim.g.jsx_ext_required = 1
 
 -- Needed?
 vim.cmd[[
@@ -261,18 +282,18 @@ vim.cmd[[
 ]]
 
 -- Indent lines
-vim.g["indent_guides_enable_on_vim_startup"] = 1
-vim.g["indentLine_char_list"] = {'▏'}
+vim.g.indent_guides_enable_on_vim_startup = 1
+vim.g.indentLine_char_list = {'▏'}
 
 -- Using `ripgrep` for searching
-vim.g["ackprg"] = "rg --vimgrep --no-heading --smart-case"
+vim.g.ackprg = "rg --vimgrep --no-heading --smart-case"
 vim.cmd[[cnoreabbrev rg Ack]]
 
-vim.g["mix_format_on_save"] = 1
+vim.g.mix_format_on_save = 1
 
 -- asyncrun
-vim.g["asyncrun_open"] = 10
-vim.g["asyncrun_local"] = 1
+vim.g.asyncrun_open = 10
+vim.g.asyncrun_local = 1
 
 vim.cmd[[cnoreabbrev ar AsyncRun]]
 

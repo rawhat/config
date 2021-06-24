@@ -47,11 +47,11 @@ vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", { silent
 -- vim.api.nvim_set_keymap('n', '<C-p>', ':FZF<cr>', { noremap = true })
 
 -- telescope
-vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>ag', '<cmd>Telescope live_grep<cr>', { noremap = true })
+--[[ vim.api.nvim_set_keymap('n', '<C-p>', '<cmd>Telescope find_files<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>ag', '<cmd>Telescope live_grep<cr>', { noremap = true }) ]]
 -- probably won't use these very much, if ever...
-vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true })
+--[[ vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', { noremap = true }) ]]
 
 -- ???
 vim.api.nvim_set_keymap('n', '<A-Down>', ':m .+1<cr>', { noremap = true })

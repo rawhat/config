@@ -76,11 +76,15 @@ require('packer').startup(function(use)
 
   -- OTHER
   -- displays symbols on site for add/delete/change
-  use 'airblade/vim-gitgutter'
+  -- use 'airblade/vim-gitgutter'
+  use 'lewis6991/gitsigns.nvim'
+
   -- modified status bar
   use 'hoob3rt/lualine.nvim'
+
   -- line 'em up
   use 'godlygeek/tabular'
+
   -- fuzzy find
   -- use  { 'junegunn/fzf', run = "fzf#install()" }
   -- use 'junegunn/fzf.vim'
@@ -89,6 +93,9 @@ require('packer').startup(function(use)
     requires = { {'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'} }
   }
   use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+
+  use {'camspiers/snap', rocks = { 'fzy' }}
+
   -- search!
   use 'mileszs/ack.vim'
   -- highlights trailing whitespace
