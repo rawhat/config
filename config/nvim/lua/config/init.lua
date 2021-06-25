@@ -38,58 +38,39 @@ require 'compe'.setup {
   };
 }
 
-require 'lspinstall'.setup()
 
 -- lsp config
+require 'lspinstall'.setup()
+
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig/configs')
 
--- https://github.com/MaskRay/ccls
-require 'lspconfig'.ccls.setup {}
-
--- https://github.com/elbywan/crystalline
-if not lspconfig.crystalline then
-  configs.crystalline = {
-    default_config = {
-      cmd = { "crystalline" };
-      filetypes = { "crystal" };
-      root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-      end;
-      root_patterns = { "shard.yml", ".git" };
-    }
+local crystalline_config = {
+  default_config = {
+    cmd = { "crystalline" };
+    filetypes = { "crystal" };
+    root_dir = function(fname)
+      return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+    end;
+    root_patterns = { "shard.yml", ".git" };
   }
-end
-lspconfig.crystalline.setup {}
+}
 
--- https://github.com/elixir-lsp/elixir-ls
-require 'lspconfig'.elixirls.setup {
+local elixirls_config = {
   cmd = { "elixir-ls" };
 }
 
--- npm i -g @elm-tooling/elm-language-server
-require 'lspconfig'.elmls.setup {
-  cmd = { "elm-language-server" },
+local javals_config = {
+  default_config = {
+    cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" };
+    filetypes = { "java" };
+    root_dir = function(fname)
+      return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+    end;
+  }
 }
 
-require 'lspconfig'.gopls.setup {}
-
--- https://github.com/georgewfraser/java-language-server
-if not lspconfig.java then
-  configs.java = {
-    default_config = {
-      cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" };
-      filetypes = { "java" };
-      root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-      end;
-    }
-  }
-end
-lspconfig.java.setup {}
-
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-require 'lspconfig'.sumneko_lua.setup {
+local luals_config = {
   cmd = {"lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
   settings = {
     Lua = {
@@ -119,7 +100,39 @@ require 'lspconfig'.sumneko_lua.setup {
   }
 }
 
-require 'lspconfig'.zls.setup({})
+local function setup_servers()
+  require 'lspinstall'.setup()
+
+  local servers = require 'lspinstall'.installed_servers()
+  table.insert(servers, "crystalline")
+
+  for _, server in pairs(servers) do
+    Config = {}
+    if server == "crystalline" then
+      Config = crystalline_config
+    end
+    if server == "elixirls" then
+      Config = elixirls_config
+    end
+    if server == "java" then
+      Config = javals_config
+    end
+    if server == "lua" then
+      Config = luals_config
+    end
+
+    require 'lspconfig'[server].setup(Config)
+  end
+end
+
+setup_servers()
+
+require 'lspinstall'.post_install_hook = function ()
+  setup_servers()
+  vim.cmd("bufdo e")
+end
+
+-- require 'lspconfig'.zls.setup({})
 
 vim.cmd[[
   autocmd BufNewFile,BufRead *.zig set ft=zig
