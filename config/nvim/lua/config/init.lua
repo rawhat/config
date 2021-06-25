@@ -45,14 +45,12 @@ require 'lspinstall'.setup()
 local lspconfig = require('lspconfig')
 
 local crystalline_config = {
-  default_config = {
-    cmd = { "crystalline" };
-    filetypes = { "crystal" };
-    root_dir = function(fname)
-      return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-    end;
-    root_patterns = { "shard.yml", ".git" };
-  }
+  cmd = { "crystalline" };
+  filetypes = { "crystal" };
+  root_dir = function(fname)
+    return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  end;
+  root_patterns = { "shard.yml", ".git" };
 }
 
 local elixirls_config = {
@@ -60,13 +58,11 @@ local elixirls_config = {
 }
 
 local javals_config = {
-  default_config = {
-    cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" };
-    filetypes = { "java" };
-    root_dir = function(fname)
-      return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-    end;
-  }
+  cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" };
+  filetypes = { "java" };
+  root_dir = function(fname)
+    return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  end;
 }
 
 local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
@@ -103,25 +99,33 @@ local luals_config = {
 local function setup_servers()
   require 'lspinstall'.setup()
 
+  local lspconfig = require 'lspconfig'
+  local configs = require 'lspconfig/configs'
+
   local servers = require 'lspinstall'.installed_servers()
   table.insert(servers, "crystalline")
+  table.insert(servers, "java")
 
   for _, server in pairs(servers) do
     Config = {}
     if server == "crystalline" then
-      Config = crystalline_config
+      configs.crystalline = {
+        default_config = crystalline_config
+      }
     end
     if server == "elixirls" then
       Config = elixirls_config
     end
     if server == "java" then
-      Config = javals_config
+      configs.java = {
+        default_config = javals_config
+      }
     end
     if server == "lua" then
       Config = luals_config
     end
 
-    require 'lspconfig'[server].setup(Config)
+    lspconfig[server].setup(Config)
   end
 end
 
