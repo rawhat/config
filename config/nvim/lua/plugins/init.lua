@@ -130,6 +130,7 @@ require('packer').startup(function(use)
   use 'scalameta/nvim-metals'
   use 'alexaandru/nvim-lspupdate'
   use 'folke/trouble.nvim'
+  use 'kabouzeid/nvim-lspinstall'
 
   -- file type icons
   use 'kyazdani42/nvim-web-devicons'
