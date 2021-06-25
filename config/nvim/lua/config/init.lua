@@ -38,6 +38,8 @@ require 'compe'.setup {
   };
 }
 
+require 'lspinstall'.setup()
+
 -- lsp config
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
