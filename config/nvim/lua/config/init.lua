@@ -1,47 +1,8 @@
-require 'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",
-  highlight = {
-    enable = true,
-  },
-}
-
 vim.cmd[[
   au BufRead,BufNewFile *.fish set filetype=fish
 ]]
 
-require 'go'.setup()
-vim.cmd[[autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()]]
-
--- enable completion
-require 'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    buffer = true;
-    calc = true;
-    nvim_lsp = true;
-    nvim_lua = true;
-    vsnip = true;
-    ultisnips = true;
-  };
-}
-
-
 -- lsp config
-require 'lspinstall'.setup()
-
 local lspconfig = require('lspconfig')
 
 local crystalline_config = {
@@ -51,6 +12,15 @@ local crystalline_config = {
     return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
   end;
   root_patterns = { "shard.yml", ".git" };
+}
+
+local erlang_config = {
+  cmd = { "erlang_ls" };
+  filetypes = { "erlang" };
+  root_dir = function(fname)
+    return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  end;
+  root_patterns = { "rebar.config", ".git" };
 }
 
 local elixirls_config = {
@@ -99,11 +69,11 @@ local luals_config = {
 local function setup_servers()
   require 'lspinstall'.setup()
 
-  local lspconfig = require 'lspconfig'
   local configs = require 'lspconfig/configs'
 
   local servers = require 'lspinstall'.installed_servers()
   table.insert(servers, "crystalline")
+  table.insert(servers, "erlang")
   table.insert(servers, "java")
 
   for _, server in pairs(servers) do
@@ -111,6 +81,11 @@ local function setup_servers()
     if server == "crystalline" then
       configs.crystalline = {
         default_config = crystalline_config
+      }
+    end
+    if server == "erlang" then
+      configs.erlang = {
+        default_config = erlang_config;
       }
     end
     if server == "elixirls" then
@@ -151,9 +126,6 @@ vim.cmd[[
     autocmd FileType scala,sbt lua require("metals").initialize_or_attach(METALS_CONFIG)
   augroup end
 ]]
-METALS_CONFIG = require("metals").bare_config
-METALS_CONFIG.init_options.statusBarProvider = "on"
-
 
 -- npm i -g pyright
 require 'lspconfig'.pyright.setup({
@@ -183,25 +155,7 @@ require 'lspconfig'.rust_analyzer.setup({
 -- npm i -g typescript-language-server
 require 'lspconfig'.tsserver.setup({})
 
-require 'trouble'.setup()
-
 -- require 'lsp_signature'.on_attach()
-
-require 'lspkind'.init()
-
-require('lualine').setup {
-  options = { theme = 'tokyonight' },
-  extensions = { 'fzf', 'fugitive' },
-  sections = {
-    lualine_b = {
-      { 'branch' },
-      { 'diagnostics', sources = {'nvim_lsp'} },
-    },
-    lualine_c = {
-      { 'filename', { path = 1 }},
-    }
-  },
-}
 
 vim.g.surround_pairs = {
   nestable = {
@@ -216,57 +170,6 @@ vim.g.surround_pairs = {
     {"`", "`"}
   }
 }
-require('surround').setup {}
-
-require('nvim-ts-autotag').setup()
-
-require('toggleterm').setup {
-  size = 40,
-  open_mapping = "<leader>`",
-  insert_mappings = false,
-}
-
-local snap = require('snap')
-local fzf = snap.get('consumer.fzf')
--- local fzy = snap.get('consumer.fzy')
-local limit = snap.get('consumer.limit')
-local rg_file = snap.get('producer.ripgrep.file')
-local rg_vimgrep = snap.get('producer.ripgrep.vimgrep').args({
-  "--vimgrep",
-  "--hidden",
-  "--no-heading",
-  "--with-filename",
-  "--line-number",
-  "--column",
-  "--smart-case"
-})
-local select_file = snap.get('select.file')
-local select_vimgrep = snap.get('select.vimgrep')
-local preview_file = snap.get('preview.file')
-local preview_vimgrep = snap.get('preview.vimgrep')
-
--- fuzzy find
-snap.register.map({'n'}, {'<C-p>'}, function()
-  snap.run {
-    producer = fzf(rg_file),
-    select = select_file.select,
-    multiselect = select_file.multiselect,
-    views = { preview_file }
-  }
-end)
-
--- livegrep
-snap.register.map({'n'}, {'<leader>ag'}, function()
-  snap.run {
-    producer = limit(10000, rg_vimgrep),
-    select = select_vimgrep.select,
-    multiselect = select_vimgrep.multiselect,
-    views = { preview_vimgrep },
-    initial_filter = vim.fn.expand('<cword>')
-  }
-end)
-
-require 'which-key'.setup {}
 
 vim.api.nvim_exec([[
   au TermOpen * tnoremap <buffer> <Esc> <c-\><c-n>
@@ -281,7 +184,6 @@ vim.g.buftabline_numbers = 1
 vim.g.buftabline_separators = 1
 
 -- vim.g["gitgutter_map_keys"] = 0
-require('gitsigns').setup()
 
 vim.g.node_client_debug = 1
 
@@ -319,8 +221,6 @@ vim.cmd[[cnoreabbrev ar AsyncRun]]
 -- fzf
 vim.env.FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow'
 
--- which key
-
 -- Theme
 -- vim.cmd[[colorscheme nightfly]]
 
@@ -335,3 +235,5 @@ vim.cmd[[colorscheme tokyonight]]
 -- "default", "dark", "doom"
 -- vim.g.neon_style = "dark"
 -- vim.cmd[[colorscheme neon]]
+
+-- require('github-theme').setup()
