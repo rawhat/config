@@ -1,0 +1,146 @@
+local present1, lspconfig = pcall(require, "lspconfig")
+local present2, lspinstall = pcall(require, "lspinstall")
+
+if not (present1 or present2) then
+  return
+end
+
+local crystalline_config = {
+  cmd = { "crystalline" };
+  filetypes = { "crystal" };
+  root_dir = function(fname)
+    return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  end;
+  root_patterns = { "shard.yml", ".git" };
+}
+
+local erlang_config = {
+  cmd = { "erlang_ls" };
+  filetypes = { "erlang" };
+  root_dir = function(fname)
+    return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  end;
+  root_patterns = { "rebar.config", ".git" };
+}
+
+local elixirls_config = {
+  cmd = { "elixir-ls" };
+}
+
+local javals_config = {
+  cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" };
+  filetypes = { "java" };
+  root_dir = function(fname)
+    return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+  end;
+}
+
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local luals_config = {
+  cmd = {"lua-language-server", "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      filetypes = { "lua" },
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = vim.split(package.path, ';'),
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = {
+          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+          [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+        },
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  }
+}
+
+lspconfig.pyright.setup({
+  --[[ root_dir = function(filename)
+    return lspconfig.util.path.dirname(filename)
+  end ]]
+  root_dir = function(fname)
+    return lspconfig.util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
+      lspconfig.util.path.dirname(fname)
+  end
+})
+
+-- pipx install 'python-language-server[all]'
+-- require 'lspconfig'.pyls.setup({})
+
+-- https://rust-analyzer.github.io/manual.html#installation
+lspconfig.rust_analyzer.setup({
+  settings = {
+    ["rust-analyzer"] = {
+      checkOnSave = {
+        command = "clippy",
+      }
+    }
+  }
+})
+
+-- npm i -g typescript-language-server
+lspconfig.tsserver.setup({})
+
+local function setup_servers()
+  lspinstall.setup()
+
+  local configs = require 'lspconfig/configs'
+
+  local servers = lspinstall.installed_servers()
+  table.insert(servers, "crystalline")
+  table.insert(servers, "erlang")
+  table.insert(servers, "java")
+
+  for _, server in pairs(servers) do
+    Config = {}
+    if server == "crystalline" then
+      configs.crystalline = {
+        default_config = crystalline_config
+      }
+    end
+    if server == "erlang" then
+      configs.erlang = {
+        default_config = erlang_config;
+      }
+    end
+    if server == "elixirls" then
+      Config = elixirls_config
+    end
+    if server == "java" then
+      configs.java = {
+        default_config = javals_config
+      }
+    end
+    if server == "lua" then
+      Config = luals_config
+    end
+
+    lspconfig[server].setup(Config)
+  end
+end
+
+setup_servers()
+
+lspinstall.post_install_hook = function ()
+  setup_servers()
+  vim.cmd("bufdo e")
+end
+
+vim.cmd[[
+  augroup lsp
+    autocmd!
+    autocmd FileType scala,sbt lua require("metals").initialize_or_attach(METALS_CONFIG)
+  augroup end
+]]
