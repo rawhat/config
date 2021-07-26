@@ -1,18 +1,19 @@
 local present1, lspconfig = pcall(require, "lspconfig")
 local present2, lspinstall = pcall(require, "lspinstall")
 
-if not (present1 or present2) then
+if not present1 then
+  error("ain't no swang but an lsp thang")
   return
 end
 
-local crystalline_config = {
+--[[ local crystalline_config = {
   cmd = { "crystalline" };
   filetypes = { "crystal" };
   root_dir = function(fname)
     return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
   end;
   root_patterns = { "shard.yml", ".git" };
-}
+} ]]
 
 local erlang_config = {
   cmd = { "erlang_ls" };
@@ -25,6 +26,7 @@ local erlang_config = {
 
 local elixirls_config = {
   cmd = { "elixir-ls" };
+  filetypes = { "elixir" };
 }
 
 local javals_config = {
@@ -91,30 +93,40 @@ lspconfig.rust_analyzer.setup({
 })
 
 -- npm i -g typescript-language-server
-lspconfig.tsserver.setup({})
+lspconfig.tsserver.setup({
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  -- root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+  root_dir = vim.loop.cwd,
+})
 
 local function setup_servers()
+  if not present2 then
+    error("ugh, couldn't find lspinstall")
+  end
   lspinstall.setup()
 
   local configs = require 'lspconfig/configs'
 
   local servers = lspinstall.installed_servers()
-  table.insert(servers, "crystalline")
+  -- table.insert(servers, "crystalline")
   table.insert(servers, "erlang")
   table.insert(servers, "java")
 
   for _, server in pairs(servers) do
     Config = {}
-    if server == "crystalline" then
+     --[[ if server == "crystalline" then
+      Config = crystalline_config;
       configs.crystalline = {
         default_config = crystalline_config
       }
-    end
-    if server == "erlang" then
+     end ]]
+     if server == "erlang" then
+      Config = erlang_config;
       configs.erlang = {
         default_config = erlang_config;
       }
-    end
+     end
     if server == "elixirls" then
       Config = elixirls_config
     end

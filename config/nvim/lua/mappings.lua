@@ -67,8 +67,8 @@ map('n', '<leader>aw', ':AsyncRun -raw')
 map('n', '<leader>as', ':AsyncStop')
 
 -- kommentary
-map('v', '<leader>c<space>', '<Plug>kommentary_visual_default')
-map('n', '<leader>c<space>', '<Plug>kommentary_line_default')
+vim.api.nvim_set_keymap('v', '<leader>c<space>', '<Plug>kommentary_visual_default', {})
+vim.api.nvim_set_keymap('n', '<leader>c<space>', '<Plug>kommentary_line_default', {})
 
 -- compe
 map('i', '<C-space>', 'compe#complete()', { expr = true })

@@ -12,13 +12,13 @@ local use = packer.use
 return packer.startup(
   function()
     -- manage packer
-    use {
-      'wbthomason/packer.nvim',
-      event = "VimEnter"
-    }
+    use { 'wbthomason/packer.nvim' }
 
     -- deps
-    use 'nvim-lua/plenary.nvim'
+    use {
+      'nvim-lua/plenary.nvim',
+      event = "BufRead",
+    }
 
     -- LANGUAGES
     -- cs
@@ -72,6 +72,8 @@ return packer.startup(
     -- displays symbols on site for add/delete/change
     use {
       'lewis6991/gitsigns.nvim',
+      after = "plenary.nvim",
+      event = "BufRead",
       config = function()
         require("plugins.gitsigns")
       end
@@ -80,6 +82,7 @@ return packer.startup(
     -- modified status bar
     use {
       'hoob3rt/lualine.nvim',
+      after = "tokyonight.nvim",
       config = function()
         require("plugins.lualine")
       end
@@ -119,6 +122,7 @@ return packer.startup(
     -- fancy indent helper
     use{
       'lukas-reineke/indent-blankline.nvim',
+      event = "BufRead",
       config = function()
         require("plugins.indent-blankline")
       end
@@ -141,9 +145,16 @@ return packer.startup(
     use 'jeetsukumaran/vim-buffergator'
 
     -- some `lsp` configs
-    use 'neovim/nvim-lspconfig'
+    use { 'kabouzeid/nvim-lspinstall' }
+    use {
+      'neovim/nvim-lspconfig',
+      config = function()
+        require("plugins.lspconfig")
+      end
+    }
     use {
       'hrsh7th/nvim-compe',
+      event = "InsertEnter",
       config = function()
         require("plugins.compe")
       end
@@ -154,17 +165,10 @@ return packer.startup(
         require("plugins.metals")
       end
     }
-    use 'alexaandru/nvim-lspupdate'
     use {
       'folke/trouble.nvim',
       config = function()
         require 'trouble'.setup()
-      end
-    }
-    use {
-      'kabouzeid/nvim-lspinstall',
-      config = function()
-        require 'lspinstall'.setup()
       end
     }
 
@@ -172,7 +176,10 @@ return packer.startup(
     use 'kyazdani42/nvim-web-devicons'
 
     -- file tree
-    use 'kyazdani42/nvim-tree.lua'
+    use {
+      'kyazdani42/nvim-tree.lua',
+      cmd = "NvimTreeToggle",
+    }
 
     -- run things asynchronously
     use 'skywind3000/asyncrun.vim'
@@ -188,19 +195,25 @@ return packer.startup(
     -- tree sitter
     use {
       'nvim-treesitter/nvim-treesitter',
+      event = "BufRead",
       run = ':TSUpdate',
       config = function()
         require("plugins.treesitter")
       end
     }
-    use 'nvim-treesitter/playground'
+    use {
+      'nvim-treesitter/playground',
+      event = "BufRead",
+    }
 
     -- autocompletes html tags
     use {
       'windwp/nvim-ts-autotag',
-      config = function()
-        require('nvim-ts-autotag').setup()
-      end
+      after = "nvim-treesitter",
+      event = "BufRead",
+      -- config = function()
+      --   require('nvim-ts-autotag').setup()
+      -- end
     }
 
     -- markdown preview
