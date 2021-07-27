@@ -167,6 +167,7 @@ return packer.startup(
     }
     use {
       'folke/trouble.nvim',
+      after = "tokyonight.nvim",
       config = function()
         require 'trouble'.setup()
       end
@@ -187,6 +188,7 @@ return packer.startup(
     -- neovim terminal manager
     use {
       'akinsho/nvim-toggleterm.lua',
+      after = "tokyonight.nvim",
       config = function()
         require("plugins.toggleterm")
       end
@@ -233,6 +235,7 @@ return packer.startup(
     -- which key???
     use {
       'folke/which-key.nvim',
+      after = "tokyonight.nvim",
       config = function()
         require 'which-key'.setup {}
       end
@@ -241,6 +244,7 @@ return packer.startup(
     -- COLORSCHEMES
     use {
       'folke/tokyonight.nvim',
+      after = "packer.nvim",
       config = function()
         require "theme"
       end

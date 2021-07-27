@@ -1,13 +1,7 @@
-local present, tokyonight = pcall(require, "tokyonight")
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_sidebars = { "which-key", "toggleterm", "packer.nvim" }
 
-if present then
-  vim.g.tokyonight_style = "night"
-  vim.cmd[[colorscheme tokyonight]]
-
-  return true
-else
-  return false
-end
+vim.cmd[[colorscheme tokyonight]]
 
 -- other ones i was using before
 

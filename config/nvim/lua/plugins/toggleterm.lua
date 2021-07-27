@@ -8,6 +8,7 @@ toggleterm.setup {
   size = 40,
   open_mapping = "<leader>`",
   insert_mappings = false,
+  shade_terminals = false,
 }
 
 vim.api.nvim_exec([[
