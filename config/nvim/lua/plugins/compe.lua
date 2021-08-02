@@ -6,7 +6,7 @@ end
 
 compe.setup {
   enabled = true;
-  autocomplete = true;
+  --[[ autocomplete = true;
   debug = false;
   min_length = 1;
   preselect = 'enable';
@@ -16,15 +16,15 @@ compe.setup {
   max_abbr_width = 100;
   max_kind_width = 100;
   max_menu_width = 100;
-  documentation = true;
+  documentation = true; ]]
 
   source = {
     path = true;
     buffer = true;
-    calc = true;
+    -- calc = true;
     nvim_lsp = true;
-    nvim_lua = true;
+    --[[ nvim_lua = true;
     vsnip = true;
-    ultisnips = true;
+    ultisnips = true; ]]
   };
 }

@@ -1,6 +1,7 @@
 local present, treesitter = pcall(require, "nvim-treesitter.configs")
 
 if not (present) then
+  error("Couldn't load treesitter")
   return
 end
 
@@ -16,7 +17,7 @@ treesitter.setup({
     updatetime = 25,
     persist_queries = false,
   },
-  autotag = {
+  --[[ autotag = {
     enable = true,
-  }
+  } ]]
 })
