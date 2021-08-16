@@ -132,7 +132,6 @@ local function setup_servers()
     end
 
     local coq = require('coq')()
-    vim.cmd [[COQnow -s]]
     local config = coq.lsp_ensure_capabilities(Config)
     lspconfig[server].setup(config)
   end

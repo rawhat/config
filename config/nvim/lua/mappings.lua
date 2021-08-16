@@ -69,8 +69,3 @@ map('n', '<leader>as', ':AsyncStop')
 -- kommentary
 vim.api.nvim_set_keymap('v', '<leader>c<space>', '<Plug>kommentary_visual_default', {})
 vim.api.nvim_set_keymap('n', '<leader>c<space>', '<Plug>kommentary_line_default', {})
-
--- compe
-map('i', '<C-space>', 'compe#complete()', { expr = true })
-map('i', '<CR>', 'compe#confirm("<CR>")', { expr = true })
-map('i', '<C-e>', 'compe#close("<C-e>")', { expr = true })

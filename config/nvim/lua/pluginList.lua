@@ -314,7 +314,7 @@ return packer.startup(
       'ms-jpq/coq_nvim',
       before = 'nvim-lspconfig',
       branch = 'coq',
-      run = function()
+      config = function()
         require('plugins.coq')
       end,
     }
