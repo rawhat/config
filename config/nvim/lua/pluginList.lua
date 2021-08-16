@@ -9,16 +9,74 @@ end
 
 local use = packer.use
 
--- THEME = 'folke/tokyonight.nvim'
--- THEME = 'shaunsingh/nord.nvim'
-THEME = 'Shatur/neovim-ayu'
--- THEME = 'bluz71/vim-nightfly-guicolors'
--- THEME = 'rafamadriz/neon'
--- THEME = 'projekt0n/github-nvim-theme'
-Global_theme = string.gsub(THEME, "^%w+/", "")
+local themes = {
+  tokyonight = {
+    package = 'folke/tokyonight.nvim',
+    package_name = 'tokyonight.nvim',
+    name = 'tokyonight',
+    config = function()
+      vim.g.tokyonight_style = "night"
+      vim.g.tokyonight_sidebars = { "which-key", "toggleterm", "packer.nvim" }
+      vim.cmd[[colorscheme tokyonight]]
+    end,
+  },
+  nord = {
+    package = 'shaunsingh/nord.nvim',
+    package_name = 'nord.nvim',
+    name = 'nord',
+    config = function()
+      vim.g.nord_contrast = true
+      require('nord').set()
+    end,
+  },
+  ayu = {
+    package = 'Shatur/neovim-ayu',
+    package_name = 'neovim-ayu',
+    name = 'ayu',
+    config = function()
+      vim.g.ayu_mirage = true
+      vim.cmd[[colorscheme ayu]]
+    end,
+  },
+  nightfly = {
+    package = 'bluz71/vim-nightfly-guicolors',
+    package_name = 'vim-nightfly-guicolors',
+    name = 'nightfly',
+    config = function()
+    end,
+  },
+  neon = {
+    package = 'rafamadriz/neon',
+    package_name = 'neon',
+    name = 'neon',
+    config = function()
+      -- "default", "dark", "doom"
+      vim.g.neon_style = "dark"
+      vim.cmd[[colorscheme neon]]
+    end,
+  },
+  github = {
+    package = 'projekt0n/github-nvim-theme',
+    package_name = 'github-nvi-theme',
+    name = 'github',
+    config = function()
+      require('github-theme').setup()
+    end,
+  }
+}
+Global_theme = themes['nord']
 
 return packer.startup(
   function()
+
+    -- COLORSCHEME
+    use {
+      Global_theme.package,
+      after = "packer.nvim",
+      config = function()
+        Global_theme.config()
+      end
+    }
 
     -- manage packer
     use { 'wbthomason/packer.nvim' }
@@ -156,22 +214,16 @@ return packer.startup(
     -- modified status bar
     use {
       'hoob3rt/lualine.nvim',
-      after = Global_theme,
+      after = Global_theme.package_name,
       config = function()
         require("plugins.lualine")
       end
     }
 
-    -- line 'em up
-    --[[ use {
-      'godlygeek/tabular',
-      event = "BufEnter"
-    } ]]
-
     -- fuzzy find
     use {
       'camspiers/snap',
-      rocks = { 'fzy' },
+      -- rocks = { 'fzy' },
       config = function()
         require("plugins.snap")
       end
@@ -241,11 +293,6 @@ return packer.startup(
       'mhinz/vim-mix-format',
       ft = "elixir",
     }
-    -- adjust color scheme
-    --[[ use {
-      'zefei/vim-colortuner'
-    } ]]
-
     -- buffers
     use {
       'jeetsukumaran/vim-buffergator',
@@ -260,15 +307,24 @@ return packer.startup(
       'neovim/nvim-lspconfig',
       config = function()
         require("plugins.lspconfig")
-      end
+      end,
     }
+
     use {
-      'hrsh7th/nvim-compe',
-      event = "InsertEnter",
-      config = function()
-        require("plugins.compe")
-      end
+      'ms-jpq/coq_nvim',
+      before = 'nvim-lspconfig',
+      branch = 'coq',
+      run = function()
+        require('plugins.coq')
+      end,
     }
+
+    use {
+      'ms-jpq/coq.artifacts',
+      before = 'nvim-lspconfig',
+      branch = 'artifacts'
+    }
+
     use {
       'scalameta/nvim-metals',
       ft = "scala",
@@ -278,7 +334,7 @@ return packer.startup(
     }
     use {
       'folke/trouble.nvim',
-      after = Global_theme,
+      after = Global_theme.package_name,
       config = function()
         require 'trouble'.setup()
       end
@@ -305,7 +361,7 @@ return packer.startup(
     -- neovim terminal manager
     use {
       'akinsho/nvim-toggleterm.lua',
-      after = Global_theme,
+      after = Global_theme.package_name,
       config = function()
         require("plugins.toggleterm")
       end
@@ -360,18 +416,9 @@ return packer.startup(
     -- which key???
     use {
       'folke/which-key.nvim',
-      after = Global_theme,
+      after = Global_theme.package_name,
       config = function()
         require 'which-key'.setup {}
-      end
-    }
-
-    -- COLORSCHEMES
-    use {
-      THEME,
-      after = "packer.nvim",
-      config = function()
-        require "theme"
       end
     }
   end

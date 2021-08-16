@@ -69,17 +69,11 @@ local luals_config = {
 }
 
 lspconfig.pyright.setup({
-  --[[ root_dir = function(filename)
-    return lspconfig.util.path.dirname(filename)
-  end ]]
   root_dir = function(fname)
     return lspconfig.util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or
       lspconfig.util.path.dirname(fname)
   end
 })
-
--- pipx install 'python-language-server[all]'
--- require 'lspconfig'.pyls.setup({})
 
 -- https://rust-analyzer.github.io/manual.html#installation
 lspconfig.rust_analyzer.setup({
@@ -96,8 +90,6 @@ lspconfig.rust_analyzer.setup({
 lspconfig.tsserver.setup({
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-  -- root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-  root_dir = vim.loop.cwd,
 })
 
 local function setup_servers()
@@ -139,7 +131,10 @@ local function setup_servers()
       Config = luals_config
     end
 
-    lspconfig[server].setup(Config)
+    local coq = require('coq')()
+    vim.cmd [[COQnow -s]]
+    local config = coq.lsp_ensure_capabilities(Config)
+    lspconfig[server].setup(config)
   end
 end
 

@@ -4,20 +4,9 @@ if not (present) then
   return
 end
 
-local theme
-if Global_theme == "tokyonight.nvim" then
-  theme = 'tokyonight'
-elseif Global_theme == "nord.nvim" then
-  theme = 'nord'
-elseif Global_theme == "neovim-ayu" then
-  theme = 'ayu'
-else
-  error("Invalid theme in lualine config " .. Global_theme)
-end
-
 lualine.setup({
   options = {
-    theme = theme,
+    theme = Global_theme.name,
   },
   extensions = { 'fzf', 'fugitive' },
   sections = {
