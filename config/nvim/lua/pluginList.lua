@@ -79,7 +79,9 @@ return packer.startup(
     }
 
     -- manage packer
-    use { 'wbthomason/packer.nvim' }
+    use {
+      'wbthomason/packer.nvim'
+    }
 
     -- deps
     use {
