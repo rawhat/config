@@ -62,9 +62,20 @@ local themes = {
     config = function()
       require('github-theme').setup()
     end,
+  },
+  nightfox = {
+    package = 'EdenEast/nightfox.nvim',
+    package_name = 'nightfox.nvim',
+    name = 'nightfox',
+    config = function()
+      -- vim.g.nightfox_style = "palefox"
+      -- vim.g.nightfox_style = "nordfox"
+      vim.g.nightfox_italic_comments = 1
+      require('nightfox').set()
+    end,
   }
 }
-Global_theme = themes['nord']
+Global_theme = themes['nightfox']
 
 return packer.startup(
   function()

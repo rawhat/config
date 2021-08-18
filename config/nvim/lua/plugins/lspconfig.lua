@@ -92,6 +92,8 @@ lspconfig.tsserver.setup({
   filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
 })
 
+lspconfig.ocamllsp.setup({})
+
 local function setup_servers()
   if not present2 then
     error("ugh, couldn't find lspinstall")
