@@ -97,7 +97,7 @@ return packer.startup(
     -- deps
     use {
       'nvim-lua/plenary.nvim',
-      event = "BufRead",
+      -- event = "BufRead",
     }
 
     -- LANGUAGES
@@ -234,12 +234,20 @@ return packer.startup(
     }
 
     -- fuzzy find
-    use {
+    --[[ use {
       'camspiers/snap',
       -- rocks = { 'fzy' },
       config = function()
         require("plugins.snap")
       end
+    } ]]
+    use {
+      'nvim-telescope/telescope.nvim',
+      event = "BufEnter",
+      requires = { { "nvim-lua/plenary.nvim" } },
+      config = function()
+        require("plugins.telescope")
+      end,
     }
 
     -- search!
