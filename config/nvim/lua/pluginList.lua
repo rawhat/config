@@ -332,6 +332,14 @@ return packer.startup(
     }
 
     use {
+      'hrsh7th/nvim-compe',
+      event = "BufEnter",
+      config = function()
+        require('plugins.compe')
+      end,
+    }
+
+    --[[ use {
       'ms-jpq/coq_nvim',
       before = 'nvim-lspconfig',
       branch = 'coq',
@@ -344,7 +352,7 @@ return packer.startup(
       'ms-jpq/coq.artifacts',
       before = 'nvim-lspconfig',
       branch = 'artifacts'
-    }
+    } ]]
 
     use {
       'scalameta/nvim-metals',

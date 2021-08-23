@@ -28,3 +28,7 @@ compe.setup {
     ultisnips = true; ]]
   };
 }
+
+local opts = { noremap = true }
+vim.api.nvim_set_keymap('i', '<C-Space>', ':compe#complete()', opts)
+-- vim.api.nvim_set_keymap('i', '<CR>', ':compe#confirm(luaeval("require \'nvim-autopairs\'.autopairs_cr()"))', opts)
