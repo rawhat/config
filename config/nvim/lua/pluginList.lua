@@ -68,10 +68,15 @@ local themes = {
     package_name = 'nightfox.nvim',
     name = 'nightfox',
     config = function()
-      -- vim.g.nightfox_style = "palefox"
-      -- vim.g.nightfox_style = "nordfox"
-      vim.g.nightfox_italic_comments = 1
-      require('nightfox').set()
+      local nightfox = require('nightfox')
+      nightfox.setup({
+        -- fox = "palefox",
+        -- fox = "nordfox",
+        styles = {
+          comments = "italic",
+        }
+      })
+      nightfox.load()
     end,
   }
 }
