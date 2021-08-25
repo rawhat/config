@@ -69,12 +69,20 @@ local themes = {
     name = 'nightfox',
     config = function()
       local nightfox = require('nightfox')
+      --[[ local colors = require('nightfox.colors').load()
+      local util = require("nightfox.util") ]]
       nightfox.setup({
         -- fox = "palefox",
         -- fox = "nordfox",
         styles = {
           comments = "italic",
-        }
+        },
+        hlgroups = {
+          -- TSProperty and TSString are the same color... but I don't think
+          -- any of the alternate colors (or lightening the existing green)
+          -- look very good...
+          -- TSString = { fg = "${green_br}" },
+        },
       })
       nightfox.load()
     end,
