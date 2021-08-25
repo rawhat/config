@@ -6,6 +6,10 @@ if not present1 then
     return
 end
 
+-- `cmp` stuff
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 --[[ local crystalline_config = {
   cmd = { "crystalline" };
   filetypes = { "crystal" };
@@ -150,6 +154,7 @@ local function setup_servers()
         --[[ local coq = require('coq')()
     local config = coq.lsp_ensure_capabilities(Config) ]]
         local config = Config
+        config.capabilities = capabilities
         lspconfig[server].setup(config)
     end
 end

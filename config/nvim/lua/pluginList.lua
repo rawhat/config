@@ -342,12 +342,40 @@ return packer.startup(
     }
 
     use {
+      'L3MON4D3/LuaSnip',
+      config = function()
+        require('luasnip/loaders/from_vscode').load()
+      end,
+    }
+
+    use {
+      'rafamadriz/friendly-snippets',
+      before = "LuaSnip",
+    }
+
+    use {
+      'hrsh7th/nvim-cmp',
+      requires = {
+        { "hrsh7th/cmp-buffer" },
+        { "hrsh7th/cmp-nvim-lua" },
+        { "hrsh7th/cmp-nvim-lsp" },
+      },
+      config = function()
+        require('plugins.cmp')
+      end,
+    }
+
+    use {
+      "saadparwaiz1/cmp_luasnip",
+    }
+
+    --[[ use {
       'hrsh7th/nvim-compe',
       event = "BufEnter",
       config = function()
         require('plugins.compe')
       end,
-    }
+    } ]]
 
     --[[ use {
       'ms-jpq/coq_nvim',
@@ -446,7 +474,8 @@ return packer.startup(
     -- show pictograms on completion dropdown
     use {
       'onsails/lspkind-nvim',
-      event = "InsertEnter",
+      -- event = "InsertEnter",
+      before = "nvim-cmp",
       config = function()
         require 'lspkind'.init()
       end
