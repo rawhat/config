@@ -223,7 +223,9 @@ return packer.startup(
     -- displays symbols on site for add/delete/change
     use {
       'lewis6991/gitsigns.nvim',
-      after = "plenary.nvim",
+      requires = {
+        'nvim-lua/plenary.nvim',
+      },
       config = function()
         require("plugins.gitsigns")
       end
