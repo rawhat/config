@@ -251,7 +251,10 @@ return packer.startup(
     use {
       'nvim-telescope/telescope.nvim',
       event = "BufEnter",
-      requires = { { "nvim-lua/plenary.nvim" } },
+      requires = {
+        { "nvim-lua/plenary.nvim" },
+        { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+      },
       config = function()
         require("plugins.telescope")
       end,
