@@ -92,6 +92,8 @@ lspconfig.tsserver.setup({
 
 lspconfig.ocamllsp.setup({})
 
+lspconfig.zls.setup({})
+
 local elixir = {formatCommand = "mix format -", formatStdin = true}
 local elm = {formatCommand = "elm-format -", formatStdin = true}
 local go = {formatCommand = "gofmt", formatStdin = true}
@@ -102,6 +104,7 @@ local prettier = {
 }
 local lua = {formatCommand = "lua-format -i", formatStdin = true}
 local rust = {formatCommand = "rustfmt", formatStdin = true}
+local zig = {formatCommand = "zig fmt --stdin", formatStdin = true}
 
 local languages = {
     elixir = {elixir},
@@ -113,7 +116,8 @@ local languages = {
     javascript = {prettier},
     javascriptreact = {prettier},
     typescript = {prettier},
-    typescriptreact = {prettier}
+    typescriptreact = {prettier},
+    zig = {zig}
 }
 
 lspconfig.efm.setup({

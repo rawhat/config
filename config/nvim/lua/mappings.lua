@@ -38,7 +38,10 @@ map('n', 'K', "<Cmd>lua vim.lsp.buf.hover()<cr>")
 -- lsp setup
 map('n', '<leader>j', '<Cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
 map('n', '<leader>k', '<Cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
-map('n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>')
+-- This prompts for `efm` or `<lang>-lsp`.  I'd prefer to always use `efm`,
+-- which I _think_ is what the line below does...
+-- map('n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting()<cr>')
+map('n', '<leader><space>f', '<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>')
 map('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<cr>')
 map('n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<cr>')
 
