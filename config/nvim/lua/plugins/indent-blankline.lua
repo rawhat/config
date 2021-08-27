@@ -5,9 +5,9 @@ if not present then
   return
 end
 
-vim.g.indent_blankline_show_first_indent_level = false
-vim.g.indent_blankLine_char = "│"
--- vim.g["indent_blankline_space_char"] = "·"
-
-vim.g.indent_guides_enable_on_vim_startup = 1
-vim.g.indentLine_char_list = {'▏'}
+blankline.setup({
+  buftype_exclude = { "terminal" },
+  show_current_context = true,
+  show_first_indent_level = false,
+  show_trailing_blankline_indent = false,
+})
