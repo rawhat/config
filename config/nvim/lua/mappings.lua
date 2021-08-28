@@ -1,15 +1,19 @@
 -- from the lua guide
-local function t(str)
+--[[ local function t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+end ]]
 
-function _G.smart_tab()
+--[[ function _G.smart_tab()
   return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
 end
 
 function _G.smart_shift_tab()
   return vim.fn.pumvisible() == 1 and t'<C-p>'
-end
+end ]]
+
+-- make 0 go to first word in line instead of start of line...
+vim.cmd[[noremap 0 ^]]
+vim.cmd[[noremap ^ 0]]
 
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true, silent = true}
@@ -31,7 +35,7 @@ map('n', '<leader>cc', ':cclose<cr>', {})
 map('n', '<leader>h', ':bprev<cr>')
 map('n', '<leader>l', ':bnext<cr>')
 
-map('i', '<Tab>', 'v:lua.smart_tab()', { expr = true })
+-- map('i', '<Tab>', 'v:lua.smart_tab()', { expr = true })
 
 map('n', 'K', "<Cmd>lua vim.lsp.buf.hover()<cr>")
 

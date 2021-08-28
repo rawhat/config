@@ -97,12 +97,13 @@ lspconfig.zls.setup({})
 local elixir = {formatCommand = "mix format -", formatStdin = true}
 local elm = {formatCommand = "elm-format -", formatStdin = true}
 local go = {formatCommand = "gofmt", formatStdin = true}
+local lua = {formatCommand = "lua-format -i", formatStdin = true}
+local ocaml = {formatCommand = "ocamlformat --impl -", formatStdin = true}
 local python = {formatCommand = "yapf --quiet", formatStdin = true}
 local prettier = {
     formatCommand = "prettier --stdin-filepath ${INPUT}",
     formatStdin = true
 }
-local lua = {formatCommand = "lua-format -i", formatStdin = true}
 local rust = {formatCommand = "rustfmt", formatStdin = true}
 local zig = {formatCommand = "zig fmt --stdin", formatStdin = true}
 
@@ -111,6 +112,7 @@ local languages = {
     elm = {elm},
     go = {go},
     lua = {lua},
+    ocaml = {ocaml},
     python = {python},
     rust = {rust},
     javascript = {prettier},
