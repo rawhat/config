@@ -1,14 +1,12 @@
 local present, toggleterm = pcall(require, "toggleterm")
 
-if not (present) then
-  return
-end
+if not (present) then return end
 
 toggleterm.setup {
-  size = 40,
-  open_mapping = "<leader>`",
-  insert_mappings = false,
-  -- shade_terminals = false,
+    size = 40,
+    open_mapping = "<leader>`",
+    insert_mappings = false
+    -- shade_terminals = false,
 }
 
 vim.api.nvim_exec([[

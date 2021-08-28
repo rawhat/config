@@ -1,7 +1,6 @@
 local hop = require('hop')
 
-hop.setup({
-  keys = 'etovxqpdygfblzhckisuran',
-})
+hop.setup({keys = 'etovxqpdygfblzhckisuran'})
 
-vim.api.nvim_set_keymap('n', '$', "<cmd>lua require('hop').hint_words()<cr>", {})
+vim.api
+    .nvim_set_keymap('n', '$', "<cmd>lua require('hop').hint_words()<cr>", {})

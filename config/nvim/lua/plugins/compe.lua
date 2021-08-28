@@ -1,12 +1,10 @@
 local present, compe = pcall(require, "compe")
 
-if not (present) then
-  return
-end
+if not (present) then return end
 
 compe.setup {
-  enabled = true;
-  --[[ autocomplete = true;
+    enabled = true,
+    --[[ autocomplete = true;
   debug = false;
   min_length = 1;
   preselect = 'enable';
@@ -18,17 +16,17 @@ compe.setup {
   max_menu_width = 100;
   documentation = true; ]]
 
-  source = {
-    path = true;
-    buffer = true;
-    -- calc = true;
-    nvim_lsp = true;
-    --[[ nvim_lua = true;
+    source = {
+        path = true,
+        buffer = true,
+        -- calc = true;
+        nvim_lsp = true
+        --[[ nvim_lua = true;
     vsnip = true;
     ultisnips = true; ]]
-  };
+    }
 }
 
-local opts = { noremap = true }
+local opts = {noremap = true}
 vim.api.nvim_set_keymap('i', '<C-Space>', ':compe#complete()', opts)
 -- vim.api.nvim_set_keymap('i', '<CR>', ':compe#confirm(luaeval("require \'nvim-autopairs\'.autopairs_cr()"))', opts)

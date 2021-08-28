@@ -1,25 +1,19 @@
 -- from the lua guide
 --[[ local function t(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
-end ]]
-
---[[ function _G.smart_tab()
+end ]] --[[ function _G.smart_tab()
   return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
 end
 
 function _G.smart_shift_tab()
   return vim.fn.pumvisible() == 1 and t'<C-p>'
-end ]]
-
--- make 0 go to first word in line instead of start of line...
-vim.cmd[[noremap 0 ^]]
-vim.cmd[[noremap ^ 0]]
+end ]] -- make 0 go to first word in line instead of start of line...
+vim.cmd [[noremap 0 ^]]
+vim.cmd [[noremap ^ 0]]
 
 local function map(mode, lhs, rhs, opts)
     local options = {noremap = true, silent = true}
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
+    if opts then options = vim.tbl_extend("force", options, opts) end
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
@@ -74,5 +68,7 @@ map('n', '<leader>aw', ':AsyncRun -raw')
 map('n', '<leader>as', ':AsyncStop')
 
 -- kommentary
-vim.api.nvim_set_keymap('v', '<leader>c<space>', '<Plug>kommentary_visual_default', {})
-vim.api.nvim_set_keymap('n', '<leader>c<space>', '<Plug>kommentary_line_default', {})
+vim.api.nvim_set_keymap('v', '<leader>c<space>',
+                        '<Plug>kommentary_visual_default', {})
+vim.api.nvim_set_keymap('n', '<leader>c<space>',
+                        '<Plug>kommentary_line_default', {})
