@@ -89,6 +89,15 @@ Global_theme = themes['nightfox']
 
 return packer.startup(function()
 
+    use {
+      'lewis6991/impatient.nvim',
+      after = "packer.nvim",
+      rocks = { "mpack" },
+      config = function()
+        require('impatient')
+      end,
+    }
+
     -- COLORSCHEME
     use {
         Global_theme.package,
@@ -169,7 +178,7 @@ return packer.startup(function()
     }
 
     -- fuzzy find
-    use {
+    --[[ use {
         'nvim-telescope/telescope.nvim',
         event = "BufEnter",
         requires = {
@@ -177,6 +186,12 @@ return packer.startup(function()
             {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
         },
         config = function() require("plugins.telescope") end
+    } ]]
+    use {
+      "camspiers/snap",
+      config = function()
+        require('plugins.snap')
+      end,
     }
 
     -- search!
