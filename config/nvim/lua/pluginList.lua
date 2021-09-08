@@ -326,11 +326,19 @@ return packer.startup(function()
 		end,
 	})
 
+  use({
+    "windwp/nvim-ts-autotag",
+    after = "nvim-treesitter",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  })
+
 	use({
-		"steelsojka/pears.nvim",
-		after = "nvim-cmp",
+		"windwp/nvim-autopairs",
+		event = "BufEnter",
 		config = function()
-			require("plugins.pears")
+			require("plugins.autopairs")
 		end,
 	})
 

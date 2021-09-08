@@ -112,8 +112,3 @@ wk.register({
 	name = "hop hint",
 	["<leader>l"] = { "<cmd>lua require('hop').hint_words()<cr>", "Show Hop Hints" },
 })
-
-wk.register({
-	name = "pears expand",
-	["<C-o>"] = { "<Cmd>lua require('pears').expand()<cr>" },
-})
