@@ -9,24 +9,13 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-local erlang_config = {
-	cmd = { "erlang_ls" },
-	filetypes = { "erlang" },
-	root_dir = function(fname)
-		return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-	end,
-	root_patterns = { "rebar.config", ".git" },
-}
-
 local elixirls_config = { cmd = { "elixir-ls" }, filetypes = { "elixir" } }
 
-local javals_config = {
+lspconfig.erlangls.setup({})
+
+lspconfig.java_language_server.setup({
 	cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
-	filetypes = { "java" },
-	root_dir = function(fname)
-		return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
-	end,
-}
+})
 
 local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
 local luals_config = {
@@ -66,7 +55,13 @@ lspconfig.pyright.setup({
 
 -- https://rust-analyzer.github.io/manual.html#installation
 lspconfig.rust_analyzer.setup({
-	settings = { ["rust-analyzer"] = { checkOnSave = { command = "clippy" } } },
+	settings = {
+		["rust-analyzer"] = {
+			checkOnSave = { command = "clippy" },
+			--[[ cargo = { loadOutDirsFromCheck = true },
+			procMacro = { enable = true }, ]]
+		},
+	},
 })
 
 -- npm i -g typescript-language-server
@@ -92,23 +87,12 @@ local function setup_servers()
 	end
 	lspinstall.setup()
 
-	local configs = require("lspconfig/configs")
-
 	local servers = lspinstall.installed_servers()
-	table.insert(servers, "erlang")
-	table.insert(servers, "java")
 
 	for _, server in pairs(servers) do
 		Config = {}
-		if server == "erlang" then
-			Config = erlang_config
-			configs.erlang = { default_config = erlang_config }
-		end
 		if server == "elixirls" then
 			Config = elixirls_config
-		end
-		if server == "java" then
-			configs.java = { default_config = javals_config }
 		end
 		if server == "lua" then
 			Config = luals_config

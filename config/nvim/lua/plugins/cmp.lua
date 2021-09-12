@@ -1,8 +1,23 @@
-local cmp = require("cmp")
-local lspkind = require("lspkind")
-local luasnip = require("luasnip")
+local has_cmp, cmp = pcall(require, "cmp")
+local has_lspkind, lspkind = pcall(require, "lspkind")
+local has_luasnip, luasnip = pcall(require, "luasnip")
+
+if not has_cmp then
+	error("`cmp` not loaded")
+end
+if not has_lspkind then
+	error("`lspkind` not loaded")
+end
+if not has_luasnip then
+	error("`luasnip` not loaded")
+end
 
 vim.opt.completeopt:remove({ "longest" })
+
+--[[ local has_words_before = function()
+	local cursor = vim.api.nvim_win_get_cursor(0)
+	return not vim.api.nvim_get_current_line():sub(1, cursor[2]):match("^%s$")
+end ]]
 
 cmp.setup({
 	snippet = {
@@ -12,13 +27,10 @@ cmp.setup({
 	},
 
 	mapping = {
+		-- NOTE:  Not mapping <CR> here since `autopairs` covers that already
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-space>"] = cmp.mapping.complete(),
-		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = false,
-		}),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if vim.fn.pumvisible() == 1 then
 				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
@@ -45,7 +57,8 @@ cmp.setup({
 		}),
 	},
 
-	sources = { { name = "luasnip" }, { name = "buffer" }, { name = "nvim_lsp" } },
+	-- { name = "luasnip" }
+	sources = { { name = "buffer" }, { name = "nvim_lsp" } },
 
 	formatting = {
 		format = function(entry, vim_item)

@@ -12,17 +12,13 @@ local sources = {
 	f.prettier,
 	f.rustfmt,
 	f.stylua,
-	f.ypf,
-
-	-- linters/checkers
-	d.eslint_d,
+	f.ypf, -- linters/checkers
 	d.luacheck,
 	d.pylint,
 	d.write_good,
+	d.codespell.with({ filetypes = { "markdown" } }),
 }
 
-null.config({
-	sources = sources,
-})
+null.config({ sources = sources })
 
 require("lspconfig")["null-ls"].setup({})

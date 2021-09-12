@@ -14,10 +14,6 @@ treesitter.setup({
 		updatetime = 25,
 		persist_queries = false,
 	},
-	matchup = {
-		enable = true,
-	},
-  autopairs = {
-    enable = true,
-  }
+	matchup = { enable = true },
+	autopairs = { enable = true },
 })

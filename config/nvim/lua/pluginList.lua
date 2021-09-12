@@ -253,26 +253,34 @@ return packer.startup(function()
 
 	use({
 		"L3MON4D3/LuaSnip",
+		after = "friendly-snippets",
 		config = function()
 			require("luasnip/loaders/from_vscode").load()
 		end,
 	})
 
-	use({ "rafamadriz/friendly-snippets", before = "LuaSnip" })
+	use({ "rafamadriz/friendly-snippets" })
+
+	use({ "hrsh7th/cmp-buffer" })
+	use({ "hrsh7th/cmp-nvim-lua" })
+	use({ "hrsh7th/cmp-nvim-lsp" })
 
 	use({
 		"hrsh7th/nvim-cmp",
-		requires = {
-			{ "hrsh7th/cmp-buffer" },
-			{ "hrsh7th/cmp-nvim-lua" },
-			{ "hrsh7th/cmp-nvim-lsp" },
+		after = {
+			"cmp-buffer",
+			"cmp-nvim-lua",
+			"cmp-nvim-lsp",
+			"LuaSnip",
+			"cmp_luasnip",
+			"lspkind-nvim",
 		},
 		config = function()
 			require("plugins.cmp")
 		end,
 	})
 
-	use({ "saadparwaiz1/cmp_luasnip" })
+	use({ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" })
 
 	use({
 		"scalameta/nvim-metals",
@@ -326,17 +334,17 @@ return packer.startup(function()
 		end,
 	})
 
-  use({
-    "windwp/nvim-ts-autotag",
-    after = "nvim-treesitter",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end,
-  })
+	use({
+		"windwp/nvim-ts-autotag",
+		after = "nvim-autopairs",
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	})
 
 	use({
 		"windwp/nvim-autopairs",
-		event = "BufEnter",
+		after = "nvim-treesitter",
 		config = function()
 			require("plugins.autopairs")
 		end,
@@ -352,7 +360,6 @@ return packer.startup(function()
 	use({
 		"onsails/lspkind-nvim",
 		-- event = "InsertEnter",
-		before = "nvim-cmp",
 		config = function()
 			require("lspkind").init()
 		end,

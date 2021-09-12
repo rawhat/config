@@ -33,8 +33,14 @@ wk.register({
 wk.register({
 	["<leader>"] = {
 		name = "lsp diagnostics",
-		j = { "<Cmd>lua vim.lsp.diagnostic.goto_next()<cr>", "Next LSP Diagnostic" },
-		k = { "<Cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", "Prev LSP Diagnostic" },
+		j = {
+			"<Cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+			"Next LSP Diagnostic",
+		},
+		k = {
+			"<Cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+			"Prev LSP Diagnostic",
+		},
 	},
 })
 
@@ -54,7 +60,10 @@ wk.register({
 	g = {
 		name = "lsp details",
 		d = { "<Cmd>lua vim.lsp.buf.definition()<cr>", "Go to Definition" },
-		i = { "<Cmd>lua vim.lsp.buf.implementation()<cr>", "Go to Implementation" },
+		i = {
+			"<Cmd>lua vim.lsp.buf.implementation()<cr>",
+			"Go to Implementation",
+		},
 	},
 })
 
@@ -63,8 +72,14 @@ wk.register({
 	xx = { "<cmd>TroubleToggle<cr>", "Toggle Trouble" },
 	gR = { "<cmd>Trouble lsp_references<cr>", "Trouble LSP References" },
 	gD = { "<cmd>Trouble lsp_definitions<cr>", "Trouble LSP Definitions" },
-	xw = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Trouble Workspace Diagnostics" },
-	xd = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Trouble Doc Diagnostics" },
+	xw = {
+		"<cmd>Trouble lsp_workspace_diagnostics<cr>",
+		"Trouble Workspace Diagnostics",
+	},
+	xd = {
+		"<cmd>Trouble lsp_document_diagnostics<cr>",
+		"Trouble Doc Diagnostics",
+	},
 	xl = { "<cmd>Trouble loclist<cr>", "Trouble Location List" },
 	xq = { "<cmd>Trouble quickfix<cr>", "Trouble Quickfix" },
 }, {
@@ -89,7 +104,10 @@ wk.register({
 
 wk.register({
 	name = "kommentary visual",
-	["c<space>"] = { "<Plug>kommentary_visual_default<cr>", "Toggle Selection Comment" },
+	["c<space>"] = {
+		"<Plug>kommentary_visual_default<cr>",
+		"Toggle Selection Comment",
+	},
 }, {
 	prefix = "<leader>",
 	mode = "v",
@@ -104,11 +122,20 @@ wk.register({
 
 wk.register({
 	name = "telescope",
-	["<C-p>"] = { "<Cmd>lua require('telescope.builtin').find_files()<cr>", "Find Files" },
-	["<leader>ag"] = { "<Cmd>lua require('telescope.builtin').live_grep()<cr>", "Live Grep" },
+	["<C-p>"] = {
+		"<Cmd>lua require('telescope.builtin').find_files()<cr>",
+		"Find Files",
+	},
+	["<leader>ag"] = {
+		"<Cmd>lua require('telescope.builtin').live_grep()<cr>",
+		"Live Grep",
+	},
 })
 
 wk.register({
 	name = "hop hint",
-	["<leader>l"] = { "<cmd>lua require('hop').hint_words()<cr>", "Show Hop Hints" },
+	["<leader>l"] = {
+		"<cmd>lua require('hop').hint_words()<cr>",
+		"Show Hop Hints",
+	},
 })
