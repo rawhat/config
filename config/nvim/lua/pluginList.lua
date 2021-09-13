@@ -242,8 +242,6 @@ return packer.startup(function()
 	-- buffers
 	use({ "jeetsukumaran/vim-buffergator", event = "VimEnter" })
 
-	-- some `lsp` configs
-	use({ "kabouzeid/nvim-lspinstall" })
 	use({
 		"neovim/nvim-lspconfig",
 		config = function()

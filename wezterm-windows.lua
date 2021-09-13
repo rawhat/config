@@ -106,9 +106,6 @@ return {
 				SpawnCommandInNewTab = {
 					label = "PowerShell",
 					args = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe -NoExit -WorkingDirectory ~" },
-					-- args = {"C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe -Command {$Env}"} -- -NoExit -Command \"& 'C:\\Users\\Alex\\.cargo\\bin\\starship.exe' init powershell --print-full-init | Out-String\""}
-					-- args = {"C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe -NoProfile -NoExit -Command \"Invoke-Expression (& 'C:\\Users\\Alex\\.cargo\\bin\\starship.exe' init powershell --print-full-init | Out-String)\""}
-					-- args = {"pwsh.exe"}
 				},
 			}),
 		},

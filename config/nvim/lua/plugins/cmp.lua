@@ -58,7 +58,7 @@ cmp.setup({
 	},
 
 	-- { name = "luasnip" }
-	sources = { { name = "buffer" }, { name = "nvim_lsp" } },
+	sources = { { name = "luasnip" }, { name = "buffer" }, { name = "nvim_lsp" } },
 
 	formatting = {
 		format = function(entry, vim_item)
