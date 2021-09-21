@@ -48,7 +48,8 @@ vim.g.nowritebackup = true
 
 vim.opt.updatetime = 300
 
-vim.opt.shortmess = vim.opt.shortmess + "c"
+-- vim.opt.shortmess = vim.opt.shortmess + "c"
+vim.opt.shortmess:append({ c = true })
 
 -- always show column to left of numbers for lsp/git symbols
 vim.opt.signcolumn = "yes"
@@ -70,6 +71,7 @@ vim.g.mix_format_on_save = 1
 
 vim.g.node_client_debug = 1
 
+-- significant impact here?  idk
 local disabled_built_in_plugins = {
 	"netrw",
 	"netrwPlugin",
@@ -94,3 +96,19 @@ local disabled_built_in_plugins = {
 for _, plugin in pairs(disabled_built_in_plugins) do
 	vim.g["loaded_" .. plugin] = 1
 end
+
+-- enable syntax highlighting in markdown blocks
+vim.g.markdown_fenced_languages = {
+	"html",
+	"python",
+	"bash",
+	"javascript",
+	"javascriptreact",
+	"typescript",
+	"typescriptreact",
+	"java",
+	"rust",
+	"scala",
+	-- "elixir",
+	"bash=sh",
+}
