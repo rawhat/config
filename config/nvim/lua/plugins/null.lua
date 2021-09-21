@@ -12,10 +12,12 @@ local sources = {
 	f.prettier,
 	f.rustfmt,
 	f.stylua,
-	f.ypf, -- linters/checkers
+	f.ypf,
+	-- linters/checkers
 	d.luacheck,
-	d.pylint,
-	d.write_good,
+	-- d.pylint,
+  -- i think this might just be super annoying
+	-- d.write_good,
 	d.codespell.with({ filetypes = { "markdown" } }),
 }
 

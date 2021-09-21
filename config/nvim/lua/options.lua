@@ -30,13 +30,7 @@ vim.cmd([[
   autocmd BufRead,BufNewFile BUILD setf bzl
 ]])
 
---[[
-vim.cmd[[
-  set completeopt-=preview
-]]
--- ]]
-
-vim.opt.completeopt = { "menuone", "noselect" }
+-- vim.opt.completeopt = { "menuone", "noselect" }
 
 -- for toggle term, reuse the same term
 vim.opt.hidden = true
@@ -48,7 +42,6 @@ vim.g.nowritebackup = true
 
 vim.opt.updatetime = 300
 
--- vim.opt.shortmess = vim.opt.shortmess + "c"
 vim.opt.shortmess:append({ c = true })
 
 -- always show column to left of numbers for lsp/git symbols

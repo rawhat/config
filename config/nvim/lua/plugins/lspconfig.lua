@@ -1,8 +1,14 @@
 local present1, lspconfig = pcall(require, "lspconfig")
+local present2, lspinstall = pcall(require, "lspinstall")
 
 if not present1 then
 	error("failed to load `lspconfig`")
 	return
+end
+
+if not present2 then
+  error("failed to load `lspinstall`")
+  return
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -79,6 +85,8 @@ local language_config = {
 		},
 	},
 }
+
+lspinstall.setup()
 
 for server, config in pairs(language_config) do
   config.capabilities = capabilities

@@ -5,10 +5,11 @@ if not present then
 end
 
 toggleterm.setup({
-	size = 40,
+	-- size = 40,
 	open_mapping = "<leader>`",
 	insert_mappings = false,
-	-- shade_terminals = false,
+	shade_terminals = false,
+  direction = 'float',
 })
 
 vim.api.nvim_exec(

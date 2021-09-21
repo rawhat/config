@@ -174,7 +174,7 @@ return packer.startup(function()
 
 	-- modified status bar
 	use({
-		"hoob3rt/lualine.nvim",
+		"shadmansaleh/lualine.nvim",
 		after = Global_theme.package_name,
 		config = function()
 			require("plugins.lualine")
@@ -244,6 +244,7 @@ return packer.startup(function()
 
 	use({
 		"neovim/nvim-lspconfig",
+    requires = { "kabouzeid/nvim-lspinstall" },
 		config = function()
 			require("plugins.lspconfig")
 		end,
@@ -296,7 +297,7 @@ return packer.startup(function()
 	})
 
 	-- file type icons
-	use({ "kyazdani42/nvim-web-devicons", event = "VimEnter" })
+  use({ "kyazdani42/nvim-web-devicons"})
 
 	-- file tree
 	use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
