@@ -19,9 +19,14 @@ lspinstall.setup()
 local function setup_servers()
   local servers = lspinstall.installed_servers()
 
+  -- https://github.com/erlang-ls/erlang_ls
   table.insert(servers, "erlangls")
+  -- opam install ocaml-lsp-server
   table.insert(servers, "ocamllsp")
+  -- https://github.com/georgewfraser/java-language-server
   table.insert(servers, "java_language_server")
+  -- dotnet tool install --global fsautocomplete
+  table.insert(servers, "fsautocomplete")
 
   for _, server in pairs(servers) do
     local config = { capabitilies = capabilities }
@@ -37,6 +42,7 @@ local function setup_servers()
         ) or lspconfig.util.path.dirname(fname)
       end
     elseif server == "rust" then
+      config.on_attach = require('virtualtypes').on_attach
       config.settings = {
         ["rust-analyzer"] = {
           checkOnSave = { command = "clippy" },
@@ -53,6 +59,8 @@ local function setup_servers()
         "typescriptreact",
         "typescript.tsx",
       }
+    elseif server == "ocamllsp" then
+      config.on_attach = require('virtualtypes').on_attach
     end
 
     lspconfig[server].setup(config)

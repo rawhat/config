@@ -231,20 +231,28 @@ return packer.startup(function()
 	})
 	-- highlights hex colors rgb(200, 200, 200)
 	use({ "norcalli/nvim-colorizer.lua", event = "BufEnter" })
+
 	-- displays buffers at the top
 	use({
-		"ap/vim-buftabline",
-		event = "VimEnter",
+		"crispgm/nvim-tabline",
 		config = function()
-			require("plugins.buftabline")
+			require("tabline").setup({})
 		end,
 	})
+
 	-- buffers
-	use({ "jeetsukumaran/vim-buffergator", event = "VimEnter" })
+	use({
+		"matbme/JABS.nvim",
+		config = function()
+			require("jabs").setup({
+				border = "none",
+			})
+		end,
+	})
 
 	use({
 		"neovim/nvim-lspconfig",
-    requires = { "kabouzeid/nvim-lspinstall" },
+		requires = { "kabouzeid/nvim-lspinstall" },
 		config = function()
 			require("plugins.lspconfig")
 		end,
@@ -297,7 +305,11 @@ return packer.startup(function()
 	})
 
 	-- file type icons
-  use({ "kyazdani42/nvim-web-devicons"})
+	-- use({ "kyazdani42/nvim-web-devicons" })
+	use({
+		"yamatsum/nvim-nonicons",
+		requires = { "kyazdani42/nvim-web-devicons" },
+	})
 
 	-- file tree
 	use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
@@ -381,5 +393,23 @@ return packer.startup(function()
 		config = function()
 			require("plugins.null")
 		end,
+	})
+
+	-- virtual text types (only in some languages)
+	use({
+		"jubnzv/virtual-types.nvim",
+	})
+
+	-- spell checking by treesitter
+	use({
+		"lewis6991/spellsitter.nvim",
+		config = function()
+			require("spellsitter").setup()
+		end,
+	})
+
+	-- highlight word under cursor
+	use({
+		"yamatsum/nvim-cursorline",
 	})
 end)

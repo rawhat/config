@@ -139,3 +139,8 @@ wk.register({
 		"Show Hop Hints",
 	},
 })
+
+wk.register({
+	name = "jabs",
+	["<leader>b"] = { ":JABSOpen<cr>", "Open buffer list" },
+})
