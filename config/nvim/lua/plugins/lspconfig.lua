@@ -14,83 +14,56 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-local language_config = {
-  erlangls = {},
-  ocamllsp = {},
-  zls = {},
-
-	elixirls = {
-		cmd = { "elixir-ls" },
-		filetypes = { "elixir", "leex", "heex", "eex" },
-	},
-	java_language_server = {
-		cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
-	},
-	pyright = {
-		root_dir = function(fname)
-			return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
-				fname
-			) or lspconfig.util.path.dirname(fname)
-		end,
-	},
-	rust_analyzer = {
-		settings = {
-			["rust-analyzer"] = {
-				checkOnSave = { command = "clippy" },
-				--[[ cargo = { loadOutDirsFromCheck = true },
-			procMacro = { enable = true }, ]]
-			},
-		},
-	},
-	tsserver = {
-		cmd = { "typescript-language-server", "--stdio" },
-		filetypes = {
-			"javascript",
-			"javascriptreact",
-			"javascript.jsx",
-			"typescript",
-			"typescriptreact",
-			"typescript.tsx",
-		},
-	},
-	sumneko_lua = {
-		cmd = {
-			"lua-language-server",
-			"-E",
-			vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server/main.lua",
-		},
-		settings = {
-			Lua = {
-				filetypes = { "lua" },
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-					-- Setup your lua path
-					path = vim.split(package.path, ";"),
-				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					},
-				},
-				-- Do not send telemetry data containing a randomized but unique identifier
-				telemetry = { enable = false },
-			},
-		},
-	},
-}
-
 lspinstall.setup()
 
-for server, config in pairs(language_config) do
-  config.capabilities = capabilities
-  lspconfig[server].setup(config)
+local function setup_servers()
+  local servers = lspinstall.installed_servers()
+
+  table.insert(servers, "erlangls")
+  table.insert(servers, "ocamllsp")
+  table.insert(servers, "java_language_server")
+
+  for _, server in pairs(servers) do
+    local config = { capabitilies = capabilities }
+
+    if server == "elixir" then
+      config.filtetypes = { "elixir", "leex", "heex", "eex" }
+    elseif server == "java_language_server" then
+      config.cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" }
+    elseif server == "python" then
+      config.root_dir = function(fname)
+        return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+          fname
+        ) or lspconfig.util.path.dirname(fname)
+      end
+    elseif server == "rust" then
+      config.settings = {
+        ["rust-analyzer"] = {
+          checkOnSave = { command = "clippy" },
+          --[[ cargo = { loadOutDirsFromCheck = true },
+        procMacro = { enable = true }, ]]
+        },
+      }
+    elseif server == "typescript" then
+      config.filetypes = {
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+      }
+    end
+
+    lspconfig[server].setup(config)
+  end
+end
+
+setup_servers()
+
+require('lspinstall').post_install_hook = function()
+  setup_servers()
+  vim.cmd("bufdo e")
 end
 
 vim.cmd([[
