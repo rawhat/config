@@ -105,7 +105,7 @@ vim.g.markdown_fenced_languages = {
 }
 
 -- clipboard stuff
-if vim.cmd([[echo executable('win32yank.exe')]]) == 1 then
+if vim.fn.executable("win32yank.exe") == 1 then
 	vim.opt.clipboard = {
 		name = "win32yank",
 		copy = {
