@@ -16,7 +16,7 @@ local sources = {
 	-- linters/checkers
 	d.luacheck,
 	-- d.pylint,
-  -- i think this might just be super annoying
+	-- i think this might just be super annoying
 	-- d.write_good,
 	d.codespell.with({ filetypes = { "markdown" } }),
 }

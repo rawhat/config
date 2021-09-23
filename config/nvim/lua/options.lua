@@ -23,8 +23,6 @@ vim.opt.relativenumber = true
 
 vim.opt.colorcolumn = "81"
 
-vim.opt.clipboard = "unnamedplus"
-
 vim.cmd([[
   autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel setf bzl
   autocmd BufRead,BufNewFile BUILD setf bzl
@@ -105,3 +103,21 @@ vim.g.markdown_fenced_languages = {
 	-- "elixir",
 	"bash=sh",
 }
+
+-- clipboard stuff
+if vim.cmd([[echo executable('win32yank.exe')]]) == 1 then
+	vim.opt.clipboard = {
+		name = "win32yank",
+		copy = {
+			["+"] = { "win32yank.exe -i --crlf" },
+			["*"] = { "win32yank.exe -i --crlf" },
+		},
+		paste = {
+			["+"] = { "win32yank.exe -o --crlf" },
+			["*"] = { "win32yank.exe -o --crlf" },
+		},
+		cache_enabled = 0,
+	}
+else
+	vim.opt.clipboard = "unnamedplus"
+end

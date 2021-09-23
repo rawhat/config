@@ -9,7 +9,7 @@ toggleterm.setup({
 	open_mapping = "<leader>`",
 	insert_mappings = false,
 	shade_terminals = false,
-  direction = 'float',
+	direction = "float",
 })
 
 vim.api.nvim_exec(

@@ -1,7 +1,7 @@
 local present, lualine = pcall(require, "lualine")
 
 if not present then
-  error("unable to load lualine")
+	error("unable to load lualine")
 	return
 end
 

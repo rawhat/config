@@ -125,7 +125,7 @@ return packer.startup(function()
 	-- ---- fsharp
 	use({ "kongo2002/fsharp-vim", ft = "fsharp" })
 	---- git
-	use({ "tpope/vim-git", event = "BufEnter" })
+	use({ "tpope/vim-git" })
 	---- gleam
 	use({ "gleam-lang/gleam.vim", ft = "gleam" })
 	---- jsonnet
@@ -153,13 +153,13 @@ return packer.startup(function()
 	-- emmet
 	use({ "mattn/emmet-vim", ft = { "html", "typescriptreact", "javascriptreact" } })
 	-- * for visual selections
-	use({ "nelstrom/vim-visual-star-search", event = "BufEnter" })
+	use({ "nelstrom/vim-visual-star-search" })
 	-- :noh on cursor move
-	use({ "haya14busa/is.vim", event = "BufEnter" })
+	use({ "haya14busa/is.vim" })
 	-- run tests
-	use({ "janko/vim-test", event = "BufEnter" })
+	use({ "janko/vim-test" })
 	-- shell commands
-	use({ "tpope/vim-eunuch", event = "BufEnter" })
+	use({ "tpope/vim-eunuch" })
 
 	-- OTHER
 
@@ -184,7 +184,6 @@ return packer.startup(function()
 	-- fuzzy find
 	use({
 		"nvim-telescope/telescope.nvim",
-		event = "BufEnter",
 		requires = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
@@ -195,20 +194,25 @@ return packer.startup(function()
 	})
 
 	-- search!
-	use({ "mileszs/ack.vim", event = "BufEnter" })
+	use({ "mileszs/ack.vim" })
 
 	-- highlights trailing whitespace
-	use({ "ntpeters/vim-better-whitespace", event = "BufEnter" })
+	use({ "ntpeters/vim-better-whitespace" })
 
 	-- ez commenting
-	use({ "b3nj5m1n/kommentary", event = "BufEnter" })
+	use({
+		"b3nj5m1n/kommentary",
+		config = function()
+			require("plugins.kommentary")
+		end,
+	})
+
 	-- git good
-	use({ "tpope/vim-fugitive", event = "BufEnter" })
+	use({ "tpope/vim-fugitive" })
 
 	-- (--'happy times'--)
 	use({
 		"blackCauldron7/surround.nvim",
-		event = "BufEnter",
 		config = function()
 			require("plugins.surround")
 		end,
@@ -224,13 +228,12 @@ return packer.startup(function()
 	-- fancy indent helper
 	use({
 		"lukas-reineke/indent-blankline.nvim",
-		event = "BufRead",
 		config = function()
 			require("plugins.indent-blankline")
 		end,
 	})
 	-- highlights hex colors rgb(200, 200, 200)
-	use({ "norcalli/nvim-colorizer.lua", event = "BufEnter" })
+	use({ "norcalli/nvim-colorizer.lua" })
 
 	-- displays buffers at the top
 	use({
@@ -315,7 +318,7 @@ return packer.startup(function()
 	use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
 
 	-- run things asynchronously
-	use({ "skywind3000/asyncrun.vim", event = "BufEnter" })
+	use({ "skywind3000/asyncrun.vim" })
 
 	-- neovim terminal manager
 	use({
@@ -329,13 +332,15 @@ return packer.startup(function()
 	-- tree sitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufRead",
 		run = ":TSUpdate",
 		config = function()
 			require("plugins.treesitter")
 		end,
 	})
-	use({ "nvim-treesitter/playground", event = "BufRead" })
+
+	use({
+		"nvim-treesitter/playground",
+	})
 
 	use({
 		"andymass/vim-matchup",
@@ -355,7 +360,7 @@ return packer.startup(function()
 
 	use({
 		"windwp/nvim-autopairs",
-		after = "nvim-treesitter",
+		after = "nvim-cmp",
 		config = function()
 			require("plugins.autopairs")
 		end,
@@ -365,12 +370,11 @@ return packer.startup(function()
 	use({ "npxbr/glow.nvim", run = ":GlowInstall", ft = "markdown" })
 
 	-- display function signatures while typing
-	use({ "ray-x/lsp_signature.nvim", event = "BufEnter" })
+	use({ "ray-x/lsp_signature.nvim" })
 
 	-- show pictograms on completion dropdown
 	use({
 		"onsails/lspkind-nvim",
-		-- event = "InsertEnter",
 		config = function()
 			require("lspkind").init()
 		end,
@@ -401,12 +405,12 @@ return packer.startup(function()
 	})
 
 	-- spell checking by treesitter
-	use({
+	--[[ use({
 		"lewis6991/spellsitter.nvim",
 		config = function()
 			require("spellsitter").setup()
 		end,
-	})
+	}) ]]
 
 	-- highlight word under cursor
 	use({
