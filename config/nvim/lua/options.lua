@@ -105,19 +105,19 @@ vim.g.markdown_fenced_languages = {
 }
 
 -- clipboard stuff
-if vim.fn.executable("win32yank.exe") == 1 then
-	vim.opt.clipboard = {
+--[[ if vim.fn.executable("win32yank.exe") == 1 then
+  print("got a win clipboard") ]]
+	--[[ vim.opt.clipboard = {
 		name = "win32yank",
 		copy = {
 			["+"] = { "win32yank.exe -i --crlf" },
 			["*"] = { "win32yank.exe -i --crlf" },
 		},
 		paste = {
-			["+"] = { "win32yank.exe -o --crlf" },
-			["*"] = { "win32yank.exe -o --crlf" },
+			["+"] = { "win32yank.exe -o --lf" },
+			["*"] = { "win32yank.exe -o --lf" },
 		},
 		cache_enabled = 0,
-	}
-else
-	vim.opt.clipboard = "unnamedplus"
-end
+	} ]]
+-- end
+vim.opt.clipboard = "unnamedplus"

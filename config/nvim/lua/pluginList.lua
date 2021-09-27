@@ -1,3 +1,4 @@
+local vim
 local present, _ = pcall(require, "packerInit")
 local packer
 
@@ -95,7 +96,8 @@ return packer.startup(function()
 		after = "packer.nvim",
 		rocks = { "mpack" },
 		config = function()
-			require("impatient")
+      local impatient = require('impatient')
+      impatient.enable_profile()
 		end,
 	})
 
@@ -109,7 +111,9 @@ return packer.startup(function()
 	})
 
 	-- manage packer
-	use({ "wbthomason/packer.nvim" })
+	use({
+		"wbthomason/packer.nvim",
+	})
 
 	-- deps
 	use({ "nvim-lua/plenary.nvim" })
@@ -144,6 +148,17 @@ return packer.startup(function()
 	use({ "purescript-contrib/purescript-vim", ft = "purescript" })
 	---- reason
 	use({ "reasonml-editor/vim-reason-plus", ft = { "reason", "reasonreact" } })
+	---- rust
+	use({
+		"simrat39/rust-tools.nvim",
+		config = function()
+			require("rust-tools").setup({
+				tools = {
+					autoSetHints = true,
+				},
+			})
+		end,
+	})
 	---- sbt
 	use({ "derekwyatt/vim-sbt", ft = "sbt" })
 	---- xml
@@ -237,9 +252,10 @@ return packer.startup(function()
 
 	-- displays buffers at the top
 	use({
-		"crispgm/nvim-tabline",
+		"jose-elias-alvarez/buftabline.nvim",
+		requires = { "kyazdani42/nvim-web-devicons" }, -- optional!
 		config = function()
-			require("tabline").setup({})
+			require("buftabline").setup({})
 		end,
 	})
 
@@ -248,7 +264,7 @@ return packer.startup(function()
 		"matbme/JABS.nvim",
 		config = function()
 			require("jabs").setup({
-				border = "none",
+				height = 30,
 			})
 		end,
 	})
@@ -345,9 +361,7 @@ return packer.startup(function()
 	use({
 		"andymass/vim-matchup",
 		after = "nvim-treesitter",
-		config = function()
-			vim.cmd([[NoMatchParen]])
-		end,
+    run = ":NoMatchParen"
 	})
 
 	use({
@@ -399,18 +413,15 @@ return packer.startup(function()
 		end,
 	})
 
+	-- some lsp stuff for typescript
+	--[[ use({
+    "jose-elias-alvarez/nvim-lsp-ts-utils"
+  }) ]]
+
 	-- virtual text types (only in some languages)
 	use({
 		"jubnzv/virtual-types.nvim",
 	})
-
-	-- spell checking by treesitter
-	--[[ use({
-		"lewis6991/spellsitter.nvim",
-		config = function()
-			require("spellsitter").setup()
-		end,
-	}) ]]
 
 	-- highlight word under cursor
 	use({

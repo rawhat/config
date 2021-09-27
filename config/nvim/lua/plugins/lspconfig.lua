@@ -65,6 +65,11 @@ local function setup_servers()
 				"typescriptreact",
 				"typescript.tsx",
 			}
+			--[[ config.on_attach = function(client, _bufnr)
+        local ts_utils = require('nvim-lsp-ts-utils')
+        ts_utils.setup({})
+        ts_utils.setup_client(client)
+      end ]]
 		elseif server == "ocamllsp" then
 			config.on_attach = require("virtualtypes").on_attach
 		end
