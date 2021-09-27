@@ -1,4 +1,3 @@
-local vim
 local present, _ = pcall(require, "packerInit")
 local packer
 
@@ -7,8 +6,6 @@ if present then
 else
 	return false
 end
-
-local use = packer.use
 
 local themes = {
 	tokyonight = {
@@ -90,341 +87,357 @@ local themes = {
 }
 Global_theme = themes["nightfox"]
 
-return packer.startup(function()
-	use({
-		"lewis6991/impatient.nvim",
-		after = "packer.nvim",
-		rocks = { "mpack" },
-		config = function()
-      local impatient = require('impatient')
-      impatient.enable_profile()
-		end,
-	})
+local use = packer.use
+return packer.startup({
+	function()
+		-- manage packer
+		use({
+			"wbthomason/packer.nvim",
+		})
 
-	-- COLORSCHEME
-	use({
-		Global_theme.package,
-		after = "packer.nvim",
-		config = function()
-			Global_theme.config()
-		end,
-	})
+		use({
+			"lewis6991/impatient.nvim",
+			after = "packer.nvim",
+			rocks = { "mpack" },
+			config = function()
+				local impatient = require("impatient")
+				impatient.enable_profile()
+				require("packer_compiled")
+			end,
+		})
 
-	-- manage packer
-	use({
-		"wbthomason/packer.nvim",
-	})
+		-- COLORSCHEME
+		use({
+			Global_theme.package,
+			after = "packer.nvim",
+			config = function()
+				Global_theme.config()
+			end,
+		})
 
-	-- deps
-	use({ "nvim-lua/plenary.nvim" })
+		-- deps
+		use({ "nvim-lua/plenary.nvim" })
 
-	-- LANGUAGES
-	-- cs
-	use({ "kchmck/vim-coffee-script", ft = "coffee" })
-	use({ "mtscout6/vim-cjsx", ft = "coffee" })
-	---- crystal
-	use({ "rhysd/vim-crystal", ft = "crystal" })
-	---- csv
-	use({ "chrisbra/csv.vim", ft = "csv" })
-	-- ---- fsharp
-	use({ "kongo2002/fsharp-vim", ft = "fsharp" })
-	---- git
-	use({ "tpope/vim-git" })
-	---- gleam
-	use({ "gleam-lang/gleam.vim", ft = "gleam" })
-	---- jsonnet
-	use({ "google/vim-jsonnet", ft = "jsonnet" })
-	---- nginx
-	use({ "chr4/nginx.vim", ft = "nginx" })
-	---- nim
-	use({ "zah/nim.vim", ft = "nim" })
-	---- psql
-	use({ "lifepillar/pgsql.vim", ft = "sql" })
-	---- proto
-	use({ "uarun/vim-protobuf", ft = "protobuf" })
-	---- Pug
-	use({ "digitaltoad/vim-pug", ft = { "pug", "jade" } })
-	---- purescript
-	use({ "purescript-contrib/purescript-vim", ft = "purescript" })
-	---- reason
-	use({ "reasonml-editor/vim-reason-plus", ft = { "reason", "reasonreact" } })
-	---- rust
-	use({
-		"simrat39/rust-tools.nvim",
-		config = function()
-			require("rust-tools").setup({
-				tools = {
-					autoSetHints = true,
-				},
-			})
-		end,
-	})
-	---- sbt
-	use({ "derekwyatt/vim-sbt", ft = "sbt" })
-	---- xml
-	use({ "amadeus/vim-xml", ft = "xml" })
+		-- LANGUAGES
+		-- cs
+		use({ "kchmck/vim-coffee-script", ft = "coffee" })
+		use({ "mtscout6/vim-cjsx", ft = "coffee" })
+		---- crystal
+		use({ "rhysd/vim-crystal", ft = "crystal" })
+		---- csv
+		use({ "chrisbra/csv.vim", ft = "csv" })
+		-- ---- fsharp
+		use({ "kongo2002/fsharp-vim", ft = "fsharp" })
+		---- git
+		use({ "tpope/vim-git" })
+		---- gleam
+		use({ "gleam-lang/gleam.vim", ft = "gleam" })
+		---- jsonnet
+		use({ "google/vim-jsonnet", ft = "jsonnet" })
+		---- nginx
+		use({ "chr4/nginx.vim", ft = "nginx" })
+		---- nim
+		use({ "zah/nim.vim", ft = "nim" })
+		---- psql
+		use({ "lifepillar/pgsql.vim", ft = "sql" })
+		---- proto
+		use({ "uarun/vim-protobuf", ft = "protobuf" })
+		---- Pug
+		use({ "digitaltoad/vim-pug", ft = { "pug", "jade" } })
+		---- purescript
+		use({ "purescript-contrib/purescript-vim", ft = "purescript" })
+		---- reason
+		use({ "reasonml-editor/vim-reason-plus", ft = { "reason", "reasonreact" } })
+		---- rust
+		use({
+			"simrat39/rust-tools.nvim",
+			config = function()
+				require("rust-tools").setup({
+					tools = {
+						autoSetHints = true,
+					},
+				})
+			end,
+		})
 
-	-- # general
-	-- emmet
-	use({ "mattn/emmet-vim", ft = { "html", "typescriptreact", "javascriptreact" } })
-	-- * for visual selections
-	use({ "nelstrom/vim-visual-star-search" })
-	-- :noh on cursor move
-	use({ "haya14busa/is.vim" })
-	-- run tests
-	use({ "janko/vim-test" })
-	-- shell commands
-	use({ "tpope/vim-eunuch" })
+		---- sbt
+		use({ "derekwyatt/vim-sbt", ft = "sbt" })
+		---- xml
+		use({ "amadeus/vim-xml", ft = "xml" })
 
-	-- OTHER
+		-- # general
+		-- emmet
+		use({ "mattn/emmet-vim", ft = { "html", "typescriptreact", "javascriptreact" } })
+		-- * for visual selections
+		use({ "nelstrom/vim-visual-star-search" })
+		-- :noh on cursor move
+		use({ "haya14busa/is.vim" })
+		-- run tests
+		use({ "janko/vim-test" })
+		-- shell commands
+		use({ "tpope/vim-eunuch" })
 
-	-- displays symbols on site for add/delete/change
-	use({
-		"lewis6991/gitsigns.nvim",
-		requires = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("plugins.gitsigns")
-		end,
-	})
+		-- OTHER
 
-	-- modified status bar
-	use({
-		"shadmansaleh/lualine.nvim",
-		after = Global_theme.package_name,
-		config = function()
-			require("plugins.lualine")
-		end,
-	})
+		-- displays symbols on site for add/delete/change
+		use({
+			"lewis6991/gitsigns.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("plugins.gitsigns")
+			end,
+		})
 
-	-- fuzzy find
-	use({
-		"nvim-telescope/telescope.nvim",
-		requires = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-		},
-		config = function()
-			require("plugins.telescope")
-		end,
-	})
+		-- modified status bar
+		use({
+			"shadmansaleh/lualine.nvim",
+			after = Global_theme.package_name,
+			config = function()
+				require("plugins.lualine")
+			end,
+		})
 
-	-- search!
-	use({ "mileszs/ack.vim" })
+		-- fuzzy find
+		use({
+			"nvim-telescope/telescope.nvim",
+			requires = {
+				{ "nvim-lua/plenary.nvim" },
+				{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+			},
+			config = function()
+				require("plugins.telescope")
+			end,
+		})
 
-	-- highlights trailing whitespace
-	use({ "ntpeters/vim-better-whitespace" })
+		-- search!
+		use({ "mileszs/ack.vim" })
 
-	-- ez commenting
-	use({
-		"b3nj5m1n/kommentary",
-		config = function()
-			require("plugins.kommentary")
-		end,
-	})
+		-- highlights trailing whitespace
+		use({ "ntpeters/vim-better-whitespace" })
 
-	-- git good
-	use({ "tpope/vim-fugitive" })
+		-- ez commenting
+		use({
+			"b3nj5m1n/kommentary",
+			config = function()
+				require("plugins.kommentary")
+			end,
+		})
 
-	-- (--'happy times'--)
-	use({
-		"blackCauldron7/surround.nvim",
-		config = function()
-			require("plugins.surround")
-		end,
-	})
-	-- highlight/jump to words
-	use({
-		"phaazon/hop.nvim",
-		config = function()
-			require("plugins.hop")
-		end,
-	})
+		-- git good
+		use({ "tpope/vim-fugitive" })
 
-	-- fancy indent helper
-	use({
-		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			require("plugins.indent-blankline")
-		end,
-	})
-	-- highlights hex colors rgb(200, 200, 200)
-	use({ "norcalli/nvim-colorizer.lua" })
+		-- (--'happy times'--)
+		use({
+			"blackCauldron7/surround.nvim",
+			config = function()
+				require("plugins.surround")
+			end,
+		})
+		-- highlight/jump to words
+		use({
+			"phaazon/hop.nvim",
+			config = function()
+				require("plugins.hop")
+			end,
+		})
 
-	-- displays buffers at the top
-	use({
-		"jose-elias-alvarez/buftabline.nvim",
-		requires = { "kyazdani42/nvim-web-devicons" }, -- optional!
-		config = function()
-			require("buftabline").setup({})
-		end,
-	})
+		-- fancy indent helper
+		use({
+			"lukas-reineke/indent-blankline.nvim",
+			config = function()
+				require("plugins.indent-blankline")
+			end,
+		})
+		-- highlights hex colors rgb(200, 200, 200)
+		use({ "norcalli/nvim-colorizer.lua" })
 
-	-- buffers
-	use({
-		"matbme/JABS.nvim",
-		config = function()
-			require("jabs").setup({
-				height = 30,
-			})
-		end,
-	})
+		-- displays buffers at the top
+		use({
+			"jose-elias-alvarez/buftabline.nvim",
+			requires = { "kyazdani42/nvim-web-devicons" }, -- optional!
+			config = function()
+				require("buftabline").setup({})
+			end,
+		})
 
-	use({
-		"neovim/nvim-lspconfig",
-		requires = { "kabouzeid/nvim-lspinstall" },
-		config = function()
-			require("plugins.lspconfig")
-		end,
-	})
+		-- buffers
+		use({
+			"matbme/JABS.nvim",
+			config = function()
+				require("jabs").setup({
+					height = 30,
+				})
+			end,
+		})
 
-	use({
-		"L3MON4D3/LuaSnip",
-		after = "friendly-snippets",
-		config = function()
-			require("luasnip/loaders/from_vscode").load()
-		end,
-	})
+		use({
+			"neovim/nvim-lspconfig",
+			requires = { "kabouzeid/nvim-lspinstall" },
+			config = function()
+				require("plugins.lspconfig")
+			end,
+		})
 
-	use({ "rafamadriz/friendly-snippets" })
+		use({
+			"L3MON4D3/LuaSnip",
+			after = "friendly-snippets",
+			config = function()
+				require("luasnip/loaders/from_vscode").load()
+			end,
+		})
 
-	use({ "hrsh7th/cmp-buffer" })
-	use({ "hrsh7th/cmp-nvim-lua" })
-	use({ "hrsh7th/cmp-nvim-lsp" })
+		use({ "rafamadriz/friendly-snippets" })
 
-	use({
-		"hrsh7th/nvim-cmp",
-		after = {
-			"cmp-buffer",
-			"cmp-nvim-lua",
-			"cmp-nvim-lsp",
-			"LuaSnip",
-			"cmp_luasnip",
-			"lspkind-nvim",
-		},
-		config = function()
-			require("plugins.cmp")
-		end,
-	})
+		use({ "hrsh7th/cmp-buffer" })
+		use({ "hrsh7th/cmp-nvim-lua" })
+		use({ "hrsh7th/cmp-nvim-lsp" })
 
-	use({ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" })
+		use({
+			"hrsh7th/nvim-cmp",
+			after = {
+				"cmp-buffer",
+				"cmp-nvim-lua",
+				"cmp-nvim-lsp",
+				"LuaSnip",
+				"cmp_luasnip",
+				"lspkind-nvim",
+			},
+			config = function()
+				require("plugins.cmp")
+			end,
+		})
 
-	use({
-		"scalameta/nvim-metals",
-		ft = "scala",
-		config = function()
-			require("plugins.metals")
-		end,
-	})
-	use({
-		"folke/trouble.nvim",
-		after = Global_theme.package_name,
-		config = function()
-			require("trouble").setup()
-		end,
-	})
+		use({ "saadparwaiz1/cmp_luasnip", after = "LuaSnip" })
 
-	-- file type icons
-	-- use({ "kyazdani42/nvim-web-devicons" })
-	use({
-		"yamatsum/nvim-nonicons",
-		requires = { "kyazdani42/nvim-web-devicons" },
-	})
+		use({
+			"scalameta/nvim-metals",
+			ft = "scala",
+			config = function()
+				require("plugins.metals")
+			end,
+		})
+		use({
+			"folke/trouble.nvim",
+			after = Global_theme.package_name,
+			config = function()
+				require("trouble").setup()
+			end,
+		})
 
-	-- file tree
-	use({ "kyazdani42/nvim-tree.lua", cmd = "NvimTreeToggle" })
+		-- file type icons
+		-- { "kyazdani42/nvim-web-devicons" },
+		use({
+			"yamatsum/nvim-nonicons",
+			requires = { "kyazdani42/nvim-web-devicons" },
+		})
 
-	-- run things asynchronously
-	use({ "skywind3000/asyncrun.vim" })
+		-- file tree
+		use({
+			"kyazdani42/nvim-tree.lua",
+			requires = { "kyazdani42/nvim-web-devicons" },
+			cmd = "NvimTreeToggle",
+			config = function()
+				require("nvim-tree").setup({})
+			end,
+		})
 
-	-- neovim terminal manager
-	use({
-		"akinsho/nvim-toggleterm.lua",
-		after = Global_theme.package_name,
-		config = function()
-			require("plugins.toggleterm")
-		end,
-	})
+		-- run things asynchronously
+		use({ "skywind3000/asyncrun.vim" })
 
-	-- tree sitter
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
-		config = function()
-			require("plugins.treesitter")
-		end,
-	})
+		-- neovim terminal manager
+		use({
+			"akinsho/nvim-toggleterm.lua",
+			after = Global_theme.package_name,
+			config = function()
+				require("plugins.toggleterm")
+			end,
+		})
 
-	use({
-		"nvim-treesitter/playground",
-	})
+		-- tree sitter
+		use({
+			"nvim-treesitter/nvim-treesitter",
+			run = ":TSUpdate",
+			config = function()
+				require("plugins.treesitter")
+			end,
+		})
 
-	use({
-		"andymass/vim-matchup",
-		after = "nvim-treesitter",
-    run = ":NoMatchParen"
-	})
+		use({
+			"nvim-treesitter/playground",
+		})
 
-	use({
-		"windwp/nvim-ts-autotag",
-		after = "nvim-autopairs",
-		config = function()
-			require("nvim-ts-autotag").setup()
-		end,
-	})
+		use({
+			"andymass/vim-matchup",
+			after = "nvim-treesitter",
+			cmd = "NoMatchParen",
+			--[[ config = function()
+        vim.api.nvim_command("NoMatchParen")
+      end, ]]
+		})
 
-	use({
-		"windwp/nvim-autopairs",
-		after = "nvim-cmp",
-		config = function()
-			require("plugins.autopairs")
-		end,
-	})
+		use({
+			"windwp/nvim-ts-autotag",
+			after = "nvim-autopairs",
+			config = function()
+				require("nvim-ts-autotag").setup()
+			end,
+		})
 
-	-- markdown preview
-	use({ "npxbr/glow.nvim", run = ":GlowInstall", ft = "markdown" })
+		use({
+			"windwp/nvim-autopairs",
+			after = "nvim-cmp",
+			config = function()
+				require("plugins.autopairs")
+			end,
+		})
 
-	-- display function signatures while typing
-	use({ "ray-x/lsp_signature.nvim" })
+		-- markdown preview
+		use({ "npxbr/glow.nvim", run = ":GlowInstall", ft = "markdown" })
 
-	-- show pictograms on completion dropdown
-	use({
-		"onsails/lspkind-nvim",
-		config = function()
-			require("lspkind").init()
-		end,
-	})
+		-- display function signatures while typing
+		use({ "ray-x/lsp_signature.nvim" })
 
-	-- which key???
-	use({
-		"folke/which-key.nvim",
-		after = Global_theme.package_name,
-		config = function()
-			require("plugins.which_key")
-		end,
-	})
+		-- show pictograms on completion dropdown
+		use({
+			"onsails/lspkind-nvim",
+			config = function()
+				require("lspkind").init()
+			end,
+		})
 
-	-- hmm... `efm` might be more flexible?
-	use({
-		"jose-elias-alvarez/null-ls.nvim",
-		after = { "nvim-lspconfig" },
-		requires = { "nvim-lua/plenary.nvim" }, -- , "neovim/nvim-lspconfig" },
-		config = function()
-			require("plugins.null")
-		end,
-	})
+		-- which key???
+		use({
+			"folke/which-key.nvim",
+			after = Global_theme.package_name,
+			config = function()
+				require("plugins.which_key")
+			end,
+		})
 
-	-- some lsp stuff for typescript
-	--[[ use({
-    "jose-elias-alvarez/nvim-lsp-ts-utils"
-  }) ]]
+		-- hmm... `efm` might be more flexible?
+		use({
+			"jose-elias-alvarez/null-ls.nvim",
+			after = { "nvim-lspconfig" },
+			requires = { "nvim-lua/plenary.nvim" }, -- , "neovim/nvim-lspconfig" },
+			config = function()
+				require("plugins.null")
+			end,
+		})
 
-	-- virtual text types (only in some languages)
-	use({
-		"jubnzv/virtual-types.nvim",
-	})
+		-- some lsp stuff for typescript
+		--[[ {
+      "jose-elias-alvarez/nvim-lsp-ts-utils"
+    }) ]]
 
-	-- highlight word under cursor
-	use({
-		"yamatsum/nvim-cursorline",
-	})
-end)
+		-- virtual text types (only in some languages)
+		use({
+			"jubnzv/virtual-types.nvim",
+		})
+
+		-- highlight word under cursor
+		use({
+			"yamatsum/nvim-cursorline",
+		})
+	end,
+	config = {},
+})

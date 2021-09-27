@@ -107,7 +107,7 @@ vim.g.markdown_fenced_languages = {
 -- clipboard stuff
 --[[ if vim.fn.executable("win32yank.exe") == 1 then
   print("got a win clipboard") ]]
-	--[[ vim.opt.clipboard = {
+--[[ vim.opt.clipboard = {
 		name = "win32yank",
 		copy = {
 			["+"] = { "win32yank.exe -i --crlf" },
