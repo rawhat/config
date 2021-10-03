@@ -311,7 +311,6 @@ return packer.startup({
 
 		use({
 			"scalameta/nvim-metals",
-			ft = "scala",
 			config = function()
 				require("plugins.metals")
 			end,

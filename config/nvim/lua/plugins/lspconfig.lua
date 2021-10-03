@@ -27,8 +27,6 @@ local function setup_servers()
 	table.insert(servers, "java_language_server")
 	-- dotnet tool install --global fsautocomplete
 	table.insert(servers, "fsautocomplete")
-	-- https://github.com/zigtools/zls
-	table.insert(servers, "zls")
 
 	for _, server in pairs(servers) do
 		local config = { capabitilies = capabilities }

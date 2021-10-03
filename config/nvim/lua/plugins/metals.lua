@@ -1,6 +1,7 @@
 local present, metals = pcall(require, "metals")
 
 if not present then
+	error("No metals :(")
 	return
 end
 

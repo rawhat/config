@@ -105,19 +105,21 @@ wk.register({
 wk.register({
 	name = "kommentary visual",
 	["c<space>"] = {
-		"<Plug>kommentary_visual_default<cr>",
+		"<Plug>kommentary_visual_default",
 		"Toggle Selection Comment",
 	},
 }, {
 	prefix = "<leader>",
 	mode = "v",
+	noremap = false,
 })
 
 wk.register({
 	name = "kommentary normal",
-	["c<space>"] = { "<Plug>kommentary_line_default<cr>", "Toggle Line Comment" },
+	["c<space>"] = { "<Plug>kommentary_line_default", "Toggle Line Comment" },
 }, {
 	prefix = "<leader>",
+	noremap = false,
 })
 
 wk.register({
