@@ -134,6 +134,13 @@ wk.register({
 	},
 })
 
+--[[ wk.register({
+  name = "snap",
+  ["<C-p>"] = {
+    ""
+  }
+}) ]]
+
 wk.register({
 	name = "hop hint",
 	["<leader>l"] = {

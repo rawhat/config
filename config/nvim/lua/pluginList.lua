@@ -97,12 +97,11 @@ return packer.startup({
 
 		use({
 			"lewis6991/impatient.nvim",
-			after = "packer.nvim",
 			rocks = { "mpack" },
 			config = function()
 				local impatient = require("impatient")
 				impatient.enable_profile()
-				require("packer_compiled")
+				-- require("packer_compiled")
 			end,
 		})
 
@@ -208,6 +207,12 @@ return packer.startup({
 				require("plugins.telescope")
 			end,
 		})
+		--[[ use({
+			"camspiers/snap",
+			config = function()
+				require("plugins.snap")
+			end,
+		}) ]]
 
 		-- search!
 		use({ "mileszs/ack.vim" })
@@ -282,7 +287,7 @@ return packer.startup({
 			"L3MON4D3/LuaSnip",
 			after = "friendly-snippets",
 			config = function()
-				require("luasnip/loaders/from_vscode").load()
+				require("plugins.snip")
 			end,
 		})
 
@@ -368,10 +373,10 @@ return packer.startup({
 		use({
 			"andymass/vim-matchup",
 			after = "nvim-treesitter",
-			cmd = "NoMatchParen",
-			--[[ config = function()
-        vim.api.nvim_command("NoMatchParen")
-      end, ]]
+			-- cmd = "NoMatchParen",
+			config = function()
+				vim.api.nvim_command("NoMatchParen")
+			end,
 		})
 
 		use({
@@ -434,9 +439,18 @@ return packer.startup({
 		})
 
 		-- highlight word under cursor
-		use({
+		--[[ use({
 			"yamatsum/nvim-cursorline",
+		}) ]]
+
+		use({
+			"https://gitlab.com/yorickpeterse/nvim-pqf.git",
+			config = function()
+				require("pqf").setup()
+			end,
 		})
 	end,
-	config = {},
+	config = {
+		-- compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+	},
 })

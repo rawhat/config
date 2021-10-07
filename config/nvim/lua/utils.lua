@@ -13,3 +13,7 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.ex set ft=elixir
   autocmd BufNewFile,BufRead *.exs set ft=elixir
 ]])
+
+function Inspect(obj)
+	print(vim.inspect(obj))
+end
