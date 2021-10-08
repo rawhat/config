@@ -213,6 +213,15 @@ return packer.startup({
 				require("plugins.snap")
 			end,
 		}) ]]
+		--[[ use({
+      "ibhagwan/fzf-lua",
+      requires = { "vijaymarupudi/nvim-fzf", "kyazdani42/nvim-web-devicons" },
+      config = function()
+        require("fzf-lua").setup({
+          default_previewer = "bat",
+        })
+      end
+    }) ]]
 
 		-- search!
 		use({ "mileszs/ack.vim" })

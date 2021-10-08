@@ -122,7 +122,23 @@ wk.register({
 	noremap = false,
 })
 
-wk.register({
+local fzf = {
+	name = "fzf",
+	["<C-p>"] = {
+		"<cmd>lua require('fzf-lua').files()<cr>",
+		"Find Files",
+	},
+	["<leader>ag"] = {
+		"<Cmd>lua require('fzf-lua').live_grep()<cr>",
+		"Live Grep",
+	},
+	["<leader>aw"] = {
+		"<Cmd>lua require('fzf-lua').grep_cword()<cr>",
+		"Live Grep",
+	},
+}
+
+local telescope = {
 	name = "telescope",
 	["<C-p>"] = {
 		"<Cmd>lua require('telescope.builtin').find_files()<cr>",
@@ -132,14 +148,9 @@ wk.register({
 		"<Cmd>lua require('telescope.builtin').live_grep()<cr>",
 		"Live Grep",
 	},
-})
+}
 
---[[ wk.register({
-  name = "snap",
-  ["<C-p>"] = {
-    ""
-  }
-}) ]]
+wk.register(telescope)
 
 wk.register({
 	name = "hop hint",
