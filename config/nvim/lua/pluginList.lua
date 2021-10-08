@@ -448,9 +448,9 @@ return packer.startup({
 		})
 
 		-- highlight word under cursor
-		--[[ use({
+		use({
 			"yamatsum/nvim-cursorline",
-		}) ]]
+		})
 
 		use({
 			"https://gitlab.com/yorickpeterse/nvim-pqf.git",
