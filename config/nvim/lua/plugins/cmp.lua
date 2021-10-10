@@ -14,10 +14,13 @@ end
 
 vim.opt.completeopt:remove({ "longest" })
 
---[[ local has_words_before = function()
-	local cursor = vim.api.nvim_win_get_cursor(0)
-	return not vim.api.nvim_get_current_line():sub(1, cursor[2]):match("^%s$")
-end ]]
+local term = function(cmd)
+	vim.api.nvim_replace_termcodes(cmd, true, true, true)
+end
+
+local feedkey = function(key)
+	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), "", true)
+end
 
 cmp.setup({
 	snippet = {
@@ -32,10 +35,10 @@ cmp.setup({
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-space>"] = cmp.mapping.complete(),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if vim.fn.pumvisible() == 1 then
+			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expand_or_jumpable() then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+			elseif luasnip.expand_or_jump() then
+				term("<Plug>luasnip-expand-or-jump")
 			else
 				fallback()
 			end
@@ -44,10 +47,10 @@ cmp.setup({
 			"s",
 		}),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if vim.fn.pumvisible() == 1 then
+			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif luasnip.jumpable(-1) then
-				vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+				feedkey("<Plug>luasnip-jump-prev")
 			else
 				fallback()
 			end
@@ -57,7 +60,6 @@ cmp.setup({
 		}),
 	},
 
-	-- { name = "luasnip" }
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },

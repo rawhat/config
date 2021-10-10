@@ -27,6 +27,8 @@ local function setup_servers()
 	table.insert(servers, "java_language_server")
 	-- dotnet tool install --global fsautocomplete
 	table.insert(servers, "fsautocomplete")
+	-- yay -S crystalline-bin
+	table.insert(servers, "crystalline")
 
 	for _, server in pairs(servers) do
 		local config = { capabitilies = capabilities }

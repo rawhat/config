@@ -1,5 +1,9 @@
 local ls = require("luasnip")
 
+ls.config.set_config({
+	region_check_events = "InsertEnter",
+})
+
 ls.snippets = {
 	bzl = {
 		ls.parser.parse_snippet(
