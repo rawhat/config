@@ -1,7 +1,7 @@
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
-function fzf_multi_select(prompt_bufnr)
+local function fzf_multi_select(prompt_bufnr)
 	local picker = action_state.get_current_picker(prompt_bufnr)
 	local num_selections = table.getn(picker:get_multi_selection())
 
@@ -18,6 +18,7 @@ require("telescope").setup({
 		mappings = {
 			i = {
 				["<cr>"] = fzf_multi_select,
+				["<esc>"] = actions.close,
 			},
 			n = {
 				["<cr>"] = fzf_multi_select,
