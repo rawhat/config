@@ -263,7 +263,12 @@ return packer.startup({
 			end,
 		})
 		-- highlights hex colors rgb(200, 200, 200)
-		use({ "norcalli/nvim-colorizer.lua" })
+		use({
+			"norcalli/nvim-colorizer.lua",
+			config = function()
+				require("colorizer").setup()
+			end,
+		})
 
 		-- displays buffers at the top
 		use({
