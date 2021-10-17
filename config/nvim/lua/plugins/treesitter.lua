@@ -7,7 +7,7 @@ end
 
 treesitter.setup({
 	ensure_installed = "all",
-	highlight = { enable = true, disable = {} },
+	highlight = { enable = true },
 	playground = {
 		enable = true,
 		disable = {},

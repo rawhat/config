@@ -1,89 +1,47 @@
-local present1, lspconfig = pcall(require, "lspconfig")
-local present2, lspinstall = pcall(require, "lspinstall")
-
-if not present1 then
-	error("failed to load `lspconfig`")
-	return
-end
-
-if not present2 then
-	error("failed to load `lspinstall`")
-	return
-end
+local lspconfig = require("lspconfig")
+local lsp_installer = require("nvim-lsp-installer")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-lspinstall.setup()
+lsp_installer.on_server_ready(function(server)
+	local config = { capabilities = capabilities }
 
-local function setup_servers()
-	local servers = lspinstall.installed_servers()
-
-	-- https://github.com/erlang-ls/erlang_ls
-	table.insert(servers, "erlangls")
-	-- opam install ocaml-lsp-server
-	table.insert(servers, "ocamllsp")
-	-- https://github.com/georgewfraser/java-language-server
-	table.insert(servers, "java_language_server")
-	-- dotnet tool install --global fsautocomplete
-	table.insert(servers, "fsautocomplete")
-	-- yay -S crystalline-bin
-	table.insert(servers, "crystalline")
-
-	for _, server in pairs(servers) do
-		local config = { capabitilies = capabilities }
-
-		if server == "elixir" then
-			config.filtetypes = { "elixir", "leex", "heex", "eex" }
-		elseif server == "java_language_server" then
-			config.cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" }
-		elseif server == "python" then
-			config.root_dir = function(fname)
-				return lspconfig.util.root_pattern(
-					".git",
-					"setup.py",
-					"setup.cfg",
-					"pyproject.toml",
-					"requirements.txt"
-				)(fname) or lspconfig.util.path.dirname(fname)
-			end
-		elseif server == "rust" then
-			config.on_attach = require("virtualtypes").on_attach
-			config.settings = {
-				["rust-analyzer"] = {
-					checkOnSave = { command = "clippy" },
-					--[[ cargo = { loadOutDirsFromCheck = true },
-        procMacro = { enable = true }, ]]
-				},
-			}
-		elseif server == "typescript" then
-			config.filetypes = {
-				"javascript",
-				"javascriptreact",
-				"javascript.jsx",
-				"typescript",
-				"typescriptreact",
-				"typescript.tsx",
-			}
-			--[[ config.on_attach = function(client, _bufnr)
-        local ts_utils = require('nvim-lsp-ts-utils')
-        ts_utils.setup({})
-        ts_utils.setup_client(client)
-      end ]]
-		elseif server == "ocamllsp" then
-			config.on_attach = require("virtualtypes").on_attach
+	if server.name == "elixirls" then
+		config.filtetypes = { "elixir", "leex", "heex", "eex" }
+	elseif server.name == "pyright" then
+		config.root_dir = function(fname)
+			return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+				fname
+			) or lspconfig.util.path.dirname(fname)
 		end
-
-		lspconfig[server].setup(config)
+	elseif server.name == "rust_analyzer" then
+		config.on_attach = require("virtualtypes").on_attach
+		config.settings = {
+			["rust-analyzer"] = {
+				checkOnSave = { command = "clippy" },
+			},
+		}
+	elseif server.name == "tsserver" then
+		config.filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+		}
+	elseif server.name == "ocamlls" then
+		config.on_attach = require("virtualtypes").on_attach
 	end
-end
 
-setup_servers()
+	server:setup(config)
+end)
 
-require("lspinstall").post_install_hook = function()
-	setup_servers()
-	vim.cmd("bufdo e")
-end
+-- non-lsp-install servers
+lspconfig.java_language_server.setup({
+	cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
+})
 
 vim.cmd([[
   augroup lsp

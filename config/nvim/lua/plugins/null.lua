@@ -6,7 +6,6 @@ local d = b.diagnostics
 local sources = {
 	-- formatters
 	f.elm_format,
-	f.eslint_d,
 	f.gofmt,
 	f.mix,
 	f.prettier,

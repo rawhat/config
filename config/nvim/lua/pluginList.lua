@@ -71,15 +71,7 @@ local themes = {
 		config = function()
 			local nightfox = require("nightfox")
 			nightfox.setup({
-				-- fox = "palefox",
-				-- fox = "nordfox",
 				styles = { comments = "italic" },
-				hlgroups = {
-					-- TSProperty and TSString are the same color... but I don't think
-					-- any of the alternate colors (or lightening the existing green)
-					-- look very good...
-					-- TSString = { fg = "${green_br}" },
-				},
 			})
 			nightfox.load()
 		end,
@@ -101,14 +93,12 @@ return packer.startup({
 			config = function()
 				local impatient = require("impatient")
 				impatient.enable_profile()
-				-- require("packer_compiled")
 			end,
 		})
 
 		-- COLORSCHEME
 		use({
 			Global_theme.package,
-			after = "packer.nvim",
 			config = function()
 				Global_theme.config()
 			end,
@@ -207,21 +197,6 @@ return packer.startup({
 				require("plugins.telescope")
 			end,
 		})
-		--[[ use({
-			"camspiers/snap",
-			config = function()
-				require("plugins.snap")
-			end,
-		}) ]]
-		--[[ use({
-      "ibhagwan/fzf-lua",
-      requires = { "vijaymarupudi/nvim-fzf", "kyazdani42/nvim-web-devicons" },
-      config = function()
-        require("fzf-lua").setup({
-          default_previewer = "bat",
-        })
-      end
-    }) ]]
 
 		-- search!
 		use({ "mileszs/ack.vim" })
@@ -273,7 +248,7 @@ return packer.startup({
 		-- displays buffers at the top
 		use({
 			"jose-elias-alvarez/buftabline.nvim",
-			requires = { "kyazdani42/nvim-web-devicons" }, -- optional!
+			requires = { "kyazdani42/nvim-web-devicons" },
 			config = function()
 				require("buftabline").setup({})
 			end,
@@ -291,7 +266,7 @@ return packer.startup({
 
 		use({
 			"neovim/nvim-lspconfig",
-			requires = { "kabouzeid/nvim-lspinstall" },
+			requires = { "williamboman/nvim-lsp-installer" },
 			config = function()
 				require("plugins.lspconfig")
 			end,
@@ -343,7 +318,6 @@ return packer.startup({
 		})
 
 		-- file type icons
-		-- { "kyazdani42/nvim-web-devicons" },
 		use({
 			"yamatsum/nvim-nonicons",
 			requires = { "kyazdani42/nvim-web-devicons" },
@@ -387,7 +361,6 @@ return packer.startup({
 		use({
 			"andymass/vim-matchup",
 			after = "nvim-treesitter",
-			-- cmd = "NoMatchParen",
 			config = function()
 				vim.api.nvim_command("NoMatchParen")
 			end,
@@ -436,16 +409,11 @@ return packer.startup({
 		use({
 			"jose-elias-alvarez/null-ls.nvim",
 			after = { "nvim-lspconfig" },
-			requires = { "nvim-lua/plenary.nvim" }, -- , "neovim/nvim-lspconfig" },
+			requires = { "nvim-lua/plenary.nvim" },
 			config = function()
 				require("plugins.null")
 			end,
 		})
-
-		-- some lsp stuff for typescript
-		--[[ {
-      "jose-elias-alvarez/nvim-lsp-ts-utils"
-    }) ]]
 
 		-- virtual text types (only in some languages)
 		use({
@@ -464,7 +432,4 @@ return packer.startup({
 			end,
 		})
 	end,
-	config = {
-		-- compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
-	},
 })
