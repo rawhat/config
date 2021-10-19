@@ -178,11 +178,29 @@ return packer.startup({
 		})
 
 		-- modified status bar
-		use({
+		--[[ use({
 			"shadmansaleh/lualine.nvim",
 			after = Global_theme.package_name,
 			config = function()
 				require("plugins.lualine")
+			end,
+		}) ]]
+		use({
+			"windwp/floatline.nvim",
+			requires = { "lukas-reineke/indent-blankline.nvim" },
+			config = function()
+				require("floatline").setup()
+				require("plugins.indent-blankline")
+			end,
+		})
+		use({
+			"windwp/windline.nvim",
+			config = function()
+				require("windline")
+
+				require("plugins.wind_line")
+
+				-- vim.api.nvim_command("WindLineFloatToggle")
 			end,
 		})
 
@@ -233,9 +251,9 @@ return packer.startup({
 		-- fancy indent helper
 		use({
 			"lukas-reineke/indent-blankline.nvim",
-			config = function()
+			--[[ config = function()
 				require("plugins.indent-blankline")
-			end,
+			end, ]]
 		})
 		-- highlights hex colors rgb(200, 200, 200)
 		use({
@@ -425,11 +443,28 @@ return packer.startup({
 			"yamatsum/nvim-cursorline",
 		})
 
+		-- a nicer quickfix window
 		use({
 			"https://gitlab.com/yorickpeterse/nvim-pqf.git",
 			config = function()
 				require("pqf").setup()
 			end,
 		})
+
+		-- new pop-up???
+		use({
+			"hood/popui.nvim",
+			requires = { "RishabhRD/popfix" },
+			config = function()
+				vim.ui.select = require("popui.ui-overrider")
+			end,
+		})
+
+		--[[ use({
+      "luukvbaal/stabilize.nvim",
+      config = function()
+        require('stabilize').setup()
+      end,
+    }) ]]
 	end,
 })
