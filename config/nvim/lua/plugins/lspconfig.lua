@@ -8,31 +8,54 @@ lsp_installer.on_server_ready(function(server)
 	local config = { capabilities = capabilities }
 
 	if server.name == "elixirls" then
-		config.filtetypes = { "elixir", "leex", "heex", "eex" }
+		table.insert(config, {
+			filetypes = { "elixir", "leex", "heex", "eex" },
+		})
 	elseif server.name == "pyright" then
-		config.root_dir = function(fname)
-			return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
-				fname
-			) or lspconfig.util.path.dirname(fname)
-		end
-	elseif server.name == "rust_analyzer" then
-		config.on_attach = require("virtualtypes").on_attach
-		config.settings = {
-			["rust-analyzer"] = {
-				checkOnSave = { command = "clippy" },
+		table.insert(config, {
+			root_dir = function(fname)
+				return lspconfig.util.root_pattern(
+					".git",
+					"setup.py",
+					"setup.cfg",
+					"pyproject.toml",
+					"requirements.txt"
+				)(fname) -- or lspconfig.util.path.dirname(fname)
+			end,
+			flags = { debounce_text_changes = 300 },
+			settings = {
+				python = {
+					analysis = {
+						diagnosticMode = "openFilesOnly",
+					},
+				},
 			},
-		}
+		})
+	elseif server.name == "rust_analyzer" then
+		table.insert(config, {
+			on_attach = require("virtualtypes").on_attach,
+			settings = {
+				["rust-analyzer"] = {
+					checkOnSave = { command = "clippy" },
+				},
+			},
+		})
 	elseif server.name == "tsserver" then
-		config.filetypes = {
-			"javascript",
-			"javascriptreact",
-			"javascript.jsx",
-			"typescript",
-			"typescriptreact",
-			"typescript.tsx",
-		}
+		table.insert(config, {
+
+			filetypes = {
+				"javascript",
+				"javascriptreact",
+				"javascript.jsx",
+				"typescript",
+				"typescriptreact",
+				"typescript.tsx",
+			},
+		})
 	elseif server.name == "ocamlls" then
-		config.on_attach = require("virtualtypes").on_attach
+		table.insert(config, {
+			on_attach = require("virtualtypes").on_attach,
+		})
 	end
 
 	server:setup(config)
