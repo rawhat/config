@@ -58,6 +58,7 @@ cmp.setup({
 			"i",
 			"s",
 		}),
+		["<CR>"] = cmp.mapping.confirm(),
 	},
 
 	sources = {

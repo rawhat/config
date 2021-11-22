@@ -51,7 +51,7 @@ wk.register({
 
 wk.register({
 	["<leader><space>f"] = {
-		"<cmd>lua vim.lsp.buf.formatting_seq_sync()<cr>",
+		"<cmd>lua vim.lsp.buf.formatting_sync()<cr>",
 		"Format",
 	},
 })
@@ -151,6 +151,14 @@ local telescope = {
 }
 
 wk.register(telescope)
+wk.register({
+	["<leader>ag"] = {
+		"<Cmd>lua require('telescope.builtin').grep_string()<cr>",
+		"Grep String",
+	},
+}, {
+	mode = "v",
+})
 
 wk.register({
 	name = "hop hint",
@@ -164,3 +172,8 @@ wk.register({
 	name = "jabs",
 	["<leader>b"] = { ":JABSOpen<cr>", "Open buffer list" },
 })
+
+wk.register({
+	name = "OSC yank",
+	["<leader>y"] = { ":OSCYank<cr>", "yank to term code thing" },
+}, { mode = "v" })

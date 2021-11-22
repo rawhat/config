@@ -11,7 +11,7 @@ local sources = {
 	f.prettier,
 	f.rustfmt,
 	f.stylua,
-	f.ypf,
+	f.yapf,
 	-- linters/checkers
 	d.luacheck,
 	-- d.pylint,

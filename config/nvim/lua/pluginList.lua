@@ -179,28 +179,24 @@ return packer.startup({
 
 		-- modified status bar
 		--[[ use({
-			"shadmansaleh/lualine.nvim",
-			after = Global_theme.package_name,
-			config = function()
-				require("plugins.lualine")
-			end,
-		}) ]]
+      "nvim-lualine/lualine.nvim",
+      config = function()
+        -- require('plugins.lualine')
+        require('lualine').setup({
+          options = { theme = Global_theme.name }
+        })
+      end,
+    }) ]]
 		use({
 			"windwp/floatline.nvim",
-			requires = { "lukas-reineke/indent-blankline.nvim" },
 			config = function()
 				require("floatline").setup()
-				require("plugins.indent-blankline")
 			end,
 		})
 		use({
 			"windwp/windline.nvim",
 			config = function()
-				require("windline")
-
 				require("plugins.wind_line")
-
-				-- vim.api.nvim_command("WindLineFloatToggle")
 			end,
 		})
 
@@ -220,7 +216,8 @@ return packer.startup({
 		use({ "mileszs/ack.vim" })
 
 		-- highlights trailing whitespace
-		use({ "ntpeters/vim-better-whitespace" })
+		-- use({ "ntpeters/vim-better-whitespace" })
+		use({ "McAuleyPenney/tidy.nvim" })
 
 		-- ez commenting
 		use({
@@ -264,13 +261,14 @@ return packer.startup({
 		})
 
 		-- displays buffers at the top
-		use({
+		--[[ use({
 			"jose-elias-alvarez/buftabline.nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },
 			config = function()
 				require("buftabline").setup({})
 			end,
-		})
+		}) ]]
+		use({ "ap/vim-buftabline" })
 
 		-- buffers
 		use({
@@ -379,9 +377,9 @@ return packer.startup({
 		use({
 			"andymass/vim-matchup",
 			after = "nvim-treesitter",
-			config = function()
+			--[[ config = function()
 				vim.api.nvim_command("NoMatchParen")
-			end,
+			end, ]]
 		})
 
 		use({
@@ -460,11 +458,30 @@ return packer.startup({
 			end,
 		})
 
-		--[[ use({
-      "luukvbaal/stabilize.nvim",
-      config = function()
-        require('stabilize').setup()
-      end,
-    }) ]]
+		use({
+			"luukvbaal/stabilize.nvim",
+			config = function()
+				require("stabilize").setup()
+			end,
+		})
+
+		-- use({ "roxma/vim-tmux-clipboard" })
+		-- use({ "jabirali/vim-tmux-yank" })
+		use({
+			"ojroques/vim-oscyank",
+			config = function()
+				vim.cmd([[
+          autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
+        ]])
+			end,
+		})
+
+		use({
+			"VonHeikemen/fine-cmdline.nvim",
+			requires = { { "MunifTanjim/nui.nvim" } },
+			config = function()
+				vim.api.nvim_set_keymap("n", ":", '<cmd>lua require("fine-cmdline").open()<cr>', { noremap = true })
+			end,
+		})
 	end,
 })

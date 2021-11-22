@@ -14,6 +14,14 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.exs set ft=elixir
 ]])
 
+vim.cmd([[
+  com! CheckHighlightUnderCursor echo {l,c,n ->
+          \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
+          \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
+          \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
+          \ }(line("."), col("."), "name")
+]])
+
 function Inspect(obj)
 	print(vim.inspect(obj))
 end

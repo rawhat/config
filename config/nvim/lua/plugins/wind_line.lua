@@ -215,3 +215,5 @@ windline.setup({
 		explorer,
 	},
 })
+
+-- vim.api.nvim_command("WindLineFloatToggle")
