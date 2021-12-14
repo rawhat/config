@@ -37,6 +37,7 @@ require("telescope").setup({
 })
 
 require("telescope").load_extension("fzf")
+require("telescope").load_extension("file_browser")
 
 --[[ vim.api.nvim_set_keymap('n', '<C-p>',
                         "<cmd>lua require('telescope.builtin').find_files()<cr>",

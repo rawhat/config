@@ -115,7 +115,7 @@ return packer.startup({
 		use({ "rhysd/vim-crystal", ft = "crystal" })
 		---- csv
 		use({ "chrisbra/csv.vim", ft = "csv" })
-		-- ---- fsharp
+		---- fsharp
 		use({ "kongo2002/fsharp-vim", ft = "fsharp" })
 		---- git
 		use({ "tpope/vim-git" })
@@ -178,21 +178,6 @@ return packer.startup({
 		})
 
 		-- modified status bar
-		--[[ use({
-      "nvim-lualine/lualine.nvim",
-      config = function()
-        -- require('plugins.lualine')
-        require('lualine').setup({
-          options = { theme = Global_theme.name }
-        })
-      end,
-    }) ]]
-		use({
-			"windwp/floatline.nvim",
-			config = function()
-				require("floatline").setup()
-			end,
-		})
 		use({
 			"windwp/windline.nvim",
 			config = function()
@@ -211,19 +196,27 @@ return packer.startup({
 				require("plugins.telescope")
 			end,
 		})
+		use("nvim-telescope/telescope-file-browser.nvim")
 
 		-- search!
 		use({ "mileszs/ack.vim" })
 
-		-- highlights trailing whitespace
-		-- use({ "ntpeters/vim-better-whitespace" })
+		-- removes trailing whitespace
 		use({ "McAuleyPenney/tidy.nvim" })
 
 		-- ez commenting
 		use({
-			"b3nj5m1n/kommentary",
+			"numToStr/Comment.nvim",
 			config = function()
-				require("plugins.kommentary")
+				require("Comment").setup({
+					toggler = {
+						line = "<leader>cc",
+					},
+					opleader = {
+						line = "<leader>c",
+						block = "<leader>k",
+					},
+				})
 			end,
 		})
 
@@ -248,9 +241,9 @@ return packer.startup({
 		-- fancy indent helper
 		use({
 			"lukas-reineke/indent-blankline.nvim",
-			--[[ config = function()
-				require("plugins.indent-blankline")
-			end, ]]
+			-- config = function()
+			-- 	require("plugins.indent-blankline")
+			-- end,
 		})
 		-- highlights hex colors rgb(200, 200, 200)
 		use({
@@ -261,14 +254,14 @@ return packer.startup({
 		})
 
 		-- displays buffers at the top
-		--[[ use({
+		use({
 			"jose-elias-alvarez/buftabline.nvim",
 			requires = { "kyazdani42/nvim-web-devicons" },
 			config = function()
 				require("buftabline").setup({})
 			end,
-		}) ]]
-		use({ "ap/vim-buftabline" })
+		})
+		-- use({ "ap/vim-buftabline" })
 
 		-- buffers
 		use({
@@ -377,9 +370,6 @@ return packer.startup({
 		use({
 			"andymass/vim-matchup",
 			after = "nvim-treesitter",
-			--[[ config = function()
-				vim.api.nvim_command("NoMatchParen")
-			end, ]]
 		})
 
 		use({
@@ -476,12 +466,6 @@ return packer.startup({
 			end,
 		})
 
-		use({
-			"VonHeikemen/fine-cmdline.nvim",
-			requires = { { "MunifTanjim/nui.nvim" } },
-			config = function()
-				vim.api.nvim_set_keymap("n", ":", '<cmd>lua require("fine-cmdline").open()<cr>', { noremap = true })
-			end,
-		})
+		use({ "stevearc/dressing.nvim" })
 	end,
 })

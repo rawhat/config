@@ -21,7 +21,7 @@ wk.register({
 
 wk.register({
 	name = "quickfix",
-	["<leader>c"] = {
+	["<leader>q"] = {
 		o = { ":copen<cr>", "Open Quickfix" },
 		c = { ":cclose<cr>", "Close Quickfix" },
 	},
@@ -102,25 +102,25 @@ wk.register({
 	prefix = "<leader>",
 })
 
-wk.register({
-	name = "kommentary visual",
-	["c<space>"] = {
-		"<Plug>kommentary_visual_default",
-		"Toggle Selection Comment",
-	},
-}, {
-	prefix = "<leader>",
-	mode = "v",
-	noremap = false,
-})
-
-wk.register({
-	name = "kommentary normal",
-	["c<space>"] = { "<Plug>kommentary_line_default", "Toggle Line Comment" },
-}, {
-	prefix = "<leader>",
-	noremap = false,
-})
+-- wk.register({
+-- 	name = "kommentary visual",
+-- 	["c<space>"] = {
+-- 		"<Plug>kommentary_visual_default",
+-- 		"Toggle Selection Comment",
+-- 	},
+-- }, {
+-- 	prefix = "<leader>",
+-- 	mode = "v",
+-- 	noremap = false,
+-- })
+--
+-- wk.register({
+-- 	name = "kommentary normal",
+-- 	["c<space>"] = { "<Plug>kommentary_line_default", "Toggle Line Comment" },
+-- }, {
+-- 	prefix = "<leader>",
+-- 	noremap = false,
+-- })
 
 local fzf = {
 	name = "fzf",

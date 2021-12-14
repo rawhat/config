@@ -1,7 +1,22 @@
 local null = require("null-ls")
+local h = require("null-ls.helpers")
 local b = null.builtins
 local f = b.formatting
 local d = b.diagnostics
+local methods = require("null-ls.methods")
+
+local gleam_format = h.make_builtin({
+	method = { methods.internal.FORMATTING },
+	filetypes = {
+		"gleam",
+	},
+	generator_opts = {
+		command = "gleam",
+		args = h.range_formatting_args_factory({ "format", "--stdin" }),
+		to_stdin = true,
+	},
+	factory = h.formatter_factory,
+})
 
 local sources = {
 	-- formatters
@@ -12,6 +27,7 @@ local sources = {
 	f.rustfmt,
 	f.stylua,
 	f.yapf,
+	gleam_format,
 	-- linters/checkers
 	d.luacheck,
 	-- d.pylint,
@@ -20,6 +36,6 @@ local sources = {
 	d.codespell.with({ filetypes = { "markdown" } }),
 }
 
-null.config({ sources = sources })
-
-require("lspconfig")["null-ls"].setup({})
+null.setup({
+	sources = sources,
+})
