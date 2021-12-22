@@ -5,7 +5,14 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 lsp_installer.on_server_ready(function(server)
-	local config = { capabilities = capabilities }
+	local config = {
+		capabilities = capabilities,
+		-- always use `null-ls` for formatting
+		on_attach = function(client)
+			client.resolved_capabilities.document_formatting = false
+			client.resolved_capabilities.document_range_formatting = false
+		end,
+	}
 
 	if server.name == "elixirls" then
 		table.insert(config, {
@@ -58,11 +65,6 @@ lsp_installer.on_server_ready(function(server)
 		})
 	elseif server.name == "gopls" then
 		table.insert(config, {
-			-- always use `null-ls` for formatting
-			onattach = function(client)
-				client.resolved_capabilities.document_formatting = false
-				client.resolved_capabilities.document_range_formatting = false
-			end,
 			settings = {
 				go = {
 					toolsEnvVars = {

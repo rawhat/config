@@ -76,6 +76,14 @@ local themes = {
 			nightfox.load()
 		end,
 	},
+	kanagawa = {
+		package = "rebelot/kanagawa.nvim",
+		package_name = "kanagawa.nvim",
+		name = "kanagawa",
+		config = function()
+			vim.cmd([[colorscheme kanagawa]])
+		end,
+	},
 }
 Global_theme = themes["nightfox"]
 
@@ -108,6 +116,8 @@ return packer.startup({
 		use({ "nvim-lua/plenary.nvim" })
 
 		-- LANGUAGES
+		-- faster filetypes?
+		use({ "nathom/filetype.nvim" })
 		-- cs
 		use({ "kchmck/vim-coffee-script", ft = "coffee" })
 		use({ "mtscout6/vim-cjsx", ft = "coffee" })
