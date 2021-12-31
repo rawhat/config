@@ -34,11 +34,11 @@ wk.register({
 	["<leader>"] = {
 		name = "lsp diagnostics",
 		j = {
-			"<Cmd>lua vim.lsp.diagnostic.goto_next()<cr>",
+			"<Cmd>lua vim.diagnostic.goto_next()<cr>",
 			"Next LSP Diagnostic",
 		},
 		k = {
-			"<Cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+			"<Cmd>lua vim.diagnostic.goto_prev()<cr>",
 			"Prev LSP Diagnostic",
 		},
 	},
@@ -51,7 +51,7 @@ wk.register({
 
 wk.register({
 	["<leader><space>f"] = {
-		"<cmd>lua vim.lsp.buf.formatting_sync()<cr>",
+		"<cmd>lua vim.lsp.buf.formatting()<cr>",
 		"Format",
 	},
 })
