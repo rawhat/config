@@ -130,7 +130,7 @@ return packer.startup({
 		---- git
 		use({ "tpope/vim-git" })
 		---- gleam
-		use({ "gleam-lang/gleam.vim", ft = "gleam" })
+		-- use({ "gleam-lang/gleam.vim", ft = "gleam" })
 		---- jsonnet
 		use({ "google/vim-jsonnet", ft = "jsonnet" })
 		---- nginx
@@ -218,6 +218,8 @@ return packer.startup({
 		use({
 			"numToStr/Comment.nvim",
 			config = function()
+				local ft = require("Comment.ft")
+				ft.set("gleam", "//%s")
 				require("Comment").setup({
 					toggler = {
 						line = "<leader>cc",

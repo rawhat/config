@@ -5,6 +5,15 @@ if not present then
 	return
 end
 
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.gleam = {
+	install_info = {
+		url = "~/gleams/tree-sitter-gleam",
+		files = { "src/parser.c" },
+	},
+	filetype = "gleam",
+}
+
 treesitter.setup({
 	ensure_installed = "all",
 	highlight = { enable = true },

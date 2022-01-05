@@ -49,7 +49,9 @@ lsp_installer.on_server_ready(function(server)
 		})
 	elseif server.name == "tsserver" then
 		table.insert(config, {
-
+			flags = {
+				debounce_text_changes = 150,
+			},
 			filetypes = {
 				"javascript",
 				"javascriptreact",
@@ -79,6 +81,9 @@ lsp_installer.on_server_ready(function(server)
 						"-bazel-mypkg",
 					},
 				},
+			},
+			flags = {
+				debounce_text_changes = 150,
 			},
 		})
 	end
