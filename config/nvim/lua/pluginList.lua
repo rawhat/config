@@ -179,13 +179,13 @@ return packer.startup({
 		-- OTHER
 
 		-- displays symbols on site for add/delete/change
-		use({
-			"lewis6991/gitsigns.nvim",
-			requires = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("plugins.gitsigns")
-			end,
-		})
+		-- use({
+		-- 	"lewis6991/gitsigns.nvim",
+		-- 	requires = { "nvim-lua/plenary.nvim" },
+		-- 	config = function()
+		-- 		require("plugins.gitsigns")
+		-- 	end,
+		-- })
 
 		-- modified status bar
 		use({
@@ -416,7 +416,9 @@ return packer.startup({
 
 		-- which key???
 		use({
-			"folke/which-key.nvim",
+			-- "folke/which-key.nvim",
+			"zeertzjq/which-key.nvim",
+			branch = "patch-1",
 			after = Global_theme.package_name,
 			config = function()
 				require("plugins.which_key")
@@ -479,5 +481,15 @@ return packer.startup({
 		})
 
 		use({ "stevearc/dressing.nvim" })
+
+		use({
+			"tanvirtin/vgit.nvim",
+			requires = {
+				"nvim-lua/plenary.nvim",
+			},
+			config = function()
+				require("vgit").setup()
+			end,
+		})
 	end,
 })

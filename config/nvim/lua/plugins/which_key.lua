@@ -177,3 +177,10 @@ wk.register({
 	name = "OSC yank",
 	["<leader>y"] = { ":OSCYank<cr>", "yank to term code thing" },
 }, { mode = "v" })
+
+wk.register({
+	name = "VGit",
+	["<leader>gd"] = { ":VGit buffer_diff_preview<cr>", "Git diff for buffer" },
+	["<leader>go"] = { ":VGit buffer_diff_preview ", "Git diff branch for buffer" },
+	["<leader>gb"] = { ":VGit buffer_gutter_blame_preview<cr>", "Git blame for buffer in gutter" },
+})

@@ -43,7 +43,7 @@ vim.opt.updatetime = 300
 vim.opt.shortmess:append({ c = true })
 
 -- always show column to left of numbers for lsp/git symbols
-vim.opt.signcolumn = "yes"
+vim.wo.signcolumn = "yes"
 
 vim.g.mapleader = ";"
 
