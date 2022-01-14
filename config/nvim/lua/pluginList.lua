@@ -178,15 +178,6 @@ return packer.startup({
 
 		-- OTHER
 
-		-- displays symbols on site for add/delete/change
-		-- use({
-		-- 	"lewis6991/gitsigns.nvim",
-		-- 	requires = { "nvim-lua/plenary.nvim" },
-		-- 	config = function()
-		-- 		require("plugins.gitsigns")
-		-- 	end,
-		-- })
-
 		-- modified status bar
 		use({
 			"windwp/windline.nvim",
@@ -254,6 +245,7 @@ return packer.startup({
 		use({
 			"lukas-reineke/indent-blankline.nvim",
 			-- config = function()
+			-- 	require("indent_blankline").setup()
 			-- 	require("plugins.indent-blankline")
 			-- end,
 		})
@@ -271,17 +263,6 @@ return packer.startup({
 			requires = { "kyazdani42/nvim-web-devicons" },
 			config = function()
 				require("buftabline").setup({})
-			end,
-		})
-		-- use({ "ap/vim-buftabline" })
-
-		-- buffers
-		use({
-			"matbme/JABS.nvim",
-			config = function()
-				require("jabs").setup({
-					height = 30,
-				})
 			end,
 		})
 
@@ -416,9 +397,7 @@ return packer.startup({
 
 		-- which key???
 		use({
-			-- "folke/which-key.nvim",
-			"zeertzjq/which-key.nvim",
-			branch = "patch-1",
+			"folke/which-key.nvim",
 			after = Global_theme.package_name,
 			config = function()
 				require("plugins.which_key")
@@ -489,6 +468,13 @@ return packer.startup({
 			},
 			config = function()
 				require("vgit").setup()
+			end,
+		})
+
+		use({
+			"abecodes/tabout.nvim",
+			config = function()
+				require("tabout").setup()
 			end,
 		})
 	end,

@@ -218,6 +218,9 @@ windline.setup({
 
 require("wlfloatline").setup()
 
-require("indent_blankline")
-
--- vim.api.nvim_command("WindLineFloatToggle")
+-- TODO:  setup here?
+-- require("plugins.indent-blankline")
+require("indent_blankline").setup({
+	show_current_context = true,
+	show_first_indent_level = false,
+})

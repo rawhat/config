@@ -102,26 +102,6 @@ wk.register({
 	prefix = "<leader>",
 })
 
--- wk.register({
--- 	name = "kommentary visual",
--- 	["c<space>"] = {
--- 		"<Plug>kommentary_visual_default",
--- 		"Toggle Selection Comment",
--- 	},
--- }, {
--- 	prefix = "<leader>",
--- 	mode = "v",
--- 	noremap = false,
--- })
---
--- wk.register({
--- 	name = "kommentary normal",
--- 	["c<space>"] = { "<Plug>kommentary_line_default", "Toggle Line Comment" },
--- }, {
--- 	prefix = "<leader>",
--- 	noremap = false,
--- })
-
 local fzf = {
 	name = "fzf",
 	["<C-p>"] = {
@@ -144,9 +124,57 @@ local telescope = {
 		"<Cmd>lua require('telescope.builtin').find_files()<cr>",
 		"Find Files",
 	},
+	["<leader>ac"] = {
+		"<Cmd>lua require('telescope.builtin').commands()<cr>",
+		"Commands",
+	},
 	["<leader>ag"] = {
 		"<Cmd>lua require('telescope.builtin').live_grep()<cr>",
 		"Live Grep",
+	},
+	["<leader>b"] = {
+		"<Cmd>lua require('telescope.builtin').buffers()<cr>",
+		"Buffers",
+	},
+	["<leader>ca"] = {
+		"<Cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",
+		"Code Actions",
+	},
+	["<leader>ch"] = {
+		"<Cmd>lua require('telescope.builtin').command_history()<cr>",
+		"Command History",
+	},
+	["<leader>lr"] = {
+		"<Cmd>lua require('telescope.builtin').lsp_references()<cr>",
+		"LSP References",
+	},
+	["<leader>sc"] = {
+		"<Cmd>lua require('telescope.builtin').find_files({ search_dirs = {'~/.config/nvim'} })<cr>",
+		"Find Config Files",
+	},
+	["<leader>cf"] = {
+		function()
+			local search_dirs = { "~/.config/nvim" }
+			-- TODO:  is it okay to ignore opts here?  it... doesn't seem to like
+			-- either a table OR a string
+			local additional_args = function(opts)
+				return { "-g", "!packer_compiled.lua" }
+			end
+
+			require("telescope.builtin").live_grep({
+				search_dirs = search_dirs,
+				additional_args = additional_args,
+			})
+		end,
+		"Grep Config Files",
+	},
+	["<leader>sh"] = {
+		"<Cmd>lua require('telescope.builtin').search_history()<cr>",
+		"Search History",
+	},
+	["<leader>t"] = {
+		"<Cmd>lua require('telescope.builtin').help_tags()<cr>",
+		"Help Tags",
 	},
 }
 
@@ -169,11 +197,6 @@ wk.register({
 })
 
 wk.register({
-	name = "jabs",
-	["<leader>b"] = { ":JABSOpen<cr>", "Open buffer list" },
-})
-
-wk.register({
 	name = "OSC yank",
 	["<leader>y"] = { ":OSCYank<cr>", "yank to term code thing" },
 }, { mode = "v" })
@@ -183,4 +206,12 @@ wk.register({
 	["<leader>gd"] = { ":VGit buffer_diff_preview<cr>", "Git diff for buffer" },
 	["<leader>go"] = { ":VGit buffer_diff_preview ", "Git diff branch for buffer" },
 	["<leader>gb"] = { ":VGit buffer_gutter_blame_preview<cr>", "Git blame for buffer in gutter" },
+})
+
+wk.register({
+	name = "Packer Sync",
+	["<leader>ps"] = {
+		"<Cmd>PackerSync<cr>",
+		"Packer Sync",
+	},
 })
