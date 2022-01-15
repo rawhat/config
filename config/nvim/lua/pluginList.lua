@@ -477,5 +477,14 @@ return packer.startup({
 				require("tabout").setup()
 			end,
 		})
+
+		use({
+			"sudormrfbin/cheatsheet.nvim",
+			requires = {
+				"nvim-telescope/telescope.nvim",
+				"nvim-lua/popup.nvim",
+				"nvim-lua/plenary.nvim",
+			},
+		})
 	end,
 })

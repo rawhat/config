@@ -144,10 +144,6 @@ local telescope = {
 		"<Cmd>lua require('telescope.builtin').command_history()<cr>",
 		"Command History",
 	},
-	["<leader>lr"] = {
-		"<Cmd>lua require('telescope.builtin').lsp_references()<cr>",
-		"LSP References",
-	},
 	["<leader>sc"] = {
 		"<Cmd>lua require('telescope.builtin').find_files({ search_dirs = {'~/.config/nvim'} })<cr>",
 		"Find Config Files",
@@ -168,9 +164,17 @@ local telescope = {
 		end,
 		"Grep Config Files",
 	},
+	["<leader>cs"] = {
+		"<Cmd>Cheatsheet<cr>",
+		"Keybind Cheat Sheet",
+	},
 	["<leader>sh"] = {
 		"<Cmd>lua require('telescope.builtin').search_history()<cr>",
 		"Search History",
+	},
+	["<leader>sr"] = {
+		"<Cmd>lua require('telescope.builtin').lsp_references()<cr>",
+		"LSP References",
 	},
 	["<leader>t"] = {
 		"<Cmd>lua require('telescope.builtin').help_tags()<cr>",
