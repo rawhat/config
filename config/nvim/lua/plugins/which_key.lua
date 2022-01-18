@@ -20,6 +20,12 @@ wk.register({
 })
 
 wk.register({
+	name = "Miscellaneous",
+	["<leader>fp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
+	["<leader>src"] = { ":source %<cr>", "Source current file" },
+})
+
+wk.register({
 	name = "quickfix",
 	["<leader>q"] = {
 		o = { ":copen<cr>", "Open Quickfix" },
@@ -194,7 +200,7 @@ wk.register({
 
 wk.register({
 	name = "hop hint",
-	["<leader>l"] = {
+	["<leader>h"] = {
 		"<cmd>lua require('hop').hint_words()<cr>",
 		"Show Hop Hints",
 	},
@@ -206,10 +212,14 @@ wk.register({
 }, { mode = "v" })
 
 wk.register({
+	name = "fugitive",
+	["<leader>gb"] = { ":Git blame<cr>", "Git blame for buffer" },
+})
+
+wk.register({
 	name = "VGit",
 	["<leader>gd"] = { ":VGit buffer_diff_preview<cr>", "Git diff for buffer" },
 	["<leader>go"] = { ":VGit buffer_diff_preview ", "Git diff branch for buffer" },
-	["<leader>gb"] = { ":VGit buffer_gutter_blame_preview<cr>", "Git blame for buffer in gutter" },
 })
 
 wk.register({

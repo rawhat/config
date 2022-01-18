@@ -105,3 +105,10 @@ vim.cmd([[
     autocmd FileType scala,sbt lua require("metals").initialize_or_attach(METALS_CONFIG)
   augroup end
 ]])
+
+-- show lsp signs in gutter
+local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+end
