@@ -16,6 +16,9 @@ parser_config.gleam = {
 
 treesitter.setup({
 	ensure_installed = "all",
+  -- this has a broken `node-gyp` version, and i'd rather not manage the install
+  -- myself for something i don't use
+  ignore_install = { "phpdoc" },
 	highlight = { enable = true },
 	playground = {
 		enable = true,
