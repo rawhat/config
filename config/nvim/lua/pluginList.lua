@@ -486,5 +486,12 @@ return packer.startup({
 				"nvim-lua/plenary.nvim",
 			},
 		})
+
+		use({
+			"j-hui/fidget.nvim",
+			config = function()
+				require("fidget").setup({})
+			end,
+		})
 	end,
 })
