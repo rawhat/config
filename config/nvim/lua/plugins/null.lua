@@ -5,38 +5,30 @@ local f = b.formatting
 local d = b.diagnostics
 local methods = require("null-ls.methods")
 
-local gleam_format = h.make_builtin({
-	method = { methods.internal.FORMATTING },
-	filetypes = {
-		"gleam",
-	},
-	generator_opts = {
-		command = "gleam",
-		args = h.range_formatting_args_factory({ "format", "--stdin" }),
-		to_stdin = true,
-	},
-	factory = h.formatter_factory,
-})
+local function make_formatter(filetype, command, args)
+	return h.make_builtin({
+		method = { methods.internal.FORMATTING },
+		filetypes = { filetype },
+		generator_opts = {
+			command = command,
+			args = h.range_formatting_args_factory(args),
+			to_stdin = true,
+		},
+		factory = h.formatter_factory,
+	})
+end
 
-local fantomas_format = h.make_builtin({
-	method = { methods.internal.FORMATTING },
-	filetypes = {
-		"fsharp",
-	},
-	generator_opts = {
-		command = "dotnet",
-		args = h.range_formatting_args_factory({ "fantomas", "--stdin", "--stdout" }),
-		to_stdin = true,
-	},
-	factory = h.formatter_factory,
-})
+local gleam_format = make_formatter("gleam", "gleam", { "format", "--stdin" })
+local fantomas_format = make_formatter("fsharp", "dotnet", { "fantomas", "--stdin", "--stdout" })
 
 local sources = {
 	-- formatters
 	f.elm_format,
 	f.gofmt,
 	f.mix,
-	f.prettier,
+	-- f.deno_fmt,
+	-- `npm install -g @fsouza/prettierd`
+	f.prettierd,
 	f.rustfmt,
 	f.stylua,
 	f.yapf,

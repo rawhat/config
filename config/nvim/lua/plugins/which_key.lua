@@ -23,6 +23,17 @@ wk.register({
 	name = "Miscellaneous",
 	["<leader>fp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
 	["<leader>src"] = { ":source %<cr>", "Source current file" },
+	["<leader>gt"] = {
+		function()
+			local row = vim.api.nvim_win_get_cursor(0)[1]
+			local file = vim.api.nvim_buf_get_name(0)
+			local relative_path = string.gsub(file, vim.loop.cwd(), "")
+
+			local url = vim.fn.system("gitiles " .. relative_path)
+			print(string.gsub(url, "\n", "") .. "#" .. row)
+		end,
+		"Gitiles link to current line",
+	},
 })
 
 wk.register({
