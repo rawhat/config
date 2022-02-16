@@ -132,7 +132,13 @@ return packer.startup({
 		---- gleam
 		-- use({ "gleam-lang/gleam.vim", ft = "gleam" })
 		---- jsonnet
-		use({ "google/vim-jsonnet", ft = "jsonnet" })
+		use({
+			"google/vim-jsonnet",
+			ft = { "libsonnet", "jsonnet" },
+			config = function()
+				vim.cmd([[autocmd BufRead,BufNewFile *.libsonnet set filetype=jsonnet]])
+			end,
+		})
 		---- nginx
 		use({ "chr4/nginx.vim", ft = "nginx" })
 		---- nim
@@ -284,12 +290,18 @@ return packer.startup({
 
 		use({ "rafamadriz/friendly-snippets" })
 
-		use({ "hrsh7th/cmp-buffer" })
-		use({ "hrsh7th/cmp-nvim-lua" })
-		use({ "hrsh7th/cmp-nvim-lsp" })
+		-- use({ "hrsh7th/cmp-buffer" })
+		-- use({ "hrsh7th/cmp-nvim-lua" })
+		-- use({ "hrsh7th/cmp-nvim-lsp" })
 
 		use({
 			"hrsh7th/nvim-cmp",
+			requires = {
+				"hrsh7th/cmp-buffer",
+				"hrsh7th/cmp-nvim-lua",
+				"hrsh7th/cmp-nvim-lsp",
+				"hrsh7th/cmp-nvim-lsp-signature-help",
+			},
 			after = {
 				"cmp-buffer",
 				"cmp-nvim-lua",
@@ -375,7 +387,7 @@ return packer.startup({
 
 		use({
 			"windwp/nvim-autopairs",
-			after = "nvim-cmp",
+			-- after = "nvim-cmp",
 			config = function()
 				require("plugins.autopairs")
 			end,
@@ -385,13 +397,18 @@ return packer.startup({
 		use({ "npxbr/glow.nvim", run = ":GlowInstall", ft = "markdown" })
 
 		-- display function signatures while typing
-		use({ "ray-x/lsp_signature.nvim" })
+		-- use({
+		--     "ray-x/lsp_signature.nvim",
+		--     config = function()
+		--       require('lsp_signature').setup({})
+		--     end,
+		--   })
 
 		-- show pictograms on completion dropdown
 		use({
 			"onsails/lspkind-nvim",
 			config = function()
-				require("lspkind").init()
+				require("lspkind").init({})
 			end,
 		})
 

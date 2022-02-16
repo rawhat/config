@@ -1,16 +1,9 @@
-local has_cmp, cmp = pcall(require, "cmp")
-local has_lspkind, lspkind = pcall(require, "lspkind")
-local has_luasnip, luasnip = pcall(require, "luasnip")
+local cmp = require("cmp")
+local lspkind = require("lspkind")
+local luasnip = require("luasnip")
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-if not has_cmp then
-	error("`cmp` not loaded")
-end
-if not has_lspkind then
-	error("`lspkind` not loaded")
-end
-if not has_luasnip then
-	error("`luasnip` not loaded")
-end
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { text = "" } }))
 
 vim.opt.completeopt:remove({ "longest" })
 
@@ -31,9 +24,9 @@ cmp.setup({
 
 	mapping = {
 		-- NOTE:  Not mapping <CR> here since `autopairs` covers that already
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
-		["<C-space>"] = cmp.mapping.complete(),
+		-- ["<C-p>"] = cmp.mapping.select_prev_item(),
+		-- ["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -58,14 +51,14 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		["<CR>"] = cmp.mapping.confirm(),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	},
 
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
-		{ name = "buffer" },
 		{ name = "luasnip" },
-	},
+		{ name = "nvim_lsp_signature_help" },
+	}, { name = "buffer" }),
 
 	formatting = {
 		format = function(entry, vim_item)
