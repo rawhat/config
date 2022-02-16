@@ -4,14 +4,19 @@ local lsp_installer = require("nvim-lsp-installer")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
+local noop = function() end
+local on_attach = function(fn)
+	return function(client)
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
+		fn(client)
+	end
+end
+
 lsp_installer.on_server_ready(function(server)
 	local config = {
 		capabilities = capabilities,
-		-- always use `null-ls` for formatting
-		on_attach = function(client)
-			client.resolved_capabilities.document_formatting = false
-			client.resolved_capabilities.document_range_formatting = false
-		end,
+		on_attach = on_attach(noop),
 	}
 
 	if server.name == "elixirls" then
@@ -40,7 +45,9 @@ lsp_installer.on_server_ready(function(server)
 		})
 	elseif server.name == "rust_analyzer" then
 		table.insert(config, {
-			on_attach = require("virtualtypes").on_attach,
+			on_attach = on_attach(function(client)
+				require("virtualtypes").on_attach(client)
+			end),
 			settings = {
 				["rust-analyzer"] = {
 					checkOnSave = { command = "clippy" },
@@ -49,6 +56,7 @@ lsp_installer.on_server_ready(function(server)
 		})
 	elseif server.name == "tsserver" then
 		table.insert(config, {
+			init_options = require("nvim-lsp-ts-utils").init_options,
 			flags = {
 				debounce_text_changes = 150,
 			},
@@ -60,10 +68,17 @@ lsp_installer.on_server_ready(function(server)
 				"typescriptreact",
 				"typescript.tsx",
 			},
+			on_attach = on_attach(function(client)
+				local ts_utils = require("nvim-lsp-ts-utils")
+				ts_utils.setup({})
+				ts_utils.setup_client(client)
+			end),
 		})
 	elseif server.name == "ocamlls" then
 		table.insert(config, {
-			on_attach = require("virtualtypes").on_attach,
+			on_attach = on_attach(function(client)
+				require("virtualtypes").on_attach(client)
+			end),
 		})
 	elseif server.name == "gopls" then
 		table.insert(config, {

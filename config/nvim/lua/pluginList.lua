@@ -234,11 +234,9 @@ return packer.startup({
 
 		-- (--'happy times'--)
 		use({
-			"blackCauldron7/surround.nvim",
-			config = function()
-				require("plugins.surround")
-			end,
+			"machakann/vim-sandwich",
 		})
+
 		-- highlight/jump to words
 		use({
 			"phaazon/hop.nvim",
@@ -265,19 +263,23 @@ return packer.startup({
 
 		-- displays buffers at the top
 		use({
-			"jose-elias-alvarez/buftabline.nvim",
-			requires = { "kyazdani42/nvim-web-devicons" },
+			"akinsho/bufferline.nvim",
+			requires = "kyazdani42/nvim-web-devicons",
 			config = function()
-				require("buftabline").setup({})
+				require("bufferline").setup({})
 			end,
 		})
 
 		use({
 			"neovim/nvim-lspconfig",
-			requires = { "williamboman/nvim-lsp-installer" },
+			requires = { "williamboman/nvim-lsp-installer", "jose-elias-alvarez/nvim-lsp-ts-utils" },
 			config = function()
 				require("plugins.lspconfig")
 			end,
+		})
+
+		use({
+			"jose-elias-alvarez/nvim-lsp-ts-utils",
 		})
 
 		use({
@@ -378,6 +380,17 @@ return packer.startup({
 		})
 
 		use({
+			"nvim-telescope/telescope-ui-select.nvim",
+		})
+
+		use({
+			"lewis6991/spellsitter.nvim",
+			config = function()
+				require("spellsitter").setup()
+			end,
+		})
+
+		use({
 			"windwp/nvim-ts-autotag",
 			after = "nvim-autopairs",
 			config = function()
@@ -395,14 +408,6 @@ return packer.startup({
 
 		-- markdown preview
 		use({ "npxbr/glow.nvim", run = ":GlowInstall", ft = "markdown" })
-
-		-- display function signatures while typing
-		-- use({
-		--     "ray-x/lsp_signature.nvim",
-		--     config = function()
-		--       require('lsp_signature').setup({})
-		--     end,
-		--   })
 
 		-- show pictograms on completion dropdown
 		use({
@@ -438,7 +443,7 @@ return packer.startup({
 
 		-- highlight word under cursor
 		use({
-			"yamatsum/nvim-cursorline",
+			"RRethy/vim-illuminate",
 		})
 
 		-- a nicer quickfix window
@@ -510,5 +515,10 @@ return packer.startup({
 				require("fidget").setup({})
 			end,
 		})
+
+		-- NOTE:  broken for now
+		-- use({
+		-- 	"simrat39/symbols-outline.nvim",
+		-- })
 	end,
 })

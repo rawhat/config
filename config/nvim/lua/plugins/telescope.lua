@@ -1,3 +1,4 @@
+local telescope = require("telescope")
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 
@@ -13,7 +14,7 @@ local function fzf_multi_select(prompt_bufnr)
 	end
 end
 
-require("telescope").setup({
+telescope.setup({
 	defaults = {
 		mappings = {
 			i = {
@@ -36,8 +37,9 @@ require("telescope").setup({
 	},
 })
 
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("file_browser")
+telescope.load_extension("fzf")
+telescope.load_extension("file_browser")
+telescope.load_extension("ui-select")
 
 --[[ vim.api.nvim_set_keymap('n', '<C-p>',
                         "<cmd>lua require('telescope.builtin').find_files()<cr>",
