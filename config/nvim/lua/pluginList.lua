@@ -443,9 +443,12 @@ return packer.startup({
 		})
 
 		-- highlight word under cursor
-		use({
-			"RRethy/vim-illuminate",
-		})
+		-- use({
+		-- 	"RRethy/vim-illuminate",
+		-- })
+    use({
+      "yamatsum/nvim-cursorline"
+    })
 
 		-- a nicer quickfix window
 		use({
@@ -521,5 +524,9 @@ return packer.startup({
 		-- use({
 		-- 	"simrat39/symbols-outline.nvim",
 		-- })
+
+    use({
+      "dstein64/vim-startuptime",
+    })
 	end,
 })
