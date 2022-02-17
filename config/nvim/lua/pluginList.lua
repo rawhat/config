@@ -266,7 +266,13 @@ return packer.startup({
 			"akinsho/bufferline.nvim",
 			requires = "kyazdani42/nvim-web-devicons",
 			config = function()
-				require("bufferline").setup({})
+				require("bufferline").setup({
+					options = {
+						show_buffer_icons = false,
+						show_buffer_close_icons = false,
+						show_close_icon = false,
+					},
+				})
 			end,
 		})
 
@@ -446,9 +452,9 @@ return packer.startup({
 		-- use({
 		-- 	"RRethy/vim-illuminate",
 		-- })
-    use({
-      "yamatsum/nvim-cursorline"
-    })
+		use({
+			"yamatsum/nvim-cursorline",
+		})
 
 		-- a nicer quickfix window
 		use({
@@ -525,8 +531,8 @@ return packer.startup({
 		-- 	"simrat39/symbols-outline.nvim",
 		-- })
 
-    use({
-      "dstein64/vim-startuptime",
-    })
+		use({
+			"dstein64/vim-startuptime",
+		})
 	end,
 })
