@@ -19,6 +19,8 @@ wk.register({
 	["<C-h>"] = { "<C-w><C-h>", "Move Left" },
 })
 
+local Terminal = require("toggleterm.terminal").Terminal
+
 wk.register({
 	name = "Miscellaneous",
 	["<leader>fp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
@@ -33,6 +35,34 @@ wk.register({
 			print(string.gsub(url, "\n", "") .. "#" .. row)
 		end,
 		"Gitiles link to current line",
+	},
+	["<leader>bd"] = {
+		":bd!",
+		"Delete buffer (press enter)",
+	},
+	["<leader>rc"] = {
+		function()
+			vim.ui.input({
+				prompt = "Enter command to run:  ",
+			}, function(input)
+				if not input then
+					return
+				end
+
+				local term = Terminal:new({
+					cmd = vim.o.shell,
+					direction = "vertical",
+					close_on_exit = false,
+					count = 2,
+				})
+
+				term:toggle(100)
+				term:send("clear")
+				term:send(input)
+				vim.cmd("stopinsert")
+			end)
+		end,
+		"<r>un <c>command and toss the output into a vsplit",
 	},
 })
 
@@ -149,7 +179,7 @@ local telescope = {
 		"<Cmd>lua require('telescope.builtin').live_grep()<cr>",
 		"Live Grep",
 	},
-	["<leader>b"] = {
+	["<leader>bl"] = {
 		"<Cmd>lua require('telescope.builtin').buffers()<cr>",
 		"Buffers",
 	},

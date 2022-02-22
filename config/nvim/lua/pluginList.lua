@@ -534,5 +534,10 @@ return packer.startup({
 		use({
 			"dstein64/vim-startuptime",
 		})
+
+		use({
+			"yioneko/nvim-yati",
+			requires = "nvim-treesitter/nvim-treesitter",
+		})
 	end,
 })
