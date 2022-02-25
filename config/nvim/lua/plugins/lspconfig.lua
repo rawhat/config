@@ -114,13 +114,6 @@ lspconfig.java_language_server.setup({
 -- right now this is installed manually
 lspconfig.fsautocomplete.setup({})
 
-vim.cmd([[
-  augroup lsp
-    autocmd!
-    autocmd FileType scala,sbt lua require("metals").initialize_or_attach(METALS_CONFIG)
-  augroup end
-]])
-
 -- show lsp signs in gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
 for type, icon in pairs(signs) do
