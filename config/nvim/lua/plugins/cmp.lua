@@ -3,7 +3,7 @@ local lspkind = require("lspkind")
 local luasnip = require("luasnip")
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { text = "" } }))
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
 vim.opt.completeopt:remove({ "longest" })
 
