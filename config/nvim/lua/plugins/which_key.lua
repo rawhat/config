@@ -11,7 +11,11 @@ vim.api.nvim_exec(
 	false
 )
 
-wk.register({
+local register = function(key_table, key_opts)
+	wk.register(key_table, key_opts or {})
+end
+
+register({
 	name = "split movement",
 	["<C-l>"] = { "<C-w><C-l>", "Move Right" },
 	["<C-k>"] = { "<C-w><C-k>", "Move Up" },
@@ -21,7 +25,7 @@ wk.register({
 
 local Terminal = require("toggleterm.terminal").Terminal
 
-wk.register({
+register({
 	name = "Miscellaneous",
 	["<leader>fp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
 	["<leader>src"] = { ":source %<cr>", "Source current file" },
@@ -66,7 +70,7 @@ wk.register({
 	},
 })
 
-wk.register({
+register({
 	name = "quickfix",
 	["<leader>q"] = {
 		o = { ":copen<cr>", "Open Quickfix" },
@@ -77,7 +81,7 @@ wk.register({
 	silent = false,
 })
 
-wk.register({
+register({
 	["<leader>"] = {
 		name = "lsp diagnostics",
 		j = {
@@ -91,19 +95,19 @@ wk.register({
 	},
 })
 
-wk.register({
+register({
 	name = "lsp hover",
 	K = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
 })
 
-wk.register({
+register({
 	["<leader><space>f"] = {
 		"<cmd>lua vim.lsp.buf.formatting()<cr>",
 		"Format",
 	},
 })
 
-wk.register({
+register({
 	g = {
 		name = "lsp details",
 		d = { "<Cmd>lua vim.lsp.buf.definition()<cr>", "Go to Definition" },
@@ -114,7 +118,7 @@ wk.register({
 	},
 })
 
-wk.register({
+register({
 	name = "trouble",
 	xx = { "<cmd>TroubleToggle<cr>", "Toggle Trouble" },
 	gR = { "<cmd>Trouble lsp_references<cr>", "Trouble LSP References" },
@@ -133,12 +137,12 @@ wk.register({
 	prefix = "<leader>",
 })
 
-wk.register({
+register({
 	name = "nerd tree",
 	["<C-n>"] = { "<Cmd>NvimTreeToggle<cr>", "Toggle nvim-tree" },
 })
 
-wk.register({
+register({
 	a = {
 		name = "async run",
 		r = { ":AsyncRun", "Async Run" },
@@ -229,8 +233,8 @@ local telescope = {
 	},
 }
 
-wk.register(telescope)
-wk.register({
+register(telescope)
+register({
 	["<leader>ag"] = {
 		"<Cmd>lua require('telescope.builtin').grep_string()<cr>",
 		"Grep String",
@@ -239,7 +243,7 @@ wk.register({
 	mode = "v",
 })
 
-wk.register({
+register({
 	name = "hop hint",
 	["<leader>h"] = {
 		"<cmd>lua require('hop').hint_words()<cr>",
@@ -247,26 +251,34 @@ wk.register({
 	},
 })
 
-wk.register({
+register({
 	name = "OSC yank",
 	["<leader>y"] = { ":OSCYank<cr>", "yank to term code thing" },
 }, { mode = "v" })
 
-wk.register({
+register({
 	name = "fugitive",
 	["<leader>gb"] = { ":Git blame<cr>", "Git blame for buffer" },
 })
 
-wk.register({
+register({
 	name = "VGit",
 	["<leader>gd"] = { ":VGit buffer_diff_preview<cr>", "Git diff for buffer" },
 	["<leader>go"] = { ":VGit buffer_diff_preview ", "Git diff branch for buffer" },
 })
 
-wk.register({
+register({
 	name = "Packer Sync",
 	["<leader>ps"] = {
 		"<Cmd>PackerSync<cr>",
 		"Packer Sync",
+	},
+})
+
+register({
+	name = "Legendary",
+	["<leader>wk"] = {
+		"<cmd>lua require('legendary').find()<cr>",
+		"Search keybinds, commands, autocmds",
 	},
 })

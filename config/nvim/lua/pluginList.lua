@@ -15,7 +15,7 @@ local themes = {
 		config = function()
 			vim.g.tokyonight_style = "night"
 			vim.g.tokyonight_sidebars = {
-				"which-key",
+				-- "which-key",
 				"toggleterm",
 				"packer.nvim",
 			}
@@ -427,8 +427,17 @@ return packer.startup({
 		-- which key???
 		use({
 			"folke/which-key.nvim",
-			after = Global_theme.package_name,
+			after = { Global_theme.package_name },
+		})
+
+		use({
+			"mrjones2014/legendary.nvim",
+			after = { "which-key.nvim" },
 			config = function()
+				require("legendary").setup({
+					include_builtin = false,
+					auto_register_which_key = true,
+				})
 				require("plugins.which_key")
 			end,
 		})
