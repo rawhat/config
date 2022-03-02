@@ -1,6 +1,14 @@
 local telescope = require("telescope")
+local actions = require("telescope.actions")
 
 telescope.setup({
+	defaults = {
+		mappings = {
+			i = {
+				["<Esc>"] = actions.close,
+			},
+		},
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true, -- false will only do exact matching
