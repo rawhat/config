@@ -68,6 +68,18 @@ register({
 		end,
 		"<r>un <c>command and toss the output into a vsplit",
 	},
+	["<leader>wq"] = {
+		"<Cmd>wq<cr>",
+		"Save and quit",
+	},
+	["<leader>wa"] = {
+		"<Cmd>wqa<cr>",
+		"Save and quit all",
+	},
+	["<leader>qq"] = {
+		"<Cmd>qa<cr>",
+		"Quit and close all",
+	},
 })
 
 register({
