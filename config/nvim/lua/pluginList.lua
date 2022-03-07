@@ -531,7 +531,15 @@ return packer.startup({
 		use({
 			"j-hui/fidget.nvim",
 			config = function()
-				require("fidget").setup({})
+				require("fidget").setup({
+					sources = {
+						-- `max_width` doesn't seem to work to limit this?  and the error
+						-- message in my `vistar` repo blocks out code
+						gopls = {
+							ignore = true,
+						},
+					},
+				})
 			end,
 		})
 

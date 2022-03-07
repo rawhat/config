@@ -7,13 +7,9 @@ local methods = require("null-ls.methods")
 
 local function make_formatter(filetype, command, args)
 	return h.make_builtin({
-		method = { methods.internal.FORMATTING },
+		method = methods.internal.FORMATTING,
 		filetypes = { filetype },
-		generator_opts = {
-			command = command,
-			args = h.range_formatting_args_factory(args),
-			to_stdin = true,
-		},
+		generator_opts = { command = command, args = args, to_stdin = true },
 		factory = h.formatter_factory,
 	})
 end
