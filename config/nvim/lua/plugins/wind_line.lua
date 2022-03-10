@@ -178,6 +178,17 @@ basic.lsp_name = {
 	end,
 }
 
+local gps = require("nvim-gps")
+basic.gps = {
+	function()
+		if gps.is_available() then
+			return gps.get_location()
+		end
+		return ""
+	end,
+	{ "white", "black" },
+}
+
 local default = {
 	filetypes = { "default" },
 	active = {
@@ -185,6 +196,8 @@ local default = {
 		basic.vi_mode,
 		basic.file,
 		basic.lsp_diagnos,
+		{ "   ", hl_list.Black },
+		basic.gps,
 		basic.divider,
 		basic.file_right,
 		basic.lsp_name,

@@ -187,6 +187,7 @@ return packer.startup({
 		-- modified status bar
 		use({
 			"windwp/windline.nvim",
+			requires = { "nvim-gps" },
 			config = function()
 				require("plugins.wind_line")
 			end,
@@ -555,6 +556,13 @@ return packer.startup({
 		use({
 			"yioneko/nvim-yati",
 			requires = "nvim-treesitter/nvim-treesitter",
+		})
+
+		use({
+			"SmiteshP/nvim-gps",
+			config = function()
+				require("nvim-gps").setup()
+			end,
 		})
 	end,
 })
