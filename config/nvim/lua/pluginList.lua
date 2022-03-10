@@ -564,5 +564,20 @@ return packer.startup({
 				require("nvim-gps").setup()
 			end,
 		})
+
+		use({
+			"ethanholz/nvim-lastplace",
+			config = function()
+				require("nvim-lastplace").setup({})
+			end,
+		})
+
+		use({
+			"APZelos/blamer.nvim",
+			config = function()
+				vim.api.nvim_set_var("blamer_enabled", true)
+				vim.api.nvim_set_var("blamer_show_in_insert_modes", false)
+			end,
+		})
 	end,
 })
