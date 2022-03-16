@@ -71,9 +71,11 @@ local themes = {
 		config = function()
 			local nightfox = require("nightfox")
 			nightfox.setup({
-				styles = { comments = "italic" },
+				options = {
+					styles = { comments = "italic" },
+				},
 			})
-			nightfox.load()
+			vim.cmd("colorscheme nightfox")
 		end,
 	},
 	kanagawa = {
@@ -462,9 +464,11 @@ return packer.startup({
 		-- use({
 		-- 	"RRethy/vim-illuminate",
 		-- })
-		use({
-			"yamatsum/nvim-cursorline",
-		})
+
+		-- this doesn't work correctly
+		-- use({
+		-- 	"yamatsum/nvim-cursorline",
+		-- })
 
 		-- a nicer quickfix window
 		use({
@@ -545,9 +549,9 @@ return packer.startup({
 		})
 
 		-- NOTE:  broken for now
-		-- use({
-		-- 	"simrat39/symbols-outline.nvim",
-		-- })
+		use({
+			"simrat39/symbols-outline.nvim",
+		})
 
 		use({
 			"dstein64/vim-startuptime",
@@ -562,13 +566,6 @@ return packer.startup({
 			"SmiteshP/nvim-gps",
 			config = function()
 				require("nvim-gps").setup()
-			end,
-		})
-
-		use({
-			"ethanholz/nvim-lastplace",
-			config = function()
-				require("nvim-lastplace").setup({})
 			end,
 		})
 

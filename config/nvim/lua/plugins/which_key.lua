@@ -294,3 +294,11 @@ register({
 		"Search keybinds, commands, autocmds",
 	},
 })
+
+register({
+	name = "Symbols Outline",
+	["<leader>so"] = {
+		":SymbolsOutline<cr>",
+		"Toggle Symbols View",
+	},
+})
