@@ -22,6 +22,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.colorcolumn = "81"
+vim.opt.cursorline = true
 
 vim.cmd([[
   autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel setf bzl
