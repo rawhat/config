@@ -24,6 +24,13 @@ register({
 })
 
 local Terminal = require("toggleterm.terminal").Terminal
+local worker_term = Terminal:new({
+	close_on_exit = false,
+	cmd = vim.o.shell,
+	direction = "vertical",
+	count = 6,
+	hidden = true,
+})
 
 register({
 	name = "Miscellaneous",
@@ -44,7 +51,7 @@ register({
 		":bd!",
 		"Delete buffer (press enter)",
 	},
-	["<leader>rc"] = {
+	["<leader>tr"] = {
 		function()
 			vim.ui.input({
 				prompt = "Enter command to run:  ",
@@ -53,20 +60,21 @@ register({
 					return
 				end
 
-				local term = Terminal:new({
-					cmd = vim.o.shell,
-					direction = "vertical",
-					close_on_exit = false,
-					count = 2,
-				})
-
-				term:toggle(100)
-				term:send("clear")
-				term:send(input)
+				if not worker_term:is_open() then
+					worker_term:toggle(100)
+				end
+				worker_term:send(input)
 				vim.cmd("stopinsert")
 			end)
 		end,
 		"<r>un <c>command and toss the output into a vsplit",
+	},
+	["<leader>tc"] = {
+		function()
+			worker_term:send("clear")
+			vim.cmd("stopinsert")
+		end,
+		"<t>erminal <c>lear on the worker",
 	},
 	["<leader>wq"] = {
 		"<Cmd>wq<cr>",
@@ -239,7 +247,7 @@ local telescope = {
 		"<Cmd>lua require('telescope.builtin').lsp_references()<cr>",
 		"LSP References",
 	},
-	["<leader>t"] = {
+	["<leader>ht"] = {
 		"<Cmd>lua require('telescope.builtin').help_tags()<cr>",
 		"Help Tags",
 	},
