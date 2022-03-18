@@ -115,7 +115,12 @@ return packer.startup({
 		})
 
 		-- deps
-		use({ "nvim-lua/plenary.nvim" })
+		use({
+      "nvim-lua/plenary.nvim",
+      config = function()
+        require('plenary.filetype').add_file('gleam')
+      end,
+    })
 
 		-- LANGUAGES
 		-- faster filetypes?
