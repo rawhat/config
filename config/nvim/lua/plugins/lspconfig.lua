@@ -1,5 +1,6 @@
 local lspconfig = require("lspconfig")
 local lsp_installer = require("nvim-lsp-installer")
+local configs = require("lspconfig.configs")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
@@ -113,6 +114,19 @@ lspconfig.java_language_server.setup({
 
 -- right now this is installed manually
 lspconfig.fsautocomplete.setup({})
+
+if not configs.gleam then
+	configs.gleam = {
+		default_config = {
+			cmd = { "gleam", "lsp" },
+			filetypes = { "gleam" },
+			root_dir = function(fname)
+				return lspconfig.util.root_pattern("gleam.toml")(fname)
+			end,
+		},
+	}
+end
+lspconfig.gleam.setup({})
 
 -- show lsp signs in gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }

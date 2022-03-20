@@ -1,5 +1,5 @@
 return {
-  extension = {
-    ['gleam'] = 'gleam',
-  }
+	extension = {
+		["gleam"] = "gleam",
+	},
 }

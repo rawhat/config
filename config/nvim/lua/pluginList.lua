@@ -13,7 +13,7 @@ local themes = {
 		package_name = "tokyonight.nvim",
 		name = "tokyonight",
 		config = function()
-			vim.g.tokyonight_style = "night"
+			-- vim.g.tokyonight_style = "night"
 			vim.g.tokyonight_sidebars = {
 				-- "which-key",
 				"toggleterm",
@@ -86,6 +86,15 @@ local themes = {
 			vim.cmd([[colorscheme kanagawa]])
 		end,
 	},
+	catppuccin = {
+		package = "catppuccin/nvim",
+		package_name = "catppuccin",
+		name = "catppuccin",
+		config = function()
+			-- local catppuccin = require('catppuccin')
+			vim.cmd([[colorscheme catppuccin]])
+		end,
+	},
 }
 Global_theme = themes["nightfox"]
 
@@ -116,11 +125,11 @@ return packer.startup({
 
 		-- deps
 		use({
-      "nvim-lua/plenary.nvim",
-      config = function()
-        require('plenary.filetype').add_file('gleam')
-      end,
-    })
+			"nvim-lua/plenary.nvim",
+			config = function()
+				require("plenary.filetype").add_file("gleam")
+			end,
+		})
 
 		-- LANGUAGES
 		-- faster filetypes?
