@@ -590,5 +590,13 @@ return packer.startup({
 				vim.api.nvim_set_var("blamer_show_in_insert_modes", false)
 			end,
 		})
+
+		use({
+			"folke/todo-comments.nvim",
+			requires = { "nvim-lua/plenary.nvim" },
+			config = function()
+				require("todo-comments").setup({})
+			end,
+		})
 	end,
 })
