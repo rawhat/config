@@ -247,7 +247,7 @@ local telescope = {
 		"<Cmd>lua require('telescope.builtin').lsp_references()<cr>",
 		"LSP References",
 	},
-	["<leader>ht"] = {
+	["<leader>th"] = {
 		"<Cmd>lua require('telescope.builtin').help_tags()<cr>",
 		"Help Tags",
 	},
