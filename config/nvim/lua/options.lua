@@ -124,3 +124,10 @@ vim.g.markdown_fenced_languages = {
 -- end
 -- vim.opt.clipboard = "unnamedplus"
 vim.opt.clipboard:append("unnamedplus")
+
+vim.diagnostic.config({
+	virtual_text = false,
+	signs = true,
+	underline = true,
+	update_in_insert = true,
+})

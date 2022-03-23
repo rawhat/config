@@ -112,9 +112,6 @@ lspconfig.java_language_server.setup({
 	cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
 })
 
--- right now this is installed manually
-lspconfig.fsautocomplete.setup({})
-
 if not configs.gleam then
 	configs.gleam = {
 		default_config = {
