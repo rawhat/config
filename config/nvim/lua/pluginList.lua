@@ -598,5 +598,9 @@ return packer.startup({
 				require("todo-comments").setup({})
 			end,
 		})
+
+		use({
+			"mrjones2014/smart-splits.nvim",
+		})
 	end,
 })

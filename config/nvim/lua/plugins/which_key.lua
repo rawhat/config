@@ -15,12 +15,67 @@ local register = function(key_table, key_opts)
 	wk.register(key_table, key_opts or {})
 end
 
+-- register({
+-- 	name = "split movement",
+-- 	["<C-l>"] = { "<C-w><C-l>", "Move Right" },
+-- 	["<C-k>"] = { "<C-w><C-k>", "Move Up" },
+-- 	["<C-j>"] = { "<C-w><C-j>", "Move Down" },
+-- 	["<C-h>"] = { "<C-w><C-h>", "Move Left" },
+-- })
+
+-- movement and resizing
 register({
-	name = "split movement",
-	["<C-l>"] = { "<C-w><C-l>", "Move Right" },
-	["<C-k>"] = { "<C-w><C-k>", "Move Up" },
-	["<C-j>"] = { "<C-w><C-j>", "Move Down" },
-	["<C-h>"] = { "<C-w><C-h>", "Move Left" },
+	name = "splitzzz",
+
+	["<C-l>"] = {
+		function()
+			require("smart-splits").move_cursor_right()
+		end,
+		"Move Right",
+	},
+	["<C-k>"] = {
+		function()
+			require("smart-splits").move_cursor_up()
+		end,
+		"Move Up",
+	},
+	["<C-j>"] = {
+		function()
+			require("smart-splits").move_cursor_down()
+		end,
+		"Move Down",
+	},
+	["<C-h>"] = {
+		function()
+			require("smart-splits").move_cursor_left()
+		end,
+		"Move Left",
+	},
+
+	["<S-l>"] = {
+		function()
+			require("smart-splits").resize_right()
+		end,
+		"Resize Right",
+	},
+	["<S-k>"] = {
+		function()
+			require("smart-splits").resize_up()
+		end,
+		"Resize Up",
+	},
+	["<S-j>"] = {
+		function()
+			require("smart-splits").resize_down()
+		end,
+		"Resize Down",
+	},
+	["<S-h>"] = {
+		function()
+			require("smart-splits").resize_left()
+		end,
+		"Resize Left",
+	},
 })
 
 local Terminal = require("toggleterm.terminal").Terminal
@@ -117,7 +172,7 @@ register({
 
 register({
 	name = "lsp hover",
-	K = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
+	["<leader><S-k>"] = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
 })
 
 register({
