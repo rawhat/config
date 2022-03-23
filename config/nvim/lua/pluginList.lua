@@ -602,5 +602,12 @@ return packer.startup({
 		use({
 			"mrjones2014/smart-splits.nvim",
 		})
+
+		use({
+			"mvllow/modes.nvim",
+			config = function()
+				require("modes").setup()
+			end,
+		})
 	end,
 })

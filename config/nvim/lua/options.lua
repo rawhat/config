@@ -103,7 +103,6 @@ vim.g.markdown_fenced_languages = {
 	"scala",
 	-- "elixir",
 	"bash=sh",
-	"gleam",
 }
 
 -- clipboard stuff
