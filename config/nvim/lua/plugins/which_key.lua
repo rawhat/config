@@ -1,6 +1,13 @@
 local wk = require("which-key")
 
-wk.setup({ key_labels = { ["<leader>"] = ";" } })
+wk.setup({
+	key_labels = { ["<leader>"] = ";" },
+	plugins = {
+		presets = {
+			operators = false,
+		},
+	},
+})
 
 -- make 0 go to first word in line instead of start of line...
 vim.api.nvim_exec(
