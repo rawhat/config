@@ -179,7 +179,7 @@ register({
 
 register({
 	name = "lsp hover",
-	["<leader><S-k>"] = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
+	F = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
 })
 
 register({
