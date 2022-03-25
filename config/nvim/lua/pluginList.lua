@@ -605,8 +605,11 @@ return packer.startup({
 
 		use({
 			"mvllow/modes.nvim",
+			after = { Global_theme.package_name },
 			config = function()
-				require("modes").setup()
+				require("modes").setup({
+					set_cursor = false,
+				})
 			end,
 		})
 	end,
