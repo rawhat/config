@@ -372,3 +372,11 @@ register({
 		"Toggle Symbols View",
 	},
 })
+
+register({
+	name = "LSP Installer",
+	["<leader>li"] = {
+		":LspInstallInfo<cr>",
+		"Open LSP Installer Modal",
+	},
+})
