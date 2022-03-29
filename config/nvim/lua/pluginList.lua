@@ -75,7 +75,7 @@ local themes = {
 					styles = { comments = "italic" },
 				},
 			})
-			vim.cmd("colorscheme nightfox")
+			vim.cmd("colorscheme duskfox")
 		end,
 	},
 	kanagawa = {
