@@ -155,6 +155,16 @@ return packer.startup({
 				vim.cmd([[autocmd BufRead,BufNewFile *.libsonnet set filetype=jsonnet]])
 			end,
 		})
+		-- just
+		use({
+			"NoahTheDuke/vim-just",
+		})
+		use({
+			"IndianBoy42/tree-sitter-just",
+			config = function()
+				require("tree-sitter-just").setup({})
+			end,
+		})
 		---- nginx
 		use({ "chr4/nginx.vim", ft = "nginx" })
 		---- nim
