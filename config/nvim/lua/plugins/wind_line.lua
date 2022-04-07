@@ -217,23 +217,9 @@ local default = {
 }
 
 windline.setup({
-	colors_name = function(colors)
-		-- print(vim.inspect(colors))
-		-- ADD MORE COLOR HERE ----
-		return colors
-	end,
 	statuslines = {
 		default,
 		quickfix,
 		explorer,
 	},
-})
-
-require("wlfloatline").setup()
-
--- TODO:  setup here?
--- require("plugins.indent-blankline")
-require("indent_blankline").setup({
-	show_current_context = true,
-	show_first_indent_level = false,
 })

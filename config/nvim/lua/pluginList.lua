@@ -388,7 +388,7 @@ return packer.startup({
 		-- 	requires = { "MunifTanjim/nui.nvim" },
 		-- 	branch = "main",
 		-- 	config = function()
-  --       require("plugins.neo_tree")
+		--       require("plugins.neo_tree")
 		-- 	end,
 		-- })
 
