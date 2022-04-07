@@ -30,35 +30,9 @@ end
 -- 	["<C-h>"] = { "<C-w><C-h>", "Move Left" },
 -- })
 
--- movement and resizing
+-- resizing
 register({
 	name = "splitzzz",
-
-	["<C-l>"] = {
-		function()
-			require("smart-splits").move_cursor_right()
-		end,
-		"Move Right",
-	},
-	["<C-k>"] = {
-		function()
-			require("smart-splits").move_cursor_up()
-		end,
-		"Move Up",
-	},
-	["<C-j>"] = {
-		function()
-			require("smart-splits").move_cursor_down()
-		end,
-		"Move Down",
-	},
-	["<C-h>"] = {
-		function()
-			require("smart-splits").move_cursor_left()
-		end,
-		"Move Left",
-	},
-
 	["<S-l>"] = {
 		function()
 			require("smart-splits").resize_right()
@@ -82,6 +56,17 @@ register({
 			require("smart-splits").resize_left()
 		end,
 		"Resize Left",
+	},
+})
+
+-- like hop, but windows
+register({
+	name = "window",
+	["<leader>m"] = {
+		function()
+			require("nvim-window").pick()
+		end,
+		"Jump to window",
 	},
 })
 
