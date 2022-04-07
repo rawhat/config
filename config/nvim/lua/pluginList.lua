@@ -383,6 +383,15 @@ return packer.startup({
 			end,
 		})
 
+		-- use({
+		-- 	"nvim-neo-tree/neo-tree.nvim",
+		-- 	requires = { "MunifTanjim/nui.nvim" },
+		-- 	branch = "main",
+		-- 	config = function()
+  --       require("plugins.neo_tree")
+		-- 	end,
+		-- })
+
 		-- run things asynchronously
 		use({ "skywind3000/asyncrun.vim" })
 

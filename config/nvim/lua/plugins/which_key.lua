@@ -205,9 +205,13 @@ register({
 })
 
 register({
-	name = "nerd tree",
+	name = "nvim tree",
 	["<C-n>"] = { "<Cmd>NvimTreeToggle<cr>", "Toggle nvim-tree" },
 })
+-- register({
+-- 	name = "neo tree",
+-- 	["<C-n>"] = { "<Cmd>Neotree filesystem reveal left toggle<cr>", "Toggle neo-tree" },
+-- })
 
 register({
 	a = {
