@@ -275,10 +275,9 @@ return packer.startup({
 		-- fancy indent helper
 		use({
 			"lukas-reineke/indent-blankline.nvim",
-			-- config = function()
-			-- 	require("indent_blankline").setup()
-			-- 	require("plugins.indent-blankline")
-			-- end,
+			config = function()
+				require("plugins.indent-blankline")
+			end,
 		})
 		-- highlights hex colors rgb(200, 200, 200)
 		use({
