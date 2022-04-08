@@ -14,7 +14,6 @@ local function make_formatter(filetype, command, args)
 	})
 end
 
-local gleam_format = make_formatter("gleam", "gleam", { "format", "--stdin" })
 local fantomas_format = make_formatter("fsharp", "dotnet", { "fantomas", "--stdin", "--stdout" })
 
 local sources = {
@@ -22,17 +21,14 @@ local sources = {
 	f.elm_format,
 	f.gofmt,
 	f.mix,
-	-- f.deno_fmt,
 	-- `npm install -g @fsouza/prettierd`
 	f.prettierd,
 	f.rustfmt,
 	f.stylua,
 	f.yapf,
 	fantomas_format,
-	gleam_format,
 	-- linters/checkers
 	d.luacheck,
-	-- d.pylint,
 	-- i think this might just be super annoying
 	-- d.write_good,
 	d.codespell.with({ filetypes = { "markdown" } }),
