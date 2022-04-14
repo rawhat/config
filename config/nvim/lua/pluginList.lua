@@ -449,7 +449,12 @@ return packer.startup({
 		})
 
 		-- markdown preview
-		use({ "npxbr/glow.nvim", run = ":GlowInstall", ft = "markdown" })
+		use({
+			"npxbr/glow.nvim",
+			branch = "main",
+			run = ":GlowInstall",
+			ft = "markdown",
+		})
 
 		-- show pictograms on completion dropdown
 		use({
@@ -469,11 +474,12 @@ return packer.startup({
 			"mrjones2014/legendary.nvim",
 			after = { "which-key.nvim" },
 			config = function()
-				require("legendary").setup({
-					include_builtin = false,
-					auto_register_which_key = true,
-				})
-				require("plugins.which_key")
+				require("legendary").setup()
+
+				local wk_options = require("plugins.which_key").options()
+				require("which-key").setup(wk_options)
+
+				require("plugins.which_key").mappings()
 			end,
 		})
 

@@ -83,6 +83,7 @@ lsp_installer.on_server_ready(function(server)
 		})
 	elseif server.name == "gopls" then
 		table.insert(config, {
+			on_attach = nil,
 			settings = {
 				go = {
 					toolsEnvVars = {

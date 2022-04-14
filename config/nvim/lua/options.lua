@@ -133,3 +133,12 @@ vim.diagnostic.config({
 	underline = true,
 	update_in_insert = true,
 })
+
+-- make 0 go to first word in line instead of start of line...
+vim.api.nvim_exec(
+	[[
+    noremap 0 ^
+    noremap ^ 0
+  ]],
+	false
+)
