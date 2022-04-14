@@ -26,6 +26,7 @@ local sources = {
 	f.rustfmt,
 	f.stylua,
 	f.yapf,
+	f.jq,
 	fantomas_format,
 	-- linters/checkers
 	d.luacheck,
