@@ -164,6 +164,14 @@ function M.mappings()
 			F = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
 		}),
 
+    generate({
+      name = "lsp restart",
+      ["<leader>lr"] = {
+        "<cmd>LspRestart<cr>",
+        "Restart LSP server(s)"
+      },
+    }),
+
 		generate({
 			["<leader><space>f"] = {
 				"<cmd>lua vim.lsp.buf.formatting()<cr>",
