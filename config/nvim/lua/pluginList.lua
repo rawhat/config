@@ -211,11 +211,18 @@ return packer.startup({
 		-- OTHER
 
 		-- modified status bar
+		-- use({
+		-- 	"windwp/windline.nvim",
+		-- 	requires = { "nvim-gps" },
+		-- 	config = function()
+		-- 		require("plugins.wind_line")
+		-- 	end,
+		-- })
 		use({
-			"windwp/windline.nvim",
-			requires = { "nvim-gps" },
+			"nvim-lualine/lualine.nvim",
+			requires = { "kyazdani42/nvim-web-devicons", opt = true },
 			config = function()
-				require("plugins.wind_line")
+				require("plugins.lualine")
 			end,
 		})
 
@@ -343,7 +350,7 @@ return packer.startup({
 				"cmp-nvim-lsp",
 				"LuaSnip",
 				"cmp_luasnip",
-				"lspkind-nvim",
+				"lspkind.nvim",
 			},
 			config = function()
 				require("plugins.cmp")
@@ -416,10 +423,10 @@ return packer.startup({
 			"nvim-treesitter/playground",
 		})
 
-		use({
-			"andymass/vim-matchup",
-			after = "nvim-treesitter",
-		})
+		-- use({
+		-- 	"andymass/vim-matchup",
+		-- 	after = "nvim-treesitter",
+		-- })
 
 		use({
 			"nvim-telescope/telescope-ui-select.nvim",
@@ -458,9 +465,9 @@ return packer.startup({
 
 		-- show pictograms on completion dropdown
 		use({
-			"onsails/lspkind-nvim",
+			"onsails/lspkind.nvim",
 			config = function()
-				require("lspkind").init({})
+				require("lspkind").init()
 			end,
 		})
 
@@ -555,12 +562,12 @@ return packer.startup({
 			end,
 		})
 
-		use({
-			"abecodes/tabout.nvim",
-			config = function()
-				require("tabout").setup()
-			end,
-		})
+		-- use({
+		-- 	"abecodes/tabout.nvim",
+		-- 	config = function()
+		-- 		require("tabout").setup()
+		-- 	end,
+		-- })
 
 		use({
 			"sudormrfbin/cheatsheet.nvim",
@@ -600,12 +607,12 @@ return packer.startup({
 			requires = "nvim-treesitter/nvim-treesitter",
 		})
 
-		use({
-			"SmiteshP/nvim-gps",
-			config = function()
-				require("nvim-gps").setup()
-			end,
-		})
+		-- use({
+		-- 	"SmiteshP/nvim-gps",
+		-- 	config = function()
+		-- 		require("nvim-gps").setup()
+		-- 	end,
+		-- })
 
 		use({
 			"APZelos/blamer.nvim",

@@ -5,7 +5,7 @@ local lualine = require("lualine")
 
 -- Color table for highlights
 -- stylua: ignore
-local colors = require('nightfox.colors').load()
+local colors = require('nightfox.palette').load("duskfox")
 
 local conditions = {
 	buffer_not_empty = function()
@@ -27,13 +27,15 @@ local config = {
 		-- Disable sections and component separators
 		component_separators = "",
 		section_separators = "",
+		-- theme = "auto",
 		theme = {
 			-- We are going to use lualine_c an lualine_x as left and
 			-- right section. Both are highlighted by c theme .  So we
 			-- are just setting default looks o statusline
-			normal = { c = { fg = colors.fg, bg = colors.bg } },
-			inactive = { c = { fg = colors.fg, bg = colors.bg } },
+			normal = { c = { fg = colors.fg0, bg = colors.bg0 } },
+			inactive = { c = { fg = colors.fg0, bg = colors.bg0 } },
 		},
+		globalstatus = true,
 	},
 	sections = {
 		-- these are to remove the defaults
@@ -70,7 +72,7 @@ ins_left({
 	function()
 		return "▊"
 	end,
-	color = { fg = colors.blue }, -- Sets highlighting of component
+	color = { fg = colors.blue.base }, -- Sets highlighting of component
 	padding = { left = 0, right = 1 }, -- We don't need space before this
 })
 
@@ -79,28 +81,28 @@ ins_left({
 	function()
 		-- auto change color according to neovims mode
 		local mode_color = {
-			n = colors.red,
-			i = colors.green,
-			v = colors.blue,
-			[""] = colors.blue,
-			V = colors.blue,
-			c = colors.magenta,
-			no = colors.red,
-			s = colors.orange,
-			S = colors.orange,
-			[""] = colors.orange,
-			ic = colors.yellow,
-			R = colors.violet,
-			Rv = colors.violet,
-			cv = colors.red,
-			ce = colors.red,
-			r = colors.cyan,
-			rm = colors.cyan,
-			["r?"] = colors.cyan,
-			["!"] = colors.red,
-			t = colors.red,
+			n = colors.red.base,
+			i = colors.green.base,
+			v = colors.blue.base,
+			[""] = colors.blue.base,
+			V = colors.blue.base,
+			c = colors.magenta.base,
+			no = colors.red.base,
+			s = colors.orange.base,
+			S = colors.orange.base,
+			[""] = colors.orange.base,
+			ic = colors.yellow.base,
+			R = colors.pink.base,
+			Rv = colors.pink.base,
+			cv = colors.red.base,
+			ce = colors.red.base,
+			r = colors.cyan.base,
+			rm = colors.cyan.base,
+			["r?"] = colors.cyan.base,
+			["!"] = colors.red.base,
+			t = colors.red.base,
 		}
-		vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg)
+		vim.api.nvim_command("hi! LualineMode guifg=" .. mode_color[vim.fn.mode()] .. " guibg=" .. colors.bg0)
 		return ""
 	end,
 	color = "LualineMode",
@@ -108,41 +110,39 @@ ins_left({
 })
 
 ins_left({
-	-- filesize component
-	"filesize",
-	cond = conditions.buffer_not_empty,
-})
-
-ins_left({
 	"filename",
 	cond = conditions.buffer_not_empty,
-	color = { fg = colors.magenta, gui = "bold" },
+	path = 1,
+	color = { fg = colors.magenta.base, gui = "bold" },
 })
 
 ins_left({ "location" })
 
-ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
+ins_left({ "progress", color = { fg = colors.fg0, gui = "bold" } })
 
 ins_left({
 	"diagnostics",
 	sources = { "nvim_lsp" },
 	symbols = { error = " ", warn = " ", info = " " },
 	diagnostics_color = {
-		color_error = { fg = colors.red },
-		color_warn = { fg = colors.yellow },
-		color_info = { fg = colors.cyan },
+		color_error = { fg = colors.red.base },
+		color_warn = { fg = colors.yellow.base },
+		color_info = { fg = colors.cyan.base },
 	},
 })
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2
-ins_left({
-	function()
-		return "%="
-	end,
-})
+-- ins_left({
+-- 	function()
+-- 		return "%="
+-- 	end,
+-- })
 
-ins_left({
+-- this will be for gps... if i HAD ONE
+
+-- ins_left({
+ins_right({
 	-- Lsp server name .
 	function()
 		local msg = "No Active Lsp"
@@ -164,34 +164,34 @@ ins_left({
 })
 
 -- Add components to right sections
-ins_right({
-	"o:encoding", -- option component same as &encoding in viml
-	fmt = string.upper, -- I'm not sure why it's upper case either ;)
-	cond = conditions.hide_in_width,
-	color = { fg = colors.green, gui = "bold" },
-})
+-- ins_right({
+-- 	"o:encoding", -- option component same as &encoding in viml
+-- 	fmt = string.upper, -- I'm not sure why it's upper case either ;)
+-- 	cond = conditions.hide_in_width,
+-- 	color = { fg = colors.green.base, gui = "bold" },
+-- })
 
-ins_right({
-	"fileformat",
-	fmt = string.upper,
-	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
-	color = { fg = colors.green, gui = "bold" },
-})
+-- ins_right({
+-- 	"fileformat",
+-- 	fmt = string.upper,
+-- 	icons_enabled = false, -- I think icons are cool but Eviline doesn't have them. sigh
+-- 	color = { fg = colors.green.base, gui = "bold" },
+-- })
 
 ins_right({
 	"branch",
 	icon = "",
-	color = { fg = colors.violet, gui = "bold" },
+	color = { fg = colors.pink.base, gui = "bold" },
 })
 
 ins_right({
 	"diff",
 	-- Is it me or the symbol for modified us really weird
-	symbols = { added = " ", modified = "柳 ", removed = " " },
+	symbols = { added = " ", modified = "柳", removed = " " },
 	diff_color = {
-		added = { fg = colors.green },
-		modified = { fg = colors.orange },
-		removed = { fg = colors.red },
+		added = { fg = colors.green.base },
+		modified = { fg = colors.orange.base },
+		removed = { fg = colors.red.base },
 	},
 	cond = conditions.hide_in_width,
 })
@@ -200,7 +200,7 @@ ins_right({
 	function()
 		return "▊"
 	end,
-	color = { fg = colors.blue },
+	color = { fg = colors.blue.base },
 	padding = { left = 1 },
 })
 
