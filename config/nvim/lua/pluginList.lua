@@ -491,11 +491,10 @@ return packer.startup({
 			"mrjones2014/legendary.nvim",
 			after = { "which-key.nvim" },
 			config = function()
-				require("legendary").setup()
-
 				local wk_options = require("plugins.which_key").options()
 				require("which-key").setup(wk_options)
 
+				require("legendary").setup()
 				require("plugins.which_key").mappings()
 			end,
 		})
