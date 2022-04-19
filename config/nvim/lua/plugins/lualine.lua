@@ -7,6 +7,8 @@ local lualine = require("lualine")
 -- stylua: ignore
 local colors = require('nightfox.palette').load("duskfox")
 
+local gps = require("nvim-gps")
+
 local conditions = {
 	buffer_not_empty = function()
 		return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
@@ -139,7 +141,15 @@ ins_left({
 -- 	end,
 -- })
 
--- this will be for gps... if i HAD ONE
+ins_left({
+	function()
+		if gps.is_available() then
+			return gps.get_location()
+		end
+		return ""
+	end,
+	color = { fg = colors.fg0, gui = "bold" },
+})
 
 -- ins_left({
 ins_right({

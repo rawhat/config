@@ -211,13 +211,6 @@ return packer.startup({
 		-- OTHER
 
 		-- modified status bar
-		-- use({
-		-- 	"windwp/windline.nvim",
-		-- 	requires = { "nvim-gps" },
-		-- 	config = function()
-		-- 		require("plugins.wind_line")
-		-- 	end,
-		-- })
 		use({
 			"nvim-lualine/lualine.nvim",
 			requires = { "kyazdani42/nvim-web-devicons", opt = true },
@@ -423,10 +416,10 @@ return packer.startup({
 			"nvim-treesitter/playground",
 		})
 
-		-- use({
-		-- 	"andymass/vim-matchup",
-		-- 	after = "nvim-treesitter",
-		-- })
+		use({
+			"andymass/vim-matchup",
+			after = "nvim-treesitter",
+		})
 
 		use({
 			"nvim-telescope/telescope-ui-select.nvim",
@@ -562,12 +555,13 @@ return packer.startup({
 			end,
 		})
 
-		-- use({
-		-- 	"abecodes/tabout.nvim",
-		-- 	config = function()
-		-- 		require("tabout").setup()
-		-- 	end,
-		-- })
+		use({
+			"abecodes/tabout.nvim",
+			after = { "nvim-cmp" },
+			config = function()
+				require("tabout").setup()
+			end,
+		})
 
 		use({
 			"sudormrfbin/cheatsheet.nvim",
@@ -607,12 +601,12 @@ return packer.startup({
 			requires = "nvim-treesitter/nvim-treesitter",
 		})
 
-		-- use({
-		-- 	"SmiteshP/nvim-gps",
-		-- 	config = function()
-		-- 		require("nvim-gps").setup()
-		-- 	end,
-		-- })
+		use({
+			"SmiteshP/nvim-gps",
+			config = function()
+				require("nvim-gps").setup()
+			end,
+		})
 
 		use({
 			"APZelos/blamer.nvim",

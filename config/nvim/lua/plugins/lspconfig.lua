@@ -8,8 +8,8 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 local noop = function() end
 local on_attach = function(fn)
 	return function(client)
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
+		-- client.resolved_capabilities.document_formatting = false
+		-- client.resolved_capabilities.document_range_formatting = false
 		fn(client)
 	end
 end
