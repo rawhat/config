@@ -22,10 +22,10 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
-	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-	},
+	-- window = {
+	-- 	-- completion = cmp.config.window.bordered(),
+	-- 	documentation = cmp.config.window.bordered(),
+	-- },
 
 	mapping = {
 		-- NOTE:  Not mapping <CR> here since `autopairs` covers that already

@@ -73,6 +73,20 @@ local themes = {
 			nightfox.setup({
 				options = {
 					styles = { comments = "italic" },
+					modules = {
+						bufferline = true,
+						cmp = true,
+						diagnostic = true,
+						gitsigns = true,
+						hop = true,
+						modes = true,
+						native_lsp = true,
+						nvimtree = true,
+						symbol_outline = true,
+						telescope = true,
+						treesitter = true,
+						whichkey = true,
+					},
 				},
 			})
 			vim.cmd("colorscheme duskfox")
@@ -419,6 +433,9 @@ return packer.startup({
 		use({
 			"andymass/vim-matchup",
 			after = "nvim-treesitter",
+			config = function()
+				vim.api.nvim_set_var("matchup_matchparen_offscreen", { method = "popup" })
+			end,
 		})
 
 		use({
