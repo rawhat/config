@@ -74,7 +74,6 @@ local themes = {
 				options = {
 					styles = { comments = "italic" },
 					modules = {
-						bufferline = true,
 						cmp = true,
 						diagnostic = true,
 						gitsigns = true,
@@ -520,9 +519,23 @@ return packer.startup({
 		-- })
 
 		-- this doesn't work correctly
-		-- use({
-		-- 	"yamatsum/nvim-cursorline",
-		-- })
+		use({
+			"yamatsum/nvim-cursorline",
+			config = function()
+				require("nvim-cursorline").setup({
+					cursorline = {
+						enable = true,
+						timeout = 1000,
+						number = false,
+					},
+					cursorword = {
+						enable = true,
+						min_length = 3,
+						hl = { underline = true },
+					},
+				})
+			end,
+		})
 
 		-- a nicer quickfix window
 		use({
