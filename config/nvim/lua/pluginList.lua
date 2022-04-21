@@ -572,7 +572,16 @@ return packer.startup({
 			end,
 		})
 
-		use({ "stevearc/dressing.nvim" })
+		use({
+			"stevearc/dressing.nvim",
+			config = function()
+				require("dressing").setup({
+					input = {
+						min_width = { 120 },
+					},
+				})
+			end,
+		})
 
 		use({
 			"tanvirtin/vgit.nvim",
