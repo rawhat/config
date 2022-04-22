@@ -195,6 +195,7 @@ return packer.startup({
 		---- rust
 		use({
 			"simrat39/rust-tools.nvim",
+			requires = { "neovim/nvim-lspconfig" },
 			config = function()
 				require("rust-tools").setup({
 					tools = {
@@ -318,6 +319,7 @@ return packer.startup({
 		use({
 			"neovim/nvim-lspconfig",
 			requires = { "williamboman/nvim-lsp-installer", "jose-elias-alvarez/nvim-lsp-ts-utils" },
+			after = { "formatter.nvim" },
 			config = function()
 				require("plugins.lspconfig")
 			end,
@@ -394,15 +396,6 @@ return packer.startup({
 				require("nvim-tree").setup({})
 			end,
 		})
-
-		-- use({
-		-- 	"nvim-neo-tree/neo-tree.nvim",
-		-- 	requires = { "MunifTanjim/nui.nvim" },
-		-- 	branch = "main",
-		-- 	config = function()
-		--       require("plugins.neo_tree")
-		-- 	end,
-		-- })
 
 		-- run things asynchronously
 		use({ "skywind3000/asyncrun.vim" })
@@ -499,24 +492,12 @@ return packer.startup({
 		})
 
 		-- hmm... `efm` might be more flexible?
-		use({
-			"jose-elias-alvarez/null-ls.nvim",
-			after = { "nvim-lspconfig" },
-			requires = { "nvim-lua/plenary.nvim" },
-			config = function()
-				require("plugins.null")
-			end,
-		})
+		use({ "mhartington/formatter.nvim" })
 
 		-- virtual text types (only in some languages)
 		use({
 			"jubnzv/virtual-types.nvim",
 		})
-
-		-- highlight word under cursor
-		-- use({
-		-- 	"RRethy/vim-illuminate",
-		-- })
 
 		-- this doesn't work correctly
 		use({
@@ -559,8 +540,6 @@ return packer.startup({
 			end,
 		})
 
-		-- use({ "roxma/vim-tmux-clipboard" })
-		-- use({ "jabirali/vim-tmux-yank" })
 		use({
 			"ojroques/vim-oscyank",
 			config = function()

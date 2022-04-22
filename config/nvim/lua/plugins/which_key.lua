@@ -172,12 +172,12 @@ function M.mappings()
 			},
 		}),
 
-		generate({
-			["<leader><space>f"] = {
-				"<cmd>lua vim.lsp.buf.formatting()<cr>",
-				"Format",
-			},
-		}),
+		-- generate({
+		-- 	["<leader><space>f"] = {
+		-- 		"<cmd>lua vim.lsp.buf.formatting()<cr>",
+		-- 		"Format",
+		-- 	},
+		-- }),
 
 		generate({
 			g = {

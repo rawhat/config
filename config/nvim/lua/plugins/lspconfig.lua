@@ -1,28 +1,35 @@
 local lspconfig = require("lspconfig")
 local lsp_installer = require("nvim-lsp-installer")
 local configs = require("lspconfig.configs")
+local wk = require("which-key")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
-local noop = function() end
-local on_attach = function(fn)
-	return function(client)
-		-- client.resolved_capabilities.document_formatting = false
-		-- client.resolved_capabilities.document_range_formatting = false
-		fn(client)
-	end
+local bind_lsp_format = function()
+	wk.register({
+		["<leader><space>f"] = {
+			function()
+				vim.lsp.buf.formatting()
+			end,
+			"Format",
+		},
+	})
 end
+local noop = function() end
 
 lsp_installer.on_server_ready(function(server)
 	local config = {
 		capabilities = capabilities,
-		on_attach = on_attach(noop),
+		on_attach = noop,
 	}
 
 	if server.name == "elixirls" then
 		table.insert(config, {
 			filetypes = { "elixir", "leex", "heex", "eex" },
+			on_attach = function()
+				bind_lsp_format()
+			end,
 		})
 	elseif server.name == "pyright" then
 		table.insert(config, {
@@ -46,9 +53,10 @@ lsp_installer.on_server_ready(function(server)
 		})
 	elseif server.name == "rust_analyzer" then
 		table.insert(config, {
-			on_attach = on_attach(function(client)
+			on_attach = function(client)
+				bind_lsp_format()
 				require("virtualtypes").on_attach(client)
-			end),
+			end,
 			settings = {
 				["rust-analyzer"] = {
 					checkOnSave = { command = "clippy" },
@@ -69,21 +77,21 @@ lsp_installer.on_server_ready(function(server)
 				"typescriptreact",
 				"typescript.tsx",
 			},
-			on_attach = on_attach(function(client)
+			on_attach = function(client)
 				local ts_utils = require("nvim-lsp-ts-utils")
 				ts_utils.setup({})
 				ts_utils.setup_client(client)
-			end),
+			end,
 		})
 	elseif server.name == "ocamlls" then
 		table.insert(config, {
-			on_attach = on_attach(function(client)
+			on_attach = function(client)
+				bind_lsp_format()
 				require("virtualtypes").on_attach(client)
-			end),
+			end,
 		})
 	elseif server.name == "gopls" then
 		table.insert(config, {
-			on_attach = nil,
 			settings = {
 				go = {
 					toolsEnvVars = {
@@ -118,6 +126,9 @@ if not configs.gleam then
 		default_config = {
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
+			on_attach = function()
+				bind_lsp_format()
+			end,
 			root_dir = function(fname)
 				return lspconfig.util.root_pattern("gleam.toml")(fname)
 			end,
@@ -132,3 +143,60 @@ for type, icon in pairs(signs) do
 	local hl = "DiagnosticSign" .. type
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
+
+-- filetypes that use `formatter.nvim` instead of lsp
+local formatter_filetypes = {
+	typescript = {
+		pattern = { ".ts", ".tsx", ".js", ".jsx" },
+		command = {
+			exe = "prettierd",
+			args = { vim.api.nvim_buf_get_name(0) },
+			stdin = true,
+		},
+	},
+	lua = {
+		pattern = { ".lua" },
+		command = {
+			exe = "stylua",
+			args = { "-" },
+			stdin = true,
+		},
+	},
+	python = {
+		pattern = { ".python" },
+		command = {
+			exe = "pyfmt",
+			args = { vim.api.nvim_buf_get_name(0) },
+			stdin = true,
+		},
+	},
+	json = {
+		pattern = { ".json" },
+		command = {
+			exe = "jq",
+			args = {},
+			stdin = true,
+		},
+	},
+}
+
+local formatter_opts = {}
+local format_group = vim.api.nvim_create_augroup("FormatterFiletypes", { clear = true })
+for name, tbl in pairs(formatter_filetypes) do
+	vim.api.nvim_create_autocmd({ "BufReadPre" }, {
+		patterns = tbl.patterns,
+		callback = function()
+			wk.register({
+				["<leader><space>f"] = {
+					"<cmd>Format<cr>",
+					"Format",
+				},
+			})
+		end,
+		group = format_group,
+		desc = "Format for " .. name,
+	})
+	formatter_opts[name] = tbl.command
+end
+
+require("formatter").setup(formatter_opts)
