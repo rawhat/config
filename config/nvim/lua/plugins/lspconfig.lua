@@ -133,6 +133,7 @@ local formatter_filetypes = {
 	typescript = {
 		pattern = { ".ts", ".tsx", ".js", ".jsx" },
 		command = {
+			-- npm install -g @fsouza/prettierd
 			exe = "prettierd",
 			args = { vim.api.nvim_buf_get_name(0) },
 			stdin = true,
@@ -141,6 +142,7 @@ local formatter_filetypes = {
 	lua = {
 		pattern = { ".lua" },
 		command = {
+			-- available on package manager (or cargo)
 			exe = "stylua",
 			args = { "-" },
 			stdin = true,
@@ -149,6 +151,7 @@ local formatter_filetypes = {
 	python = {
 		pattern = { ".python" },
 		command = {
+			-- pip install --user pyfmt
 			exe = "pyfmt",
 			args = { vim.api.nvim_buf_get_name(0) },
 			stdin = true,
@@ -157,6 +160,7 @@ local formatter_filetypes = {
 	json = {
 		pattern = { ".json" },
 		command = {
+			-- available on package manager
 			exe = "jq",
 			args = {},
 			stdin = true,
@@ -180,6 +184,11 @@ for name, tbl in pairs(formatter_filetypes) do
 		group = format_group,
 		desc = "Format for " .. name,
 	})
+
+	if vim.fn.executable(tbl.command.exe) == 0 then
+		error(tbl.command.exe .. " not found on path")
+	end
+
 	formatter_opts[name] = {
 		function()
 			return tbl.command
