@@ -10,9 +10,9 @@ local bind_lsp_format = function()
 	wk.register({
 		["<leader><space>f"] = {
 			function()
-				vim.lsp.buf.formatting()
+				vim.lsp.buf.formatting_sync()
 			end,
-			"Format",
+			"Format with lsp",
 		},
 	})
 end
@@ -25,92 +25,76 @@ lsp_installer.on_server_ready(function(server)
 	}
 
 	if server.name == "elixirls" then
-		table.insert(config, {
-			filetypes = { "elixir", "leex", "heex", "eex" },
-			on_attach = function()
-				bind_lsp_format()
-			end,
-		})
+		config.filetypes = { "elixir", "leex", "heex", "eex" }
+		config.on_attach = function()
+			bind_lsp_format()
+		end
 	elseif server.name == "pyright" then
-		table.insert(config, {
-			root_dir = function(fname)
-				return lspconfig.util.root_pattern(
-					".git",
-					"setup.py",
-					"setup.cfg",
-					"pyproject.toml",
-					"requirements.txt"
-				)(fname) -- or lspconfig.util.path.dirname(fname)
-			end,
-			flags = { debounce_text_changes = 300 },
-			settings = {
-				python = {
-					analysis = {
-						diagnosticMode = "openFilesOnly",
-					},
+		config.root_dir = function(fname)
+			return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
+				fname
+			) -- or lspconfig.util.path.dirname(fname)
+		end
+		config.flags = { debounce_text_changes = 300 }
+		config.settings = {
+			python = {
+				analysis = {
+					diagnosticMode = "openFilesOnly",
 				},
 			},
-		})
+		}
 	elseif server.name == "rust_analyzer" then
-		table.insert(config, {
-			on_attach = function(client)
-				bind_lsp_format()
-				require("virtualtypes").on_attach(client)
-			end,
-			settings = {
-				["rust-analyzer"] = {
-					checkOnSave = { command = "clippy" },
-				},
+		config.on_attach = function(client)
+			bind_lsp_format()
+			require("virtualtypes").on_attach(client)
+		end
+		config.settings = {
+			["rust-analyzer"] = {
+				checkOnSave = { command = "clippy" },
 			},
-		})
+		}
 	elseif server.name == "tsserver" then
-		table.insert(config, {
-			init_options = require("nvim-lsp-ts-utils").init_options,
-			flags = {
-				debounce_text_changes = 150,
-			},
-			filetypes = {
-				"javascript",
-				"javascriptreact",
-				"javascript.jsx",
-				"typescript",
-				"typescriptreact",
-				"typescript.tsx",
-			},
-			on_attach = function(client)
-				local ts_utils = require("nvim-lsp-ts-utils")
-				ts_utils.setup({})
-				ts_utils.setup_client(client)
-			end,
-		})
+		config.init_options = require("nvim-lsp-ts-utils").init_options
+		config.flags = {
+			debounce_text_changes = 150,
+		}
+		config.filetypes = {
+			"javascript",
+			"javascriptreact",
+			"javascript.jsx",
+			"typescript",
+			"typescriptreact",
+			"typescript.tsx",
+		}
+		config.on_attach = function(client)
+			local ts_utils = require("nvim-lsp-ts-utils")
+			ts_utils.setup({})
+			ts_utils.setup_client(client)
+		end
 	elseif server.name == "ocamlls" then
-		table.insert(config, {
-			on_attach = function(client)
-				bind_lsp_format()
-				require("virtualtypes").on_attach(client)
-			end,
-		})
+		config.on_attach = function(client)
+			bind_lsp_format()
+			require("virtualtypes").on_attach(client)
+		end
 	elseif server.name == "gopls" then
-		table.insert(config, {
-			settings = {
-				go = {
-					toolsEnvVars = {
-						GOPACKAGESDRIVER = "${workspaceFolder}/tools/gopackagesdriver.sh",
-					},
-				},
-				build = {
-					directoryFilters = {
-						"-bazel-bin",
-						"-bazel-out",
-						"-bazel-testlogs",
-						"-bazel-mypkg",
-					},
+		config.settings = {
+			go = {
+				toolsEnvVars = {
+					GOPACKAGESDRIVER = "${workspaceFolder}/tools/gopackagesdriver.sh",
 				},
 			},
-			flags = {
-				debounce_text_changes = 150,
+			build = {
+				directoryFilters = {
+					"-bazel-bin",
+					"-bazel-out",
+					"-bazel-testlogs",
+					"-bazel-mypkg",
+				},
 			},
-		})
+		}
+		config.flags = {
+			debounce_text_changes = 150,
+		}
 	end
 
 	server:setup(config)
@@ -189,14 +173,20 @@ for name, tbl in pairs(formatter_filetypes) do
 			wk.register({
 				["<leader><space>f"] = {
 					"<cmd>Format<cr>",
-					"Format",
+					"Format with formatter.nvim",
 				},
 			})
 		end,
 		group = format_group,
 		desc = "Format for " .. name,
 	})
-	formatter_opts[name] = tbl.command
+	formatter_opts[name] = {
+		function()
+			return tbl.command
+		end,
+	}
 end
 
-require("formatter").setup(formatter_opts)
+require("formatter").setup({
+	filetype = formatter_opts,
+})

@@ -195,7 +195,7 @@ return packer.startup({
 		---- rust
 		use({
 			"simrat39/rust-tools.nvim",
-			requires = { "neovim/nvim-lspconfig" },
+			after = { "nvim-lspconfig" },
 			config = function()
 				require("rust-tools").setup({
 					tools = {
@@ -318,7 +318,11 @@ return packer.startup({
 
 		use({
 			"neovim/nvim-lspconfig",
-			requires = { "williamboman/nvim-lsp-installer", "jose-elias-alvarez/nvim-lsp-ts-utils" },
+			requires = {
+				"williamboman/nvim-lsp-installer",
+				"jose-elias-alvarez/nvim-lsp-ts-utils",
+				"simrat39/rust-tools.nvim",
+			},
 			after = { "formatter.nvim" },
 			config = function()
 				require("plugins.lspconfig")
