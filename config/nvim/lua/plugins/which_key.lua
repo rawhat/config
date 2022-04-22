@@ -345,10 +345,16 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "Packer Sync",
-			["<leader>ps"] = {
-				"<Cmd>PackerSync<cr>",
-				"Packer Sync",
+			name = "Packer Commands",
+			["<leader>p"] = {
+				s = {
+					"<Cmd>PackerSync<cr>",
+					"Packer Sync",
+				},
+				c = {
+					"<Cmd>PackerCompile<cr>",
+					"Packer Compile",
+				},
 			},
 		}),
 
