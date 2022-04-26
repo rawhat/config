@@ -568,7 +568,13 @@ return packer.startup(function(use)
 			"nvim-lua/plenary.nvim",
 		},
 		config = function()
-			require("vgit").setup()
+			require("vgit").setup({
+				settings = {
+					live_blame = {
+						enabled = false,
+					},
+				},
+			})
 		end,
 	})
 
