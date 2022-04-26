@@ -128,23 +128,55 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+local ends_with = function(str, ending)
+	return ending == "" or str:sub(-#ending) == ending
+end
+
+local typescript_javascript = {
+	pattern = { ".ts", ".tsx", ".js", ".jsx" },
+	command = {
+		-- npm install -g @fsouza/prettierd
+		exe = "prettierd",
+		get_args = function()
+			return { vim.api.nvim_buf_get_name(0) }
+		end,
+		stdin = true,
+	},
+}
 -- filetypes that use `formatter.nvim` instead of lsp
 local formatter_filetypes = {
-	typescript = {
-		pattern = { ".ts", ".tsx", ".js", ".jsx" },
+	bzl = {
+		pattern = { ".bzl", "BUILD", "WORKSPACE" },
 		command = {
-			-- npm install -g @fsouza/prettierd
-			exe = "prettierd",
-			args = { vim.api.nvim_buf_get_name(0) },
+			-- go install github.com/bazelbuild/buildtools/buildifier@latest
+			exe = "buildifier",
+			get_args = function()
+				local filename = vim.fn.expand("%:t")
+				if filename == "BUILD" then
+					return { "--type=build" }
+				elseif filename == "WORKSPACE" then
+					return { "--type=workspace" }
+				elseif ends_with(filename, ".bzl") then
+					return { "--type=bzl" }
+				else
+					return { "--type=default" }
+				end
+			end,
 			stdin = true,
 		},
 	},
+	typescript = typescript_javascript,
+	typescriptreact = typescript_javascript,
+	javascript = typescript_javascript,
+	javascriptreact = typescript_javascript,
 	lua = {
 		pattern = { ".lua" },
 		command = {
 			-- available on package manager (or cargo)
 			exe = "stylua",
-			args = { "-" },
+			get_args = function()
+				return { "-" }
+			end,
 			stdin = true,
 		},
 	},
@@ -153,7 +185,9 @@ local formatter_filetypes = {
 		command = {
 			-- pip install --user pyfmt
 			exe = "pyfmt",
-			args = { vim.api.nvim_buf_get_name(0) },
+			get_args = function()
+				return { vim.api.nvim_buf_get_name(0) }
+			end,
 			stdin = true,
 		},
 	},
@@ -162,7 +196,6 @@ local formatter_filetypes = {
 		command = {
 			-- available on package manager
 			exe = "jq",
-			args = {},
 			stdin = true,
 		},
 	},
@@ -191,7 +224,17 @@ for name, tbl in pairs(formatter_filetypes) do
 
 	formatter_opts[name] = {
 		function()
-			return tbl.command
+			local args
+			if tbl.command.get_args ~= nil then
+				args = tbl.command.get_args()
+			else
+				args = {}
+			end
+			return {
+				exe = tbl.command.exe,
+				args = args,
+				stdin = tbl.command.stdin,
+			}
 		end,
 	}
 end
