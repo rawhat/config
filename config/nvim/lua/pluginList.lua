@@ -664,4 +664,11 @@ return packer.startup(function(use)
 	use({
 		"https://gitlab.com/yorickpeterse/nvim-window.git",
 	})
+
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({})
+		end,
+	})
 end)
