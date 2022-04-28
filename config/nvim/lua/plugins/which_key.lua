@@ -367,10 +367,10 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "Symbols Outline",
-			["<leader>so"] = {
-				":SymbolsOutline<cr>",
-				"Toggle Symbols View",
+			name = "Aerial",
+			["<leader>ae"] = {
+				"<Cmd>AerialToggle right<cr>",
+				"Toggle the aerial view",
 			},
 		}),
 

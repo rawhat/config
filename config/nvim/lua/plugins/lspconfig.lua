@@ -16,17 +16,21 @@ local bind_lsp_format = function()
 		},
 	})
 end
-local noop = function() end
+
+local aerial_attach = function(client, buf_nr)
+	require("aerial").on_attach(client, buf_nr)
+end
 
 lsp_installer.on_server_ready(function(server)
 	local config = {
 		capabilities = capabilities,
-		on_attach = noop,
+		on_attach = aerial_attach,
 	}
 
 	if server.name == "elixirls" then
 		config.filetypes = { "elixir", "leex", "heex", "eex" }
-		config.on_attach = function()
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
 			bind_lsp_format()
 		end
 	elseif server.name == "pyright" then
@@ -44,7 +48,8 @@ lsp_installer.on_server_ready(function(server)
 			},
 		}
 	elseif server.name == "rust_analyzer" then
-		config.on_attach = function(client)
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
 			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
@@ -66,13 +71,15 @@ lsp_installer.on_server_ready(function(server)
 			"typescriptreact",
 			"typescript.tsx",
 		}
-		config.on_attach = function(client)
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
 			local ts_utils = require("nvim-lsp-ts-utils")
 			ts_utils.setup({})
 			ts_utils.setup_client(client)
 		end
 	elseif server.name == "ocamlls" then
 		config.on_attach = function(client)
+			aerial_attach(client, buf_nr)
 			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
@@ -110,7 +117,8 @@ if not configs.gleam then
 		default_config = {
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
-			on_attach = function()
+			on_attach = function(client, buf_nr)
+				aerial_attach(client, buf_nr)
 				bind_lsp_format()
 			end,
 			root_dir = function(fname)

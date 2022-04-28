@@ -81,7 +81,6 @@ local themes = {
 						modes = true,
 						native_lsp = true,
 						nvimtree = true,
-						symbol_outline = true,
 						telescope = true,
 						treesitter = true,
 						whichkey = true,
@@ -610,9 +609,11 @@ return packer.startup(function(use)
 		end,
 	})
 
-	-- NOTE:  broken for now
 	use({
-		"simrat39/symbols-outline.nvim",
+		"stevearc/aerial.nvim",
+		config = function()
+			require("aerial").setup({})
+		end,
 	})
 
 	use({
