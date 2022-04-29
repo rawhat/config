@@ -6,6 +6,29 @@ local wk = require("which-key")
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
+local lsp_servers = {
+	"clangd",
+	"crystalline",
+	"elixirls",
+	"erlangls",
+	"eslint",
+	"fsautocomplete",
+	"gopls",
+	"jsonls",
+	"jsonnet_ls",
+	"ocamllsp",
+	"pyright",
+	"rust_analyzer",
+	"sorbet",
+	"sumneko_lua",
+	"tsserver",
+	"zls",
+}
+
+lsp_installer.setup({
+	ensure_installed = lsp_servers,
+})
+
 local bind_lsp_format = function()
 	wk.register({
 		["<leader><space>f"] = {
@@ -20,8 +43,9 @@ end
 local aerial_attach = function(client, buf_nr)
 	require("aerial").on_attach(client, buf_nr)
 end
+local noop = function() end
 
-lsp_installer.on_server_ready(function(server)
+for _, server in pairs(lsp_servers) do
 	local config = {
 		capabilities = capabilities,
 		on_attach = aerial_attach,
@@ -104,8 +128,8 @@ lsp_installer.on_server_ready(function(server)
 		}
 	end
 
-	server:setup(config)
-end)
+	lspconfig[server].setup(config)
+end
 
 -- non-lsp-install servers
 lspconfig.java_language_server.setup({
