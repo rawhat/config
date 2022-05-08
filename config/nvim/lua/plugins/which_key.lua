@@ -265,10 +265,6 @@ function M.mappings()
 				"<Cmd>lua require('telescope.builtin').buffers()<cr>",
 				"Buffers",
 			},
-			["<leader>ca"] = {
-				"<Cmd>lua require('telescope.builtin').lsp_code_actions()<cr>",
-				"Code Actions",
-			},
 			["<leader>ch"] = {
 				"<Cmd>lua require('telescope.builtin').command_history()<cr>",
 				"Command History",
@@ -310,7 +306,28 @@ function M.mappings()
 				"Help Tags",
 			},
 		}),
-
+		generate({
+			["<leader>ca"] = {
+				function()
+					vim.lsp.buf.code_action()
+				end,
+				"Code Actions",
+			},
+		}, {
+			mode = "n",
+		}),
+		generate({
+			["<leader>ra"] = {
+				function()
+					local start = vim.api.nvim_buf_get_mark(0, "<")
+					local ending = vim.api.nvim_buf_get_mark(0, ">")
+					vim.lsp.buf.code_action(nil, start, ending)
+				end,
+				"Range Code Actions",
+			},
+		}, {
+			mode = "v",
+		}),
 		generate({
 			["<leader>ag"] = {
 				"<Cmd>lua require('telescope.builtin').grep_string()<cr>",

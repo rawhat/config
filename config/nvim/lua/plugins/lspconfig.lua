@@ -33,7 +33,7 @@ local bind_lsp_format = function()
 	wk.register({
 		["<leader><space>f"] = {
 			function()
-				vim.lsp.buf.formatting_sync()
+				vim.lsp.buf.format()
 			end,
 			"Format with lsp",
 		},
@@ -101,6 +101,18 @@ for _, server in pairs(lsp_servers) do
 			ts_utils.setup({})
 			ts_utils.setup_client(client)
 		end
+		config.commands = {
+			OrganizeImports = {
+				function()
+					vim.lsp.buf.execute_command({
+						command = "_typescript.organizeImports",
+						arguments = { vim.api.nvim_buf_get_name(0) },
+						title = "",
+					})
+				end,
+				description = "Organize Imports",
+			},
+		}
 	elseif server.name == "ocamlls" then
 		config.on_attach = function(client)
 			aerial_attach(client, buf_nr)
@@ -126,6 +138,11 @@ for _, server in pairs(lsp_servers) do
 		config.flags = {
 			debounce_text_changes = 150,
 		}
+	elseif server.name == "gleam" then
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
+			bind_lsp_format()
+		end
 	end
 
 	lspconfig[server].setup(config)
