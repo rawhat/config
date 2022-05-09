@@ -28,7 +28,6 @@ cmp.setup({
 	-- },
 
 	mapping = {
-		-- NOTE:  Not mapping <CR> here since `autopairs` covers that already
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
