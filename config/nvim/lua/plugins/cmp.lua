@@ -27,7 +27,7 @@ cmp.setup({
 	-- 	documentation = cmp.config.window.bordered(),
 	-- },
 
-	mapping = {
+	mapping = cmp.mapping.preset.insert({
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
 		["<C-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -58,7 +58,7 @@ cmp.setup({
 			"s",
 		}),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
-	},
+	}),
 
 	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },

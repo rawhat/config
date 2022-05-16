@@ -572,6 +572,9 @@ return packer.startup(function(use)
 					live_blame = {
 						enabled = false,
 					},
+					authorship_code_lens = {
+						enabled = false,
+					},
 				},
 			})
 		end,
