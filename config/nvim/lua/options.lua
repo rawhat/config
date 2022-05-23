@@ -68,19 +68,6 @@ vim.g.node_client_debug = 1
 
 vim.opt.laststatus = 3
 
--- trying it out
-local colors = require("nightfox.palette").load("duskfox")
-vim.api.nvim_set_hl(0, "WinBarSeparator", { fg = colors.violet })
-vim.api.nvim_set_hl(0, "WinBarContent", { fg = colors.fg0, italic = true })
-
-M.render_winbar = function()
-	if vim.api.nvim_eval_statusline("%f", {})["str"] == "[No Name]" then
-		return ""
-	end
-	return "%#WinBarSeparator#" .. "%*" .. "%#WinBarContent#" .. "%f" .. "%*" .. "%#WinBarSeparator#" .. "%*"
-end
-vim.opt.winbar = "%{%v:lua.require('options').render_winbar()%}"
-
 -- significant impact here?  idk
 local disabled_built_in_plugins = {
 	"netrw",
