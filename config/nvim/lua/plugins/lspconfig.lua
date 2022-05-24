@@ -50,14 +50,13 @@ for _, server in pairs(lsp_servers) do
 		capabilities = capabilities,
 		on_attach = aerial_attach,
 	}
-
-	if server.name == "elixirls" then
+	if server == "elixirls" then
 		config.filetypes = { "elixir", "leex", "heex", "eex" }
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			bind_lsp_format()
 		end
-	elseif server.name == "pyright" then
+	elseif server == "pyright" then
 		config.root_dir = function(fname)
 			return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
 				fname
@@ -71,7 +70,7 @@ for _, server in pairs(lsp_servers) do
 				},
 			},
 		}
-	elseif server.name == "rust_analyzer" then
+	elseif server == "rust_analyzer" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			bind_lsp_format()
@@ -82,7 +81,7 @@ for _, server in pairs(lsp_servers) do
 				checkOnSave = { command = "clippy" },
 			},
 		}
-	elseif server.name == "tsserver" then
+	elseif server == "tsserver" then
 		config.init_options = require("nvim-lsp-ts-utils").init_options
 		config.flags = {
 			debounce_text_changes = 150,
@@ -113,13 +112,13 @@ for _, server in pairs(lsp_servers) do
 				description = "Organize Imports",
 			},
 		}
-	elseif server.name == "ocamlls" then
+	elseif server == "ocamlls" then
 		config.on_attach = function(client)
 			aerial_attach(client, buf_nr)
 			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
-	elseif server.name == "gopls" then
+	elseif server == "gopls" then
 		config.settings = {
 			go = {
 				toolsEnvVars = {
@@ -138,7 +137,12 @@ for _, server in pairs(lsp_servers) do
 		config.flags = {
 			debounce_text_changes = 150,
 		}
-	elseif server.name == "gleam" then
+	elseif server == "gleam" then
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
+			bind_lsp_format()
+		end
+	elseif server == "erlangls" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			bind_lsp_format()
