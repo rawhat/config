@@ -27,6 +27,11 @@ local lsp_servers = {
 
 lsp_installer.setup({
 	ensure_installed = lsp_servers,
+	icons = {
+		server_installed = "✓",
+		server_pending = "➜",
+		server_uninstalled = "✗",
+	},
 })
 
 local bind_lsp_format = function()
@@ -96,6 +101,7 @@ for _, server in pairs(lsp_servers) do
 		}
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
+			bind_lsp_format()
 			local ts_utils = require("nvim-lsp-ts-utils")
 			ts_utils.setup({})
 			ts_utils.setup_client(client)
@@ -137,6 +143,10 @@ for _, server in pairs(lsp_servers) do
 		config.flags = {
 			debounce_text_changes = 150,
 		}
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
+			bind_lsp_format()
+		end
 	elseif server == "gleam" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
