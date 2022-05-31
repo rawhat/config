@@ -101,7 +101,6 @@ for _, server in pairs(lsp_servers) do
 		}
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
-			bind_lsp_format()
 			local ts_utils = require("nvim-lsp-ts-utils")
 			ts_utils.setup({})
 			ts_utils.setup_client(client)
