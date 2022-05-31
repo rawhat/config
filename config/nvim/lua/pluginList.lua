@@ -247,7 +247,7 @@ return packer.startup(function(use)
 	use({ "mileszs/ack.vim" })
 
 	-- removes trailing whitespace
-	use({ "McAuleyPenney/tidy.nvim" })
+	use({ "mcauley-penney/tidy.nvim" })
 
 	-- ez commenting
 	use({
