@@ -146,15 +146,10 @@ for _, server in pairs(lsp_servers) do
 			aerial_attach(client, buf_nr)
 			bind_lsp_format()
 		end
-	elseif server == "gleam" then
-		config.on_attach = function(client, buf_nr)
-			aerial_attach(client, buf_nr)
-			bind_lsp_format()
-		end
 	elseif server == "erlangls" then
 		config.on_attach = function(client, buf_nr)
-			aerial_attach(client, buf_nr)
 			bind_lsp_format()
+			aerial_attach(client, buf_nr)
 		end
 	end
 
@@ -172,8 +167,8 @@ if not configs.gleam then
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
 			on_attach = function(client, buf_nr)
-				aerial_attach(client, buf_nr)
 				bind_lsp_format()
+				aerial_attach(client, buf_nr)
 			end,
 			root_dir = function(fname)
 				return lspconfig.util.root_pattern("gleam.toml")(fname)
