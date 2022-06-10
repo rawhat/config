@@ -20,6 +20,7 @@ local lsp_servers = {
 	"pyright",
 	"rust_analyzer",
 	"sorbet",
+	"sqls",
 	"sumneko_lua",
 	"tsserver",
 	"zls",
@@ -38,7 +39,7 @@ local bind_lsp_format = function()
 	wk.register({
 		["<leader><space>f"] = {
 			function()
-				vim.lsp.buf.format()
+				vim.lsp.buf.formatting({ async = true })
 			end,
 			"Format with lsp",
 		},
@@ -150,6 +151,11 @@ for _, server in pairs(lsp_servers) do
 		config.on_attach = function(client, buf_nr)
 			bind_lsp_format()
 			aerial_attach(client, buf_nr)
+		end
+	elseif server == "sqls" then
+		config.on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
+			bind_lsp_format()
 		end
 	end
 
@@ -298,4 +304,11 @@ end
 
 require("formatter").setup({
 	filetype = formatter_opts,
+})
+
+-- i don't want virtual text for LSP diagnostics.  but the lsp installer plugin
+-- uses diagnostics for displaying information!  so just disable it in the
+-- handler
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	virtual_text = false,
 })

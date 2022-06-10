@@ -129,13 +129,6 @@ vim.g.markdown_fenced_languages = {
 -- vim.opt.clipboard = "unnamedplus"
 vim.opt.clipboard:append("unnamedplus")
 
-vim.diagnostic.config({
-	virtual_text = false,
-	signs = true,
-	underline = true,
-	update_in_insert = true,
-})
-
 -- make 0 go to first word in line instead of start of line...
 vim.api.nvim_exec(
 	[[

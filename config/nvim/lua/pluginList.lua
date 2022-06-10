@@ -359,6 +359,7 @@ return packer.startup(function(use)
 			require("plugins.metals")
 		end,
 	})
+
 	use({
 		"folke/trouble.nvim",
 		after = Global_theme.package_name,
@@ -529,6 +530,7 @@ return packer.startup(function(use)
 	use({
 		"ojroques/vim-oscyank",
 		config = function()
+			vim.g.oscyank_term = "default"
 			vim.cmd([[
           autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
         ]])
