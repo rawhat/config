@@ -446,7 +446,7 @@ return packer.startup(function(use)
 
 	-- markdown preview
 	use({
-		"npxbr/glow.nvim",
+		"ellisonleao/glow.nvim",
 		branch = "main",
 		run = ":GlowInstall",
 		ft = "markdown",
