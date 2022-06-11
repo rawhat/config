@@ -568,14 +568,6 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"abecodes/tabout.nvim",
-		after = { "nvim-cmp" },
-		config = function()
-			require("tabout").setup()
-		end,
-	})
-
-	use({
 		"sudormrfbin/cheatsheet.nvim",
 		requires = {
 			"nvim-telescope/telescope.nvim",
