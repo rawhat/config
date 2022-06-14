@@ -7,7 +7,8 @@ local lualine = require("lualine")
 -- stylua: ignore
 local colors = require('nightfox.palette').load("duskfox")
 
-local gps = require("nvim-gps")
+local navic = require("nvim-navic")
+local aerial = require("aerial")
 
 local conditions = {
 	buffer_not_empty = function()
@@ -141,12 +142,37 @@ ins_left({
 -- 	end,
 -- })
 
+-- Format the list representing the symbol path
+-- Grab it from https://github.com/stevearc/aerial.nvim/blob/master/lua/lualine/components/aerial.lua
+local function format_symbols(symbols, depth, separator, icons_enabled)
+	local parts = {}
+	depth = depth or #symbols
+
+	if depth > 0 then
+		symbols = { unpack(symbols, 1, depth) }
+	else
+		symbols = { unpack(symbols, #symbols + 1 + depth) }
+	end
+
+	for _, symbol in ipairs(symbols) do
+		if icons_enabled then
+			table.insert(parts, string.format("%s %s", symbol.icon, symbol.name))
+		else
+			table.insert(parts, symbol.name)
+		end
+	end
+
+	return table.concat(parts, separator)
+end
+
 ins_left({
 	function()
-		if gps.is_available() then
-			return gps.get_location()
+		if navic.is_available() then
+			return navic.get_location()
 		end
 		return ""
+		-- local symbols = aerial.get_location(true)
+		-- return format_symbols(symbols, nil, ' > ', true)
 	end,
 	color = { fg = colors.fg0, gui = "bold" },
 })

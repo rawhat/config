@@ -46,20 +46,28 @@ local bind_lsp_format = function()
 	})
 end
 
+local aerial = require("aerial")
 local aerial_attach = function(client, buf_nr)
-	require("aerial").on_attach(client, buf_nr)
+	aerial.on_attach(client, buf_nr)
 end
-local noop = function() end
+local navic = require("nvim-navic")
+local navic_attach = function(client, buf_nr)
+	navic.attach(client, buf_nr)
+end
 
 for _, server in pairs(lsp_servers) do
 	local config = {
 		capabilities = capabilities,
-		on_attach = aerial_attach,
+		on_attach = function(client, buf_nr)
+			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
+		end,
 	}
 	if server == "elixirls" then
 		config.filetypes = { "elixir", "leex", "heex", "eex" }
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
 			bind_lsp_format()
 		end
 	elseif server == "pyright" then
@@ -79,6 +87,7 @@ for _, server in pairs(lsp_servers) do
 	elseif server == "rust_analyzer" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
 			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
@@ -102,6 +111,7 @@ for _, server in pairs(lsp_servers) do
 		}
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
 			local ts_utils = require("nvim-lsp-ts-utils")
 			ts_utils.setup({})
 			ts_utils.setup_client(client)
@@ -121,6 +131,7 @@ for _, server in pairs(lsp_servers) do
 	elseif server == "ocamlls" then
 		config.on_attach = function(client)
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
 			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
@@ -145,16 +156,19 @@ for _, server in pairs(lsp_servers) do
 		}
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
 			bind_lsp_format()
 		end
 	elseif server == "erlangls" then
 		config.on_attach = function(client, buf_nr)
-			bind_lsp_format()
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
+			bind_lsp_format()
 		end
 	elseif server == "sqls" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
+			navic_attach(client, buf_nr)
 			bind_lsp_format()
 		end
 	end

@@ -608,10 +608,8 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"SmiteshP/nvim-gps",
-		config = function()
-			require("nvim-gps").setup()
-		end,
+		"SmiteshP/nvim-navic",
+		requires = "neovim/nvim-lspconfig",
 	})
 
 	use({
