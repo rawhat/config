@@ -372,6 +372,10 @@ function M.mappings()
 					"<Cmd>PackerCompile<cr>",
 					"Packer Compile",
 				},
+				i = {
+					"<Cmd>PackerInstall<cr>",
+					"Packer Install",
+				},
 			},
 		}),
 

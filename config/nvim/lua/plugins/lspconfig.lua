@@ -39,7 +39,7 @@ local bind_lsp_format = function()
 	wk.register({
 		["<leader><space>f"] = {
 			function()
-				vim.lsp.buf.formatting({ async = true })
+				vim.lsp.buf.format({ async = true })
 			end,
 			"Format with lsp",
 		},
