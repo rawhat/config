@@ -22,6 +22,7 @@ local lsp_servers = {
 	"sorbet",
 	"sqls",
 	"sumneko_lua",
+	"tailwindcss",
 	"tsserver",
 	"zls",
 }
@@ -34,17 +35,6 @@ lsp_installer.setup({
 		server_uninstalled = "✗",
 	},
 })
-
-local bind_lsp_format = function()
-	wk.register({
-		["<leader><space>f"] = {
-			function()
-				vim.lsp.buf.format({ async = true })
-			end,
-			"Format with lsp",
-		},
-	})
-end
 
 local aerial = require("aerial")
 local aerial_attach = function(client, buf_nr)
@@ -68,7 +58,6 @@ for _, server in pairs(lsp_servers) do
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
-			bind_lsp_format()
 		end
 	elseif server == "pyright" then
 		config.root_dir = function(fname)
@@ -88,7 +77,6 @@ for _, server in pairs(lsp_servers) do
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
-			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
 		config.settings = {
@@ -132,7 +120,6 @@ for _, server in pairs(lsp_servers) do
 		config.on_attach = function(client)
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
-			bind_lsp_format()
 			require("virtualtypes").on_attach(client)
 		end
 	elseif server == "gopls" then
@@ -157,19 +144,16 @@ for _, server in pairs(lsp_servers) do
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
-			bind_lsp_format()
 		end
 	elseif server == "erlangls" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
-			bind_lsp_format()
 		end
 	elseif server == "sqls" then
 		config.on_attach = function(client, buf_nr)
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
-			bind_lsp_format()
 		end
 	end
 
@@ -187,7 +171,6 @@ if not configs.gleam then
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
 			on_attach = function(client, buf_nr)
-				bind_lsp_format()
 				aerial_attach(client, buf_nr)
 			end,
 			root_dir = function(fname)
@@ -281,20 +264,6 @@ local formatter_filetypes = {
 local formatter_opts = {}
 local format_group = vim.api.nvim_create_augroup("FormatterFiletypes", { clear = true })
 for name, tbl in pairs(formatter_filetypes) do
-	vim.api.nvim_create_autocmd({ "BufReadPre" }, {
-		patterns = tbl.patterns,
-		callback = function()
-			wk.register({
-				["<leader><space>f"] = {
-					"<cmd>Format<cr>",
-					"Format with formatter.nvim",
-				},
-			})
-		end,
-		group = format_group,
-		desc = "Format for " .. name,
-	})
-
 	if vim.fn.executable(tbl.command.exe) == 0 then
 		error(tbl.command.exe .. " not found on path")
 	end
@@ -318,6 +287,29 @@ end
 
 require("formatter").setup({
 	filetype = formatter_opts,
+})
+
+local lsp_format_filetypes = {
+	["gleam"] = true,
+}
+for _, ft in pairs(lsp_servers) do
+	if formatter_filetypes[ft] == nil then
+		lsp_format_filetypes[ft] = true
+	end
+end
+
+wk.register({
+	["<leader><space>f"] = {
+		function()
+			local ft = vim.api.nvim_buf_get_option(0, "filetype")
+			if formatter_filetypes[ft] ~= nil then
+				vim.cmd("Format")
+			elseif lsp_format_filetypes[ft] ~= nil then
+				vim.lsp.buf.format({ async = true })
+			end
+		end,
+		"Format the current buffer",
+	},
 })
 
 -- i don't want virtual text for LSP diagnostics.  but the lsp installer plugin
