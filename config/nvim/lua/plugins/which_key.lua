@@ -34,7 +34,7 @@ function M.mappings()
 		count = 6,
 		hidden = true,
 	})
-
+	local term_input
 	return {
 		-- resizing
 		generate({
@@ -97,19 +97,41 @@ function M.mappings()
 			},
 			["<leader>tr"] = {
 				function()
-					vim.ui.input({
-						prompt = "Enter command to run:  ",
-					}, function(input)
-						if not input then
-							return
-						end
+					local Input = require("nui.input")
+					term_input = Input({
+						position = "50%",
+						size = {
+							width = "25%",
+							height = "40%",
+						},
+						border = {
+							style = "rounded",
+							text = {
+								top = "Enter a command",
+								top_align = "center",
+							},
+						},
+					}, {
+						prompt = "> ",
+						on_close = function()
+							term_input:unmount()
+						end,
+						on_submit = function(value)
+							if not value then
+								term_input:unmount()
+								return
+							end
 
-						if not worker_term:is_open() then
-							worker_term:toggle(100)
-						end
-						worker_term:send(input)
-						vim.cmd("stopinsert")
-					end)
+							if not worker_term:is_open() then
+								worker_term:toggle(100)
+							end
+							worker_term:send(value)
+							vim.cmd("stopinsert")
+							term_input:unmount()
+						end,
+					})
+
+					term_input:mount()
 				end,
 				"<r>un <c>command and toss the output into a vsplit",
 			},

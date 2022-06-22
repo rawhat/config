@@ -552,7 +552,9 @@ return packer.startup(function(use)
 		"lewis6991/gitsigns.nvim",
 		tag = "release",
 		config = function()
-			require("gitsigns").setup()
+			require("gitsigns").setup({
+				keymaps = {},
+			})
 		end,
 	})
 
@@ -599,14 +601,6 @@ return packer.startup(function(use)
 	use({
 		"SmiteshP/nvim-navic",
 		requires = "neovim/nvim-lspconfig",
-	})
-
-	use({
-		"APZelos/blamer.nvim",
-		config = function()
-			vim.api.nvim_set_var("blamer_enabled", true)
-			vim.api.nvim_set_var("blamer_show_in_insert_modes", false)
-		end,
 	})
 
 	use({
@@ -660,5 +654,9 @@ return packer.startup(function(use)
 				end,
 			})
 		end,
+	})
+
+	use({
+		"MunifTanjim/nui.nvim",
 	})
 end)
