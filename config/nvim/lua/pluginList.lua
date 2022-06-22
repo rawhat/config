@@ -549,21 +549,10 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"tanvirtin/vgit.nvim",
-		requires = {
-			"nvim-lua/plenary.nvim",
-		},
+		"lewis6991/gitsigns.nvim",
+		tag = "release",
 		config = function()
-			require("vgit").setup({
-				settings = {
-					live_blame = {
-						enabled = false,
-					},
-					authorship_code_lens = {
-						enabled = false,
-					},
-				},
-			})
+			require("gitsigns").setup()
 		end,
 	})
 
@@ -638,6 +627,7 @@ return packer.startup(function(use)
 		config = function()
 			require("modes").setup({
 				set_cursor = false,
+				set_number = true,
 			})
 		end,
 	})

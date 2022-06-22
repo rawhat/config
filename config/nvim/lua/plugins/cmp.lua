@@ -1,9 +1,10 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
+
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 
-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 
 vim.opt.completeopt:remove({ "longest" })
 
@@ -22,10 +23,6 @@ cmp.setup({
 			luasnip.lsp_expand(args.body)
 		end,
 	},
-	-- window = {
-	-- 	-- completion = cmp.config.window.bordered(),
-	-- 	documentation = cmp.config.window.bordered(),
-	-- },
 
 	mapping = cmp.mapping.preset.insert({
 		["<C-p>"] = cmp.mapping.select_prev_item(),
@@ -57,7 +54,18 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		["<CR>"] = cmp.mapping.confirm({ select = false }),
+		["<CR>"] = function(fallback)
+			if
+				cmp.get_selected_entry() ~= nil
+				and cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
+			then
+				fallback()
+			else
+				cmp.mapping.confirm({
+					select = false,
+				})(fallback)
+			end
+		end,
 	}),
 
 	sources = cmp.config.sources({
