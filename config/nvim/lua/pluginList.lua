@@ -659,4 +659,11 @@ return packer.startup(function(use)
 	use({
 		"MunifTanjim/nui.nvim",
 	})
+
+	use({
+		"declancm/maximize.nvim",
+		config = function()
+			require("maximize").setup()
+		end,
+	})
 end)
