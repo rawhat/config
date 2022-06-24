@@ -55,6 +55,9 @@ vim.g.backupcopy = "yes"
 
 vim.opt.termguicolors = true
 
+-- allow cursor to go one char past the EOL
+vim.opt.virtualedit = "onemore"
+
 -- how dare you
 vim.g.python_recommended_style = 0
 

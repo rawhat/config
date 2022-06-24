@@ -291,6 +291,7 @@ require("formatter").setup({
 
 local lsp_format_filetypes = {
 	["gleam"] = true,
+	-- ["java"] = true, -- v broken
 }
 for _, ft in pairs(lsp_servers) do
 	if formatter_filetypes[ft] == nil then
