@@ -203,6 +203,7 @@ local typescript_javascript = {
 		stdin = true,
 	},
 }
+
 -- filetypes that use `formatter.nvim` instead of lsp
 local formatter_filetypes = {
 	bzl = {
