@@ -8,6 +8,7 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local lsp_servers = {
 	"clangd",
+	"clojure_lsp",
 	"crystalline",
 	"elixirls",
 	"erlangls",
@@ -82,6 +83,11 @@ for _, server in pairs(lsp_servers) do
 		config.settings = {
 			["rust-analyzer"] = {
 				checkOnSave = { command = "clippy" },
+				diagnostics = {
+					experimental = {
+						enable = true,
+					},
+				},
 			},
 		}
 	elseif server == "tsserver" then
