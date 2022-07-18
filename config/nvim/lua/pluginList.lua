@@ -282,7 +282,17 @@ return packer.startup(function(use)
 
 	-- (--'happy times'--)
 	use({
-		"machakann/vim-sandwich",
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup({
+				keymaps = {
+					insert = "sa",
+					visual = "s",
+					delete = "sd",
+					change = "sc",
+				},
+			})
+		end,
 	})
 
 	-- highlight/jump to words

@@ -297,6 +297,7 @@ require("formatter").setup({
 })
 
 local lsp_format_filetypes = {
+	["elixir"] = true,
 	["gleam"] = true,
 	-- ["java"] = true, -- v broken
 }
