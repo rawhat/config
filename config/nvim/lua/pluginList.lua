@@ -286,7 +286,6 @@ return packer.startup(function(use)
 		config = function()
 			require("nvim-surround").setup({
 				keymaps = {
-					insert = "sa",
 					visual = "s",
 					delete = "sd",
 					change = "sc",

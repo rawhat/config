@@ -178,10 +178,10 @@ function M.mappings()
 					"<Cmd>lua vim.diagnostic.goto_prev()<cr>",
 					"Prev LSP Diagnostic",
 				},
-        f = {
-          "<Cmd>lua vim.diagnostic.open_float()<cr>",
-          "Open LSP diagnostic float"
-        }
+				f = {
+					"<Cmd>lua vim.diagnostic.open_float()<cr>",
+					"Open LSP diagnostic float",
+				},
 			},
 		}),
 
