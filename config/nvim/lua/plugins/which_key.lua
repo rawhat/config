@@ -78,7 +78,7 @@ function M.mappings()
 
 		generate({
 			name = "Miscellaneous",
-			["<leader>fp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
+			["<leader>bp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
 			["<leader>src"] = { ":source %<cr>", "Source current file" },
 			["<leader>gt"] = {
 				function()
@@ -178,6 +178,10 @@ function M.mappings()
 					"<Cmd>lua vim.diagnostic.goto_prev()<cr>",
 					"Prev LSP Diagnostic",
 				},
+        f = {
+          "<Cmd>lua vim.diagnostic.open_float()<cr>",
+          "Open LSP diagnostic float"
+        }
 			},
 		}),
 
