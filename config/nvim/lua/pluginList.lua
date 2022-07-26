@@ -549,7 +549,7 @@ return packer.startup(function(use)
 
 	use({
 		"ojroques/nvim-osc52",
-		requires = { "which_key" },
+		requires = { "which-key.nvim" },
 		config = function()
 			require("osc52").setup()
 
