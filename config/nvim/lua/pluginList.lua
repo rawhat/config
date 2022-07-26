@@ -286,6 +286,7 @@ return packer.startup(function(use)
 		config = function()
 			require("nvim-surround").setup({
 				keymaps = {
+					normal = "sa",
 					visual = "s",
 					delete = "sd",
 					change = "sc",
@@ -547,12 +548,24 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"ojroques/vim-oscyank",
+		"ojroques/nvim-osc52",
+		requires = { "which_key" },
 		config = function()
-			vim.g.oscyank_term = "default"
-			vim.cmd([[
-          autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '+' | execute 'OSCYankReg +' | endif
-        ]])
+			require("osc52").setup()
+
+			local function copy(lines, _)
+				require("osc52").copy(table.concat(lines, "\n"))
+			end
+
+			local function paste()
+				return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
+			end
+
+			vim.g.clipboard = {
+				name = "osc52",
+				copy = { ["+"] = copy, ["*"] = copy },
+				paste = { ["+"] = paste, ["*"] = paste },
+			}
 		end,
 	})
 
