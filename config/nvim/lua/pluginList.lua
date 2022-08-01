@@ -697,5 +697,27 @@ return packer.startup(function(use)
 		end,
 	})
 
-	use({ "AndrewRadev/splitjoin.vim" })
+	use({
+		"AckslD/nvim-trevJ.lua",
+		config = function()
+			require("trevj").setup({
+				containers = {
+					gleam = {
+						list = {
+							final_separator = ",",
+							final_end_line = true,
+						},
+						function_parameters = {
+							final_separator = ",",
+							final_end_line = true,
+						},
+						anonymous_function_parameters = {
+							final_separator = ",",
+							final_end_line = true,
+						},
+					},
+				},
+			})
+		end,
+	})
 end)

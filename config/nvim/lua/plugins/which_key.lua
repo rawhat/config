@@ -78,6 +78,20 @@ function M.mappings()
 			},
 			["<leader>src"] = {
 				function()
+					-- TODO:  can i safely use 1 for this?
+					local base_path = vim.opt.runtimepath:get()[1] .. "/lua/"
+
+					if vim.bo.filetype == "lua" then
+						local name = vim.fn.expand("%:p")
+						if string.match(name, base_path) ~= nil then
+							local module_name = string.gsub(name, base_path, "")
+							module_name = string.gsub(module_name, ".lua", "")
+							module_name = string.gsub(module_name, "/", ".")
+							require("plenary.reload").reload_module(module_name)
+							vim.cmd.PackerCompile()
+							return
+						end
+					end
 					vim.cmd.source({ "%" })
 				end,
 				"Source current file",
@@ -412,7 +426,7 @@ function M.mappings()
 				end,
 				"Spelling suggestion",
 			},
-			["<leader>fb"] = {
+			["<leader>bf"] = {
 				function()
 					require("telescope.builtin").current_buffer_fuzzy_find()
 				end,
@@ -583,19 +597,39 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "Split Join",
-			["<leader>sj"] = {
-				function()
-					vim.cmd.SplitjoinJoin()
-				end,
-				"Join lines",
-			},
+			name = "(Un-)joined lines",
 			["<leader>ss"] = {
 				function()
-					vim.cmd.SplitjoinSplit()
+					require("trevj").format_at_cursor()
 				end,
-				"Split lines",
+				"Split arguments into lines",
 			},
+			-- TODO:  do i really want this?  `:j` kinda does this, and with
+			-- formatting, may just not be worth doing
+			-- ["<leader>sj"] = {
+			--   function ()
+			--     local ts_utils = require('nvim-treesitter.ts_utils')
+			--     local current_node = ts_utils.get_node_at_cursor()
+			--     local filetype = vim.bo.filetype
+			--     local node_types
+			--     if filetype == "gleam" then
+			--       node_types = {
+			--         "list",
+			--         "function_parameters",
+			--         "anonymous_function_parameters",
+			--       }
+			--     end
+			--
+			--     while current_node ~= nil do
+			--       if vim.tbl_contains(node_types, current_node:type()) then
+			--         print("found one!")
+			--         return
+			--       end
+			--       current_node = current_node:parent()
+			--     end
+			--   end,
+			--   "Join arguments from lines"
+			-- },
 		}),
 	}
 end
