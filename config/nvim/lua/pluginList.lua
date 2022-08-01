@@ -246,6 +246,7 @@ return packer.startup(function(use)
 		requires = {
 			{ "nvim-lua/plenary.nvim" },
 			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+			{ "nvim-telescope/telescope-ui-select.nvim" },
 		},
 		config = function()
 			require("plugins.telescope")
@@ -435,10 +436,6 @@ return packer.startup(function(use)
 		config = function()
 			vim.api.nvim_set_var("matchup_matchparen_offscreen", { method = "popup" })
 		end,
-	})
-
-	use({
-		"nvim-telescope/telescope-ui-select.nvim",
 	})
 
 	use({
@@ -696,22 +693,6 @@ return packer.startup(function(use)
 		"declancm/maximize.nvim",
 		config = function()
 			require("maximize").setup()
-		end,
-	})
-
-	use({
-		"glepnir/lspsaga.nvim",
-		requires = { "nvim-lspconfig" },
-		branch = "main",
-		config = function()
-			local saga = require("lspsaga")
-			saga.init_lsp_saga({
-				code_action_lightbulb = {
-					enable = false,
-					sign = false,
-					enable_in_insert = false,
-				},
-			})
 		end,
 	})
 end)

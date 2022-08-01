@@ -232,34 +232,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "lsp references",
-			["<leader>lr"] = {
-				function()
-					vim.lsp.buf.references()
-				end,
-				"Get LSP references",
-			},
-		}),
-
-		generate({
-			g = {
-				name = "lsp details",
-				d = {
-					function()
-						vim.lsp.buf.definition()
-					end,
-					"Go to Definition",
-				},
-				i = {
-					function()
-						vim.lsp.buf.implementation()
-					end,
-					"Go to Implementation",
-				},
-			},
-		}),
-
-		generate({
 			name = "trouble",
 			xx = {
 				function()
@@ -410,7 +382,7 @@ function M.mappings()
 				end,
 				"Search History",
 			},
-			["<leader>sr"] = {
+			["<leader>lr"] = {
 				function()
 					require("telescope.builtin").lsp_references()
 				end,
@@ -421,6 +393,66 @@ function M.mappings()
 					require("telescope.builtin").help_tags()
 				end,
 				"Help Tags",
+			},
+			["<leader>of"] = {
+				function()
+					require("telescope.builtin").oldfiles()
+				end,
+				"Old Files",
+			},
+			["<leader>op"] = {
+				function()
+					require("telescope.builtin").vim_options()
+				end,
+				"ViM Options",
+			},
+			["<leader>sp"] = {
+				function()
+					require("telescope.builtin").spell_suggest()
+				end,
+				"Spelling suggestion",
+			},
+			["<leader>fb"] = {
+				function()
+					require("telescope.builtin").current_buffer_fuzzy_find()
+				end,
+				"Fuzzy find in buffer",
+			},
+			["<leader>rp"] = {
+				function()
+					require("telescope.builtin").resume()
+				end,
+				"Resume Previous Picker",
+			},
+			["<leader>lp"] = {
+				function()
+					require("telescope.builtin").pickers()
+				end,
+				"List Previous Pickers",
+			},
+			["<leader>gd"] = {
+				function()
+					require("telescope.builtin").lsp_definitions()
+				end,
+				"LSP Definition(s)",
+			},
+			["<leader>gi"] = {
+				function()
+					require("telescope.builtin").lsp_implementations()
+				end,
+				"LSP Implementation(s)",
+			},
+			["<leader>gy"] = {
+				function()
+					require("telescope.builtin").lsp_type_definitions()
+				end,
+				"LSP Type Definition(s)",
+			},
+			["<leader>ld"] = {
+				function()
+					require("telescope.builtin").diagnostics()
+				end,
+				"LSP Diagnostics",
 			},
 		}),
 		generate({
@@ -549,16 +581,6 @@ function M.mappings()
 				"Open LSP Installer Modal",
 			},
 		}),
-
-		generate({
-			name = "LSP Saga",
-			["<leader>lf"] = {
-				function()
-					require("lspsaga.finder").lsp_finder()
-				end,
-				"Open LSP Saga finder",
-			},
-		}, { silent = true, noremap = true }),
 	}
 end
 
