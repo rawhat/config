@@ -53,6 +53,9 @@ for _, server in pairs(lsp_servers) do
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
 		end,
+		root_dir = function()
+			return vim.fn.getcwd()
+		end,
 	}
 	if server == "elixirls" then
 		config.filetypes = { "elixir", "leex", "heex", "eex" }
@@ -61,11 +64,6 @@ for _, server in pairs(lsp_servers) do
 			navic_attach(client, buf_nr)
 		end
 	elseif server == "pyright" then
-		config.root_dir = function(fname)
-			return lspconfig.util.root_pattern(".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(
-				fname
-			) -- or lspconfig.util.path.dirname(fname)
-		end
 		config.flags = { debounce_text_changes = 300 }
 		config.settings = {
 			python = {
@@ -161,6 +159,8 @@ for _, server in pairs(lsp_servers) do
 			aerial_attach(client, buf_nr)
 			navic_attach(client, buf_nr)
 		end
+	elseif server == "sumneko_lua" then
+		config.root_dir = require("lspconfig").sumneko_lua.root_dir
 	end
 
 	lspconfig[server].setup(config)
@@ -179,8 +179,8 @@ if not configs.gleam then
 			on_attach = function(client, buf_nr)
 				aerial_attach(client, buf_nr)
 			end,
-			root_dir = function(fname)
-				return lspconfig.util.root_pattern("gleam.toml")(fname)
+			root_dir = function(_fname)
+				return vim.fn.getcwd()
 			end,
 		},
 	}

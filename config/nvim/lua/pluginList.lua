@@ -698,4 +698,20 @@ return packer.startup(function(use)
 			require("maximize").setup()
 		end,
 	})
+
+	use({
+		"glepnir/lspsaga.nvim",
+		requires = { "nvim-lspconfig" },
+		branch = "main",
+		config = function()
+			local saga = require("lspsaga")
+			saga.init_lsp_saga({
+				code_action_lightbulb = {
+					enable = false,
+					sign = false,
+					enable_in_insert = false,
+				},
+			})
+		end,
+	})
 end)

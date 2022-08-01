@@ -17,14 +17,6 @@ local generate = function(key_table, key_opts)
 	wk.register(key_table, key_opts or {})
 end
 
--- register({
--- 	name = "split movement",
--- 	["<C-l>"] = { "<C-w><C-l>", "Move Right" },
--- 	["<C-k>"] = { "<C-w><C-k>", "Move Up" },
--- 	["<C-j>"] = { "<C-w><C-j>", "Move Down" },
--- 	["<C-h>"] = { "<C-w><C-h>", "Move Left" },
--- })
-
 function M.mappings()
 	local Terminal = require("toggleterm.terminal").Terminal
 	local worker_term = Terminal:new({
@@ -78,8 +70,18 @@ function M.mappings()
 
 		generate({
 			name = "Miscellaneous",
-			["<leader>bp"] = { ":echo @%<cr>", "Show relative path to buffer file" },
-			["<leader>src"] = { ":source %<cr>", "Source current file" },
+			["<leader>bp"] = {
+				function()
+					vim.cmd.echo({ "@%" })
+				end,
+				"Show relative path to buffer file",
+			},
+			["<leader>src"] = {
+				function()
+					vim.cmd.source({ "%" })
+				end,
+				"Source current file",
+			},
 			["<leader>gt"] = {
 				function()
 					local row = vim.api.nvim_win_get_cursor(0)[1]
@@ -92,7 +94,9 @@ function M.mappings()
 				"Gitiles link to current line",
 			},
 			["<leader>bd"] = {
-				":bd!",
+				function()
+					vim.cmd.bd({ bang = true })
+				end,
 				"Delete buffer (press enter)",
 			},
 			["<leader>tr"] = {
@@ -143,15 +147,21 @@ function M.mappings()
 				"<t>erminal <c>lear on the worker",
 			},
 			["<leader>wq"] = {
-				"<Cmd>wq<cr>",
+				function()
+					vim.cmd.wq()
+				end,
 				"Save and quit",
 			},
 			["<leader>wa"] = {
-				"<Cmd>wqa<cr>",
+				function()
+					vim.cmd.wqa()
+				end,
 				"Save and quit all",
 			},
 			["<leader>qq"] = {
-				"<Cmd>qa<cr>",
+				function()
+					vim.cmd.qa()
+				end,
 				"Quit and close all",
 			},
 		}),
@@ -159,8 +169,18 @@ function M.mappings()
 		generate({
 			name = "quickfix",
 			["<leader>q"] = {
-				o = { ":copen<cr>", "Open Quickfix" },
-				c = { ":cclose<cr>", "Close Quickfix" },
+				o = {
+					function()
+						vim.cmd.copen()
+					end,
+					"Open Quickfix",
+				},
+				c = {
+					function()
+						vim.cmd.cclose()
+					end,
+					"Close Quickfix",
+				},
 			},
 		}, {
 			noremap = false,
@@ -171,15 +191,21 @@ function M.mappings()
 			["<leader>"] = {
 				name = "lsp diagnostics",
 				j = {
-					"<Cmd>lua vim.diagnostic.goto_next()<cr>",
+					function()
+						vim.diagnostic.goto_next()
+					end,
 					"Next LSP Diagnostic",
 				},
 				k = {
-					"<Cmd>lua vim.diagnostic.goto_prev()<cr>",
+					function()
+						vim.diagnostic.goto_prev()
+					end,
 					"Prev LSP Diagnostic",
 				},
 				f = {
-					"<Cmd>lua vim.diagnostic.open_float()<cr>",
+					function()
+						vim.diagnostic.open_float()
+					end,
 					"Open LSP diagnostic float",
 				},
 			},
@@ -187,30 +213,47 @@ function M.mappings()
 
 		generate({
 			name = "lsp hover",
-			F = { "<Cmd>lua vim.lsp.buf.hover()<cr>", "LSP Hover" },
+			F = {
+				function()
+					vim.lsp.buf.hover()
+				end,
+				"LSP Hover",
+			},
 		}),
 
 		generate({
 			name = "lsp restart",
-			["<leader>lr"] = {
-				"<cmd>LspRestart<cr>",
+			["<leader>ls"] = {
+				function()
+					vim.cmd.LspRestart()
+				end,
 				"Restart LSP server(s)",
 			},
 		}),
 
-		-- generate({
-		-- 	["<leader><space>f"] = {
-		-- 		"<cmd>lua vim.lsp.buf.formatting()<cr>",
-		-- 		"Format",
-		-- 	},
-		-- }),
+		generate({
+			name = "lsp references",
+			["<leader>lr"] = {
+				function()
+					vim.lsp.buf.references()
+				end,
+				"Get LSP references",
+			},
+		}),
 
 		generate({
 			g = {
 				name = "lsp details",
-				d = { "<Cmd>lua vim.lsp.buf.definition()<cr>", "Go to Definition" },
+				d = {
+					function()
+						vim.lsp.buf.definition()
+					end,
+					"Go to Definition",
+				},
 				i = {
-					"<Cmd>lua vim.lsp.buf.implementation()<cr>",
+					function()
+						vim.lsp.buf.implementation()
+					end,
 					"Go to Implementation",
 				},
 			},
@@ -218,85 +261,125 @@ function M.mappings()
 
 		generate({
 			name = "trouble",
-			xx = { "<cmd>TroubleToggle<cr>", "Toggle Trouble" },
-			gR = { "<cmd>Trouble lsp_references<cr>", "Trouble LSP References" },
-			gD = { "<cmd>Trouble lsp_definitions<cr>", "Trouble LSP Definitions" },
+			xx = {
+				function()
+					vim.cmd.TroubleToggle()
+				end,
+				"Toggle Trouble",
+			},
+			gR = {
+				function()
+					vim.cmd.Trouble({ "lsp_references" })
+				end,
+				"Trouble LSP References",
+			},
+			gD = {
+				function()
+					vim.cmd.Trouble({ "lsp_definitions" })
+				end,
+				"Trouble LSP Definitions",
+			},
 			xw = {
-				"<cmd>Trouble lsp_workspace_diagnostics<cr>",
+				function()
+					vim.cmd.Trouble({ "lsp_workspace_diagnostics" })
+				end,
 				"Trouble Workspace Diagnostics",
 			},
 			xd = {
-				"<cmd>Trouble lsp_document_diagnostics<cr>",
+				function()
+					vim.cmd.Trouble({ "lsp_document_diagnostics" })
+				end,
 				"Trouble Doc Diagnostics",
 			},
-			xl = { "<cmd>Trouble loclist<cr>", "Trouble Location List" },
-			xq = { "<cmd>Trouble quickfix<cr>", "Trouble Quickfix" },
+			xl = {
+				function()
+					vim.cmd.Trouble({ "loclist" })
+				end,
+				"Trouble Location List",
+			},
+			xq = {
+				function()
+					vim.cmd.Trouble({ "quickfix" })
+				end,
+				"Trouble Quickfix",
+			},
 		}, {
 			prefix = "<leader>",
 		}),
 
 		generate({
 			name = "nvim tree",
-			["<C-n>"] = { "<Cmd>NvimTreeToggle<cr>", "Toggle nvim-tree" },
+			["<C-n>"] = {
+				function()
+					vim.cmd.NvimTreeToggle()
+				end,
+				"Toggle nvim-tree",
+			},
 		}),
-		-- register({
-		-- 	name = "neo tree",
-		-- 	["<C-n>"] = { "<Cmd>Neotree filesystem reveal left toggle<cr>", "Toggle neo-tree" },
-		-- })
 
 		generate({
 			a = {
 				name = "async run",
-				r = { ":AsyncRun", "Async Run" },
-				w = { ":AsyncRun -raw", "Async Run Raw" },
-				s = { ":AsyncStop", "Stop Async Task" },
+				r = {
+					function()
+						vim.cmd.AsyncRun()
+					end,
+					"Async Run",
+				},
+				w = {
+					function()
+						vim.cmd.AsyncRun({ "-raw" })
+					end,
+					"Async Run Raw",
+				},
+				s = {
+					function()
+						vim.cmd.AsyncStop()
+					end,
+					"Stop Async Task",
+				},
 			},
 		}, {
 			prefix = "<leader>",
 		}),
 
-		-- fzf
-		-- {
-		--   name = "fzf",
-		--   ["<C-p>"] = {
-		--     "<cmd>lua require('fzf-lua').files()<cr>",
-		--     "Find Files",
-		--   },
-		--   ["<leader>ag"] = {
-		--     "<Cmd>lua require('fzf-lua').live_grep()<cr>",
-		--     "Live Grep",
-		--   },
-		--   ["<leader>aw"] = {
-		--     "<Cmd>lua require('fzf-lua').grep_cword()<cr>",
-		--     "Live Grep",
-		--   },
-		-- },
-
 		-- telescope
 		generate({
 			name = "telescope",
 			["<C-p>"] = {
-				"<Cmd>lua require('telescope.builtin').find_files()<cr>",
+				function()
+					require("telescope.builtin").find_files()
+				end,
 				"Find Files",
 			},
 			["<leader>ac"] = {
-				"<Cmd>lua require('telescope.builtin').commands()<cr>",
+				function()
+					require("telescope.builtin").commands()
+				end,
 				"Commands",
 			},
 			["<leader>ag"] = {
-				"<Cmd>lua require('telescope.builtin').live_grep()<cr>",
+				function()
+					require("telescope.builtin").live_grep()
+				end,
 				"Live Grep",
 			},
 			["<leader>bl"] = {
-				"<Cmd>lua require('telescope.builtin').buffers()<cr>",
+				function()
+					require("telescope.builtin").buffers()
+				end,
 				"Buffers",
 			},
 			["<leader>ch"] = {
-				"<Cmd>lua require('telescope.builtin').command_history()<cr>",
+				function()
+					require("telescope.builtin").command_history()
+				end,
 				"Command History",
 			},
 			["<leader>sc"] = {
-				"<Cmd>lua require('telescope.builtin').find_files({ search_dirs = {'~/.config/nvim'} })<cr>",
+				function()
+					require("telescope.builtin").find_files({ search_dirs = { "~/.config/nvim" } })
+				end,
 				"Find Config Files",
 			},
 			["<leader>cf"] = {
@@ -316,19 +399,27 @@ function M.mappings()
 				"Grep Config Files",
 			},
 			["<leader>cs"] = {
-				"<Cmd>Cheatsheet<cr>",
+				function()
+					vim.cmd.Cheatsheet()
+				end,
 				"Keybind Cheat Sheet",
 			},
 			["<leader>sh"] = {
-				"<Cmd>lua require('telescope.builtin').search_history()<cr>",
+				function()
+					require("telescope.builtin").search_history()
+				end,
 				"Search History",
 			},
 			["<leader>sr"] = {
-				"<Cmd>lua require('telescope.builtin').lsp_references()<cr>",
+				function()
+					require("telescope.builtin").lsp_references()
+				end,
 				"LSP References",
 			},
 			["<leader>th"] = {
-				"<Cmd>lua require('telescope.builtin').help_tags()<cr>",
+				function()
+					require("telescope.builtin").help_tags()
+				end,
 				"Help Tags",
 			},
 		}),
@@ -356,7 +447,9 @@ function M.mappings()
 		}),
 		generate({
 			["<leader>ag"] = {
-				"<Cmd>lua require('telescope.builtin').grep_string()<cr>",
+				function()
+					require("telescope.builtin").grep_string()
+				end,
 				"Grep String",
 			},
 		}, {
@@ -366,7 +459,9 @@ function M.mappings()
 		generate({
 			name = "hop hint",
 			["<leader>h"] = {
-				"<cmd>lua require('hop').hint_words()<cr>",
+				function()
+					require("hop").hint_words()
+				end,
 				"Show Hop Hints",
 			},
 		}),
@@ -383,28 +478,43 @@ function M.mappings()
 
 		generate({
 			name = "fugitive",
-			["<leader>gb"] = { ":Git blame<cr>", "Git blame for buffer" },
+			["<leader>gb"] = {
+				function()
+					vim.cmd.Git({ "blame" })
+				end,
+				"Git blame for buffer",
+			},
 		}),
 
 		generate({
 			name = "VGit",
-			["<leader>gd"] = { ":VGit buffer_diff_preview<cr>", "Git diff for buffer" },
-			["<leader>go"] = { ":VGit buffer_diff_preview ", "Git diff branch for buffer" },
+			["<leader>gd"] = {
+				function()
+					vim.cmd.VGit({ "buffer_diff_preview" })
+				end,
+				"Git diff for buffer",
+			},
 		}),
 
 		generate({
 			name = "Packer Commands",
 			["<leader>p"] = {
 				s = {
-					"<Cmd>PackerSync<cr>",
+					function()
+						vim.cmd.PackerSync()
+					end,
 					"Packer Sync",
 				},
 				c = {
-					"<Cmd>PackerCompile<cr>",
+					function()
+						vim.cmd.PackerCompile()
+					end,
 					"Packer Compile",
 				},
 				i = {
-					"<Cmd>PackerInstall<cr>",
+					function()
+						vim.cmd.PackerInstall()
+					end,
 					"Packer Install",
 				},
 			},
@@ -413,7 +523,9 @@ function M.mappings()
 		generate({
 			name = "Legendary",
 			["<leader>wk"] = {
-				"<cmd>lua require('legendary').find('keymaps')<cr>",
+				function()
+					require("legendary").find("keymaps")
+				end,
 				"Search keybinds, commands, autocmds",
 			},
 		}),
@@ -421,7 +533,9 @@ function M.mappings()
 		generate({
 			name = "Aerial",
 			["<leader>ae"] = {
-				"<Cmd>AerialToggle right<cr>",
+				function()
+					vim.cmd.AerialToggle({ "right" })
+				end,
 				"Toggle the aerial view",
 			},
 		}),
@@ -429,10 +543,22 @@ function M.mappings()
 		generate({
 			name = "LSP Installer",
 			["<leader>li"] = {
-				":LspInstallInfo<cr>",
+				function()
+					vim.cmd.LspInstallInfo()
+				end,
 				"Open LSP Installer Modal",
 			},
 		}),
+
+		generate({
+			name = "LSP Saga",
+			["<leader>lf"] = {
+				function()
+					require("lspsaga.finder").lsp_finder()
+				end,
+				"Open LSP Saga finder",
+			},
+		}, { silent = true, noremap = true }),
 	}
 end
 
