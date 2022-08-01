@@ -430,19 +430,19 @@ function M.mappings()
 				end,
 				"List Previous Pickers",
 			},
-			["<leader>gd"] = {
+			["<leader>lf"] = {
 				function()
 					require("telescope.builtin").lsp_definitions()
 				end,
 				"LSP Definition(s)",
 			},
-			["<leader>gi"] = {
+			["<leader>lm"] = {
 				function()
 					require("telescope.builtin").lsp_implementations()
 				end,
 				"LSP Implementation(s)",
 			},
-			["<leader>gy"] = {
+			["<leader>lt"] = {
 				function()
 					require("telescope.builtin").lsp_type_definitions()
 				end,
