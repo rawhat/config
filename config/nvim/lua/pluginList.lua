@@ -248,6 +248,7 @@ return packer.startup(function(use)
 			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 		},
+		after = { "dressing.nvim" },
 		config = function()
 			require("plugins.telescope")
 		end,
@@ -485,7 +486,7 @@ return packer.startup(function(use)
 
 	use({
 		"mrjones2014/legendary.nvim",
-		after = { "which-key.nvim" },
+		after = { "which-key.nvim", "telescope.nvim" },
 		config = function()
 			local wk_options = require("plugins.which_key").options()
 			require("which-key").setup(wk_options)
