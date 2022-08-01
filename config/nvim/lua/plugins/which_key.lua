@@ -581,6 +581,22 @@ function M.mappings()
 				"Open LSP Installer Modal",
 			},
 		}),
+
+		generate({
+			name = "Split Join",
+			["<leader>sj"] = {
+				function()
+					vim.cmd.SplitjoinJoin()
+				end,
+				"Join lines",
+			},
+			["<leader>ss"] = {
+				function()
+					vim.cmd.SplitjoinSplit()
+				end,
+				"Split lines",
+			},
+		}),
 	}
 end
 

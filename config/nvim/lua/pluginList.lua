@@ -696,4 +696,6 @@ return packer.startup(function(use)
 			require("maximize").setup()
 		end,
 	})
+
+	use({ "AndrewRadev/splitjoin.vim" })
 end)
