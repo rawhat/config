@@ -671,6 +671,9 @@ return packer.startup(function(use)
 		"b0o/incline.nvim",
 		config = function()
 			require("incline").setup({
+				hide = {
+					cursorline = "focused_win",
+				},
 				render = function(props)
 					local buffer_name = vim.api.nvim_buf_get_name(props.buf)
 					local text = ""
