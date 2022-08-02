@@ -631,6 +631,28 @@ function M.mappings()
 			--   "Join arguments from lines"
 			-- },
 		}),
+
+		generate({
+			name = "Commenting",
+			["<leader>cc"] = {
+				function()
+					print("calling normal comment")
+					require("Comment.api").toggle_current_linewise()
+				end,
+				"Toggle comment on current line",
+			},
+		}, { mode = "n" }),
+
+		generate({
+			name = "Commenting visual",
+			["<leader>c"] = {
+				function()
+					print("calling visual comment")
+					require("Comment.api").toggle_current_linewise_op(vim.fn.visualmode())
+				end,
+				"Toggle comment on visual line",
+			},
+		}, { mode = "v" }),
 	}
 end
 

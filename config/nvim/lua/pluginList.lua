@@ -267,15 +267,7 @@ return packer.startup(function(use)
 		config = function()
 			local ft = require("Comment.ft")
 			ft.set("gleam", "//%s")
-			require("Comment").setup({
-				toggler = {
-					line = "<leader>cc",
-				},
-				opleader = {
-					line = "<leader>c",
-					block = "<leader>k",
-				},
-			})
+			require("Comment").setup({})
 		end,
 	})
 
@@ -722,5 +714,9 @@ return packer.startup(function(use)
 				},
 			})
 		end,
+	})
+
+	use({
+		"xiyaowong/virtcolumn.nvim",
 	})
 end)
