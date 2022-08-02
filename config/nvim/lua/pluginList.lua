@@ -715,8 +715,4 @@ return packer.startup(function(use)
 			})
 		end,
 	})
-
-	use({
-		"xiyaowong/virtcolumn.nvim",
-	})
 end)
