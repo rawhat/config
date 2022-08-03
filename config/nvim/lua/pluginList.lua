@@ -313,13 +313,20 @@ return packer.startup(function(use)
 	})
 
 	use({
+		"williamboman/mason.nvim",
+		requires = { "williamboman/mason-lspconfig.nvim" },
+		config = function()
+			require("mason").setup()
+		end,
+	})
+
+	use({
 		"neovim/nvim-lspconfig",
 		requires = {
-			"williamboman/nvim-lsp-installer",
 			"jose-elias-alvarez/nvim-lsp-ts-utils",
 			"simrat39/rust-tools.nvim",
 		},
-		after = { "formatter.nvim" },
+		after = { "formatter.nvim", "mason.nvim" },
 		config = function()
 			require("plugins.lspconfig")
 		end,

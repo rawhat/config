@@ -1,5 +1,4 @@
 local lspconfig = require("lspconfig")
-local lsp_installer = require("nvim-lsp-installer")
 local configs = require("lspconfig.configs")
 local wk = require("which-key")
 
@@ -28,7 +27,7 @@ local lsp_servers = {
 	"zls",
 }
 
-lsp_installer.setup({
+require("mason-lspconfig").setup({
 	ensure_installed = lsp_servers,
 	icons = {
 		server_installed = "✓",

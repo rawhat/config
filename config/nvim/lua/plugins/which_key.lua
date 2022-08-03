@@ -587,12 +587,12 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "LSP Installer",
+			name = "Mason",
 			["<leader>li"] = {
 				function()
-					vim.cmd.LspInstallInfo()
+					vim.cmd.Mason()
 				end,
-				"Open LSP Installer Modal",
+				"Open Modal",
 			},
 		}),
 
