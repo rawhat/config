@@ -339,10 +339,6 @@ return packer.startup(function(use)
 
 	use({ "rafamadriz/friendly-snippets" })
 
-	-- use({ "hrsh7th/cmp-buffer" })
-	-- use({ "hrsh7th/cmp-nvim-lua" })
-	-- use({ "hrsh7th/cmp-nvim-lsp" })
-
 	use({
 		"hrsh7th/nvim-cmp",
 		requires = {
