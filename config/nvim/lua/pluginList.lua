@@ -267,7 +267,9 @@ return packer.startup(function(use)
 		config = function()
 			local ft = require("Comment.ft")
 			ft.set("gleam", "//%s")
-			require("Comment").setup({})
+			require("Comment").setup({
+				mappings = false,
+			})
 		end,
 	})
 

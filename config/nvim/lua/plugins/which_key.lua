@@ -636,19 +636,21 @@ function M.mappings()
 			name = "Commenting",
 			["<leader>cc"] = {
 				function()
-					print("calling normal comment")
 					require("Comment.api").toggle_current_linewise()
 				end,
 				"Toggle comment on current line",
 			},
-		}, { mode = "n" }),
+		}),
 
 		generate({
 			name = "Commenting visual",
 			["<leader>c"] = {
 				function()
-					print("calling visual comment")
-					require("Comment.api").toggle_current_linewise_op(vim.fn.visualmode())
+					-- Exit visual mode before running the comment toggle. This fixes a
+					-- bug with my base usage here that did some weird stuff
+					local key = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+					vim.api.nvim_feedkeys(key, "nx", false)
+					require("Comment.api").toggle_linewise_op(vim.fn.visualmode())
 				end,
 				"Toggle comment on visual line",
 			},
