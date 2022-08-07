@@ -7,109 +7,6 @@ else
 	return false
 end
 
-local themes = {
-	tokyonight = {
-		package = "folke/tokyonight.nvim",
-		package_name = "tokyonight.nvim",
-		name = "tokyonight",
-		config = function()
-			-- vim.g.tokyonight_style = "night"
-			vim.g.tokyonight_sidebars = {
-				-- "which-key",
-				"toggleterm",
-				"packer.nvim",
-			}
-			vim.cmd([[colorscheme tokyonight]])
-		end,
-	},
-	nord = {
-		package = "shaunsingh/nord.nvim",
-		package_name = "nord.nvim",
-		name = "nord",
-		config = function()
-			vim.g.nord_contrast = true
-			require("nord").set()
-		end,
-	},
-	ayu = {
-		package = "Shatur/neovim-ayu",
-		package_name = "neovim-ayu",
-		name = "ayu",
-		config = function()
-			vim.g.ayu_mirage = true
-			vim.cmd([[colorscheme ayu]])
-		end,
-	},
-	nightfly = {
-		package = "bluz71/vim-nightfly-guicolors",
-		package_name = "vim-nightfly-guicolors",
-		name = "nightfly",
-		config = function() end,
-	},
-	neon = {
-		package = "rafamadriz/neon",
-		package_name = "neon",
-		name = "neon",
-		config = function()
-			-- "default", "dark", "doom"
-			vim.g.neon_style = "dark"
-			vim.cmd([[colorscheme neon]])
-		end,
-	},
-	github = {
-		package = "projekt0n/github-nvim-theme",
-		package_name = "github-nvi-theme",
-		name = "github",
-		config = function()
-			require("github-theme").setup()
-		end,
-	},
-	nightfox = {
-		package = "EdenEast/nightfox.nvim",
-		package_name = "nightfox.nvim",
-		name = "nightfox",
-		config = function()
-			local nightfox = require("nightfox")
-			nightfox.setup({
-				options = {
-					styles = { comments = "italic" },
-					modules = {
-						cmp = true,
-						diagnostic = true,
-						gitsigns = true,
-						hop = true,
-						modes = true,
-						native_lsp = true,
-						nvimtree = true,
-						telescope = true,
-						treesitter = true,
-						whichkey = true,
-					},
-				},
-			})
-			vim.cmd("colorscheme duskfox")
-		end,
-	},
-	kanagawa = {
-		package = "rebelot/kanagawa.nvim",
-		package_name = "kanagawa.nvim",
-		name = "kanagawa",
-		config = function()
-			vim.cmd([[colorscheme kanagawa]])
-		end,
-	},
-	catppuccin = {
-		package = "catppuccin/nvim",
-		package_name = "catppuccin",
-		name = "catppuccin",
-		config = function()
-			-- local catppuccin = require('catppuccin')
-			vim.cmd([[colorscheme catppuccin]])
-		end,
-	},
-}
-Global_theme = themes["nightfox"]
-
 return packer.startup(function(use)
 	-- manage packer
 	use({
@@ -135,12 +32,18 @@ return packer.startup(function(use)
 		end,
 	})
 
+	local theme = require("themes").current_theme
+	local theme_package = theme.package
+	local theme_package_name = theme.package_name
+
 	-- COLORSCHEME
 	use({
-		Global_theme.package,
+		theme_package,
 		config = function()
-			Global_theme.config()
+			local theme = require("themes").current_theme
+			theme.config(theme.palette)
 		end,
+		as = theme_package_name,
 	})
 
 	-- deps
@@ -381,7 +284,7 @@ return packer.startup(function(use)
 
 	use({
 		"folke/trouble.nvim",
-		after = Global_theme.package_name,
+		after = { theme.package_name },
 		config = function()
 			require("trouble").setup()
 		end,
@@ -409,7 +312,7 @@ return packer.startup(function(use)
 	-- neovim terminal manager
 	use({
 		"akinsho/nvim-toggleterm.lua",
-		after = Global_theme.package_name,
+		after = { theme.package_name },
 		config = function()
 			require("plugins.toggleterm")
 		end,
@@ -478,7 +381,7 @@ return packer.startup(function(use)
 	-- which key???
 	use({
 		"folke/which-key.nvim",
-		after = { Global_theme.package_name },
+		after = { theme.package_name },
 	})
 
 	use({
@@ -644,7 +547,7 @@ return packer.startup(function(use)
 
 	use({
 		"mvllow/modes.nvim",
-		after = { Global_theme.package_name },
+		after = { theme.package_name },
 		config = function()
 			require("modes").setup({
 				set_cursor = false,

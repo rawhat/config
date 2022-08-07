@@ -4,8 +4,8 @@
 local lualine = require("lualine")
 
 -- Color table for highlights
--- stylua: ignore
-local colors = require('nightfox.palette').load("duskfox")
+local theme = require("themes").current_theme
+local colors = theme.color_palette(theme.palette)
 
 local navic = require("nvim-navic")
 local aerial = require("aerial")
@@ -116,7 +116,10 @@ ins_left({
 	"filename",
 	cond = conditions.buffer_not_empty,
 	path = 1,
-	color = { fg = colors.magenta.base, gui = "bold" },
+	color = {
+		fg = colors.magenta.base,
+		gui = "bold",
+	},
 })
 
 ins_left({ "location" })
