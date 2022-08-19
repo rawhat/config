@@ -155,6 +155,6 @@ M.themes = {
 }
 
 M.current_theme = M.themes["nightfox"]
--- M.current_theme.palette = "dayfox"
+M.current_theme.palette = "dawnfox"
 
 return M
