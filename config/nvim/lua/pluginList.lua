@@ -68,8 +68,6 @@ return packer.startup(function(use)
 	use({ "kongo2002/fsharp-vim", ft = "fsharp" })
 	---- git
 	use({ "tpope/vim-git" })
-	---- gleam
-	-- use({ "gleam-lang/gleam.vim", ft = "gleam" })
 	---- jsonnet
 	use({
 		"google/vim-jsonnet",
@@ -229,7 +227,6 @@ return packer.startup(function(use)
 		"neovim/nvim-lspconfig",
 		requires = {
 			"jose-elias-alvarez/nvim-lsp-ts-utils",
-			"simrat39/rust-tools.nvim",
 		},
 		after = { "formatter.nvim", "mason.nvim" },
 		config = function()
@@ -480,7 +477,6 @@ return packer.startup(function(use)
 
 	use({
 		"lewis6991/gitsigns.nvim",
-		tag = "release",
 		config = function()
 			require("gitsigns").setup({
 				keymaps = {},
@@ -537,7 +533,7 @@ return packer.startup(function(use)
 		"folke/todo-comments.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("todo-comments").setup({})
+			require("todo-comments").setup()
 		end,
 	})
 
