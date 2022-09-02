@@ -530,7 +530,7 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"folke/todo-comments.nvim",
+		"B4mbus/todo-comments.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("todo-comments").setup()

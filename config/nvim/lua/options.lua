@@ -2,6 +2,9 @@ local M = {}
 
 vim.opt.encoding = "utf-8"
 
+-- disable mouse
+vim.g.mouse = ""
+
 vim.opt.scrolloff = 3
 
 vim.opt.hlsearch = true
