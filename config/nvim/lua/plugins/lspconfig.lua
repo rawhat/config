@@ -40,15 +40,9 @@ local aerial = require("aerial")
 local aerial_attach = function(client, buf_nr)
 	aerial.on_attach(client, buf_nr)
 end
-local navic = require("nvim-navic")
-local navic_attach = function(client, buf_nr)
-	navic.attach(client, buf_nr)
-end
 
 local on_attach = function(client, buf_nr)
 	aerial_attach(client, buf_nr)
-
-	navic_attach(client, buf_nr)
 end
 
 for _, server in pairs(lsp_servers) do

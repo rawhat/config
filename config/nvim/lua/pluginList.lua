@@ -329,6 +329,10 @@ return packer.startup(function(use)
 	})
 
 	use({
+		"nvim-treesitter/nvim-treesitter-context",
+	})
+
+	use({
 		"andymass/vim-matchup",
 		after = "nvim-treesitter",
 		config = function()
@@ -522,11 +526,6 @@ return packer.startup(function(use)
 	use({
 		"yioneko/nvim-yati",
 		requires = "nvim-treesitter/nvim-treesitter",
-	})
-
-	use({
-		"SmiteshP/nvim-navic",
-		requires = "neovim/nvim-lspconfig",
 	})
 
 	use({
