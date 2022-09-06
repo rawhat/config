@@ -77,7 +77,10 @@ M.themes = {
 						gitsigns = true,
 						hop = true,
 						modes = true,
-						native_lsp = true,
+						native_lsp = {
+							enable = true,
+							background = true,
+						},
 						nvimtree = true,
 						telescope = true,
 						treesitter = true,
