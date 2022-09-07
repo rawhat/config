@@ -8,6 +8,7 @@ telescope.setup({
 				["<Esc>"] = actions.close,
 			},
 		},
+		path_display = { "smart" },
 	},
 	extensions = {
 		fzf = {

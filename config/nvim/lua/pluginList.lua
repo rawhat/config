@@ -135,7 +135,7 @@ return packer.startup(function(use)
 	-- modified status bar
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = { "kyazdani42/nvim-web-devicons" },
 		config = function()
 			require("plugins.lualine")
 		end,
@@ -294,14 +294,14 @@ return packer.startup(function(use)
 	})
 
 	-- file tree
-	use({
-		"kyazdani42/nvim-tree.lua",
-		requires = { "kyazdani42/nvim-web-devicons" },
-		cmd = "NvimTreeToggle",
-		config = function()
-			require("nvim-tree").setup({})
-		end,
-	})
+	-- use({
+	-- 	"kyazdani42/nvim-tree.lua",
+	-- 	requires = { "kyazdani42/nvim-web-devicons" },
+	-- 	cmd = "NvimTreeToggle",
+	-- 	config = function()
+	-- 		require("nvim-tree").setup({})
+	-- 	end,
+	-- })
 
 	-- run things asynchronously
 	use({ "skywind3000/asyncrun.vim" })
@@ -616,6 +616,16 @@ return packer.startup(function(use)
 					},
 				},
 			})
+		end,
+	})
+
+	use({
+		"kevinhwang91/rnvimr",
+		cmd = "RnvimrToggle",
+		config = function()
+			vim.g.rnvimr_enable_picker = 1
+			vim.g.rnvimr_edit_cmd = "drop"
+			vim.g.rnvimr_hide_gitignore = 1
 		end,
 	})
 end)

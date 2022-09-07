@@ -11,7 +11,7 @@ local lsp_servers = {
 	"crystalline",
 	"elixirls",
 	"erlangls",
-	"eslint",
+	-- "eslint",
 	"fsautocomplete",
 	"gopls",
 	"jsonls",
@@ -22,7 +22,7 @@ local lsp_servers = {
 	"sorbet",
 	"sqls",
 	"sumneko_lua",
-	"tailwindcss",
+	-- "tailwindcss",
 	"tsserver",
 	"zls",
 }
@@ -180,13 +180,18 @@ local ends_with = function(str, ending)
 	return ending == "" or str:sub(-#ending) == ending
 end
 
+local path = require("mason-core.path")
+local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
+local util = require("formatter.util")
+
 local typescript_javascript = {
-	pattern = { ".ts", ".tsx", ".js", ".jsx" },
 	command = {
-		-- npm install -g @fsouza/prettierd
-		exe = "prettierd",
+		exe = path.concat({ mason_data_path, "prettier" }),
 		get_args = function()
-			return { vim.api.nvim_buf_get_name(0) }
+			return {
+				"--stdin-filepath",
+				util.escape_path(util.get_current_buffer_file_path()),
+			}
 		end,
 		stdin = true,
 	},
@@ -195,10 +200,8 @@ local typescript_javascript = {
 -- filetypes that use `formatter.nvim` instead of lsp
 local formatter_filetypes = {
 	bzl = {
-		pattern = { ".bzl", "BUILD", "WORKSPACE" },
 		command = {
-			-- go install github.com/bazelbuild/buildtools/buildifier@latest
-			exe = "buildifier",
+			exe = path.concat({ mason_data_path, "buildifier" }),
 			get_args = function()
 				local filename = vim.fn.expand("%:t")
 				if filename == "BUILD" then
@@ -219,10 +222,8 @@ local formatter_filetypes = {
 	javascript = typescript_javascript,
 	javascriptreact = typescript_javascript,
 	lua = {
-		pattern = { ".lua" },
 		command = {
-			-- available on package manager (or cargo)
-			exe = "stylua",
+			exe = path.concat({ mason_data_path, "stylua" }),
 			get_args = function()
 				return { "-" }
 			end,
@@ -230,21 +231,19 @@ local formatter_filetypes = {
 		},
 	},
 	python = {
-		pattern = { ".python" },
 		command = {
 			-- pip install --user pyfmt
 			exe = "pyfmt",
 			get_args = function()
-				return { vim.api.nvim_buf_get_name(0) }
+				return { vim.api.nvim_get_current_buf() }
 			end,
 			stdin = true,
 		},
 	},
 	json = {
-		pattern = { ".json" },
 		command = {
 			-- available on package manager
-			exe = "jq",
+			exe = path.concat({ mason_data_path, "jq" }),
 			stdin = true,
 		},
 	},
@@ -292,7 +291,8 @@ end
 wk.register({
 	["<leader><space>f"] = {
 		function()
-			local ft = vim.api.nvim_buf_get_option(0, "filetype")
+			local current_buf = vim.api.nvim_get_current_buf()
+			local ft = vim.api.nvim_buf_get_option(current_buf, "filetype")
 			if formatter_filetypes[ft] ~= nil then
 				vim.cmd("Format")
 			elseif lsp_format_filetypes[ft] ~= nil then
