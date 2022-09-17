@@ -3,7 +3,7 @@ local M = {}
 vim.opt.encoding = "utf-8"
 
 -- disable mouse
-vim.g.mouse = ""
+vim.cmd("set mouse=")
 
 vim.opt.scrolloff = 3
 
@@ -144,5 +144,7 @@ vim.api.nvim_exec(
   ]],
 	false
 )
+
+vim.g.ts_highlight_lua = true
 
 return M

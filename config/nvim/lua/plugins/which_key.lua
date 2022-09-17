@@ -598,7 +598,7 @@ function M.mappings()
 
 		generate({
 			name = "(Un-)joined lines",
-			["<leader>ss"] = {
+			["<leader>R"] = {
 				function()
 					require("trevj").format_at_cursor()
 				end,
