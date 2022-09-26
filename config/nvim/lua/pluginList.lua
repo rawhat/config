@@ -589,9 +589,28 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"declancm/maximize.nvim",
+		"anuvyklack/windows.nvim",
+		requires = {
+			"anuvyklack/middleclass",
+			"anuvyklack/animation.nvim",
+		},
 		config = function()
-			require("maximize").setup()
+			vim.o.winwidth = 10
+			vim.o.winminwidth = 10
+			vim.o.equalalways = false
+			require("windows").setup({
+				autowidth = {
+					enable = false,
+				},
+				ignore = {
+					buftype = { "quickfix" },
+				},
+				animation = {
+					duration = 100,
+					fps = 144,
+					easing = "in_out_sine",
+				},
+			})
 		end,
 	})
 

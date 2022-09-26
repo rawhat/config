@@ -288,17 +288,28 @@ for _, ft in pairs(lsp_servers) do
 	end
 end
 
+local function format(write)
+	local current_buf = vim.api.nvim_get_current_buf()
+	local ft = vim.api.nvim_buf_get_option(current_buf, "filetype")
+	if formatter_filetypes[ft] ~= nil then
+		local op = "Format"
+		if write then
+			op = op .. "Write"
+		end
+		vim.cmd(op .. "Lock")
+	elseif lsp_format_filetypes[ft] ~= nil then
+		local timeout = write and 1000 or nil
+		if write then
+			vim.lsp.buf.formatting_sync(nil, timeout)
+		else
+			vim.lsp.buf.format({ async = true, timeout_ms = timeout })
+		end
+	end
+end
+
 wk.register({
 	["<leader><space>f"] = {
-		function()
-			local current_buf = vim.api.nvim_get_current_buf()
-			local ft = vim.api.nvim_buf_get_option(current_buf, "filetype")
-			if formatter_filetypes[ft] ~= nil then
-				vim.cmd("Format")
-			elseif lsp_format_filetypes[ft] ~= nil then
-				vim.lsp.buf.format({ async = true })
-			end
-		end,
+		format,
 		"Format the current buffer",
 	},
 })
@@ -308,4 +319,15 @@ wk.register({
 -- handler
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = false,
+})
+
+local format_on_save = vim.api.nvim_create_augroup("LanguageFormats", { clear = true })
+
+-- This annoyling errors when `:wq`.  I'm not sure why yet, and I don't really
+-- feel like digging more into this at the moment.
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	callback = function()
+		format(true)
+	end,
+	group = format_on_save,
 })

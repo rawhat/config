@@ -636,7 +636,7 @@ function M.mappings()
 			name = "Commenting",
 			["<leader>cc"] = {
 				function()
-					require("Comment.api").toggle.current_linewise()
+					require("Comment.api").toggle.linewise.current()
 				end,
 				"Toggle comment on current line",
 			},
@@ -650,11 +650,21 @@ function M.mappings()
 					-- bug with my base usage here that did some weird stuff
 					local key = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
 					vim.api.nvim_feedkeys(key, "nx", false)
-					require("Comment.api").toggle.linewise_op(vim.fn.visualmode())
+					require("Comment.api").toggle.linewise(vim.fn.visualmode())
 				end,
 				"Toggle comment on visual line",
 			},
 		}, { mode = "v" }),
+
+		generate({
+			name = "Windows",
+			["<leader>z"] = {
+				function()
+					vim.cmd.WindowsMaximize()
+				end,
+				"Toggle maximize current window",
+			},
+		}),
 	}
 end
 
