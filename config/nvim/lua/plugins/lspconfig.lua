@@ -233,11 +233,11 @@ local formatter_filetypes = {
 	python = {
 		command = {
 			-- pip install --user pyfmt
-			exe = "pyfmt",
+			exe = "bazel",
 			get_args = function()
-				return { vim.api.nvim_get_current_buf() }
+				return { "run", "//tools/pyfmt", "--", "-i", vim.fn.expand("%:p") }
 			end,
-			stdin = true,
+			stdin = false,
 		},
 	},
 	json = {
@@ -299,11 +299,11 @@ local function format(write)
 		vim.cmd(op .. "Lock")
 	elseif lsp_format_filetypes[ft] ~= nil then
 		local timeout = write and 1000 or nil
+		local opts = { async = true, timeout_ms = timeout }
 		if write then
-			vim.lsp.buf.formatting_sync(nil, timeout)
-		else
-			vim.lsp.buf.format({ async = true, timeout_ms = timeout })
+			opts.async = false
 		end
+		vim.lsp.buf.format(opts)
 	end
 end
 
