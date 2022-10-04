@@ -647,4 +647,17 @@ return packer.startup(function(use)
 			vim.g.rnvimr_hide_gitignore = 1
 		end,
 	})
+
+	use({
+		"folke/noice.nvim",
+		requires = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+			"hrsh7th/nvim-cmp",
+		},
+		event = "VimEnter",
+		config = function()
+			require("noice").setup()
+		end,
+	})
 end)

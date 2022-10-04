@@ -665,6 +665,16 @@ function M.mappings()
 				"Toggle maximize current window",
 			},
 		}),
+
+		generate({
+			name = "Noice",
+			["<leader>n"] = {
+				function()
+					vim.cmd.Noice()
+				end,
+				"Open the `noice` menu",
+			},
+		}),
 	}
 end
 
