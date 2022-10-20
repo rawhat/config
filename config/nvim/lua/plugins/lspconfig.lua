@@ -279,6 +279,7 @@ require("formatter").setup({
 local lsp_format_filetypes = {
 	["elixir"] = true,
 	["gleam"] = true,
+	["go"] = true,
 	-- ["java"] = true, -- v broken
 }
 for _, ft in pairs(lsp_servers) do

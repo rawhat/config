@@ -5,14 +5,17 @@ M.themes = {
 		package = "folke/tokyonight.nvim",
 		package_name = "tokyonight.nvim",
 		name = "tokyonight",
+		color_palette = function(palette)
+			local colors = require("tokyonight.colors").setup()
+			return colors
+		end,
 		config = function()
-			-- vim.g.tokyonight_style = "night"
 			vim.g.tokyonight_sidebars = {
 				-- "which-key",
 				"toggleterm",
 				"packer.nvim",
 			}
-			vim.cmd.colorscheme("tokyonight")
+			vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
 	nord = {
