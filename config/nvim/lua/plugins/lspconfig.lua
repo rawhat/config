@@ -137,9 +137,6 @@ if not configs.gleam then
 		default_config = {
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
-			on_attach = function(client, buf_nr)
-				aerial_attach(client, buf_nr)
-			end,
 			root_dir = function(_fname)
 				return vim.fn.getcwd()
 			end,
