@@ -515,9 +515,7 @@ function M.mappings()
 		generate({
 			name = "OSC yank",
 			["<leader>y"] = {
-				function()
-					require("osc52").copy_visual()
-				end,
+				require("osc52").copy_visual,
 				"Copy to OSC register",
 			},
 		}, { mode = "v" }),

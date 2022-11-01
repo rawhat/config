@@ -341,13 +341,6 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"lewis6991/spellsitter.nvim",
-		config = function()
-			require("spellsitter").setup()
-		end,
-	})
-
-	use({
 		"windwp/nvim-ts-autotag",
 		after = "nvim-autopairs",
 		config = function()
@@ -374,9 +367,6 @@ return packer.startup(function(use)
 	-- show pictograms on completion dropdown
 	use({
 		"onsails/lspkind.nvim",
-		config = function()
-			require("lspkind").init()
-		end,
 	})
 
 	-- which key???
@@ -392,12 +382,11 @@ return packer.startup(function(use)
 			local wk_options = require("plugins.which_key").options()
 			require("which-key").setup(wk_options)
 
-			require("legendary").setup()
+			require("legendary").setup({ auto_register_which_key = true })
 			require("plugins.which_key").mappings()
 		end,
 	})
 
-	-- hmm... `efm` might be more flexible?
 	use({ "mhartington/formatter.nvim" })
 
 	-- virtual text types (only in some languages)
@@ -405,7 +394,6 @@ return packer.startup(function(use)
 		"jubnzv/virtual-types.nvim",
 	})
 
-	-- this doesn't work correctly
 	use({
 		"yamatsum/nvim-cursorline",
 		config = function()
@@ -436,13 +424,6 @@ return packer.startup(function(use)
 		requires = { "RishabhRD/popfix" },
 		config = function()
 			vim.ui.select = require("popui.ui-overrider")
-		end,
-	})
-
-	use({
-		"luukvbaal/stabilize.nvim",
-		config = function()
-			require("stabilize").setup()
 		end,
 	})
 
@@ -495,21 +476,6 @@ return packer.startup(function(use)
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 		},
-	})
-
-	use({
-		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup({
-				sources = {
-					-- `max_width` doesn't seem to work to limit this?  and the error
-					-- message in my `vistar` repo blocks out code
-					gopls = {
-						ignore = true,
-					},
-				},
-			})
-		end,
 	})
 
 	use({
@@ -607,7 +573,7 @@ return packer.startup(function(use)
 					enable = false,
 				},
 				ignore = {
-					buftype = { "quickfix", "Noice" },
+					buftype = { "quickfix" },
 				},
 				animation = {
 					duration = 100,
