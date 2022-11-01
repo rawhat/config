@@ -294,12 +294,22 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "nvim ranger",
+			name = "nvim-tree",
 			["<C-n>"] = {
 				function()
-					vim.cmd.RnvimrToggle()
+					vim.cmd.NvimTreeToggle()
 				end,
-				"Toggle nvim ranger",
+				"Toggle nvim tree",
+			},
+		}),
+
+		generate({
+			name = "nvim-tree find file",
+			["<C-i>"] = {
+				function()
+					vim.cmd.NvimTreeFindFile()
+				end,
+				"Open nvim tree at current file",
 			},
 		}),
 

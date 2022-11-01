@@ -294,14 +294,31 @@ return packer.startup(function(use)
 	})
 
 	-- file tree
-	-- use({
-	-- 	"kyazdani42/nvim-tree.lua",
-	-- 	requires = { "kyazdani42/nvim-web-devicons" },
-	-- 	cmd = "NvimTreeToggle",
-	-- 	config = function()
-	-- 		require("nvim-tree").setup({})
-	-- 	end,
-	-- })
+	use({
+		"kyazdani42/nvim-tree.lua",
+		requires = { "kyazdani42/nvim-web-devicons" },
+		tag = "nightly",
+		config = function()
+			local gheight = vim.api.nvim_list_uis()[1].height
+			local gwidth = vim.api.nvim_list_uis()[1].width
+			local width = 100
+			local height = 30
+			require("nvim-tree").setup({
+				view = {
+					float = {
+						enable = true,
+						open_win_config = {
+							relative = "editor",
+							width = width,
+							height = height,
+							row = (gheight - height) * 0.5,
+							col = (gwidth - width) * 0.5,
+						},
+					},
+				},
+			})
+		end,
+	})
 
 	-- run things asynchronously
 	use({ "skywind3000/asyncrun.vim" })
@@ -605,16 +622,6 @@ return packer.startup(function(use)
 					},
 				},
 			})
-		end,
-	})
-
-	use({
-		"kevinhwang91/rnvimr",
-		cmd = "RnvimrToggle",
-		config = function()
-			vim.g.rnvimr_enable_picker = 1
-			vim.g.rnvimr_edit_cmd = "drop"
-			vim.g.rnvimr_hide_gitignore = 1
 		end,
 	})
 
