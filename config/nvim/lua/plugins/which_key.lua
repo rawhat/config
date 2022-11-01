@@ -295,7 +295,7 @@ function M.mappings()
 
 		generate({
 			name = "nvim-tree",
-			["<C-n>"] = {
+			["<C-i>"] = {
 				function()
 					vim.cmd.NvimTreeToggle()
 				end,
@@ -305,7 +305,7 @@ function M.mappings()
 
 		generate({
 			name = "nvim-tree find file",
-			["<C-i>"] = {
+			["<C-n>"] = {
 				function()
 					vim.cmd.NvimTreeFindFile()
 				end,
