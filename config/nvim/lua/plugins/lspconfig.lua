@@ -35,15 +35,6 @@ require("mason-lspconfig").setup({
 	},
 })
 
-local aerial = require("aerial")
-local aerial_attach = function(client, buf_nr)
-	aerial.on_attach(client, buf_nr)
-end
-
-local on_attach = function(client, buf_nr)
-	aerial_attach(client, buf_nr)
-end
-
 for _, server in pairs(lsp_servers) do
 	local config = {
 		capabilities = capabilities,
@@ -53,7 +44,6 @@ for _, server in pairs(lsp_servers) do
 	}
 	if server == "elixirls" then
 		config.filetypes = { "elixir", "leex", "heex", "eex" }
-		config.on_attach = on_attach
 	elseif server == "pyright" then
 		config.flags = { debounce_text_changes = 300 }
 		config.settings = {
@@ -63,10 +53,8 @@ for _, server in pairs(lsp_servers) do
 				},
 			},
 		}
-		config.on_attach = on_attach
 	elseif server == "rust_analyzer" then
 		config.on_attach = function(client, buf_nr)
-			on_attach(client, buf_nr)
 			require("virtualtypes").on_attach(client)
 		end
 		config.settings = {
@@ -93,7 +81,6 @@ for _, server in pairs(lsp_servers) do
 			"typescript.tsx",
 		}
 		config.on_attach = function(client, buf_nr)
-			on_attach(client, buf_nr)
 			local ts_utils = require("nvim-lsp-ts-utils")
 			ts_utils.setup({})
 			ts_utils.setup_client(client)
@@ -112,7 +99,6 @@ for _, server in pairs(lsp_servers) do
 		}
 	elseif server == "ocamlls" then
 		config.on_attach = function(client)
-			on_attach(client, buf_nr)
 			require("virtualtypes").on_attach(client)
 		end
 	elseif server == "gopls" then
@@ -134,14 +120,8 @@ for _, server in pairs(lsp_servers) do
 		config.flags = {
 			debounce_text_changes = 150,
 		}
-		config.on_attach = on_attach
-	elseif server == "erlangls" then
-		config.on_attach = on_attach
-	elseif server == "sqls" then
-		config.on_attach = on_attach
 	elseif server == "sumneko_lua" then
 		config.root_dir = require("lspconfig").sumneko_lua.root_dir
-		config.on_attach = on_attach
 	end
 
 	lspconfig[server].setup(config)

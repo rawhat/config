@@ -515,7 +515,11 @@ return packer.startup(function(use)
 	use({
 		"stevearc/aerial.nvim",
 		config = function()
-			require("aerial").setup({})
+			require("aerial").setup({
+				layout = {
+					min_width = 10,
+				},
+			})
 		end,
 	})
 
@@ -603,7 +607,7 @@ return packer.startup(function(use)
 					enable = false,
 				},
 				ignore = {
-					buftype = { "quickfix" },
+					buftype = { "quickfix", "Noice" },
 				},
 				animation = {
 					duration = 100,

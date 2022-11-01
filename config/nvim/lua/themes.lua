@@ -92,6 +92,7 @@ M.themes = {
 				},
 			})
 			vim.cmd("colorscheme " .. variant)
+			vim.api.nvim_set_hl(0, "@property", { link = "@field" })
 		end,
 	},
 	kanagawa = {
