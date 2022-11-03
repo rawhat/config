@@ -309,7 +309,11 @@ function M.mappings()
 			name = "nvim-tree find file",
 			["<C-n>"] = {
 				function()
-					vim.cmd.NvimTreeFindFile()
+					if vim.api.nvim_buf_get_name(0) == "" then
+						vim.cmd.NvimTreeToggle()
+					else
+						vim.cmd.NvimTreeFindFile()
+					end
 				end,
 				"Open nvim tree at current file",
 			},
