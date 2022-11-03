@@ -103,17 +103,16 @@ for _, server in pairs(lsp_servers) do
 		end
 	elseif server == "gopls" then
 		config.settings = {
-			go = {
-				toolsEnvVars = {
-					GOPACKAGESDRIVER = "${workspaceFolder}/tools/gopackagesdriver.sh",
+			gopls = {
+				env = {
+					GOPACKAGESDRIVER = "/home/alex/bin/gopackagesdriver",
 				},
-			},
-			build = {
 				directoryFilters = {
 					"-bazel-bin",
 					"-bazel-out",
 					"-bazel-testlogs",
-					"-bazel-mypkg",
+					"-bazel-vistar",
+					"-bazel-app",
 				},
 			},
 		}

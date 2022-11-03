@@ -254,7 +254,7 @@ return packer.startup(function(use)
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-nvim-lsp-signature-help",
+			-- "hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-path",
 		},
 		after = {
@@ -635,6 +635,22 @@ return packer.startup(function(use)
 		event = "VimEnter",
 		config = function()
 			require("noice").setup({
+				lsp = {
+					hover = {
+						enabled = true,
+					},
+					signature = {
+						enabled = true,
+					},
+					message = {
+						enabled = true,
+					},
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+						["cmp.entry.get_documentation"] = true,
+					},
+				},
 				presets = {
 					lsp_doc_border = true,
 				},

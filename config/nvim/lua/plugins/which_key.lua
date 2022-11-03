@@ -78,21 +78,23 @@ function M.mappings()
 			},
 			["<leader>src"] = {
 				function()
-					-- TODO:  can i safely use 1 for this?
-					local base_path = vim.opt.runtimepath:get()[1] .. "/lua/"
-
-					if vim.bo.filetype == "lua" then
-						local name = vim.fn.expand("%:p")
-						if string.match(name, base_path) ~= nil then
-							local module_name = string.gsub(name, base_path, "")
-							module_name = string.gsub(module_name, ".lua", "")
-							module_name = string.gsub(module_name, "/", ".")
-							require("plenary.reload").reload_module(module_name)
-							vim.cmd.PackerCompile()
-							return
+					if vim.bo.buftype == "" then
+						if vim.fn.exists(":LspStop") ~= 0 then
+							vim.cmd("LspStop")
 						end
+
+						for name, _ in pairs(package.loaded) do
+							if name:match("^user") then
+								package.loaded[name] = nil
+							end
+						end
+
+						dofile(vim.env.MYVIMRC)
+						vim.cmd("PackerCompile")
+						vim.notify("Wait for Compile Done", vim.log.levels.INFO)
+					else
+						vim.notify("Not available in this window/buffer", vim.log.levels.INFO)
 					end
-					vim.cmd.source({ "%" })
 				end,
 				"Source current file",
 			},
