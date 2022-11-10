@@ -52,7 +52,7 @@ vim.opt.shortmess:append({ c = true })
 -- vim.wo.signcolumn = "auto:1-2"
 vim.wo.signcolumn = "yes"
 
-vim.g.mapleader = ";"
+vim.g.mapleader = " "
 
 vim.g.backupcopy = "yes"
 

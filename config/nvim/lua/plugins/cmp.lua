@@ -54,18 +54,7 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		["<CR>"] = function(fallback)
-			if
-				cmp.get_selected_entry() ~= nil
-				-- and cmp.get_selected_entry().source.name == "nvim_lsp_signature_help"
-			then
-				fallback()
-			else
-				cmp.mapping.confirm({
-					select = false,
-				})(fallback)
-			end
-		end,
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
 
 	sources = cmp.config.sources({

@@ -159,11 +159,20 @@ M.themes = {
 			vim.cmd.colorscheme("everforest")
 		end,
 	},
+	embark = {
+		package = "embark-theme/vim",
+		package_name = "embark",
+		name = "embark",
+		config = function()
+			vim.cmd.colorscheme("embark")
+		end,
+	},
 }
 
 -- M.current_theme = M.themes["catppuccin"]
 -- M.current_theme.palette = "mocha"
 M.current_theme = M.themes["nightfox"]
 -- M.current_theme.palette = "dawnfox"
+-- M.current_theme = M.themes["embark"]
 
 return M
