@@ -17,6 +17,7 @@ local lsp_servers = {
 	"jsonnet_ls",
 	"ocamllsp",
 	"pyright",
+	"rome",
 	"rust_analyzer",
 	"sorbet",
 	"sqls",

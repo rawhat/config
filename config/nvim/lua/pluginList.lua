@@ -399,7 +399,11 @@ return packer.startup(function(use)
 			local wk_options = require("plugins.which_key").options()
 			require("which-key").setup(wk_options)
 
-			require("legendary").setup({ auto_register_which_key = true })
+			require("legendary").setup({
+				which_key = {
+					auto_register = true,
+				},
+			})
 			require("plugins.which_key").mappings()
 		end,
 	})
