@@ -55,8 +55,6 @@ return packer.startup(function(use)
 	})
 
 	-- LANGUAGES
-	-- faster filetypes?
-	use({ "nathom/filetype.nvim" })
 	-- cs
 	use({ "kchmck/vim-coffee-script", ft = "coffee" })
 	use({ "mtscout6/vim-cjsx", ft = "coffee" })

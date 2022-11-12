@@ -285,7 +285,7 @@ local function format(write)
 end
 
 wk.register({
-	["<leader><space>f"] = {
+	["<leader>f"] = {
 		format,
 		"Format the current buffer",
 	},

@@ -366,6 +366,129 @@ function M.mappings()
 				end,
 				"Live Grep",
 			},
+			["<leader>ab"] = {
+				function(opts)
+					local conf = require("telescope.config").values
+					print(vim.inspect(conf))
+					local finders = require("telescope.finders")
+					local make_entry = require("telescope.make_entry")
+					local pickers = require("telescope.pickers")
+
+					local flatten = vim.tbl_flatten
+
+					opts = opts or {}
+					opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+					opts.shortcuts = opts.shortcuts
+						or {
+							["l"] = "*.lua",
+							["v"] = "*.vim",
+							["n"] = "*.{vim,lua}",
+							["c"] = "*.c",
+						}
+					opts.pattern = opts.pattern or "%s"
+
+					local custom_grep = finders.new_async_job({
+						command_generator = function(prompt)
+							if not prompt or prompt == "" then
+								return nil
+							end
+
+							local prompt_split = vim.split(prompt, "  ")
+
+							local args = { "rg" }
+							if prompt_split[1] then
+								table.insert(args, "-e")
+								table.insert(args, prompt_split[1])
+							end
+
+							if prompt_split[2] then
+								table.insert(args, "-g")
+
+								local pattern
+								if opts.shortcuts[prompt_split[2]] then
+									pattern = opts.shortcuts[prompt_split[2]]
+								else
+									pattern = prompt_split[2]
+								end
+
+								print("pattern is " .. string.format(opts.pattern, pattern))
+
+								table.insert(args, string.format(opts.pattern, pattern))
+							end
+
+							return flatten({
+								args,
+								{
+									"--color=never",
+									"--no-heading",
+									"--with-filename",
+									"--line-number",
+									"--column",
+									"--smart-case",
+								},
+							})
+						end,
+						entry_maker = make_entry.gen_from_vimgrep(opts),
+						cwd = opts.cwd,
+					})
+
+					pickers
+						.new(opts, {
+							debounce = 100,
+							prompt_title = "Live Grep (with shortcuts)",
+							finder = custom_grep,
+							previewer = conf.grep_previewer(opts),
+							sorter = require("telescope.sorters").empty(),
+						})
+						:find()
+				end,
+				"Multi Grep Test",
+			},
+			["<leader>ab"] = {
+				function()
+					vim.ui.input({ prompt = "Enter search term" }, function(search)
+						if search == nil or search == "" then
+							return
+						end
+
+						local finders = require("telescope.finders")
+						local pickers = require("telescope.pickers")
+						local conf = require("telescope.config").values
+						local sorters = require("telescope.sorters")
+
+						local entry_maker = function(entry)
+							local _, _, filename, lnum, _ = string.find(entry, [[(..-):(%d+):(.*)]])
+							return {
+								value = entry,
+								display = string.format("%s:%d", filename, lnum),
+								ordinal = filename,
+								filename = filename,
+								lnum = tonumber(lnum),
+							}
+						end
+
+						pickers
+							.new({}, {
+								prompt_title = "Finding (" .. search .. ")",
+								finder = finders.new_job(function(args)
+									local command = {}
+									command = vim.list_extend(command, conf.vimgrep_arguments)
+									command = vim.list_extend(command, { "-e", search })
+									if args == "" or args == nil then
+										return command
+									end
+
+									command = vim.list_extend(command, { "-g", args })
+									return command
+								end, entry_maker),
+								previewer = conf.grep_previewer({}),
+								sorter = sorters.highlighter_only({}),
+							})
+							:find()
+					end)
+				end,
+				"grep string then filter found files by glob",
+			},
 			["<leader>bl"] = {
 				function()
 					require("telescope.builtin").buffers()
@@ -618,32 +741,6 @@ function M.mappings()
 				end,
 				"Split arguments into lines",
 			},
-			-- TODO:  do i really want this?  `:j` kinda does this, and with
-			-- formatting, may just not be worth doing
-			-- ["<leader>sj"] = {
-			--   function ()
-			--     local ts_utils = require('nvim-treesitter.ts_utils')
-			--     local current_node = ts_utils.get_node_at_cursor()
-			--     local filetype = vim.bo.filetype
-			--     local node_types
-			--     if filetype == "gleam" then
-			--       node_types = {
-			--         "list",
-			--         "function_parameters",
-			--         "anonymous_function_parameters",
-			--       }
-			--     end
-			--
-			--     while current_node ~= nil do
-			--       if vim.tbl_contains(node_types, current_node:type()) then
-			--         print("found one!")
-			--         return
-			--       end
-			--       current_node = current_node:parent()
-			--     end
-			--   end,
-			--   "Join arguments from lines"
-			-- },
 		}),
 
 		generate({
