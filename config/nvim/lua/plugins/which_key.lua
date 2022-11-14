@@ -547,13 +547,13 @@ function M.mappings()
 				end,
 				"Help Tags",
 			},
-			["<leader>of"] = {
+			["<leader>lo"] = {
 				function()
 					require("telescope.builtin").oldfiles()
 				end,
 				"Old Files",
 			},
-			["<leader>op"] = {
+			["<leader>pt"] = {
 				function()
 					require("telescope.builtin").vim_options()
 				end,
@@ -643,7 +643,7 @@ function M.mappings()
 
 		generate({
 			name = "hop hint",
-			["<leader>h"] = {
+			["<leader>o"] = {
 				function()
 					require("hop").hint_words()
 				end,
