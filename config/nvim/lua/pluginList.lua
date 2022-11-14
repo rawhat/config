@@ -659,4 +659,11 @@ return packer.startup(function(use)
 			})
 		end,
 	})
+
+	use({
+		"nvim-zh/colorful-winsep.nvim",
+		config = function()
+			require("colorful-winsep").setup()
+		end,
+	})
 end)
