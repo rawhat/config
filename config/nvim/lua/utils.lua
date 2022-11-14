@@ -1,5 +1,3 @@
-vim.cmd([[filetype plugin indent on]])
-
 vim.cmd([[
   au BufRead,BufNewFile *.fish set filetype=fish
 ]])

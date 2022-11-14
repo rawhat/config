@@ -253,16 +253,28 @@ require("formatter").setup({
 	filetype = formatter_opts,
 })
 
-local lsp_format_filetypes = {
-	["elixir"] = true,
-	["gleam"] = true,
-	["go"] = true,
-	-- ["java"] = true, -- v broken
+local lsp_filetypes = {
+	"c",
+	"clojure",
+	"cpp",
+	"crystal",
+	"elixir",
+	"erlang",
+	"fsharp",
+	"gleam",
+	"go",
+	"jsonnet",
+	"lua",
+	"ocaml",
+	"ruby",
+	"rust",
+	"sql",
+	"zig",
 }
-for _, ft in pairs(lsp_servers) do
-	if formatter_filetypes[ft] == nil then
-		lsp_format_filetypes[ft] = true
-	end
+
+local lsp_format_filetypes = {}
+for _, filetype in pairs(lsp_filetypes) do
+	lsp_format_filetypes[filetype] = true
 end
 
 local function format(write)
@@ -285,7 +297,7 @@ local function format(write)
 end
 
 wk.register({
-	["<leader>f"] = {
+	["<leader>F"] = {
 		format,
 		"Format the current buffer",
 	},

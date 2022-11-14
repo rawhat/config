@@ -162,24 +162,6 @@ function M.mappings()
 				end,
 				"<t>erminal <c>lear on the worker",
 			},
-			["<leader>wq"] = {
-				function()
-					vim.cmd.wq()
-				end,
-				"Save and quit",
-			},
-			["<leader>wa"] = {
-				function()
-					vim.cmd.wqa()
-				end,
-				"Save and quit all",
-			},
-			["<leader>qq"] = {
-				function()
-					vim.cmd.qa()
-				end,
-				"Quit and close all",
-			},
 		}),
 
 		generate({
