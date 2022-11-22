@@ -162,6 +162,12 @@ function M.mappings()
 				end,
 				"<t>erminal <c>lear on the worker",
 			},
+			["<leader>qq"] = {
+				function()
+					vim.cmd.qa()
+				end,
+				"Quit and close all",
+			},
 		}),
 
 		generate({
@@ -348,7 +354,7 @@ function M.mappings()
 				end,
 				"Live Grep",
 			},
-			["<leader>ab"] = {
+			["<leader>al"] = {
 				function(opts)
 					local conf = require("telescope.config").values
 					print(vim.inspect(conf))
