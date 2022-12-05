@@ -722,16 +722,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "(Un-)joined lines",
-			["<leader>R"] = {
-				function()
-					require("trevj").format_at_cursor()
-				end,
-				"Split arguments into lines",
-			},
-		}),
-
-		generate({
 			name = "Commenting",
 			["<leader>cc"] = {
 				function()
@@ -772,6 +762,22 @@ function M.mappings()
 					vim.cmd.Noice()
 				end,
 				"Open the `noice` menu",
+			},
+		}),
+
+		generate({
+			name = "treesj",
+			J = {
+				function()
+					vim.cmd.TSJJoin()
+				end,
+				"Join lines together",
+			},
+			R = {
+				function()
+					vim.cmd.TSJSplit()
+				end,
+				"Split out joined lines",
 			},
 		}),
 	}

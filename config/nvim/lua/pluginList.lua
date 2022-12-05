@@ -604,30 +604,6 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"AckslD/nvim-trevJ.lua",
-		config = function()
-			require("trevj").setup({
-				containers = {
-					gleam = {
-						list = {
-							final_separator = ",",
-							final_end_line = true,
-						},
-						function_parameters = {
-							final_separator = ",",
-							final_end_line = true,
-						},
-						anonymous_function_parameters = {
-							final_separator = ",",
-							final_end_line = true,
-						},
-					},
-				},
-			})
-		end,
-	})
-
-	use({
 		"folke/noice.nvim",
 		requires = {
 			"MunifTanjim/nui.nvim",
@@ -661,9 +637,28 @@ return packer.startup(function(use)
 	})
 
 	use({
-		"nvim-zh/colorful-winsep.nvim",
+		"Wansmer/treesj",
+		requires = { "nvim-treesitter" },
 		config = function()
-			require("colorful-winsep").setup()
+			local tsj_utils = require("treesj.langs.utils")
+			require("treesj").setup({
+				use_default_keymaps = false,
+				max_join_length = 80,
+				langs = {
+					gleam = {
+						list_pattern = tsj_utils.set_preset_for_list({
+							both = {
+								separator = ",",
+							},
+						}),
+						tuple_pattern = tsj_utils.set_preset_for_list({
+							both = {
+								separator = ",",
+							},
+						}),
+					},
+				},
+			})
 		end,
 	})
 end)

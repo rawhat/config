@@ -17,7 +17,6 @@ local lsp_servers = {
 	"jsonnet_ls",
 	"ocamllsp",
 	"pyright",
-	"rome",
 	"rust_analyzer",
 	"sorbet",
 	"sqls",
@@ -137,6 +136,9 @@ if not configs.gleam then
 		default_config = {
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
+			on_attach = function(client)
+				client.server_capabilities.completionProvider = false
+			end,
 			root_dir = function(_fname)
 				return vim.fn.getcwd()
 			end,

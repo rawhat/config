@@ -171,6 +171,15 @@ M.themes = {
 			vim.cmd.colorscheme("embark")
 		end,
 	},
+	tundra = {
+		package = "sam4llis/nvim-tundra",
+		package_name = "tundra",
+		name = "tundra",
+		config = function()
+			vim.opt.background = "dark"
+			vim.cmd.colorscheme("tundra")
+		end,
+	},
 }
 
 -- M.current_theme = M.themes["catppuccin"]
@@ -178,5 +187,6 @@ M.themes = {
 M.current_theme = M.themes["nightfox"]
 -- M.current_theme.palette = "dawnfox"
 -- M.current_theme = M.themes["embark"]
+-- M.current_theme = M.themes["tundra"]
 
 return M
