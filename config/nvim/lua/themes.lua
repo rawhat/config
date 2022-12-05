@@ -72,6 +72,11 @@ M.themes = {
 			local variant = palette or "duskfox"
 			local nightfox = require("nightfox")
 			nightfox.setup({
+				groups = {
+					all = {
+						["@constructor"] = { link = "@tag" },
+					},
+				},
 				options = {
 					styles = { comments = "italic" },
 					modules = {
@@ -92,7 +97,6 @@ M.themes = {
 				},
 			})
 			vim.cmd("colorscheme " .. variant)
-			vim.api.nvim_set_hl(0, "@property", { link = "@field" })
 		end,
 	},
 	kanagawa = {
