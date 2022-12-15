@@ -640,24 +640,34 @@ return packer.startup(function(use)
 		"Wansmer/treesj",
 		requires = { "nvim-treesitter" },
 		config = function()
+			local langs = require("treesj.langs")
 			local tsj_utils = require("treesj.langs.utils")
+
+			langs["gleam"] = {
+				list = tsj_utils.set_preset_for_list({
+					join = {
+						space_in_brackets = false,
+					},
+				}),
+				tuple = tsj_utils.set_preset_for_list({
+					both = {
+						omit = { "#(" },
+					},
+					join = {
+						space_in_brackets = false,
+					},
+				}),
+				function_parameters = tsj_utils.set_preset_for_args({
+					both = {
+						last_separator = true,
+					},
+				}),
+			}
+
 			require("treesj").setup({
 				use_default_keymaps = false,
 				max_join_length = 80,
-				langs = {
-					gleam = {
-						list_pattern = tsj_utils.set_preset_for_list({
-							both = {
-								separator = ",",
-							},
-						}),
-						tuple_pattern = tsj_utils.set_preset_for_list({
-							both = {
-								separator = ",",
-							},
-						}),
-					},
-				},
+				langs = langs,
 			})
 		end,
 	})
