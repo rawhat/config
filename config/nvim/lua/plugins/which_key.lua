@@ -668,25 +668,19 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "Packer Commands",
+			name = "Lazy Commands",
 			["<leader>p"] = {
 				s = {
 					function()
-						vim.cmd.PackerSync()
+						vim.cmd.Lazy("sync")
 					end,
-					"Packer Sync",
-				},
-				c = {
-					function()
-						vim.cmd.PackerCompile()
-					end,
-					"Packer Compile",
+					"Lazy Sync",
 				},
 				i = {
 					function()
-						vim.cmd.PackerInstall()
+						vim.cmd.Lazy()
 					end,
-					"Packer Install",
+					"Lazy Install",
 				},
 			},
 		}),
