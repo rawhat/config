@@ -168,6 +168,12 @@ function M.mappings()
 				end,
 				"Quit and close all",
 			},
+			["<leader>is"] = {
+				function()
+					vim.cmd.Inspect()
+				end,
+				"display highlight information",
+			},
 		}),
 
 		generate({
