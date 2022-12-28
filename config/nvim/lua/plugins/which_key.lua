@@ -688,6 +688,12 @@ function M.mappings()
 					end,
 					"Lazy Install",
 				},
+				o = {
+					function()
+						vim.cmd.Lazy("home")
+					end,
+					"Lazy Home",
+				},
 			},
 		}),
 
