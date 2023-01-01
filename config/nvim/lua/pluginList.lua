@@ -367,23 +367,6 @@ local plugins = {
 	{
 		"ojroques/nvim-osc52",
 		dependencies = { "folke/which-key.nvim" },
-		config = function()
-			require("osc52").setup()
-
-			local function copy(lines, _)
-				require("osc52").copy(table.concat(lines, "\n"))
-			end
-
-			local function paste()
-				return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") }
-			end
-
-			vim.g.clipboard = {
-				name = "osc52",
-				copy = { ["+"] = copy, ["*"] = copy },
-				paste = { ["+"] = paste, ["*"] = paste },
-			}
-		end,
 	},
 	{
 		"stevearc/dressing.nvim",
@@ -574,5 +557,8 @@ require("lazy").setup(plugins, {
 	install = {
 		-- is there a good way to abstract this?
 		colorscheme = { "duskfox" },
+	},
+	diff = {
+		cmd = "terminal_git",
 	},
 })
