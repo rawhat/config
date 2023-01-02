@@ -45,7 +45,6 @@
   "nvim-metals": { "branch": "main", "commit": "7fd10c569ed4eb9f7ec5355d7829ab124b4e6f99" },
   "nvim-nonicons": { "branch": "main", "commit": "68ecb6476f1b96d03c702dce6cf3ef1e5171c9a8" },
   "nvim-notify": { "branch": "master", "commit": "b005821516f1f37801a73067afd1cef2dbc4dfe8" },
-  "nvim-osc52": { "branch": "main", "commit": "5e7efbc047be9eca1307899137a89cd2b6b8125a" },
   "nvim-pqf": { "branch": "main", "commit": "d15582d3d0c09280f371fa5f21537cf4530ed330" },
   "nvim-surround": { "branch": "main", "commit": "ad56e6234bf42fb7f7e4dccc7752e25abd5ec80e" },
   "nvim-toggleterm.lua": { "branch": "main", "commit": "b02a1674bd0010d7982b056fd3df4f717ff8a57a" },
