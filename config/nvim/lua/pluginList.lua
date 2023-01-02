@@ -241,6 +241,8 @@ local plugins = {
 		"kyazdani42/nvim-tree.lua",
 		dependencies = { "kyazdani42/nvim-web-devicons" },
 		tag = "nightly",
+		lazy = true,
+		cmd = "NvimTreeToggle",
 		config = function()
 			local gheight = vim.api.nvim_list_uis()[1].height
 			local gwidth = vim.api.nvim_list_uis()[1].width
@@ -545,6 +547,14 @@ local plugins = {
 				use_default_keymaps = false,
 				max_join_length = 80,
 				langs = langs,
+			})
+		end,
+	},
+	{
+		"EtiamNullam/deferred-clipboard.nvim",
+		config = function()
+			require("deferred-clipboard").setup({
+				lazy = true,
 			})
 		end,
 	},

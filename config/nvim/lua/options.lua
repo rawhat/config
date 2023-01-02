@@ -135,7 +135,7 @@ vim.g.markdown_fenced_languages = {
 		cache_enabled = 0,
 	} ]]
 -- end
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 -- vim.opt.clipboard:append("unnamedplus")
 
 -- make 0 go to first word in line instead of start of line...
