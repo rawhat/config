@@ -160,6 +160,7 @@ local plugins = {
 	-- fancy indent helper
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		lazy = false,
 		config = function()
 			require("plugins.indent-blankline")
 		end,
@@ -367,6 +368,24 @@ local plugins = {
 	{
 		"ojroques/nvim-osc52",
 		dependencies = { "folke/which-key.nvim" },
+		-- config = function()
+		-- 	local function copy(lines, _)
+		-- 		require("osc52").copy(table.concat(lines, "\n"))
+		-- 	end
+		--
+		-- 	local function paste()
+		-- 		return {
+		-- 			vim.fn.split(vim.fn.getreg(""), "\n"),
+		-- 			vim.fn.getregtype(""),
+		-- 		}
+		-- 	end
+		--
+		-- 	vim.g.clipboard = {
+		-- 		name = "osc52",
+		-- 		copy = { ["+"] = copy, ["*"] = copy },
+		-- 		paste = { ["+"] = paste, ["*"] = paste },
+		-- 	}
+		-- end,
 	},
 	{
 		"stevearc/dressing.nvim",
