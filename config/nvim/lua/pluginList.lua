@@ -550,14 +550,6 @@ local plugins = {
 			})
 		end,
 	},
-	{
-		"EtiamNullam/deferred-clipboard.nvim",
-		config = function()
-			require("deferred-clipboard").setup({
-				lazy = true,
-			})
-		end,
-	},
 }
 
 require("lazy").setup(plugins, {

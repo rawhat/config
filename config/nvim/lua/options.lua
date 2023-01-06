@@ -21,6 +21,8 @@ vim.opt.softtabstop = 2
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full"
 
+vim.g.noswapfile = true
+
 vim.g.t_Co = "256"
 
 vim.opt.number = true
@@ -135,7 +137,7 @@ vim.g.markdown_fenced_languages = {
 		cache_enabled = 0,
 	} ]]
 -- end
--- vim.opt.clipboard = "unnamedplus"
+vim.opt.clipboard = "unnamedplus"
 -- vim.opt.clipboard:append("unnamedplus")
 
 -- make 0 go to first word in line instead of start of line...

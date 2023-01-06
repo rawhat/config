@@ -100,12 +100,21 @@ function M.mappings()
 			},
 			["<leader>gt"] = {
 				function()
-					local row = vim.api.nvim_win_get_cursor(0)[1]
-					local file = vim.api.nvim_buf_get_name(0)
-					local relative_path = string.gsub(file, vim.loop.cwd(), "")
+					local cwd = vim.loop.cwd()
+					if cwd == "/home/alex/vistar/vistar" then
+						local row = vim.api.nvim_win_get_cursor(0)[1]
+						local file = vim.api.nvim_buf_get_name(0)
+						local relative_path = string.gsub(file, vim.loop.cwd(), "")
 
-					local url = vim.fn.system("gitiles " .. relative_path)
-					print(string.gsub(url, "\n", "") .. "#" .. row)
+						local gitiles_url = "http://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/develop"
+
+						local with_row = gitiles_url .. relative_path .. "#" .. row
+
+						vim.fn.setreg('"', with_row)
+						require("notify")("Gitiles URL copied to clipboard\n\n" .. with_row, "info")
+					else
+						require("notify")("Can only be called from vistar root", "error")
+					end
 				end,
 				"Gitiles link to current line",
 			},
