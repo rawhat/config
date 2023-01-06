@@ -1,108 +1,32 @@
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
 local wk = require("which-key")
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local lsp_servers = {
-	"clangd",
-	"clojure_lsp",
-	"crystalline",
-	"elixirls",
-	"erlangls",
-	-- "eslint",
-	"fsautocomplete",
-	"gopls",
-	"jsonls",
-	"jsonnet_ls",
-	"ocamllsp",
-	"pyright",
-	"rust_analyzer",
-	"sorbet",
-	"sqls",
-	"sumneko_lua",
-	-- "tailwindcss",
-	"tsserver",
-	"zls",
-}
-
-require("mason-lspconfig").setup({
-	ensure_installed = lsp_servers,
-	icons = {
-		server_installed = "✓",
-		server_pending = "➜",
-		server_uninstalled = "✗",
-	},
-})
-
-for _, server in pairs(lsp_servers) do
-	local config = {
+local lsp_configs = {
+	clangd = {
 		capabilities = capabilities,
-		root_dir = function()
-			return vim.fn.getcwd()
-		end,
-	}
-	if server == "elixirls" then
-		config.filetypes = { "elixir", "leex", "heex", "eex" }
-	elseif server == "pyright" then
-		config.flags = { debounce_text_changes = 300 }
-		config.settings = {
-			python = {
-				analysis = {
-					diagnosticMode = "openFilesOnly",
-				},
-			},
-		}
-	elseif server == "rust_analyzer" then
-		config.on_attach = function(client, buf_nr)
-			require("virtualtypes").on_attach(client)
-		end
-		config.settings = {
-			["rust-analyzer"] = {
-				checkOnSave = { command = "clippy" },
-				diagnostics = {
-					experimental = {
-						enable = true,
-					},
-				},
-			},
-		}
-	elseif server == "tsserver" then
-		config.init_options = require("nvim-lsp-ts-utils").init_options
-		config.flags = {
-			debounce_text_changes = 150,
-		}
-		config.filetypes = {
-			"javascript",
-			"javascriptreact",
-			"javascript.jsx",
-			"typescript",
-			"typescriptreact",
-			"typescript.tsx",
-		}
-		config.on_attach = function(client, buf_nr)
-			local ts_utils = require("nvim-lsp-ts-utils")
-			ts_utils.setup({})
-			ts_utils.setup_client(client)
-		end
-		config.commands = {
-			OrganizeImports = {
-				function()
-					vim.lsp.buf.execute_command({
-						command = "_typescript.organizeImports",
-						arguments = { vim.api.nvim_buf_get_name(0) },
-						title = "",
-					})
-				end,
-				description = "Organize Imports",
-			},
-		}
-	elseif server == "ocamlls" then
-		config.on_attach = function(client)
-			require("virtualtypes").on_attach(client)
-		end
-	elseif server == "gopls" then
-		config.settings = {
+	},
+	clojure_lsp = {
+		capabilities = capabilities,
+	},
+	crystalline = {
+		capabilities = capabilities,
+	},
+	elixirls = {
+		capabilities = capabilities,
+		filetypes = { "elixir", "leex", "heex", "eex" },
+	},
+	erlangls = {
+		capabilities = capabilities,
+	},
+	fsautocomplete = {
+		capabilities = capabilities,
+	},
+	gopls = {
+		capabilities = capabilities,
+		settings = {
 			gopls = {
 				env = {
 					GOPACKAGESDRIVER = "/home/alex/bin/gopackagesdriver",
@@ -115,20 +39,135 @@ for _, server in pairs(lsp_servers) do
 					"-bazel-app",
 				},
 			},
-		}
-		config.flags = {
+		},
+		flags = {
 			debounce_text_changes = 150,
-		}
-	elseif server == "sumneko_lua" then
-		config.root_dir = require("lspconfig").sumneko_lua.root_dir
-	end
+		},
+	},
+	jsonls = {
+		capabilities = capabilities,
+	},
+	jsonnet_ls = {
+		capabilities = capabilities,
+	},
+	ocamllsp = {
+		capabilities = capabilities,
+		on_attach = function(client)
+			require("virtualtypes").on_attach(client)
+		end,
+	},
+	pyright = {
+		capabilities = capabilities,
+		flags = { debounce_text_changes = 300 },
+		settings = {
+			python = {
+				analysis = {
+					diagnosticMode = "openFilesOnly",
+				},
+			},
+		},
+	},
+	rust_analyzer = {
+		capabilities = capabilities,
+		on_attach = function(client)
+			require("virtualtypes").on_attach(client)
+		end,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = { command = "clippy" },
+				diagnostics = {
+					experimental = {
+						enable = true,
+					},
+				},
+			},
+		},
+	},
+	sorbet = {
+		capabilities = capabilities,
+	},
+	sqls = {
+		capabilities = capabilities,
+	},
+	sumneko_lua = {
+		capabilities = capabilities,
+	},
+	tsserver = {
+		capabilities = capabilities,
+		root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
+		init_options = require("nvim-lsp-ts-utils").init_options,
+		flags = {
+			debounce_text_changes = 150,
+		},
+		on_attach = function(client, buf_nr)
+			local active_clients = vim.lsp.get_active_clients()
+			for _, running_client in pairs(active_clients) do
+				if running_client.name == "denols" then
+					client.stop()
+				end
+			end
+			local ts_utils = require("nvim-lsp-ts-utils")
+			ts_utils.setup({})
+			ts_utils.setup_client(client)
+		end,
+		commands = {
+			OrganizeImports = {
+				function()
+					vim.lsp.buf.execute_command({
+						command = "_typescript.organizeImports",
+						arguments = { vim.api.nvim_buf_get_name(0) },
+						title = "",
+					})
+				end,
+				description = "Organize Imports",
+			},
+		},
+	},
+	zls = {
+		capabilities = capabilities,
+	},
+}
 
-	lspconfig[server].setup(config)
+local lsp_servers = {}
+for server, _ in pairs(lsp_servers) do
+	table.insert(lsp_servers, server)
 end
 
+require("mason-lspconfig").setup({
+	ensure_installed = lsp_servers,
+	icons = {
+		server_installed = "✓",
+		server_pending = "➜",
+		server_uninstalled = "✗",
+	},
+})
+
+for server, config in pairs(lsp_configs) do
+	require("lspconfig")[server].setup(config)
+end
 -- non-lsp-install servers
-lspconfig.java_language_server.setup({
+require("lspconfig").java_language_server.setup({
 	cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
+})
+
+require("deno-nvim").setup({
+	server = {
+		on_attach = function(client)
+			local active_clients = vim.lsp.get_active_clients()
+			for _, running_client in pairs(active_clients) do
+				if running_client.name == "tsserver" then
+					client.stop()
+				end
+			end
+		end,
+		capabilities = capabilities,
+		root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "denonvim.tag"),
+		settings = {
+			deno = {
+				unstable = true,
+			},
+		},
+	},
 })
 
 if not configs.gleam then
@@ -145,7 +184,7 @@ if not configs.gleam then
 		},
 	}
 end
-lspconfig.gleam.setup({})
+require("lspconfig").gleam.setup({})
 
 -- show lsp signs in gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }

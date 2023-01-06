@@ -32,6 +32,8 @@ local plugins = {
 	{ "rhysd/vim-crystal", ft = "crystal" },
 	---- csv
 	{ "chrisbra/csv.vim", ft = "csv" },
+	---- deno
+	{ "sigmaSd/deno-nvim" },
 	---- fsharp
 	{ "kongo2002/fsharp-vim", ft = "fsharp" },
 	---- git
