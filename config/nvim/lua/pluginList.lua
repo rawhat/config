@@ -162,7 +162,7 @@ local plugins = {
 	-- fancy indent helper
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		lazy = false,
+		event = "VimEnter",
 		config = function()
 			require("plugins.indent-blankline")
 		end,
