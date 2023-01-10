@@ -185,8 +185,9 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"jose-elias-alvarez/nvim-lsp-ts-utils",
+			"mhartington/formatter.nvim",
+			"williamboman/mason.nvim",
 		},
-		dependencies = { "mhartington/formatter.nvim", "williamboman/mason.nvim" },
 		config = function()
 			require("plugins.lspconfig")
 		end,

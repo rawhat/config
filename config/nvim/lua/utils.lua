@@ -24,6 +24,6 @@ function Inspect(obj)
 	print(vim.inspect(obj))
 end
 
-function printf(...)
+function _G.printf(...)
 	print(string.format(...))
 end

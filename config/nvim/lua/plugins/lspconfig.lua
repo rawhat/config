@@ -1,4 +1,3 @@
--- local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
 local wk = require("which-key")
 
@@ -91,6 +90,26 @@ local lsp_configs = {
 	},
 	sumneko_lua = {
 		capabilities = capabilities,
+		settings = {
+			Lua = {
+				runtime = {
+					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+					version = "LuaJIT",
+				},
+				diagnostics = {
+					-- Get the language server to recognize the `vim` global
+					globals = { "vim" },
+				},
+				workspace = {
+					-- Make the server aware of Neovim runtime files
+					library = vim.api.nvim_get_runtime_file("", true),
+				},
+				-- Do not send telemetry data containing a randomized but unique identifier
+				telemetry = {
+					enable = false,
+				},
+			},
+		},
 	},
 	tsserver = {
 		capabilities = capabilities,
@@ -99,7 +118,7 @@ local lsp_configs = {
 		flags = {
 			debounce_text_changes = 150,
 		},
-		on_attach = function(client, buf_nr)
+		on_attach = function(client)
 			local active_clients = vim.lsp.get_active_clients()
 			for _, running_client in pairs(active_clients) do
 				if running_client.name == "denols" then
@@ -178,7 +197,7 @@ if not configs.gleam then
 			on_attach = function(client)
 				client.server_capabilities.completionProvider = false
 			end,
-			root_dir = function(_fname)
+			root_dir = function()
 				return vim.fn.getcwd()
 			end,
 		},
@@ -267,7 +286,6 @@ local formatter_filetypes = {
 }
 
 local formatter_opts = {}
-local format_group = vim.api.nvim_create_augroup("FormatterFiletypes", { clear = true })
 for name, tbl in pairs(formatter_filetypes) do
 	if vim.fn.executable(tbl.command.exe) == 0 then
 		error(tbl.command.exe .. " not found on path")
