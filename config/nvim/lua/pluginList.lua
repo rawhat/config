@@ -91,8 +91,6 @@ local plugins = {
 	"nelstrom/vim-visual-star-search",
 	-- :noh on cursor move
 	"haya14busa/is.vim",
-	-- run tests
-	"janko/vim-test",
 	-- shell commands
 	"tpope/vim-eunuch",
 	-- OTHER
@@ -113,6 +111,7 @@ local plugins = {
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
 			},
+			"nvim-telescope/telescope-file-browser.nvim",
 			"nvim-telescope/telescope-ui-select.nvim",
 			"stevearc/dressing.nvim",
 		},
@@ -120,7 +119,6 @@ local plugins = {
 			require("plugins.telescope")
 		end,
 	},
-	"nvim-telescope/telescope-file-browser.nvim",
 	-- search!
 	"mileszs/ack.vim",
 	-- removes trailing whitespace
@@ -220,7 +218,6 @@ local plugins = {
 			require("plugins.cmp")
 		end,
 	},
-	{ "saadparwaiz1/cmp_luasnip", dependencies = { "L3MON4D3/LuaSnip" } },
 	{
 		"scalameta/nvim-metals",
 		config = function()
@@ -406,7 +403,6 @@ local plugins = {
 			})
 		end,
 	},
-	"dstein64/vim-startuptime",
 	{
 		"yioneko/nvim-yati",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -564,7 +560,7 @@ local plugins = {
 require("lazy").setup(plugins, {
 	install = {
 		-- is there a good way to abstract this?
-		colorscheme = { "duskfox" },
+		colorscheme = { theme.current_theme },
 	},
 	diff = {
 		cmd = "terminal_git",
