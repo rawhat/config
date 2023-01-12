@@ -154,7 +154,7 @@ function M.mappings()
 							if not worker_term:is_open() then
 								worker_term:toggle(100)
 							end
-							worker_term:send(value)
+							worker_term:send(vim.fn.expandcmd(value))
 							vim.cmd("stopinsert")
 							term_input:unmount()
 						end,
@@ -787,6 +787,14 @@ function M.mappings()
 				"Split out joined lines",
 			},
 		}),
+
+		generate({
+			name = "osc52",
+			["<leader>y"] = {
+				require("osc52").copy_visual,
+				"copy text via OSC52",
+			},
+		}, { mode = "v" }),
 	}
 end
 
