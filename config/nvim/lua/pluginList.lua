@@ -242,7 +242,7 @@ local plugins = {
 		dependencies = { "kyazdani42/nvim-web-devicons" },
 		tag = "nightly",
 		lazy = true,
-		cmd = "NvimTreeToggle",
+		cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
 		config = function()
 			local gheight = vim.api.nvim_list_uis()[1].height
 			local gwidth = vim.api.nvim_list_uis()[1].width
@@ -553,6 +553,18 @@ local plugins = {
 		"ojroques/nvim-osc52",
 		config = function()
 			require("osc52").setup()
+		end,
+	},
+	{
+		"kosayoda/nvim-lightbulb",
+		config = function()
+			local group = vim.api.nvim_create_augroup("Lightbulb", {
+				clear = false,
+			})
+			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+				callback = require("nvim-lightbulb").update_lightbulb,
+				group = group,
+			})
 		end,
 	},
 }

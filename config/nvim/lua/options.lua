@@ -21,8 +21,6 @@ vim.opt.softtabstop = 2
 vim.opt.wildmenu = true
 vim.opt.wildmode = "longest:full,full"
 
-vim.g.noswapfile = true
-
 vim.g.t_Co = "256"
 
 vim.opt.number = true
