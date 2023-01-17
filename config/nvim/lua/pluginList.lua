@@ -353,7 +353,7 @@ local plugins = {
 	},
 	-- a nicer quickfix window
 	{
-		"nvim-pqf",
+		"yorickpeterse/nvim-pqf",
 		url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
 		config = function()
 			require("pqf").setup()
@@ -426,7 +426,7 @@ local plugins = {
 		end,
 	},
 	{
-		"nvim-window",
+		"yorickpeterse/nvim-window",
 		url = "https://gitlab.com/yorickpeterse/nvim-window.git",
 	},
 	{
