@@ -567,6 +567,12 @@ local plugins = {
 			})
 		end,
 	},
+	{
+		"mfussenegger/nvim-lint",
+		config = function()
+			require("plugins.linter")
+		end,
+	},
 }
 
 require("lazy").setup(plugins, {
