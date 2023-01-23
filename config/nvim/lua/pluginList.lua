@@ -394,13 +394,9 @@ local plugins = {
 		},
 	},
 	{
-		"stevearc/aerial.nvim",
+		"simrat39/symbols-outline.nvim",
 		config = function()
-			require("aerial").setup({
-				layout = {
-					min_width = 10,
-				},
-			})
+			require("symbols-outline").setup()
 		end,
 	},
 	{

@@ -709,12 +709,12 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "Aerial",
-			["<leader>ae"] = {
+			name = "Symbols outline",
+			["<leader>so"] = {
 				function()
-					vim.cmd.AerialToggle({ "right" })
+					vim.cmd.SymbolsOutline()
 				end,
-				"Toggle the aerial view",
+				"Toggle the symbol outline view",
 			},
 		}),
 
