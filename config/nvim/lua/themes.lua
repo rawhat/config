@@ -180,11 +180,60 @@ M.themes = {
 			vim.cmd.colorscheme("tundra")
 		end,
 	},
+	nordic = {
+		package = "AlexvZyl/nordic.nvim",
+		package_name = "nordic",
+		name = "nordic",
+		color_palette = function()
+			local colors = require("nordic.colors")
+			return {
+				fg0 = colors.fg,
+				-- this is used for lualine, and i want something to differentiate
+				-- since i'm swapping bg to black below
+				-- bg0 = colors.bg,
+				bg0 = colors.gray1,
+				blue = {
+					base = colors.blue.base,
+				},
+				red = {
+					base = colors.red.base,
+				},
+				green = {
+					base = colors.green.base,
+				},
+				magenta = {
+					base = colors.magenta.base,
+				},
+				orange = {
+					base = colors.orange.base,
+				},
+				yellow = {
+					base = colors.yellow.base,
+				},
+				pink = {
+					base = colors.red.dim,
+				},
+				cyan = {
+					base = colors.cyan.base,
+				},
+				white = {
+					base = colors.white1,
+				},
+			}
+		end,
+		config = function()
+			vim.cmd.colorscheme("nordic")
+			local colors = require("nordic.colors")
+			vim.api.nvim_set_hl(0, "Normal", { bg = colors.black })
+			vim.api.nvim_set_hl(0, "Cursorline", { bg = colors.bg })
+		end,
+	},
 }
 
 -- M.current_theme = M.themes["catppuccin"]
 -- M.current_theme.palette = "mocha"
 M.current_theme = M.themes["nightfox"]
+-- M.current_theme = M.themes["nordic"]
 -- M.current_theme.palette = "dawnfox"
 -- M.current_theme = M.themes["embark"]
 -- M.current_theme = M.themes["tundra"]
