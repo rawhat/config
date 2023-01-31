@@ -224,16 +224,78 @@ M.themes = {
 		config = function()
 			vim.cmd.colorscheme("nordic")
 			local colors = require("nordic.colors")
-			vim.api.nvim_set_hl(0, "Normal", { bg = colors.black })
-			vim.api.nvim_set_hl(0, "Cursorline", { bg = colors.bg })
+			require("nordic").setup({
+				telescope = {
+					style = "classic",
+				},
+				override = {
+					HopNextKey = {
+						fg = colors.cyan.base,
+						bold = true,
+					},
+					HopNextKey1 = {
+						fg = colors.red.base,
+						bold = true,
+					},
+					HopNextKey2 = {
+						fg = colors.blue2,
+					},
+					HopUnmatched = {
+						fg = colors.yellow.dim,
+					},
+					Normal = {
+						bg = colors.bg_dark,
+					},
+					NormalNC = {
+						bg = colors.bg_dark,
+					},
+					Cursorline = {
+						bg = colors.bg,
+					},
+					TelescopePromptNormal = {
+						bg = colors.bg,
+					},
+					TelescopeResultsNormal = {
+						bg = colors.bg,
+					},
+					TelescopePreviewNormal = {
+						bg = colors.bg,
+					},
+					GitSignsAdd = {
+						bg = colors.bg_dark,
+					},
+					GitSignsChange = {
+						bg = colors.bg_dark,
+					},
+					GitSignsDelete = {
+						bg = colors.bg_dark,
+					},
+					SignColumn = {
+						bg = colors.bg_dark,
+					},
+					ModesCopy = {
+						bg = colors.yellow.base,
+					},
+					ModesDelete = {
+						bg = colors.red.base,
+					},
+					ModesInsert = {
+						bg = colors.cyan.base,
+					},
+					ModesVisual = {
+						bg = colors.magenta.base,
+					},
+				},
+			})
+			require("nordic").load()
 		end,
 	},
 }
 
 -- M.current_theme = M.themes["catppuccin"]
 -- M.current_theme.palette = "mocha"
-M.current_theme = M.themes["nightfox"]
--- M.current_theme = M.themes["nordic"]
+-- M.current_theme = M.themes["nightfox"]
+M.current_theme = M.themes["nordic"]
 -- M.current_theme.palette = "dawnfox"
 -- M.current_theme = M.themes["embark"]
 -- M.current_theme = M.themes["tundra"]

@@ -795,6 +795,34 @@ function M.mappings()
 				"copy text via OSC52",
 			},
 		}, { mode = "v" }),
+
+		generate({
+			name = "DiffView",
+			["<leader>do"] = {
+				function()
+					vim.cmd.DiffviewOpen("origin/develop")
+				end,
+				"Open DiffView against develop",
+			},
+			["<leader>dv"] = {
+				function()
+					vim.cmd.DiffviewOpen()
+				end,
+				"Open DiffView",
+			},
+			["<leader>dc"] = {
+				function()
+					vim.cmd.DiffviewClose()
+				end,
+				"Close DiffView",
+			},
+			["<leader>df"] = {
+				function()
+					vim.cmd.DiffviewToggleFiles()
+				end,
+				"Toggle DiffView file panel",
+			},
+		}),
 	}
 end
 

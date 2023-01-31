@@ -16,6 +16,8 @@ local theme = require("themes").current_theme
 local plugins = {
 	{
 		theme.package,
+		lazy = false,
+		priority = 1000,
 		config = function()
 			theme.config(theme.palette)
 		end,
@@ -97,7 +99,7 @@ local plugins = {
 	-- modified status bar
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("plugins.lualine")
 		end,
@@ -234,12 +236,12 @@ local plugins = {
 	-- file type icons
 	{
 		"yamatsum/nvim-nonicons",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	-- file tree
 	{
-		"kyazdani42/nvim-tree.lua",
-		dependencies = { "kyazdani42/nvim-web-devicons" },
+		"nvim-tree/nvim-tree.lua",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		tag = "nightly",
 		lazy = true,
 		cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
@@ -568,6 +570,9 @@ local plugins = {
 		config = function()
 			require("plugins.linter")
 		end,
+	},
+	{
+		"sindrets/diffview.nvim",
 	},
 }
 
