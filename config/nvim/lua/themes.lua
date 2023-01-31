@@ -222,9 +222,8 @@ M.themes = {
 			}
 		end,
 		config = function()
-			vim.cmd.colorscheme("nordic")
 			local colors = require("nordic.colors")
-			require("nordic").setup({
+			require("nordic").load({
 				telescope = {
 					style = "classic",
 				},
@@ -285,9 +284,15 @@ M.themes = {
 					ModesVisual = {
 						bg = colors.magenta.base,
 					},
+					WinSeparator = {
+						fg = colors.fg,
+					},
+					TelescopeBorder = {
+						fg = colors.gray1,
+						bg = colors.bg,
+					},
 				},
 			})
-			require("nordic").load()
 		end,
 	},
 }

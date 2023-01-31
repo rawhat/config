@@ -28,10 +28,10 @@ vim.g.t_Co = "256"
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-if vim.fn.has("nvim-0.9") == 1 and not is_diff then
-	vim.opt.numberwidth = 3
-	vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
-end
+-- if vim.fn.has("nvim-0.9") == 1 and not is_diff then
+-- 	vim.opt.numberwidth = 3
+-- 	vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
+-- end
 
 vim.opt.colorcolumn = "81"
 vim.opt.cursorline = true
