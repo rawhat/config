@@ -31,25 +31,25 @@ function M.mappings()
 		-- resizing
 		generate({
 			name = "splitzzz",
-			["<S-l>"] = {
+			["<C-l>"] = {
 				function()
 					require("smart-splits").resize_right()
 				end,
 				"Resize Right",
 			},
-			["<S-k>"] = {
+			["<C-k>"] = {
 				function()
 					require("smart-splits").resize_up()
 				end,
 				"Resize Up",
 			},
-			["<S-j>"] = {
+			["<C-j>"] = {
 				function()
 					require("smart-splits").resize_down()
 				end,
 				"Resize Down",
 			},
-			["<S-h>"] = {
+			["<C-h>"] = {
 				function()
 					require("smart-splits").resize_left()
 				end,
