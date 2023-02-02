@@ -515,7 +515,7 @@ function M.mappings()
 					local search_dirs = { "~/.config/nvim" }
 					-- TODO:  is it okay to ignore opts here?  it... doesn't seem to like
 					-- either a table OR a string
-					local additional_args = function(opts)
+					local additional_args = function()
 						return { "-g", "!packer_compiled.lua" }
 					end
 
@@ -808,7 +808,15 @@ function M.mappings()
 				function()
 					vim.cmd.DiffviewOpen()
 				end,
-				"Open DiffView",
+				"Open DiffView against HEAD",
+			},
+			["<leader>db"] = {
+				function()
+					vim.ui.input({ prompt = "Branch to diff against" }, function(search)
+						vim.cmd.DiffviewOpen(search)
+					end)
+				end,
+				"Open DiffView against a given branch",
 			},
 			["<leader>dc"] = {
 				function()

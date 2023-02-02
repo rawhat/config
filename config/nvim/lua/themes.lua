@@ -286,6 +286,7 @@ M.themes = {
 					},
 					WinSeparator = {
 						fg = colors.fg,
+						bg = colors.bg_dark,
 					},
 					TelescopeBorder = {
 						fg = colors.gray1,
