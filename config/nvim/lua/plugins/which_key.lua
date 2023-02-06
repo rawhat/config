@@ -110,7 +110,7 @@ function M.mappings()
 
 						local with_row = gitiles_url .. relative_path .. "#" .. row
 
-						vim.fn.setreg('"', with_row)
+						require("osc52").copy(with_row)
 						require("notify")("Gitiles URL copied to clipboard\n\n" .. with_row, "info")
 					else
 						require("notify")("Can only be called from vistar root", "error")

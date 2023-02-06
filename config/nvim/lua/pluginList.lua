@@ -588,6 +588,12 @@ local plugins = {
 			})
 		end,
 	},
+	{
+		"Tummetott/reticle.nvim",
+		config = function()
+			require("reticle").setup()
+		end,
+	},
 }
 
 require("lazy").setup(plugins, {
