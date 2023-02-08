@@ -227,6 +227,9 @@ M.themes = {
 				telescope = {
 					style = "classic",
 				},
+				noice = {
+					style = "classic",
+				},
 				override = {
 					HopNextKey = {
 						fg = colors.cyan.base,
