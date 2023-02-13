@@ -28,3 +28,5 @@ source ~/.asdf/asdf.fish
 set -x BAT_THEME ""ansi""
 
 set -x AWS_REGION "us-east-1"
+
+starship init fish | source
