@@ -301,10 +301,10 @@ M.themes = {
 	},
 }
 
--- M.current_theme = M.themes["catppuccin"]
--- M.current_theme.palette = "mocha"
+M.current_theme = M.themes["catppuccin"]
+M.current_theme.palette = "mocha"
 -- M.current_theme = M.themes["nightfox"]
-M.current_theme = M.themes["nordic"]
+-- M.current_theme = M.themes["nordic"]
 -- M.current_theme.palette = "dawnfox"
 -- M.current_theme = M.themes["embark"]
 -- M.current_theme = M.themes["tundra"]

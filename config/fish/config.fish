@@ -25,6 +25,6 @@ fish_add_path $HOME/bin
 
 source ~/.asdf/asdf.fish
 
-set -x BAT_THEME ""base16""
+set -x BAT_THEME ""ansi""
 
 set -x AWS_REGION "us-east-1"
