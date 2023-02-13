@@ -205,6 +205,7 @@ local plugins = {
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
 			-- "hrsh7th/cmp-nvim-lsp-signature-help",
@@ -322,6 +323,7 @@ local plugins = {
 	},
 	{
 		"mrjones2014/legendary.nvim",
+		tag = "v2.6.0",
 		dependencies = { "folke/which-key.nvim", "nvim-telescope/telescope.nvim" },
 		config = function()
 			local wk_options = require("plugins.which_key").options()
