@@ -147,8 +147,13 @@ M.themes = {
 			}
 		end,
 		config = function(palette)
-			local variant = palette or "latte"
-			vim.g.catppuccin_flavour = variant
+			require("catppuccin").setup({
+				flavour = palette or "mocha",
+				custom_highlights = {
+					cjsxElement = { link = "@constructor" },
+					cjsxAttribProperty = { link = "@tag.attribute" },
+				},
+			})
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
