@@ -160,6 +160,10 @@ function M.mappings()
 						end,
 					})
 
+					term_input:map("i", "<Esc>", function()
+						term_input:unmount()
+					end, { noremap = true })
+
 					term_input:mount()
 				end,
 				"<r>un <c>command and toss the output into a vsplit",

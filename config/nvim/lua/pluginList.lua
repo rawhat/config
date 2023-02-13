@@ -363,14 +363,6 @@ local plugins = {
 			require("pqf").setup()
 		end,
 	},
-	-- new pop-up???
-	{
-		"hood/popui.nvim",
-		dependencies = { "RishabhRD/popfix" },
-		config = function()
-			vim.ui.select = require("popui.ui-overrider")
-		end,
-	},
 	{
 		"stevearc/dressing.nvim",
 		config = function()
@@ -600,7 +592,6 @@ local plugins = {
 
 require("lazy").setup(plugins, {
 	install = {
-		-- is there a good way to abstract this?
 		colorscheme = { theme.current_theme },
 	},
 	diff = {
