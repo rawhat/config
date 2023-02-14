@@ -24,6 +24,15 @@ cmp.setup({
 		end,
 	},
 
+	-- omitting some other options, may want to re-add `exact` for example
+	--   see:  https://github.com/hrsh7th/nvim-cmp/issues/183
+	sorting = {
+		comparators = {
+			cmp.config.compare.score,
+			cmp.config.compare.offset,
+		},
+	},
+
 	mapping = cmp.mapping.preset.insert({
 		["<C-p>"] = cmp.mapping.select_prev_item(),
 		["<C-n>"] = cmp.mapping.select_next_item(),
@@ -81,20 +90,4 @@ cmp.setup({
 			end,
 		}),
 	},
-})
-
-cmp.setup.cmdline("/", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = {
-		{ name = "buffer" },
-	},
-})
-
-cmp.setup.cmdline(":", {
-	mapping = cmp.mapping.preset.cmdline(),
-	sources = cmp.config.sources({
-		{ name = "path" },
-	}, {
-		{ name = "cmdline" },
-	}),
 })
