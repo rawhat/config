@@ -28,6 +28,7 @@ cmp.setup({
 	--   see:  https://github.com/hrsh7th/nvim-cmp/issues/183
 	sorting = {
 		comparators = {
+			cmp.config.compare.locality,
 			cmp.config.compare.score,
 			cmp.config.compare.offset,
 		},
