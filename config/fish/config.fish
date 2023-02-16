@@ -8,6 +8,10 @@ function ls
   exa $argv
 end
 
+function la
+  exa -la $argv
+end
+
 function fd
   fdfind $argv
 end
@@ -26,7 +30,8 @@ fish_add_path $HOME/bin
 source ~/.asdf/asdf.fish
 
 set -x BAT_THEME ""ansi""
-
 set -x AWS_REGION "us-east-1"
+set -x EDITOR (which nvim)
+set -x SUDO_EDITOR (which nvim)
 
 starship init fish | source
