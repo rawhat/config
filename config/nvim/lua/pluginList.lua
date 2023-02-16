@@ -323,7 +323,6 @@ local plugins = {
 	},
 	{
 		"mrjones2014/legendary.nvim",
-		tag = "v2.6.0",
 		dependencies = { "folke/which-key.nvim", "nvim-telescope/telescope.nvim" },
 		config = function()
 			local wk_options = require("plugins.which_key").options()
