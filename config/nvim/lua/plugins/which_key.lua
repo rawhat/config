@@ -106,7 +106,7 @@ function M.mappings()
 						local file = vim.api.nvim_buf_get_name(0)
 						local relative_path = string.gsub(file, vim.loop.cwd(), "")
 
-						local gitiles_url = "http://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/develop"
+						local gitiles_url = "https://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/refs/heads/develop"
 
 						local with_row = gitiles_url .. relative_path .. "#" .. row
 
