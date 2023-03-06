@@ -113,7 +113,6 @@ local lsp_configs = {
 		capabilities = capabilities,
 	},
 	tsserver = {
-		command = { "typescript-language-server", "--stdio" },
 		capabilities = capabilities,
 		root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
 		init_options = require("nvim-lsp-ts-utils").init_options,
