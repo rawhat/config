@@ -153,6 +153,17 @@ M.themes = {
 					cjsxElement = { link = "@constructor" },
 					cjsxAttribProperty = { link = "@tag.attribute" },
 				},
+				integrations = {
+					native_lsp = {
+						enabled = true,
+						underlines = {
+							errors = { "undercurl" },
+							hints = { "undercurl" },
+							warnings = { "undercurl" },
+							information = { "undercurl" },
+						},
+					},
+				},
 			})
 			vim.cmd.colorscheme("catppuccin")
 		end,
