@@ -18,6 +18,7 @@ local plugins = {
 		theme.package,
 		lazy = false,
 		priority = 1000,
+		name = theme.name,
 		config = function()
 			theme.config(theme.palette)
 		end,
