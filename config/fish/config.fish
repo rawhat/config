@@ -29,6 +29,12 @@ fish_add_path $HOME/bin
 
 source ~/.asdf/asdf.fish
 
+set NVIM_BIN (which nvim)
+
+function nvim
+  TERM=wezterm $NVIM_BIN $argv
+end
+
 set -x BAT_THEME ""ansi""
 set -x AWS_REGION "us-east-1"
 set -x EDITOR (which nvim)
