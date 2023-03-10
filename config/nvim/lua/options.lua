@@ -41,7 +41,7 @@ vim.cmd([[
   autocmd BufRead,BufNewFile BUILD setf bzl
 ]])
 
--- vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- for toggle term, reuse the same term
 vim.opt.hidden = true
