@@ -43,6 +43,9 @@ local lsp_configs = {
 			debounce_text_changes = 150,
 		},
 	},
+	html = {
+		capabilities = capabilities,
+	},
 	jsonls = {
 		capabilities = capabilities,
 	},

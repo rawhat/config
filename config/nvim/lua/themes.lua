@@ -154,6 +154,9 @@ M.themes = {
 					cjsxAttribProperty = { link = "@tag.attribute" },
 				},
 				integrations = {
+					indent_blankline = {
+						enabled = true,
+					},
 					native_lsp = {
 						enabled = true,
 						underlines = {
