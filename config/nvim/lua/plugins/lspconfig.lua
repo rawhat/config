@@ -326,6 +326,7 @@ local lsp_filetypes = {
 	"fsharp",
 	"gleam",
 	"go",
+	"html",
 	"jsonnet",
 	"lua",
 	"ocaml",

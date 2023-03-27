@@ -23,6 +23,12 @@ local conditions = {
 
 -- Config
 local config = {
+	extensions = {
+		"nvim-tree",
+		"quickfix",
+		"symbols-outline",
+		"toggleterm",
+	},
 	options = {
 		-- Disable sections and component separators
 		component_separators = "",
