@@ -590,7 +590,14 @@ local plugins = {
 	},
 	{
 		"m4xshen/smartcolumn.nvim",
-		opts = {},
+		opts = {
+			disabled_filetypes = {
+				"lazy",
+				"mason",
+				"nvim-tree",
+				"quickfix",
+			},
+		},
 	},
 }
 
