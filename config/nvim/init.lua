@@ -3,6 +3,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 require("options")
+require("status")
 require("pluginList")
 require("utils")
 require("cmds")
