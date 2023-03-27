@@ -588,6 +588,10 @@ local plugins = {
 			require("reticle").setup()
 		end,
 	},
+	{
+		"m4xshen/smartcolumn.nvim",
+		opts = {},
+	},
 }
 
 require("lazy").setup(plugins, {

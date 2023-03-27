@@ -32,8 +32,9 @@ vim.opt.relativenumber = true
 -- 	vim.opt.numberwidth = 3
 -- 	vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
 -- end
+-- vim.opt.statuscolumn = '%=%{v:relnum == 0 ? "" : v:relnum}%s%C'
 
-vim.opt.colorcolumn = "81"
+-- vim.opt.colorcolumn = "81"
 vim.opt.cursorline = true
 
 vim.cmd([[
