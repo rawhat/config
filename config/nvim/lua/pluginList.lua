@@ -378,6 +378,14 @@ local plugins = {
 		config = function()
 			require("gitsigns").setup({
 				keymaps = {},
+				signs = {
+					add = { text = "▌" },
+					change = { text = "▌" },
+					changedelete = { text = "▌" },
+					-- delete = { text = "›" },
+					-- delete = { text = "↘" },
+					untracked = { text = "▌" },
+				},
 			})
 		end,
 	},

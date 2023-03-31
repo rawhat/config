@@ -24,10 +24,13 @@ local conditions = {
 -- Config
 local config = {
 	extensions = {
+		"fugitive",
+		"lazy",
 		"nvim-tree",
 		"quickfix",
 		"symbols-outline",
 		"toggleterm",
+		"trouble",
 	},
 	options = {
 		-- Disable sections and component separators
