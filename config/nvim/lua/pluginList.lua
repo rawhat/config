@@ -270,14 +270,6 @@ local plugins = {
 	},
 	-- run things asynchronously
 	"skywind3000/asyncrun.vim",
-	-- neovim terminal manager
-	{
-		"akinsho/nvim-toggleterm.lua",
-		dependencies = { theme.package },
-		config = function()
-			require("plugins.toggleterm")
-		end,
-	},
 	-- tree sitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -592,6 +584,33 @@ local plugins = {
 				"quickfix",
 			},
 		},
+	},
+	{
+		"rebelot/terminal.nvim",
+		config = function()
+			require("terminal").setup({
+				layout = {
+					open_cmd = "float",
+					width = 0.75,
+					height = 0.75,
+				},
+			})
+			vim.api.nvim_create_autocmd("TermOpen", {
+				callback = function()
+					vim.cmd([[
+            setlocal nonumber norelativenumber nocursorline winhl=Normal:NormalFloat
+            tnoremap <buffer> <Esc> <c-\><c-n>
+          ]])
+				end,
+			})
+			vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
+				callback = function(args)
+					if vim.startswith(vim.api.nvim_buf_get_name(args.buf), "term://") then
+						vim.cmd("startinsert")
+					end
+				end,
+			})
+		end,
 	},
 }
 

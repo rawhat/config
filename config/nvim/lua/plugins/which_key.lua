@@ -18,15 +18,7 @@ local generate = function(key_table, key_opts)
 end
 
 function M.mappings()
-	local Terminal = require("toggleterm.terminal").Terminal
-	local worker_term = Terminal:new({
-		close_on_exit = false,
-		cmd = vim.o.shell,
-		direction = "vertical",
-		count = 6,
-		hidden = true,
-	})
-	local term_input
+	local toggle_term = require("terminal").terminal:new({})
 	return {
 		-- resizing
 		generate({
@@ -126,47 +118,11 @@ function M.mappings()
 			},
 			["<leader>tr"] = {
 				function()
-					local Input = require("nui.input")
-					term_input = Input({
-						position = "50%",
-						size = {
-							width = "25%",
-							height = "40%",
-						},
-						border = {
-							style = "rounded",
-							text = {
-								top = "Enter a command",
-								top_align = "center",
-							},
-						},
-					}, {
-						prompt = "> ",
-						on_close = function()
-							term_input:unmount()
-						end,
-						on_submit = function(value)
-							if not value then
-								term_input:unmount()
-								return
-							end
-
-							if not worker_term:is_open() then
-								worker_term:toggle(100)
-							end
-							worker_term:send(vim.fn.expandcmd(value))
-							vim.cmd("stopinsert")
-							term_input:unmount()
-						end,
+					require("terminal").run(nil, {
+						layout = { open_cmd = "botright vertical new" },
 					})
-
-					term_input:map("i", "<Esc>", function()
-						term_input:unmount()
-					end, { noremap = true })
-
-					term_input:mount()
 				end,
-				"<r>un <c>command and toss the output into a vsplit",
+				"<r>un command and toss the output into a vsplit",
 			},
 			["<leader>tc"] = {
 				function()
@@ -833,6 +789,16 @@ function M.mappings()
 					vim.cmd.DiffviewToggleFiles()
 				end,
 				"Toggle DiffView file panel",
+			},
+		}),
+
+		generate({
+			name = "Terminal",
+			["<leader>`"] = {
+				function()
+					toggle_term:toggle()
+				end,
+				"Toggle the floating term",
 			},
 		}),
 	}
