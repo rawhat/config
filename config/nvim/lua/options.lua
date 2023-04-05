@@ -1,6 +1,6 @@
 local M = {}
 
-local is_diff = vim.opt.diff:get()
+local options = vim.api.nvim_create_augroup("Options", { clear = true })
 
 vim.opt.encoding = "utf-8"
 
@@ -30,19 +30,13 @@ vim.g.t_Co = "256"
 vim.opt.number = true
 vim.opt.relativenumber = true
 
--- if vim.fn.has("nvim-0.9") == 1 and not is_diff then
--- 	vim.opt.numberwidth = 3
--- 	vim.opt.statuscolumn = "%=%{v:virtnum < 1 ? (v:relnum ? v:relnum : v:lnum < 10 ? v:lnum . '  ' : v:lnum) : ''}%=%s"
--- end
--- vim.opt.statuscolumn = '%=%{v:relnum == 0 ? "" : v:relnum}%s%C'
-
--- vim.opt.colorcolumn = "81"
 vim.opt.cursorline = true
 
-vim.cmd([[
-  autocmd BufRead,BufNewFile *.bzl,WORKSPACE,BUILD.bazel setf bzl
-  autocmd BufRead,BufNewFile BUILD setf bzl
-]])
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	pattern = { "BUILD", "*.bzl", "WORKSPACE", "BUILD.bazel" },
+	command = "setf bzl",
+	group = options,
+})
 
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
@@ -132,23 +126,27 @@ vim.g.markdown_fenced_languages = {
 }
 
 -- clipboard stuff
---[[ if vim.fn.executable("win32yank.exe") == 1 then
-  print("got a win clipboard") ]]
---[[ vim.opt.clipboard = {
-		name = "win32yank",
-		copy = {
-			["+"] = { "win32yank.exe -i --crlf" },
-			["*"] = { "win32yank.exe -i --crlf" },
-		},
-		paste = {
-			["+"] = { "win32yank.exe -o --lf" },
-			["*"] = { "win32yank.exe -o --lf" },
-		},
-		cache_enabled = 0,
-	} ]]
--- end
-vim.opt.clipboard = "unnamedplus"
--- vim.opt.clipboard:append("unnamedplus")
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+	once = true,
+	callback = function()
+		if vim.fn.has("wsl") == 1 then
+			vim.g.clipboard = {
+				copy = {
+					["+"] = "win32yank.exe -i -crlf",
+					["*"] = "win32yank.exe -i -crlf",
+				},
+				paste = {
+					["+"] = "win32yank.exe -o -crlf",
+					["*"] = "win32yank.exe -o -crlf",
+				},
+			}
+		else
+			vim.opt.clipboard = "unnamedplus"
+		end
+	end,
+	group = options,
+	desc = "Clipboard",
+})
 
 -- make 0 go to first word in line instead of start of line...
 vim.api.nvim_exec(

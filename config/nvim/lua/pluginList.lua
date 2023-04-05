@@ -388,6 +388,12 @@ local plugins = {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 		},
+		config = function()
+			require("cheatsheet").setup({
+				["<CR>"] = require("cheatsheet.telescope.actions").select_or_execute,
+				["<A-CR>"] = require("cheatsheet.telescope.actions").select_or_fill_commandline,
+			})
+		end,
 	},
 	{
 		"simrat39/symbols-outline.nvim",
@@ -571,7 +577,11 @@ local plugins = {
 	{
 		"Tummetott/reticle.nvim",
 		config = function()
-			require("reticle").setup()
+			require("reticle").setup({
+				follow = {
+					cursorcolumn = false,
+				},
+			})
 		end,
 	},
 	{
@@ -598,9 +608,9 @@ local plugins = {
 			vim.api.nvim_create_autocmd("TermOpen", {
 				callback = function()
 					vim.cmd([[
-            setlocal nonumber norelativenumber nocursorline winhl=Normal:NormalFloat
-            tnoremap <buffer> <Esc> <c-\><c-n>
-          ]])
+			         setlocal nonumber norelativenumber nocursorline winhl=Normal:NormalFloat
+			         tnoremap <buffer> <Esc> <c-\><c-n>
+			       ]])
 				end,
 			})
 			vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
