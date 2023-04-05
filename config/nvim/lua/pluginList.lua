@@ -268,8 +268,6 @@ local plugins = {
 			})
 		end,
 	},
-	-- run things asynchronously
-	"skywind3000/asyncrun.vim",
 	-- tree sitter
 	{
 		"nvim-treesitter/nvim-treesitter",
