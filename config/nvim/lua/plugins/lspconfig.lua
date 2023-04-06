@@ -112,7 +112,7 @@ local lsp_configs = {
 	sorbet = {
 		capabilities = capabilities,
 	},
-	sqls = {
+	sqlls = {
 		capabilities = capabilities,
 	},
 	tsserver = {
