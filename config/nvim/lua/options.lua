@@ -130,7 +130,7 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 	once = true,
 	callback = function()
 		if vim.fn.has("wsl") == 1 then
-			vim.g.clipboard = {
+			vim.opt.clipboard = {
 				copy = {
 					["+"] = "win32yank.exe -i -crlf",
 					["*"] = "win32yank.exe -i -crlf",
