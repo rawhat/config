@@ -125,28 +125,7 @@ vim.g.markdown_fenced_languages = {
 	"bash=sh",
 }
 
--- clipboard stuff
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-	once = true,
-	callback = function()
-		if vim.fn.has("wsl") == 1 then
-			vim.opt.clipboard = {
-				copy = {
-					["+"] = "win32yank.exe -i -crlf",
-					["*"] = "win32yank.exe -i -crlf",
-				},
-				paste = {
-					["+"] = "win32yank.exe -o -crlf",
-					["*"] = "win32yank.exe -o -crlf",
-				},
-			}
-		else
-			vim.opt.clipboard = "unnamedplus"
-		end
-	end,
-	group = options,
-	desc = "Clipboard",
-})
+vim.opt.clipboard = "unnamedplus"
 
 -- make 0 go to first word in line instead of start of line...
 vim.api.nvim_exec(
