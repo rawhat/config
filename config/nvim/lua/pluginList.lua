@@ -620,6 +620,13 @@ local plugins = {
 			})
 		end,
 	},
+	{
+		"willothy/moveline.nvim",
+		build = "make",
+	},
+	{
+		"chrisgrieser/nvim-spider",
+	},
 }
 
 require("lazy").setup(plugins, {

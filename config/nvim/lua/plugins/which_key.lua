@@ -801,6 +801,42 @@ function M.mappings()
 				"Toggle the floating term",
 			},
 		}),
+
+		generate({
+			name = "Movement",
+			["<A-k>"] = {
+				function()
+					require("moveline").block_up()
+				end,
+				"Up",
+			},
+			["<A-j>"] = {
+				function()
+					require("moveline").block_down()
+				end,
+				"Down",
+			},
+		}, { mode = "v" }),
+
+		generate({
+			name = "Spider",
+			w = {
+				"<cmd>lua require('spider').motion('w')<cr>",
+				"word",
+			},
+			e = {
+				"<cmd>lua require('spider').motion('e')<cr>",
+				"word",
+			},
+			b = {
+				"<cmd>lua require('spider').motion('b')<cr>",
+				"word",
+			},
+			ge = {
+				"<cmd>lua require('spider').motion('ge')<cr>",
+				"word",
+			},
+		}, { mode = { "n", "o", "x" } }),
 	}
 end
 
