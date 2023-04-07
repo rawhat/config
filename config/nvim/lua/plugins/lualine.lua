@@ -27,7 +27,7 @@ local config = {
 		"fugitive",
 		"lazy",
 		"nvim-tree",
-		"quickfix",
+		-- "quickfix",
 		"symbols-outline",
 		"toggleterm",
 		"trouble",
