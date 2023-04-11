@@ -369,12 +369,10 @@ local plugins = {
 			require("gitsigns").setup({
 				keymaps = {},
 				signs = {
-					add = { text = "▌" },
-					change = { text = "▌" },
-					changedelete = { text = "▌" },
-					-- delete = { text = "›" },
-					-- delete = { text = "↘" },
-					untracked = { text = "▌" },
+					add = { text = "│" },
+					change = { text = "│" },
+					changedelete = { text = "│" },
+					untracked = { text = "│" },
 				},
 			})
 		end,
@@ -637,7 +635,7 @@ local plugins = {
 				segments = {
 					{ sign = { name = { "Diagnostic" } }, maxwidth = 2, auto = true },
 					{ text = { builtin.lnumfunc } },
-					{ sign = { name = { ".*" } }, maxwidth = 2, colwidth = 1, auto = true },
+					{ sign = { name = { "GitSigns" } }, maxwidth = 1, colwidth = 1, auto = false },
 				},
 			})
 		end,
