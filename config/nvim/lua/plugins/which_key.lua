@@ -817,6 +817,16 @@ function M.mappings()
 				"Down",
 			},
 		}, { mode = "v" }),
+
+		generate({
+			name = "Close buffers",
+			["<leader>bc"] = {
+				function()
+					vim.cmd([[%bd|e#|bd#]])
+				end,
+				"Do the thing",
+			},
+		}),
 	}
 end
 
