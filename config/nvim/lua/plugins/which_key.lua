@@ -817,26 +817,6 @@ function M.mappings()
 				"Down",
 			},
 		}, { mode = "v" }),
-
-		generate({
-			name = "Spider",
-			w = {
-				"<cmd>lua require('spider').motion('w')<cr>",
-				"word",
-			},
-			e = {
-				"<cmd>lua require('spider').motion('e')<cr>",
-				"word",
-			},
-			b = {
-				"<cmd>lua require('spider').motion('b')<cr>",
-				"word",
-			},
-			ge = {
-				"<cmd>lua require('spider').motion('ge')<cr>",
-				"word",
-			},
-		}, { mode = { "n", "o", "x" } }),
 	}
 end
 

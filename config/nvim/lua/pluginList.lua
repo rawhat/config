@@ -367,13 +367,8 @@ local plugins = {
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			require("gitsigns").setup({
+				trouble = true,
 				keymaps = {},
-				signs = {
-					add = { text = "│" },
-					change = { text = "│" },
-					changedelete = { text = "│" },
-					untracked = { text = "│" },
-				},
 			})
 		end,
 	},
@@ -623,9 +618,6 @@ local plugins = {
 		build = "make",
 	},
 	{
-		"chrisgrieser/nvim-spider",
-	},
-	{
 		"luukvbaal/statuscol.nvim",
 		config = function()
 			local builtin = require("statuscol.builtin")
@@ -635,7 +627,7 @@ local plugins = {
 				segments = {
 					{ sign = { name = { "Diagnostic" } }, maxwidth = 2, auto = true },
 					{ text = { builtin.lnumfunc } },
-					{ sign = { name = { "GitSigns" } }, maxwidth = 1, colwidth = 1, auto = false },
+					{ sign = { name = { "GitSigns" } }, maxwidth = 1, colwidth = 1, auto = true },
 				},
 			})
 		end,
