@@ -126,7 +126,7 @@ function M.mappings()
 			},
 			["<leader>tc"] = {
 				function()
-					worker_term:send("clear")
+					toggle_term:send("clear")
 					vim.cmd("stopinsert")
 				end,
 				"<t>erminal <c>lear on the worker",
@@ -822,7 +822,13 @@ function M.mappings()
 			name = "Close buffers",
 			["<leader>bc"] = {
 				function()
-					vim.cmd([[%bd|e#|bd#]])
+					local buffers = vim.api.nvim_list_bufs()
+					local current_buf = vim.api.nvim_get_current_buf()
+					for _, buffer_number in pairs(buffers) do
+						if vim.api.nvim_buf_is_loaded(buffer_number) and buffer_number ~= current_buf then
+							vim.cmd.bd(buffer_number)
+						end
+					end
 				end,
 				"Do the thing",
 			},
