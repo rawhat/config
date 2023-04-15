@@ -825,7 +825,8 @@ function M.mappings()
 					local buffers = vim.api.nvim_list_bufs()
 					local current_buf = vim.api.nvim_get_current_buf()
 					for _, buffer_number in pairs(buffers) do
-						if vim.api.nvim_buf_is_loaded(buffer_number) and buffer_number ~= current_buf then
+						local listed = vim.fn.buflisted(buffer_number)
+						if listed == 1 and buffer_number ~= current_buf then
 							vim.cmd.bd(buffer_number)
 						end
 					end
