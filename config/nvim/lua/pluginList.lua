@@ -240,34 +240,6 @@ local plugins = {
 		"yamatsum/nvim-nonicons",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-	-- file tree
-	{
-		"nvim-tree/nvim-tree.lua",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		tag = "nightly",
-		lazy = true,
-		cmd = { "NvimTreeToggle", "NvimTreeFindFile" },
-		config = function()
-			local gheight = vim.api.nvim_list_uis()[1].height
-			local gwidth = vim.api.nvim_list_uis()[1].width
-			local width = 100
-			local height = 30
-			require("nvim-tree").setup({
-				view = {
-					float = {
-						enable = true,
-						open_win_config = {
-							relative = "editor",
-							width = width,
-							height = height,
-							row = (gheight - height) * 0.5,
-							col = (gwidth - width) * 0.5,
-						},
-					},
-				},
-			})
-		end,
-	},
 	-- tree sitter
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -629,6 +601,23 @@ local plugins = {
 					{ text = { builtin.lnumfunc } },
 					{ sign = { name = { "GitSigns" } }, maxwidth = 1, colwidth = 1, auto = true },
 				},
+			})
+		end,
+	},
+	{
+		"~whynothugo/lsp_lines.nvim",
+		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+		config = function()
+			vim.diagnostic.config({ virtual_lines = false })
+			require("lsp_lines").setup()
+		end,
+	},
+	{
+		"ThePrimeagen/harpoon",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("harpoon").setup({
+				excluded_filetypes = { "harpoon", "quickfix", "nvim-tree", "telescope" },
 			})
 		end,
 	},

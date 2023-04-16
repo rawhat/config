@@ -259,16 +259,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "nvim-tree",
-			["<C-i>"] = {
-				function()
-					vim.cmd.NvimTreeToggle()
-				end,
-				"Toggle nvim tree",
-			},
-		}),
-
-		generate({
 			name = "nvim-tree find file",
 			["<C-n>"] = {
 				function()
@@ -316,6 +306,13 @@ function M.mappings()
 					require("telescope.builtin").find_files()
 				end,
 				"Find Files",
+			},
+			["<C-n>"] = {
+				function()
+					local cwd = vim.fn.expand("%:h")
+					require("telescope.builtin").find_files({ search_dirs = { cwd } })
+				end,
+				"Files in CWD",
 			},
 			["<leader>ac"] = {
 				function()
@@ -516,6 +513,10 @@ function M.mappings()
 				end,
 				"Old Files",
 			},
+			["<leader>ll"] = {
+				require("lsp_lines").toggle,
+				"Toggle LSP lines",
+			},
 			["<leader>pt"] = {
 				function()
 					require("telescope.builtin").vim_options()
@@ -636,7 +637,7 @@ function M.mappings()
 
 		generate({
 			name = "Lazy Commands",
-			["<leader>p"] = {
+			["<leader>z"] = {
 				s = {
 					function()
 						vim.cmd.Lazy("sync")
@@ -832,6 +833,18 @@ function M.mappings()
 					end
 				end,
 				"Do the thing",
+			},
+		}),
+
+		generate({
+			name = "Harpoon",
+			["<leader>pa"] = {
+				require("harpoon.mark").add_file,
+				"Harpoon add",
+			},
+			["<leader>po"] = {
+				require("harpoon.ui").toggle_quick_menu,
+				"Harpoon menu",
 			},
 		}),
 	}

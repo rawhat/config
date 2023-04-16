@@ -18,8 +18,9 @@ treesitter.setup({
 	autopairs = { enable = true },
 	yati = {
 		enable = true,
-		indent = {
-			enable = false,
-		},
+		default_fallback = "auto",
+	},
+	indent = {
+		enable = false,
 	},
 })
