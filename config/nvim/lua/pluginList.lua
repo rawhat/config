@@ -591,6 +591,7 @@ local plugins = {
 	},
 	{
 		"luukvbaal/statuscol.nvim",
+		commit = "34b967edc2fa325ba4a9347256189b31e3aab11e",
 		config = function()
 			local builtin = require("statuscol.builtin")
 			require("statuscol").setup({

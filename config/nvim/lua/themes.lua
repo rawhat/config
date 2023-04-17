@@ -5,10 +5,6 @@ M.themes = {
 		package = "folke/tokyonight.nvim",
 		package_name = "tokyonight.nvim",
 		name = "tokyonight",
-		color_palette = function(palette)
-			local colors = require("tokyonight.colors").setup()
-			return colors
-		end,
 		config = function()
 			vim.g.tokyonight_sidebars = {
 				-- "which-key",
@@ -64,10 +60,6 @@ M.themes = {
 		package = "EdenEast/nightfox.nvim",
 		package_name = "nightfox.nvim",
 		name = "nightfox",
-		color_palette = function(palette)
-			local variant = palette or "duskfox"
-			return require("nightfox.palette").load(variant)
-		end,
 		config = function(palette)
 			local variant = palette or "duskfox"
 			local nightfox = require("nightfox")
@@ -104,6 +96,17 @@ M.themes = {
 		package_name = "kanagawa.nvim",
 		name = "kanagawa",
 		config = function()
+			require("kanagawa").setup({
+				colors = {
+					theme = {
+						all = {
+							ui = {
+								bg_gutter = "none",
+							},
+						},
+					},
+				},
+			})
 			vim.cmd.colorscheme("kanagawa")
 		end,
 	},
@@ -111,41 +114,6 @@ M.themes = {
 		package = "catppuccin/nvim",
 		package_name = "catppuccin",
 		name = "catppuccin",
-		color_palette = function(palette)
-			local variant = palette or "latte"
-			local colors = require("catppuccin.palettes").get_palette(variant)
-			return {
-				fg0 = colors.text,
-				bg0 = colors.surface0,
-				blue = {
-					base = colors.blue,
-				},
-				red = {
-					base = colors.red,
-				},
-				green = {
-					base = colors.green,
-				},
-				magenta = {
-					base = colors.mauve,
-				},
-				orange = {
-					base = colors.peach,
-				},
-				yellow = {
-					base = colors.yellow,
-				},
-				pink = {
-					base = colors.pink,
-				},
-				cyan = {
-					base = colors.teal,
-				},
-				white = {
-					base = colors.crust,
-				},
-			}
-		end,
 		config = function(palette)
 			local variant = palette or "mocha"
 			local colors = require("catppuccin.palettes").get_palette(variant)
@@ -207,43 +175,6 @@ M.themes = {
 		package = "AlexvZyl/nordic.nvim",
 		package_name = "nordic",
 		name = "nordic",
-		color_palette = function()
-			local colors = require("nordic.colors")
-			return {
-				fg0 = colors.fg,
-				-- this is used for lualine, and i want something to differentiate
-				-- since i'm swapping bg to black below
-				-- bg0 = colors.bg,
-				bg0 = colors.gray1,
-				blue = {
-					base = colors.blue.base,
-				},
-				red = {
-					base = colors.red.base,
-				},
-				green = {
-					base = colors.green.base,
-				},
-				magenta = {
-					base = colors.magenta.base,
-				},
-				orange = {
-					base = colors.orange.base,
-				},
-				yellow = {
-					base = colors.yellow.base,
-				},
-				pink = {
-					base = colors.red.dim,
-				},
-				cyan = {
-					base = colors.cyan.base,
-				},
-				white = {
-					base = colors.white1,
-				},
-			}
-		end,
 		config = function()
 			local colors = require("nordic.colors")
 			require("nordic").load({
@@ -324,8 +255,9 @@ M.themes = {
 	},
 }
 
-M.current_theme = M.themes["catppuccin"]
-M.current_theme.palette = "mocha"
+M.current_theme = M.themes["kanagawa"]
+-- M.current_theme = M.themes["catppuccin"]
+-- M.current_theme.palette = "mocha"
 -- M.current_theme = M.themes["nightfox"]
 -- M.current_theme = M.themes["nordic"]
 -- M.current_theme.palette = "dawnfox"

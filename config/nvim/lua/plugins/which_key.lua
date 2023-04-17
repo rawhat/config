@@ -507,12 +507,6 @@ function M.mappings()
 				end,
 				"Help Tags",
 			},
-			["<leader>lo"] = {
-				function()
-					require("telescope.builtin").oldfiles()
-				end,
-				"Old Files",
-			},
 			["<leader>ll"] = {
 				require("lsp_lines").toggle,
 				"Toggle LSP lines",
@@ -730,6 +724,12 @@ function M.mappings()
 					vim.cmd.Noice()
 				end,
 				"Open the `noice` menu",
+			},
+			["<leader>ds"] = {
+				function()
+					vim.cmd.Noice("dismiss")
+				end,
+				"Dismiss all noice notifications",
 			},
 		}),
 
