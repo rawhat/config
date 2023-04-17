@@ -68,28 +68,6 @@ function M.mappings()
 				end,
 				"Show relative path to buffer file",
 			},
-			["<leader>src"] = {
-				function()
-					if vim.bo.buftype == "" then
-						if vim.fn.exists(":LspStop") ~= 0 then
-							vim.cmd("LspStop")
-						end
-
-						for name, _ in pairs(package.loaded) do
-							if name:match("^user") then
-								package.loaded[name] = nil
-							end
-						end
-
-						dofile(vim.env.MYVIMRC)
-						vim.cmd("PackerCompile")
-						vim.notify("Wait for Compile Done", vim.log.levels.INFO)
-					else
-						vim.notify("Not available in this window/buffer", vim.log.levels.INFO)
-					end
-				end,
-				"Source current file",
-			},
 			["<leader>gt"] = {
 				function()
 					local cwd = vim.loop.cwd()
@@ -217,68 +195,6 @@ function M.mappings()
 					vim.cmd.TroubleToggle()
 				end,
 				"Toggle Trouble",
-			},
-			gR = {
-				function()
-					vim.cmd.Trouble({ "lsp_references" })
-				end,
-				"Trouble LSP References",
-			},
-			gD = {
-				function()
-					vim.cmd.Trouble({ "lsp_definitions" })
-				end,
-				"Trouble LSP Definitions",
-			},
-			xw = {
-				function()
-					vim.cmd.Trouble({ "lsp_workspace_diagnostics" })
-				end,
-				"Trouble Workspace Diagnostics",
-			},
-			xd = {
-				function()
-					vim.cmd.Trouble({ "lsp_document_diagnostics" })
-				end,
-				"Trouble Doc Diagnostics",
-			},
-			xl = {
-				function()
-					vim.cmd.Trouble({ "loclist" })
-				end,
-				"Trouble Location List",
-			},
-			xq = {
-				function()
-					vim.cmd.Trouble({ "quickfix" })
-				end,
-				"Trouble Quickfix",
-			},
-		}, {
-			prefix = "<leader>",
-		}),
-
-		generate({
-			a = {
-				name = "async run",
-				r = {
-					function()
-						vim.cmd.AsyncRun()
-					end,
-					"Async Run",
-				},
-				w = {
-					function()
-						vim.cmd.AsyncRun({ "-raw" })
-					end,
-					"Async Run Raw",
-				},
-				s = {
-					function()
-						vim.cmd.AsyncStop()
-					end,
-					"Stop Async Task",
-				},
 			},
 		}, {
 			prefix = "<leader>",
@@ -626,16 +542,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "VGit",
-			["<leader>gd"] = {
-				function()
-					vim.cmd.VGit({ "buffer_diff_preview" })
-				end,
-				"Git diff for buffer",
-			},
-		}),
-
-		generate({
 			name = "Lazy Commands",
 			["<leader>z"] = {
 				s = {
@@ -715,7 +621,7 @@ function M.mappings()
 
 		generate({
 			name = "Windows",
-			["<leader>z"] = {
+			["<leader>xz"] = {
 				function()
 					vim.cmd.WindowsMaximize()
 				end,
