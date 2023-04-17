@@ -259,20 +259,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "nvim-tree find file",
-			["<C-n>"] = {
-				function()
-					if vim.api.nvim_buf_get_name(0) == "" then
-						vim.cmd.NvimTreeToggle()
-					else
-						vim.cmd.NvimTreeFindFile()
-					end
-				end,
-				"Open nvim tree at current file",
-			},
-		}),
-
-		generate({
 			a = {
 				name = "async run",
 				r = {
@@ -310,7 +296,27 @@ function M.mappings()
 			["<C-n>"] = {
 				function()
 					local cwd = vim.fn.expand("%:h")
-					require("telescope.builtin").find_files({ search_dirs = { cwd } })
+					cwd = string.gsub(cwd, vim.loop.cwd(), "")
+					local cmd = "fd -t f -d 1 . " .. cwd
+
+					local picker = require("telescope.pickers")
+					local finders = require("telescope.finders")
+					local utils = require("telescope.utils")
+
+					picker
+						.new({}, {
+							prompt_title = cwd,
+							previewer = require("telescope.previewers").vim_buffer_cat.new({}),
+							finder = finders.new_table({
+								results = utils.get_os_command_output({
+									vim.o.shell,
+									"-c",
+									cmd,
+								}),
+							}),
+							sorter = require("telescope.sorters").get_fuzzy_file(),
+						})
+						:find()
 				end,
 				"Files in CWD",
 			},

@@ -126,9 +126,15 @@ M.themes = {
 					MatchParen = { bg = colors.base, fg = colors.yellow, style = { "bold" } },
 				},
 				integrations = {
+					cmp = true,
+					gitsigns = true,
+					harpoon = true,
+					hop = true,
 					indent_blankline = {
 						enabled = true,
 					},
+					lsp_trouble = true,
+					markdown = true,
 					native_lsp = {
 						enabled = true,
 						underlines = {
@@ -138,6 +144,12 @@ M.themes = {
 							information = { "undercurl" },
 						},
 					},
+					noice = true,
+					symbols_outline = true,
+					telescope = true,
+					treesitter = true,
+					treesitter_context = true,
+					which_key = true,
 				},
 			})
 			vim.cmd.colorscheme("catppuccin")
@@ -255,9 +267,9 @@ M.themes = {
 	},
 }
 
-M.current_theme = M.themes["kanagawa"]
--- M.current_theme = M.themes["catppuccin"]
--- M.current_theme.palette = "mocha"
+-- M.current_theme = M.themes["kanagawa"]
+M.current_theme = M.themes["catppuccin"]
+M.current_theme.palette = "mocha"
 -- M.current_theme = M.themes["nightfox"]
 -- M.current_theme = M.themes["nordic"]
 -- M.current_theme.palette = "dawnfox"
