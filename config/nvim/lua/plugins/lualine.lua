@@ -3,6 +3,7 @@ require("lualine").setup({
 		component_separators = "",
 		section_separators = "",
 		theme = "kanagawa",
+    globalstatus = true,
 	},
 	extensions = {
 		"fugitive",
