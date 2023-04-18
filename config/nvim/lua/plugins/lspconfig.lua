@@ -2,6 +2,7 @@ local configs = require("lspconfig.configs")
 local wk = require("which-key")
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lsp_configs = {
 	clangd = {
@@ -16,6 +17,22 @@ local lsp_configs = {
 	elixirls = {
 		capabilities = capabilities,
 		filetypes = { "elixir", "leex", "heex", "eex" },
+	},
+	emmet_ls = {
+		capabilities = capabilities,
+		filetypes = {
+			"css",
+			"html",
+			"javascript",
+			"javascriptreact",
+			"typescriptreact",
+			"less",
+			"sass",
+			"scss",
+			"svelte",
+			"pug",
+			"vue",
+		},
 	},
 	erlangls = {
 		capabilities = capabilities,

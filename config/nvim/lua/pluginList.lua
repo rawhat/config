@@ -365,10 +365,6 @@ local plugins = {
 		end,
 	},
 	{
-		"yioneko/nvim-yati",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-	},
-	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
