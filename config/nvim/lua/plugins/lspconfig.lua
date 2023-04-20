@@ -18,22 +18,6 @@ local lsp_configs = {
 		capabilities = capabilities,
 		filetypes = { "elixir", "leex", "heex", "eex" },
 	},
-	emmet_ls = {
-		capabilities = capabilities,
-		filetypes = {
-			"css",
-			"html",
-			"javascript",
-			"javascriptreact",
-			"typescriptreact",
-			"less",
-			"sass",
-			"scss",
-			"svelte",
-			"pug",
-			"vue",
-		},
-	},
 	erlangls = {
 		capabilities = capabilities,
 	},
