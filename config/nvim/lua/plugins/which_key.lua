@@ -755,7 +755,9 @@ function M.mappings()
 				"Harpoon add",
 			},
 			["<leader>po"] = {
-				require("harpoon.ui").toggle_quick_menu,
+				function()
+					vim.cmd.Telescope({ "harpoon", "marks" })
+				end,
 				"Harpoon menu",
 			},
 		}),
