@@ -1,5 +1,18 @@
 local configs = require("lspconfig.configs")
+local lspconfig = require("lspconfig")
+local null = require("null-ls")
+local path = require("mason-core.path")
 local wk = require("which-key")
+
+-- when in a deno project, we need to disable tsserver single_file_support
+lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
+	local cwd = vim.loop.cwd()
+	if config.name == "tsserver" and vim.fn.filereadable(cwd .. "/deno.jsonc") == 1 then
+		config.single_file_support = false
+	end
+end)
+
+local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -166,22 +179,100 @@ require("mason-lspconfig").setup({
 	},
 })
 
+local format_group = vim.api.nvim_create_augroup("LspFormatting", {})
+
+local on_attach_format = function(client, bufnr)
+	vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
+	vim.api.nvim_create_autocmd("BufWritePre", {
+		group = format_group,
+		buffer = bufnr,
+		callback = function()
+			vim.lsp.buf.format({ bufnr = bufnr })
+		end,
+	})
+end
+
+-- TODO:
+--  pyfmt and java custom
+null.setup({
+	sources = {
+		null.builtins.code_actions.eslint_d.with({
+			command = path.concat({ mason_data_path, "eslint_d" }),
+			condition = function(utils)
+				return utils.root_has_file({ ".eslintrc*" })
+			end,
+		}),
+
+		null.builtins.diagnostics.buildifier.with({
+			command = path.concat({ mason_data_path, "buildifier" }),
+		}),
+		null.builtins.diagnostics.credo,
+		null.builtins.diagnostics.eslint_d.with({
+			command = path.concat({ mason_data_path, "eslint_d" }),
+			condition = function(utils)
+				return utils.root_has_file({ ".eslintrc*" })
+			end,
+		}),
+		null.builtins.diagnostics.fish,
+		null.builtins.diagnostics.ruff,
+
+		null.builtins.formatting.buildifier.with({
+			command = path.concat({ mason_data_path, "buildifier" }),
+		}),
+		null.builtins.formatting.fish_indent,
+		null.builtins.formatting.jq,
+		null.builtins.formatting.just,
+		null.builtins.formatting.prettier.with({
+			command = path.concat({ mason_data_path, "prettier" }),
+		}),
+		null.builtins.formatting.stylua.with({
+			command = path.concat({ mason_data_path, "stylua" }),
+		}),
+	},
+	on_attach = on_attach_format,
+})
+
 for server, config in pairs(lsp_configs) do
+	local on_attach = config.on_attach
+	config.on_attach = function(client, bufnr)
+		if on_attach ~= nil then
+			on_attach(client, bufnr)
+		end
+		if
+			not vim.tbl_contains({ "tsserver", "lua_ls", "pyright" }, client.name)
+			and client.supports_method("textDocument/formatting")
+		then
+			on_attach_format(client, bufnr)
+			wk.register({
+				["<leader>F"] = {
+					function()
+						vim.lsp.buf.format({ bufnr = bufnr })
+					end,
+					"LSP Format",
+				},
+			})
+		end
+	end
 	require("lspconfig")[server].setup(config)
 end
+
 -- non-lsp-install servers
 require("lspconfig").java_language_server.setup({
 	cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
+	-- TODO:  java format w/ prettier?
 })
 
 require("deno-nvim").setup({
 	server = {
-		on_attach = function(client)
+		on_attach = function(client, bufnr)
 			local active_clients = vim.lsp.get_active_clients()
 			for _, running_client in pairs(active_clients) do
 				if running_client.name == "tsserver" then
 					client.stop()
 				end
+			end
+			if client.supports_method("textDocument/formatting") then
+				on_attach_format(client, bufnr)
 			end
 		end,
 		capabilities = capabilities,
@@ -199,8 +290,9 @@ if not configs.gleam then
 		default_config = {
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
-			on_attach = function(client)
+			on_attach = function(client, bufnr)
 				client.server_capabilities.completionProvider = false
+				on_attach_format(client, bufnr)
 			end,
 			root_dir = function()
 				return vim.fn.getcwd()
@@ -217,171 +309,9 @@ for type, icon in pairs(signs) do
 	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-local ends_with = function(str, ending)
-	return ending == "" or str:sub(-#ending) == ending
-end
-
-local path = require("mason-core.path")
-local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
-local util = require("formatter.util")
-
-local typescript_javascript = {
-	command = {
-		exe = path.concat({ mason_data_path, "prettier" }),
-		get_args = function()
-			return {
-				"--stdin-filepath",
-				util.escape_path(util.get_current_buffer_file_path()),
-			}
-		end,
-		stdin = true,
-	},
-}
-
--- filetypes that use `formatter.nvim` instead of lsp
-local formatter_filetypes = {
-	bzl = {
-		command = {
-			exe = path.concat({ mason_data_path, "buildifier" }),
-			get_args = function()
-				local filename = vim.fn.expand("%:t")
-				if filename == "BUILD" then
-					return { "--type=build" }
-				elseif filename == "WORKSPACE" then
-					return { "--type=workspace" }
-				elseif ends_with(filename, ".bzl") then
-					return { "--type=bzl" }
-				else
-					return { "--type=default" }
-				end
-			end,
-			stdin = true,
-		},
-	},
-	typescript = typescript_javascript,
-	typescriptreact = typescript_javascript,
-	javascript = typescript_javascript,
-	javascriptreact = typescript_javascript,
-	lua = {
-		command = {
-			exe = path.concat({ mason_data_path, "stylua" }),
-			get_args = function()
-				return { "-" }
-			end,
-			stdin = true,
-		},
-	},
-	python = {
-		command = {
-			-- pip install --user pyfmt
-			exe = "bazel",
-			get_args = function()
-				return { "run", "//tools/pyfmt", "--", "-i", vim.fn.expand("%:p") }
-			end,
-			stdin = false,
-		},
-	},
-	json = {
-		command = {
-			-- available on package manager
-			exe = path.concat({ mason_data_path, "jq" }),
-			stdin = true,
-		},
-	},
-}
-
-local formatter_opts = {}
-for name, tbl in pairs(formatter_filetypes) do
-	if vim.fn.executable(tbl.command.exe) == 0 then
-		error(tbl.command.exe .. " not found on path")
-	end
-
-	formatter_opts[name] = {
-		function()
-			local args
-			if tbl.command.get_args ~= nil then
-				args = tbl.command.get_args()
-			else
-				args = {}
-			end
-			return {
-				exe = tbl.command.exe,
-				args = args,
-				stdin = tbl.command.stdin,
-			}
-		end,
-	}
-end
-
-require("formatter").setup({
-	filetype = formatter_opts,
-})
-
-local lsp_filetypes = {
-	"c",
-	"clojure",
-	"cpp",
-	"crystal",
-	"elixir",
-	"erlang",
-	"fsharp",
-	"gleam",
-	"go",
-	"html",
-	"jsonnet",
-	"lua",
-	"ocaml",
-	"ruby",
-	"rust",
-	"sql",
-	"zig",
-}
-
-local lsp_format_filetypes = {}
-for _, filetype in pairs(lsp_filetypes) do
-	lsp_format_filetypes[filetype] = true
-end
-
-local function format(write)
-	local current_buf = vim.api.nvim_get_current_buf()
-	local ft = vim.api.nvim_buf_get_option(current_buf, "filetype")
-	if formatter_filetypes[ft] ~= nil then
-		local op = "Format"
-		if write then
-			op = op .. "Write"
-		end
-		vim.cmd(op .. "Lock")
-	elseif lsp_format_filetypes[ft] ~= nil then
-		local timeout = write and 1000 or nil
-		local opts = { async = true, timeout_ms = timeout }
-		if write then
-			opts.async = false
-		end
-		vim.lsp.buf.format(opts)
-	end
-end
-
-wk.register({
-	["<leader>F"] = {
-		format,
-		"Format the current buffer",
-	},
-})
-
 -- i don't want virtual text for LSP diagnostics.  but the lsp installer plugin
 -- uses diagnostics for displaying information!  so just disable it in the
 -- handler
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	virtual_text = false,
-})
-
-local format_on_save = vim.api.nvim_create_augroup("LanguageFormats", { clear = true })
-
--- This annoyling errors when `:wq`.  I'm not sure why yet, and I don't really
--- feel like digging more into this at the moment.
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	callback = function()
-		format(true)
-	end,
-	group = format_on_save,
 })

@@ -12,10 +12,6 @@ function la
   exa -la $argv
 end
 
-function fd
-  fdfind $argv
-end
-
 function code
   "/c/Program Files/Microsoft VS Code/Code.exe" $argv
 end
