@@ -204,6 +204,9 @@ local pyfmt = {
 		command = "bazel",
 		to_stdin = true,
 	}),
+	condition = function(utils)
+		return utils.root_has_file("WORKSPACE")
+	end,
 }
 local java_format = {
 	method = null.methods.FORMATTING,
@@ -273,11 +276,16 @@ null.setup({
 			command = path.concat({ mason_data_path, "ruff" }),
 		}),
 
+		null.builtins.formatting.black.with({
+			command = path.concat({ mason_data_path, "black" }),
+			condition = function(utils)
+				return not utils.root_has_file({ "WORKSPACE" })
+			end,
+		}),
 		null.builtins.formatting.buildifier.with({
 			command = path.concat({ mason_data_path, "buildifier" }),
 		}),
 		null.builtins.formatting.fish_indent,
-		java_format,
 		null.builtins.formatting.jq,
 		null.builtins.formatting.just,
 		null.builtins.formatting.prettier.with({
