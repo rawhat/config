@@ -184,15 +184,35 @@ require("mason-lspconfig").setup({
 
 local format_group = vim.api.nvim_create_augroup("LspFormatting", {})
 
+local format_filter = function(client)
+	return not vim.tbl_contains({ "tsserver", "lua_ls", "pyright" }, client.name)
+end
+
 local on_attach_format = function(client, bufnr)
-	vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
-	vim.api.nvim_create_autocmd("BufWritePre", {
-		group = format_group,
-		buffer = bufnr,
-		callback = function()
-			vim.lsp.buf.format({ bufnr = bufnr })
-		end,
-	})
+	if client.supports_method("textDocument/formatting") then
+		vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			group = format_group,
+			buffer = bufnr,
+			callback = function()
+				vim.lsp.buf.format({
+					bufnr = bufnr,
+					filter = format_filter,
+				})
+			end,
+		})
+		wk.register({
+			["<leader>f"] = {
+				function()
+					vim.lsp.buf.format({
+						bufnr = bufnr,
+						filter = format_filter,
+					})
+				end,
+				"LSP Format",
+			},
+		})
+	end
 end
 
 local helpers = require("null-ls.helpers")
@@ -202,10 +222,11 @@ local pyfmt = {
 	generator = helpers.formatter_factory({
 		args = { "run", "//tools/pyfmt" },
 		command = "bazel",
+		timeout = 5000,
 		to_stdin = true,
 	}),
 	condition = function(utils)
-		return utils.root_has_file("WORKSPACE")
+		return utils.root_has_file({ "WORKSPACE" })
 	end,
 }
 local java_format = {
@@ -214,6 +235,7 @@ local java_format = {
 	generator = helpers.formatter_factory({
 		args = { "run", "//tools/java-format", "--", "--stdin" },
 		command = "bazel",
+		timeout = 5000,
 		to_stdin = true,
 	}),
 }
@@ -248,9 +270,20 @@ local coffeelint = {
 		end,
 	}),
 }
+local prettify = {
+	method = null.methods.FORMATTING,
+	filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "javascript.jsx", "typescript.tsx" },
+	generator = helpers.formatter_factory({
+		args = { "run", "//tools/prettier", "--", "--stdin-filepath", "$FILENAME" },
+		command = "bazel",
+		timeout = 5000,
+		to_stdin = true,
+	}),
+	condition = function(utils)
+		return utils.root_has_file({ "WORKSPACE" })
+	end,
+}
 
--- TODO:
---  pyfmt and java custom
 null.setup({
 	sources = {
 		null.builtins.code_actions.eslint_d.with({
@@ -286,11 +319,16 @@ null.setup({
 			command = path.concat({ mason_data_path, "buildifier" }),
 		}),
 		null.builtins.formatting.fish_indent,
+		java_format,
 		null.builtins.formatting.jq,
 		null.builtins.formatting.just,
 		null.builtins.formatting.prettier.with({
 			command = path.concat({ mason_data_path, "prettier" }),
+			condition = function(utils)
+				return not utils.root_has_file({ "WORKSPACE" })
+			end,
 		}),
+		prettify,
 		pyfmt,
 		null.builtins.formatting.stylua.with({
 			command = path.concat({ mason_data_path, "stylua" }),
@@ -305,20 +343,7 @@ for server, config in pairs(lsp_configs) do
 		if on_attach ~= nil then
 			on_attach(client, bufnr)
 		end
-		if
-			not vim.tbl_contains({ "tsserver", "lua_ls", "pyright" }, client.name)
-			and client.supports_method("textDocument/formatting")
-		then
-			on_attach_format(client, bufnr)
-			wk.register({
-				["<leader>F"] = {
-					function()
-						vim.lsp.buf.format({ bufnr = bufnr })
-					end,
-					"LSP Format",
-				},
-			})
-		end
+		on_attach_format(client, bufnr)
 	end
 	require("lspconfig")[server].setup(config)
 end

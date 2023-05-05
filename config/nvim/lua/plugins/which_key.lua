@@ -159,12 +159,6 @@ function M.mappings()
 					end,
 					"Prev LSP Diagnostic",
 				},
-				f = {
-					function()
-						vim.diagnostic.open_float()
-					end,
-					"Open LSP diagnostic float",
-				},
 			},
 		}),
 
@@ -486,6 +480,10 @@ function M.mappings()
 					require("telescope.builtin").diagnostics()
 				end,
 				"LSP Diagnostics",
+			},
+			["<leader>gf"] = {
+				function() end,
+				"List file diff of HEAD~1",
 			},
 		}),
 		generate({
