@@ -209,7 +209,6 @@ local plugins = {
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-nvim-lsp",
-			-- "hrsh7th/cmp-nvim-lsp-signature-help",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-nvim-lua",
@@ -318,11 +317,8 @@ local plugins = {
 	},
 	-- a nicer quickfix window
 	{
-		"yorickpeterse/nvim-pqf",
-		url = "https://gitlab.com/yorickpeterse/nvim-pqf.git",
-		config = function()
-			require("pqf").setup()
-		end,
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
 	},
 	{
 		"stevearc/dressing.nvim",
@@ -471,41 +467,6 @@ local plugins = {
 		end,
 	},
 	{
-		"Wansmer/treesj",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		config = function()
-			local langs = require("treesj.langs")
-			local tsj_utils = require("treesj.langs.utils")
-
-			langs["gleam"] = {
-				list = tsj_utils.set_preset_for_list({
-					join = {
-						space_in_brackets = false,
-					},
-				}),
-				tuple = tsj_utils.set_preset_for_list({
-					both = {
-						omit = { "#(" },
-					},
-					join = {
-						space_in_brackets = false,
-					},
-				}),
-				function_parameters = tsj_utils.set_preset_for_args({
-					both = {
-						last_separator = true,
-					},
-				}),
-			}
-
-			require("treesj").setup({
-				use_default_keymaps = false,
-				max_join_length = 80,
-				langs = langs,
-			})
-		end,
-	},
-	{
 		"ojroques/nvim-osc52",
 		config = function()
 			require("osc52").setup()
@@ -525,16 +486,6 @@ local plugins = {
 	},
 	{
 		"sindrets/diffview.nvim",
-	},
-	{
-		"Tummetott/reticle.nvim",
-		config = function()
-			require("reticle").setup({
-				follow = {
-					cursorcolumn = false,
-				},
-			})
-		end,
 	},
 	{
 		"m4xshen/smartcolumn.nvim",
@@ -590,23 +541,6 @@ local plugins = {
 					{ text = { builtin.lnumfunc } },
 					{ sign = { name = { "GitSigns" } }, maxwidth = 1, colwidth = 1, auto = true },
 				},
-			})
-		end,
-	},
-	{
-		"~whynothugo/lsp_lines.nvim",
-		url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
-		config = function()
-			vim.diagnostic.config({ virtual_lines = false })
-			require("lsp_lines").setup()
-		end,
-	},
-	{
-		"ThePrimeagen/harpoon",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		config = function()
-			require("harpoon").setup({
-				excluded_filetypes = { "harpoon", "quickfix", "nvim-tree", "telescope" },
 			})
 		end,
 	},

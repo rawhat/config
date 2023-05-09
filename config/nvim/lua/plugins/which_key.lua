@@ -423,10 +423,6 @@ function M.mappings()
 				end,
 				"Help Tags",
 			},
-			["<leader>ll"] = {
-				require("lsp_lines").toggle,
-				"Toggle LSP lines",
-			},
 			["<leader>pt"] = {
 				function()
 					require("telescope.builtin").vim_options()
@@ -644,22 +640,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "treesj",
-			J = {
-				function()
-					vim.cmd.TSJJoin()
-				end,
-				"Join lines together",
-			},
-			R = {
-				function()
-					vim.cmd.TSJSplit()
-				end,
-				"Split out joined lines",
-			},
-		}),
-
-		generate({
 			name = "osc52",
 			["<leader>y"] = {
 				require("osc52").copy_visual,
@@ -743,20 +723,6 @@ function M.mappings()
 					end
 				end,
 				"Do the thing",
-			},
-		}),
-
-		generate({
-			name = "Harpoon",
-			["<leader>pa"] = {
-				require("harpoon.mark").add_file,
-				"Harpoon add",
-			},
-			["<leader>po"] = {
-				function()
-					vim.cmd.Telescope({ "harpoon", "marks" })
-				end,
-				"Harpoon menu",
 			},
 		}),
 	}
