@@ -40,6 +40,9 @@ local lsp_configs = {
 	fsautocomplete = {
 		capabilities = capabilities,
 	},
+	gleam = {
+		capabilities = capabilities,
+	},
 	gopls = {
 		capabilities = capabilities,
 		settings = {
@@ -375,23 +378,6 @@ require("deno-nvim").setup({
 		},
 	},
 })
-
-if not configs.gleam then
-	configs.gleam = {
-		default_config = {
-			cmd = { "gleam", "lsp" },
-			filetypes = { "gleam" },
-			on_attach = function(client, bufnr)
-				client.server_capabilities.completionProvider = false
-				on_attach_format(client, bufnr)
-			end,
-			root_dir = function()
-				return vim.fn.getcwd()
-			end,
-		},
-	}
-end
-require("lspconfig").gleam.setup({})
 
 -- show lsp signs in gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
