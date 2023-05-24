@@ -124,6 +124,7 @@ M.themes = {
 					cjsxAttribProperty = { link = "@tag.attribute" },
 					MatchParenCur = { fg = colors.yellow, style = { "bold" } },
 					MatchParen = { bg = colors.base, fg = colors.yellow, style = { "bold" } },
+					LspInlayHint = { link = "Comment" },
 				},
 				integrations = {
 					cmp = true,

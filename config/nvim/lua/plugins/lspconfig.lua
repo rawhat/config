@@ -3,6 +3,7 @@ local lspconfig = require("lspconfig")
 local null = require("null-ls")
 local path = require("mason-core.path")
 local wk = require("which-key")
+local inlay_hints = require("lsp-inlayhints")
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
@@ -23,6 +24,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 local lsp_configs = {
 	clangd = {
 		capabilities = capabilities,
+		on_attach = inlay_hints.on_attach,
 	},
 	clojure_lsp = {
 		capabilities = capabilities,
@@ -39,12 +41,17 @@ local lsp_configs = {
 	},
 	fsautocomplete = {
 		capabilities = capabilities,
+		on_attach = inlay_hints.on_attach,
+	},
+	gleam = {
+		capabilities = capabilities,
 	},
 	gleam = {
 		capabilities = capabilities,
 	},
 	gopls = {
 		capabilities = capabilities,
+		on_attach = inlay_hints.on_attach,
 		settings = {
 			gopls = {
 				env = {
@@ -56,6 +63,14 @@ local lsp_configs = {
 					"-bazel-testlogs",
 					"-bazel-vistar",
 					"-bazel-app",
+				},
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					constantValues = true,
+					functionTypeParameters = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
 				},
 			},
 		},
@@ -98,9 +113,6 @@ local lsp_configs = {
 	},
 	ocamllsp = {
 		capabilities = capabilities,
-		on_attach = function(client)
-			require("virtualtypes").on_attach(client)
-		end,
 	},
 	pyright = {
 		capabilities = capabilities,
@@ -113,58 +125,11 @@ local lsp_configs = {
 			},
 		},
 	},
-	rust_analyzer = {
-		capabilities = capabilities,
-		on_attach = function(client)
-			require("virtualtypes").on_attach(client)
-		end,
-		settings = {
-			["rust-analyzer"] = {
-				checkOnSave = { command = "clippy" },
-				diagnostics = {
-					experimental = {
-						enable = true,
-					},
-				},
-			},
-		},
-	},
 	sorbet = {
 		capabilities = capabilities,
 	},
 	sqlls = {
 		capabilities = capabilities,
-	},
-	tsserver = {
-		capabilities = capabilities,
-		root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
-		init_options = require("nvim-lsp-ts-utils").init_options,
-		flags = {
-			debounce_text_changes = 150,
-		},
-		on_attach = function(client)
-			local active_clients = vim.lsp.get_active_clients()
-			for _, running_client in pairs(active_clients) do
-				if running_client.name == "denols" then
-					client.stop()
-				end
-			end
-			local ts_utils = require("nvim-lsp-ts-utils")
-			ts_utils.setup({})
-			ts_utils.setup_client(client)
-		end,
-		commands = {
-			OrganizeImports = {
-				function()
-					vim.lsp.buf.execute_command({
-						command = "_typescript.organizeImports",
-						arguments = { vim.api.nvim_buf_get_name(0) },
-						title = "",
-					})
-				end,
-				description = "Organize Imports",
-			},
-		},
 	},
 	zls = {
 		capabilities = capabilities,
@@ -365,9 +330,7 @@ require("deno-nvim").setup({
 					client.stop()
 				end
 			end
-			if client.supports_method("textDocument/formatting") then
-				on_attach_format(client, bufnr)
-			end
+			on_attach_format(client, bufnr)
 		end,
 		capabilities = capabilities,
 		root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "denonvim.tag"),
@@ -378,6 +341,78 @@ require("deno-nvim").setup({
 		},
 	},
 })
+
+require("rust-tools").setup({
+	server = {
+		capabilities = capabilities,
+		on_attach = function(client, buf_nr)
+			inlay_hints.on_attach(client, buf_nr)
+			on_attach_format(client, buf_nr)
+		end,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = { command = "clippy" },
+				diagnostics = {
+					experimental = {
+						enable = true,
+					},
+				},
+			},
+		},
+	},
+	tools = {
+		inlay_hints = {
+			auto = false,
+		},
+	},
+})
+
+require("typescript").setup({
+	server = {
+		capabilities = capabilities,
+		root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
+		flags = {
+			debounce_text_changes = 150,
+		},
+		on_attach = function(client, bufnr)
+			local active_clients = vim.lsp.get_active_clients()
+			for _, running_client in pairs(active_clients) do
+				if running_client.name == "denols" then
+					client.stop()
+				end
+			end
+			inlay_hints.on_attach(client, bufnr)
+		end,
+		settings = {
+			typescript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+			javascript = {
+				inlayHints = {
+					includeInlayParameterNameHints = "all",
+					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+					includeInlayFunctionParameterTypeHints = true,
+					includeInlayVariableTypeHints = true,
+					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+					includeInlayPropertyDeclarationTypeHints = true,
+					includeInlayFunctionLikeReturnTypeHints = true,
+					includeInlayEnumMemberValueHints = true,
+				},
+			},
+		},
+	},
+})
+
+inlay_hints.setup()
 
 -- show lsp signs in gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }

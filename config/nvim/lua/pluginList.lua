@@ -71,18 +71,6 @@ local plugins = {
 	{ "purescript-contrib/purescript-vim", ft = "purescript" },
 	---- reason
 	{ "reasonml-editor/vim-reason-plus", ft = { "reason", "reasonreact" } },
-	---- rust
-	{
-		"simrat39/rust-tools.nvim",
-		dependencies = { "neovim/nvim-lspconfig" },
-		config = function()
-			require("rust-tools").setup({
-				tools = {
-					autoSetHints = true,
-				},
-			})
-		end,
-	},
 	---- sbt
 	{ "derekwyatt/vim-sbt", ft = "sbt" },
 	---- xml
@@ -185,15 +173,16 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"jose-elias-alvarez/nvim-lsp-ts-utils",
 			"jose-elias-alvarez/null-ls.nvim",
 			"williamboman/mason.nvim",
+			{ "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
+			"simrat39/rust-tools.nvim",
+			"jose-elias-alvarez/typescript.nvim",
 		},
 		config = function()
 			require("plugins.lspconfig")
 		end,
 	},
-	"jose-elias-alvarez/nvim-lsp-ts-utils",
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = { "rafamadriz/friendly-snippets" },
