@@ -77,7 +77,7 @@ vim.g.mix_format_on_save = 1
 vim.g.node_client_debug = 1
 
 vim.g.laststatus = 3
--- vim.opt.cmdheight = 0
+vim.opt.cmdheight = 0
 
 if vim.fn.exists("&splitkeep") ~= 0 then
 	vim.opt.splitkeep = "screen"
