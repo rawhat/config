@@ -429,6 +429,9 @@ local plugins = {
 			"rcarriga/nvim-notify",
 			"hrsh7th/nvim-cmp",
 		},
+		enabled = function()
+			return not vim.fn.exists("g:fvim_loaded")
+		end,
 		event = "VimEnter",
 		config = function()
 			require("noice").setup({
