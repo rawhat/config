@@ -725,6 +725,14 @@ function M.mappings()
 				"Do the thing",
 			},
 		}),
+
+		generate({
+			name = "Inlay Hints",
+			["<leader>ih"] = {
+				require("lsp-inlayhints").toggle,
+				"Toggle",
+			},
+		}),
 	}
 end
 

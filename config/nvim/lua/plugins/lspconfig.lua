@@ -381,7 +381,7 @@ require("typescript").setup({
 					client.stop()
 				end
 			end
-			inlay_hints.on_attach(client, bufnr)
+			-- inlay_hints.on_attach(client, bufnr)
 		end,
 		settings = {
 			typescript = {
