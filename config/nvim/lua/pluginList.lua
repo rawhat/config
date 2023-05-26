@@ -430,7 +430,7 @@ local plugins = {
 			"hrsh7th/nvim-cmp",
 		},
 		enabled = function()
-			return not vim.fn.exists("g:fvim_loaded")
+			return vim.fn.exists("g:fvim_loaded") == 0
 		end,
 		event = "VimEnter",
 		config = function()
