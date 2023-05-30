@@ -83,7 +83,7 @@ local plugins = {
 	-- :noh on cursor move
 	"haya14busa/is.vim",
 	-- shell commands
-	"tpope/vim-eunuch",
+	"chrisgrieser/nvim-genghis",
 	-- OTHER
 	-- modified status bar
 	{
@@ -231,7 +231,7 @@ local plugins = {
 	-- tree sitter
 	{
 		"nvim-treesitter/nvim-treesitter",
-		run = ":TSUpdate",
+		run = ":TSUpdate all",
 		config = function()
 			require("plugins.treesitter")
 		end,
