@@ -1,4 +1,3 @@
-local configs = require("lspconfig.configs")
 local lspconfig = require("lspconfig")
 local null = require("null-ls")
 local path = require("mason-core.path")
@@ -46,9 +45,6 @@ local lsp_configs = {
 	gleam = {
 		capabilities = capabilities,
 	},
-	gleam = {
-		capabilities = capabilities,
-	},
 	gopls = {
 		capabilities = capabilities,
 		on_attach = inlay_hints.on_attach,
@@ -89,6 +85,7 @@ local lsp_configs = {
 	},
 	lua_ls = {
 		capabilities = capabilities,
+		on_attach = inlay_hints.on_attach,
 		settings = {
 			Lua = {
 				runtime = {
@@ -98,6 +95,9 @@ local lsp_configs = {
 				diagnostics = {
 					-- Get the language server to recognize the `vim` global
 					globals = { "vim" },
+				},
+				hint = {
+					enable = true,
 				},
 				workspace = {
 					-- Make the server aware of Neovim runtime files
