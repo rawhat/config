@@ -516,16 +516,6 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "hop hint",
-			["<leader>o"] = {
-				function()
-					require("hop").hint_words()
-				end,
-				"Show Hop Hints",
-			},
-		}),
-
-		generate({
 			name = "fugitive",
 			["<leader>gb"] = {
 				function()
@@ -731,6 +721,30 @@ function M.mappings()
 			["<leader>ih"] = {
 				require("lsp-inlayhints").toggle,
 				"Toggle",
+			},
+		}),
+
+		generate({
+			name = "Leap",
+			gs = {
+				function()
+					require("leap").leap({
+						target_windows = require("leap.util").get_enterable_windows(),
+					})
+				end,
+				"Leap in other windows",
+			},
+			s = {
+				function()
+					require("leap").leap({})
+				end,
+				"Leap forward",
+			},
+			S = {
+				function()
+					require("leap").leap({ backward = true })
+				end,
+				"Leap backward",
 			},
 		}),
 	}

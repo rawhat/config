@@ -131,23 +131,11 @@ local plugins = {
 	{
 		"kylechui/nvim-surround",
 		config = function()
-			require("nvim-surround").setup({
-				keymaps = {
-					normal = "sa",
-					visual = "s",
-					delete = "sd",
-					change = "sc",
-				},
-			})
+			require("nvim-surround").setup()
 		end,
 	},
 	-- highlight/jump to words
-	{
-		"phaazon/hop.nvim",
-		config = function()
-			require("plugins.hop")
-		end,
-	},
+	"ggandor/leap.nvim",
 	-- fancy indent helper
 	{
 		"lukas-reineke/indent-blankline.nvim",
