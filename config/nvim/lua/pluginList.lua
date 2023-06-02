@@ -523,7 +523,17 @@ local plugins = {
 			})
 		end,
 	},
-	"vimpostor/vim-tpipeline",
+	{
+		"vimpostor/vim-tpipeline",
+		config = function()
+			local colors = require("catppuccin.palettes").get_palette("mocha")
+			vim.g.tpipeline_clearstl = 1
+			-- Unfortunately, these need to be different or else vim throws in `^^^` :(
+			vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.base, fg = colors.surface0 })
+			vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.base, fg = colors.mantle })
+			vim.cmd("set fcs=stlnc:─,stl:─,vert:│")
+		end,
+	},
 }
 
 require("lazy").setup(plugins, {
