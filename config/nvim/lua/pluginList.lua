@@ -523,6 +523,7 @@ local plugins = {
 			})
 		end,
 	},
+	"vimpostor/vim-tpipeline",
 }
 
 require("lazy").setup(plugins, {

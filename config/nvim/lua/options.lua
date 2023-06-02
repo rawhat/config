@@ -7,6 +7,8 @@ vim.opt.encoding = "utf-8"
 -- disable mouse
 vim.cmd("set mouse=")
 
+vim.opt.shell = vim.fn.exepath("bash")
+
 vim.opt.scrolloff = 3
 
 vim.opt.hlsearch = true
