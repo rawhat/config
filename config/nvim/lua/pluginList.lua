@@ -87,10 +87,10 @@ local plugins = {
 	-- OTHER
 	-- modified status bar
 	{
-		"nvim-lualine/lualine.nvim",
+		"rebelot/heirline.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("plugins.lualine")
+			require("plugins.heirline")
 		end,
 	},
 	-- fuzzy find
