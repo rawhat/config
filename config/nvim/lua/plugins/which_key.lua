@@ -379,7 +379,9 @@ function M.mappings()
 			},
 			["<leader>sc"] = {
 				function()
-					require("telescope.builtin").find_files({ search_dirs = { "~/.config/nvim" } })
+					require("telescope.builtin").find_files({
+						search_dirs = { vim.fn.stdpath("config") },
+					})
 				end,
 				"Find Config Files",
 			},

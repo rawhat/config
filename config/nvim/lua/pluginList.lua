@@ -525,6 +525,9 @@ local plugins = {
 	},
 	{
 		"vimpostor/vim-tpipeline",
+		cond = function()
+			return vim.fn.has("linux") == 1 or vim.fn.has("macunix") == 1
+		end,
 		config = function()
 			local colors = require("catppuccin.palettes").get_palette("mocha")
 			vim.g.tpipeline_clearstl = 1
