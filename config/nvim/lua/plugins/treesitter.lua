@@ -16,6 +16,9 @@ treesitter.setup({
 	},
 	matchup = { enable = true },
 	autopairs = { enable = true },
+	autotag = {
+		enable = true,
+	},
 	indent = {
 		enable = true,
 	},

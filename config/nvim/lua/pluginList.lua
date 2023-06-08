@@ -219,24 +219,21 @@ local plugins = {
 	-- tree sitter
 	{
 		"nvim-treesitter/nvim-treesitter",
+		dependencies = {
+			"nvim-treesitter/playground",
+			"nvim-treesitter/nvim-treesitter-context",
+			"windwp/nvim-ts-autotag",
+		},
 		run = ":TSUpdate all",
 		config = function()
 			require("plugins.treesitter")
 		end,
 	},
-	"nvim-treesitter/playground",
-	"nvim-treesitter/nvim-treesitter-context",
 	{
 		"andymass/vim-matchup",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			vim.api.nvim_set_var("matchup_matchparen_offscreen", { method = "popup" })
-		end,
-	},
-	{
-		"windwp/nvim-ts-autotag",
-		config = function()
-			require("nvim-ts-autotag").setup()
 		end,
 	},
 	{
