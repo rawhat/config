@@ -55,4 +55,18 @@ ls.add_snippets("gleam", {
 	ls.parser.parse_snippet({ trig = "im" }, [[import $1]]),
 })
 
+ls.add_snippets("bzl", {
+	ls.parser.parse_snippet(
+		{ trig = "ts_library" },
+		[[ts_library(
+    name = "$1",
+    srcs = ["$2"],
+    tsc_config = "//:ts_config_strict",
+    deps = [
+      "$3",
+    ],
+)]]
+	),
+})
+
 require("luasnip.loaders.from_vscode").lazy_load()

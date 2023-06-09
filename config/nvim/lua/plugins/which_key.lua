@@ -599,7 +599,7 @@ function M.mappings()
 					-- bug with my base usage here that did some weird stuff
 					local key = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
 					vim.api.nvim_feedkeys(key, "nx", false)
-					require("Comment.api").toggle.linewise(vim.fn.visualmode())
+					require("Comment.api").toggle.blockwise(vim.fn.visualmode())
 				end,
 				"Toggle comment on visual line",
 			},

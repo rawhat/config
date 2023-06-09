@@ -22,4 +22,8 @@ treesitter.setup({
 	indent = {
 		enable = true,
 	},
+	context_commentstring = {
+		enable = true,
+		enable_autocmd = false,
+	},
 })
