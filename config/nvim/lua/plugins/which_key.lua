@@ -727,26 +727,12 @@ function M.mappings()
 		}),
 
 		generate({
-			name = "Leap",
-			gs = {
+			name = "hop hint",
+			["<leader>o"] = {
 				function()
-					require("leap").leap({
-						target_windows = require("leap.util").get_enterable_windows(),
-					})
+					require("hop").hint_words()
 				end,
-				"Leap in other windows",
-			},
-			s = {
-				function()
-					require("leap").leap({})
-				end,
-				"Leap forward",
-			},
-			S = {
-				function()
-					require("leap").leap({ backward = true })
-				end,
-				"Leap backward",
+				"Show Hop hints",
 			},
 		}),
 	}

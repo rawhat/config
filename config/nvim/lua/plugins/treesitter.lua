@@ -26,4 +26,14 @@ treesitter.setup({
 		enable = true,
 		enable_autocmd = false,
 	},
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+			},
+		},
+	},
 })

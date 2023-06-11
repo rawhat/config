@@ -135,11 +135,24 @@ local plugins = {
 	{
 		"kylechui/nvim-surround",
 		config = function()
-			require("nvim-surround").setup()
+			require("nvim-surround").setup({
+				keymaps = {
+					normal = "sa",
+					visual = "s",
+					delete = "sd",
+					change = "sc",
+				},
+			})
 		end,
 	},
 	-- highlight/jump to words
-	"ggandor/leap.nvim",
+	{
+		"phaazon/hop.nvim",
+		branch = "v2",
+		config = function()
+			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
+		end,
+	},
 	-- fancy indent helper
 	{
 		"lukas-reineke/indent-blankline.nvim",
@@ -226,6 +239,7 @@ local plugins = {
 		dependencies = {
 			"nvim-treesitter/playground",
 			"nvim-treesitter/nvim-treesitter-context",
+			"nvim-treesitter/nvim-treesitter-textobjects",
 			"windwp/nvim-ts-autotag",
 		},
 		run = ":TSUpdate all",
