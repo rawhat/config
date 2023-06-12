@@ -21,3 +21,17 @@ vim.api.nvim_create_autocmd({ "ModeChanged" }, {
 	end,
 	group = modes,
 })
+
+-- TODO:  do i care about supporting a custom path?
+vim.api.nvim_create_user_command("Decaffeinate", function(args)
+	local cmd = vim.o.shell .. " -l bazel run @decaffeinate//:run -- " .. vim.fn.expand("%:p")
+	require("terminal").run({
+		"bazel",
+		"run",
+		"@decaffeinate//:run",
+		"--",
+		vim.fn.expand("%:p"),
+	}, {
+		layout = { open_cmd = "botright vertical new" },
+	})
+end, {})
