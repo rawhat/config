@@ -131,6 +131,9 @@ local lsp_configs = {
 	sqlls = {
 		capabilities = capabilities,
 	},
+	taplo = {
+		capabilities = capabilities,
+	},
 	zls = {
 		capabilities = capabilities,
 	},
