@@ -22,31 +22,19 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local lsp_configs = {
 	clangd = {
-		capabilities = capabilities,
 		on_attach = inlay_hints.on_attach,
 	},
-	clojure_lsp = {
-		capabilities = capabilities,
-	},
-	crystalline = {
-		capabilities = capabilities,
-	},
+	clojure_lsp = {},
+	crystalline = {},
 	elixirls = {
-		capabilities = capabilities,
 		filetypes = { "elixir", "leex", "heex", "eex" },
 	},
-	erlangls = {
-		capabilities = capabilities,
-	},
+	erlangls = {},
 	fsautocomplete = {
-		capabilities = capabilities,
 		on_attach = inlay_hints.on_attach,
 	},
-	gleam = {
-		capabilities = capabilities,
-	},
+	gleam = {},
 	gopls = {
-		capabilities = capabilities,
 		on_attach = inlay_hints.on_attach,
 		settings = {
 			gopls = {
@@ -74,17 +62,10 @@ local lsp_configs = {
 			debounce_text_changes = 150,
 		},
 	},
-	html = {
-		capabilities = capabilities,
-	},
-	jsonls = {
-		capabilities = capabilities,
-	},
-	jsonnet_ls = {
-		capabilities = capabilities,
-	},
+	html = {},
+	jsonls = {},
+	jsonnet_ls = {},
 	lua_ls = {
-		capabilities = capabilities,
 		on_attach = inlay_hints.on_attach,
 		settings = {
 			Lua = {
@@ -111,11 +92,8 @@ local lsp_configs = {
 			},
 		},
 	},
-	ocamllsp = {
-		capabilities = capabilities,
-	},
+	ocamllsp = {},
 	pyright = {
-		capabilities = capabilities,
 		flags = { debounce_text_changes = 300 },
 		settings = {
 			python = {
@@ -125,18 +103,10 @@ local lsp_configs = {
 			},
 		},
 	},
-	sorbet = {
-		capabilities = capabilities,
-	},
-	sqlls = {
-		capabilities = capabilities,
-	},
-	taplo = {
-		capabilities = capabilities,
-	},
-	zls = {
-		capabilities = capabilities,
-	},
+	sorbet = {},
+	sqlls = {},
+	taplo = {},
+	zls = {},
 }
 
 local lsp_servers = {}
@@ -316,6 +286,7 @@ for server, config in pairs(lsp_configs) do
 		end
 		on_attach_format(client, bufnr)
 	end
+	config.capabilities = capabilities
 	require("lspconfig")[server].setup(config)
 end
 
