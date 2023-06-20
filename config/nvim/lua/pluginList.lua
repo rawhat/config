@@ -326,7 +326,6 @@ local plugins = {
 		config = function()
 			require("gitsigns").setup({
 				trouble = true,
-				keymaps = {},
 			})
 		end,
 	},
