@@ -721,7 +721,10 @@ function M.mappings()
 		generate({
 			name = "Inlay Hints",
 			["<leader>ih"] = {
-				require("lsp-inlayhints").toggle,
+				function()
+					local current_buf = vim.api.nvim_get_current_buf()
+					vim.lsp.buf.inlay_hint(current_buf, nil)
+				end,
 				"Toggle",
 			},
 		}),

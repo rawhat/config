@@ -180,7 +180,6 @@ local plugins = {
 		dependencies = {
 			"jose-elias-alvarez/null-ls.nvim",
 			"williamboman/mason.nvim",
-			{ "lvimuser/lsp-inlayhints.nvim", branch = "anticonceal" },
 			"simrat39/rust-tools.nvim",
 			"jose-elias-alvarez/typescript.nvim",
 		},

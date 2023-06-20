@@ -2,7 +2,6 @@ local lspconfig = require("lspconfig")
 local null = require("null-ls")
 local path = require("mason-core.path")
 local wk = require("which-key")
-local inlay_hints = require("lsp-inlayhints")
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
@@ -20,9 +19,15 @@ local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local on_attach_inlay_hints = function(client, bufnr)
+	if client.supports_method("textDocument/inlayHint") then
+		vim.lsp.buf.inlay_hint(bufnr, true)
+	end
+end
+
 local lsp_configs = {
 	clangd = {
-		on_attach = inlay_hints.on_attach,
+		on_attach = on_attach_inlay_hints,
 	},
 	clojure_lsp = {},
 	crystalline = {},
@@ -31,11 +36,11 @@ local lsp_configs = {
 	},
 	erlangls = {},
 	fsautocomplete = {
-		on_attach = inlay_hints.on_attach,
+		on_attach = on_attach_inlay_hints,
 	},
 	gleam = {},
 	gopls = {
-		on_attach = inlay_hints.on_attach,
+		on_attach = on_attach_inlay_hints,
 		settings = {
 			gopls = {
 				env = {
@@ -66,7 +71,7 @@ local lsp_configs = {
 	jsonls = {},
 	jsonnet_ls = {},
 	lua_ls = {
-		on_attach = inlay_hints.on_attach,
+		on_attach = on_attach_inlay_hints,
 		settings = {
 			Lua = {
 				runtime = {
@@ -320,7 +325,7 @@ require("rust-tools").setup({
 	server = {
 		capabilities = capabilities,
 		on_attach = function(client, buf_nr)
-			inlay_hints.on_attach(client, buf_nr)
+			on_attach_inlay_hints(client, buf_nr)
 			on_attach_format(client, buf_nr)
 		end,
 		settings = {
@@ -355,7 +360,7 @@ require("typescript").setup({
 					client.stop()
 				end
 			end
-			-- inlay_hints.on_attach(client, bufnr)
+			on_attach_inlay_hints(client, bufnr)
 		end,
 		settings = {
 			typescript = {
@@ -385,8 +390,6 @@ require("typescript").setup({
 		},
 	},
 })
-
-inlay_hints.setup()
 
 -- show lsp signs in gutter
 local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
