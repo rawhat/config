@@ -134,24 +134,29 @@ local plugins = {
 	-- (--'happy times'--)
 	{
 		"kylechui/nvim-surround",
-		config = function()
-			require("nvim-surround").setup({
-				keymaps = {
-					normal = "sa",
-					visual = "s",
-					delete = "sd",
-					change = "sc",
-				},
-			})
-		end,
+		opts = {},
 	},
 	-- highlight/jump to words
 	{
-		"phaazon/hop.nvim",
-		branch = "v2",
-		config = function()
-			require("hop").setup({ keys = "etovxqpdygfblzhckisuran" })
-		end,
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = {},
+		keys = {
+			{
+				"s",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump()
+				end,
+			},
+			{
+				"S",
+				mode = { "o", "x" },
+				function()
+					require("flash").treesitter()
+				end,
+			},
+		},
 	},
 	-- fancy indent helper
 	{

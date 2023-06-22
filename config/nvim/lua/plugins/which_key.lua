@@ -687,13 +687,13 @@ function M.mappings()
 
 		generate({
 			name = "Movement",
-			["<A-k>"] = {
+			["<C-k>"] = {
 				function()
 					require("moveline").block_up()
 				end,
 				"Up",
 			},
-			["<A-j>"] = {
+			["<C-j>"] = {
 				function()
 					require("moveline").block_down()
 				end,
@@ -726,16 +726,6 @@ function M.mappings()
 					vim.lsp.buf.inlay_hint(current_buf, nil)
 				end,
 				"Toggle",
-			},
-		}),
-
-		generate({
-			name = "hop hint",
-			["<leader>o"] = {
-				function()
-					require("hop").hint_words()
-				end,
-				"Show Hop hints",
 			},
 		}),
 	}
