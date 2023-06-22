@@ -70,11 +70,11 @@ function M.mappings()
 			},
 			["<leader>gt"] = {
 				function()
-					local cwd = vim.loop.cwd()
+					local cwd = vim.uv.cwd()
 					if cwd == "/home/alex/vistar/vistar" then
 						local row = vim.api.nvim_win_get_cursor(0)[1]
 						local file = vim.api.nvim_buf_get_name(0)
-						local relative_path = string.gsub(file, vim.loop.cwd(), "")
+						local relative_path = string.gsub(file, vim.uv.cwd(), "")
 
 						local gitiles_url = "https://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/refs/heads/develop"
 
@@ -206,7 +206,7 @@ function M.mappings()
 			["<C-n>"] = {
 				function()
 					local cwd = vim.fn.expand("%:h")
-					cwd = string.gsub(cwd, vim.loop.cwd(), "")
+					cwd = string.gsub(cwd, vim.uv.cwd(), "")
 					local cmd = "fd -t f -d 1 . " .. cwd
 
 					local picker = require("telescope.pickers")
@@ -253,7 +253,7 @@ function M.mappings()
 					local flatten = vim.tbl_flatten
 
 					opts = opts or {}
-					opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.loop.cwd()
+					opts.cwd = opts.cwd and vim.fn.expand(opts.cwd) or vim.uv.cwd()
 					opts.shortcuts = opts.shortcuts
 						or {
 							["l"] = "*.lua",

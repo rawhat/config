@@ -5,7 +5,7 @@ local wk = require("which-key")
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-	local cwd = vim.loop.cwd()
+	local cwd = vim.uv.cwd()
 	if config.name == "tsserver" and vim.fn.filereadable(cwd .. "/deno.jsonc") == 1 then
 		config.single_file_support = false
 	end
@@ -346,46 +346,44 @@ require("rust-tools").setup({
 	},
 })
 
-require("typescript").setup({
-	server = {
-		capabilities = capabilities,
-		root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
-		flags = {
-			debounce_text_changes = 150,
-		},
-		on_attach = function(client, bufnr)
-			local active_clients = vim.lsp.get_active_clients()
-			for _, running_client in pairs(active_clients) do
-				if running_client.name == "denols" then
-					client.stop()
-				end
+require("typescript-tools").setup({
+	capabilities = capabilities,
+	root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
+	flags = {
+		debounce_text_changes = 150,
+	},
+	on_attach = function(client, bufnr)
+		local active_clients = vim.lsp.get_active_clients()
+		for _, running_client in pairs(active_clients) do
+			if running_client.name == "denols" then
+				client.stop()
 			end
-			on_attach_inlay_hints(client, bufnr)
-		end,
-		settings = {
-			typescript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
+		end
+		on_attach_inlay_hints(client, bufnr)
+	end,
+	settings = {
+		typescript = {
+			inlayHints = {
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayVariableTypeHints = true,
+				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayEnumMemberValueHints = true,
 			},
-			javascript = {
-				inlayHints = {
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayEnumMemberValueHints = true,
-				},
+		},
+		javascript = {
+			inlayHints = {
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayVariableTypeHints = true,
+				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayEnumMemberValueHints = true,
 			},
 		},
 	},

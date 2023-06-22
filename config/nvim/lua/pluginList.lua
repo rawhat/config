@@ -1,5 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -181,7 +181,7 @@ local plugins = {
 			"jose-elias-alvarez/null-ls.nvim",
 			"williamboman/mason.nvim",
 			"simrat39/rust-tools.nvim",
-			"jose-elias-alvarez/typescript.nvim",
+			"pmizio/typescript-tools.nvim",
 		},
 		config = function()
 			require("plugins.lspconfig")
