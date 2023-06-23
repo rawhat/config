@@ -164,7 +164,7 @@ function M.mappings()
 
 		generate({
 			name = "lsp hover",
-			F = {
+			K = {
 				function()
 					vim.lsp.buf.hover()
 				end,
@@ -205,28 +205,7 @@ function M.mappings()
 			},
 			["<C-n>"] = {
 				function()
-					local cwd = vim.fn.expand("%:h")
-					cwd = string.gsub(cwd, vim.uv.cwd(), "")
-					local cmd = "fd -t f -d 1 . " .. cwd
-
-					local picker = require("telescope.pickers")
-					local finders = require("telescope.finders")
-					local utils = require("telescope.utils")
-
-					picker
-						.new({}, {
-							prompt_title = cwd,
-							previewer = require("telescope.previewers").vim_buffer_cat.new({}),
-							finder = finders.new_table({
-								results = utils.get_os_command_output({
-									vim.o.shell,
-									"-c",
-									cmd,
-								}),
-							}),
-							sorter = require("telescope.sorters").get_fuzzy_file(),
-						})
-						:find()
+					vim.cmd.Telescope({ "file_browser", "path=%:p:h", "select_buffer=true" })
 				end,
 				"Files in CWD",
 			},

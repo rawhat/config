@@ -362,29 +362,15 @@ require("typescript-tools").setup({
 		on_attach_inlay_hints(client, bufnr)
 	end,
 	settings = {
-		typescript = {
-			inlayHints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-			},
-		},
-		javascript = {
-			inlayHints = {
-				includeInlayEnumMemberValueHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayParameterNameHints = "all",
-			},
+		tsserver_file_preferences = {
+			includeInlayEnumMemberValueHints = true,
+			includeInlayFunctionLikeReturnTypeHints = true,
+			includeInlayFunctionParameterTypeHints = true,
+			includeInlayParameterNameHints = "all",
+			includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+			includeInlayPropertyDeclarationTypeHints = true,
+			includeInlayVariableTypeHints = true,
+			includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 		},
 	},
 })

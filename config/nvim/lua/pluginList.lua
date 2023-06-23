@@ -281,11 +281,16 @@ local plugins = {
 	{
 		"mrjones2014/legendary.nvim",
 		dependencies = { "folke/which-key.nvim", "nvim-telescope/telescope.nvim" },
+		priority = 10000,
+		lazy = false,
 		config = function()
 			local wk_options = require("plugins.which_key").options()
 			require("which-key").setup(wk_options)
 
 			require("legendary").setup({
+				lazy_nvim = {
+					auto_register = true,
+				},
 				which_key = {
 					auto_register = true,
 				},
