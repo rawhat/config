@@ -106,6 +106,46 @@ local plugins = {
 			"nvim-telescope/telescope-ui-select.nvim",
 			"stevearc/dressing.nvim",
 		},
+		keys = {
+			{ "<C-p>", desc = "Find files", "<cmd>Telescope find_files<cr>" },
+			{ "<C-n>", desc = "Files in CWD", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>" },
+			{ "<leader>ac", desc = "Find commands", "<cmd>Telescope commands<cr>" },
+			{ "<leader>ag", desc = "Live Grep", "<cmd>Telescope live_grep<cr>" },
+			{ "<leader>ag", mode = { "v" }, desc = "Grep string", "<cmd>Telescope grep_string<cr>" },
+			{ "<leader>bl", desc = "Find buffers", "<cmd>Telescope buffers<cr>" },
+			{ "<leader>ch", desc = "Command history", "<cmd>Telescope command_history<cr>" },
+			{ "<leader>sh", desc = "Search history", "<cmd>Telescope search_history<cr>" },
+			{ "<leader>lr", desc = "LSP references", "<cmd>Telescope lsp_references<cr>" },
+			{ "<leader>lf", desc = "LSP definition(s)", "<cmd>Telescope lsp_definitions<cr>" },
+			{ "<leader>lm", desc = "LSP implementations", "<cmd>Telescope lsp_implementations<cr>" },
+			{ "<leader>lt", desc = "LSP type definition(s)", "<cmd>Telescope lsp_type_definitions<cr>" },
+			{ "<leader>ld", desc = "LSP diagnostics", "<cmd>Telescope diagnostics<cr>" },
+			{ "<leader>th", desc = "Help Tags", "<cmd>Telescope help_tags<cr>" },
+			{ "<leader>pt", desc = "ViM Options", "<cmd>Telescope vim_options<cr>" },
+			{ "<leader>sp", desc = "Spelling suggestions", "<cmd>Telescope spell_suggest<cr>" },
+			{ "<leader>bf", desc = "Fuzzy find in buffer", "<cmd>Telescope current_buffer_fuzzy_find<cr>" },
+			{ "<leader>rp", desc = "Resume previous picker", "<cmd>Telescope resume<cr>" },
+			{ "<leader>lp", desc = "List previous pickers", "<cmd>Telescope pickers<cr>" },
+			{
+				"<leader>sc",
+				desc = "Find config files",
+				function()
+					require("telescope.builtin").find_files({
+						search_dirs = { vim.fn.stdpath("config") },
+					})
+				end,
+			},
+			{
+				"<leader>cf",
+				desc = "Grep config files",
+				function()
+					require("telescope.builtin").live_grep({
+						search_dirs = { vim.fn.stdpath("config") },
+						additional_args = { "-g" },
+					})
+				end,
+			},
+		},
 		config = function()
 			require("plugins.telescope")
 		end,
@@ -120,6 +160,25 @@ local plugins = {
 		dependencies = {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
+		keys = {
+			{
+				"<leader>cc",
+				desc = "Toggle comment on current line",
+				function()
+					require("Comment.api").toggle.linewise.current()
+				end,
+			},
+			{
+				"<leader>c",
+				mode = { "v" },
+				desc = "Toggle comment on visual lines",
+				function()
+					local key = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+					vim.api.nvim_feedkeys(key, "nx", false)
+					require("Comment.api").toggle.blockwise(vim.fn.visualmode())
+				end,
+			},
+		},
 		config = function()
 			local ft = require("Comment.ft")
 			ft.set("gleam", "//%s")
@@ -130,7 +189,12 @@ local plugins = {
 		end,
 	},
 	-- git good
-	"tpope/vim-fugitive",
+	{
+		"tpope/vim-fugitive",
+		keys = {
+			{ "<leader>gb", desc = "Git blame for buffer", "<cmd>Git blame<cr>" },
+		},
+	},
 	-- (--'happy times'--)
 	{
 		"kylechui/nvim-surround",
@@ -145,6 +209,7 @@ local plugins = {
 			{
 				"s",
 				mode = { "n", "x", "o" },
+				desc = "jump around",
 				function()
 					require("flash").jump()
 				end,
@@ -152,6 +217,7 @@ local plugins = {
 			{
 				"S",
 				mode = { "o", "x" },
+				desc = "leapin around the trees",
 				function()
 					require("flash").treesitter()
 				end,
@@ -176,6 +242,9 @@ local plugins = {
 	{
 		"williamboman/mason.nvim",
 		dependencies = { "williamboman/mason-lspconfig.nvim" },
+		keys = {
+			{ "<leader>li", desc = "Open mason", "<cmd>Mason<cr>" },
+		},
 		config = function()
 			require("mason").setup()
 		end,
@@ -228,6 +297,9 @@ local plugins = {
 	{
 		"folke/trouble.nvim",
 		dependencies = { theme.package },
+		keys = {
+			{ "<leader>xx", desc = "Toggle Trouble", "<cmd>TroubleToggle<cr>" },
+		},
 		config = function()
 			require("trouble").setup()
 		end,
@@ -277,16 +349,24 @@ local plugins = {
 	{
 		"folke/which-key.nvim",
 		dependencies = { theme.package },
+		opts = {
+			key_labels = { ["<leader>"] = "<space>" },
+			plugins = {
+				presets = {
+					operators = false,
+				},
+			},
+		},
 	},
 	{
 		"mrjones2014/legendary.nvim",
 		dependencies = { "folke/which-key.nvim", "nvim-telescope/telescope.nvim" },
 		priority = 10000,
 		lazy = false,
+		keys = {
+			{ "<leader>wk", desc = "Search keybinds, commands, autocommands", "<cmd>Legendary keymaps<cr>" },
+		},
 		config = function()
-			local wk_options = require("plugins.which_key").options()
-			require("which-key").setup(wk_options)
-
 			require("legendary").setup({
 				lazy_nvim = {
 					auto_register = true,
@@ -295,7 +375,6 @@ local plugins = {
 					auto_register = true,
 				},
 			})
-			require("plugins.which_key").mappings()
 		end,
 	},
 	-- virtual text types (only in some languages)
@@ -345,6 +424,9 @@ local plugins = {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 		},
+		keys = {
+			{ "<leader>cs", desc = "Keybind cheat sheet", "<cmd>Cheatsheet<cr>" },
+		},
 		config = function()
 			require("cheatsheet").setup({
 				["<CR>"] = require("cheatsheet.telescope.actions").select_or_execute,
@@ -354,6 +436,9 @@ local plugins = {
 	},
 	{
 		"simrat39/symbols-outline.nvim",
+		keys = {
+			{ "<leader>so", desc = "Toggle the symbol outline view", "<cmd>SymbolsOutline<cr>" },
+		},
 		config = function()
 			require("symbols-outline").setup()
 		end,
@@ -365,7 +450,39 @@ local plugins = {
 			require("todo-comments").setup()
 		end,
 	},
-	"mrjones2014/smart-splits.nvim",
+	{
+		"mrjones2014/smart-splits.nvim",
+		keys = {
+			{
+				"<C-l>",
+				desc = "Resize right",
+				function()
+					require("smart-splits").resize_right()
+				end,
+			},
+			{
+				"<C-k>",
+				desc = "Resize up",
+				function()
+					require("smart-splits").resize_up()
+				end,
+			},
+			{
+				"<C-j>",
+				desc = "Resize down",
+				function()
+					require("smart-splits").resize_down()
+				end,
+			},
+			{
+				"<C-h>",
+				desc = "Resize left",
+				function()
+					require("smart-splits").resize_left()
+				end,
+			},
+		},
+	},
 	{
 		"mvllow/modes.nvim",
 		dependencies = { theme.package },
@@ -379,6 +496,15 @@ local plugins = {
 	{
 		"yorickpeterse/nvim-window",
 		url = "https://gitlab.com/yorickpeterse/nvim-window.git",
+		keys = {
+			{
+				"<leader>m",
+				desc = "Jump to window",
+				function()
+					require("nvim-window").pick()
+				end,
+			},
+		},
 	},
 	{
 		"rcarriga/nvim-notify",
@@ -414,6 +540,9 @@ local plugins = {
 			"anuvyklack/middleclass",
 			"anuvyklack/animation.nvim",
 		},
+		keys = {
+			{ "<leader>xz", desc = "Toggle maximize current buffer", "<cmd>WindowsMaximize<cr>" },
+		},
 		config = function()
 			vim.o.winwidth = 10
 			vim.o.winminwidth = 10
@@ -444,6 +573,10 @@ local plugins = {
 			return vim.fn.exists("g:fvim_loaded") == 0
 		end,
 		event = "VimEnter",
+		keys = {
+			{ "<leader>n", desc = "Open the noice menu", "<cmd>Noice<cr>" },
+			{ "<leader>ds", desc = "Dismiss noice notifications", "<;md>Noice dismiss<cr>" },
+		},
 		config = function()
 			require("noice").setup({
 				lsp = {
@@ -470,6 +603,16 @@ local plugins = {
 	},
 	{
 		"ojroques/nvim-osc52",
+		keys = {
+			{
+				"<leader>y",
+				mode = { "v" },
+				desc = "Copy text via OSC52",
+				function()
+					require("osc52").copy_visual()
+				end,
+			},
+		},
 		config = function()
 			require("osc52").setup()
 		end,
@@ -488,6 +631,21 @@ local plugins = {
 	},
 	{
 		"sindrets/diffview.nvim",
+		keys = {
+			{ "<leader>do", desc = "Open diffview against develop", "<cmd>DiffviewOpen origin/develop<cr>" },
+			{ "<leader>dv", desc = "Open diffview against HEAD", "<cmd>DiffviewOpen<cr>" },
+			{
+				"<leader>db",
+				desc = "Open diffview against branch",
+				function()
+					vim.ui.input({ prompt = "Branch to diff against" }, function(search)
+						vim.cmd.DiffviewOpen(search)
+					end)
+				end,
+			},
+			{ "<leader>dc", desc = "Close diffview", "<cmd>DiffviewClose<cr>" },
+			{ "<leader>df", desc = "Toggle diffview file panel", "<cmd>DiffviewToggleFiles<cr>" },
+		},
 	},
 	{
 		"m4xshen/smartcolumn.nvim",
@@ -502,6 +660,17 @@ local plugins = {
 	},
 	{
 		"rebelot/terminal.nvim",
+		keys = {
+			{
+				"<leader>tr",
+				desc = "<r>run command in split term",
+				function()
+					require("terminal").run(nil, {
+						layout = { open_cmd = "botright vertical new" },
+					})
+				end,
+			},
+		},
 		config = function()
 			require("terminal").setup({
 				layout = {
@@ -530,6 +699,24 @@ local plugins = {
 	{
 		"willothy/moveline.nvim",
 		build = "make",
+		keys = {
+			{
+				"<C-k>",
+				mode = { "v" },
+				desc = "Move selection up",
+				function()
+					require("moveline").block_up()
+				end,
+			},
+			{
+				"<C-j>",
+				mode = { "v" },
+				desc = "Move selection down",
+				function()
+					require("moveline").block_down()
+				end,
+			},
+		},
 	},
 	{
 		"luukvbaal/statuscol.nvim",

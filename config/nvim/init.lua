@@ -4,8 +4,8 @@ vim.g.loaded_netrwPlugin = 1
 
 require("options")
 require("pluginList")
-require("utils")
 require("cmds")
+require("keymaps")
 
 if vim.g.neovide then
 	vim.g.neovide_refresh_rate = 144

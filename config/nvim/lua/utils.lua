@@ -1,29 +1,23 @@
-vim.cmd([[
-  au BufRead,BufNewFile *.fish set filetype=fish
-]])
+local M = {}
 
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.zig set ft=zig
-  autocmd BufNewFile,BufRead *.zir set ft=zig
-]])
+local notify = require("notify")
 
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.ex set ft=elixir
-  autocmd BufNewFile,BufRead *.exs set ft=elixir
-]])
+M.gitiles = function()
+	local cwd = vim.uv.cwd()
+	if cwd:find("^/home/alex/vistar/vistar") ~= nil then
+		local row = vim.api.nvim_win_get_cursor(0)[1]
+		local file = vim.api.nvim_buf_get_name(0)
+		local relative_path = string.gsub(file, vim.uv.cwd(), "")
 
-vim.cmd([[
-  com! CheckHighlightUnderCursor echo {l,c,n ->
-          \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
-          \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
-          \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
-          \ }(line("."), col("."), "name")
-]])
+		local gitiles_url = "https://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/refs/heads/develop"
 
-function Inspect(obj)
-	print(vim.inspect(obj))
+		local with_row = gitiles_url .. relative_path .. "#" .. row
+
+		require("osc52").copy(with_row)
+		notify("Gitiles URL copied to clipboard\n\n" .. with_row, "info")
+	else
+		notify("Can only be called from vistar root", "error")
+	end
 end
 
-function _G.printf(...)
-	print(string.format(...))
-end
+return M

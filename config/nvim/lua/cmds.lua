@@ -35,3 +35,28 @@ vim.api.nvim_create_user_command("Decaffeinate", function(args)
 		layout = { open_cmd = "botright vertical new" },
 	})
 end, {})
+
+-- TODO:  needed?
+vim.cmd([[
+  au BufRead,BufNewFile *.fish set filetype=fish
+]])
+
+-- TODO:  needed?
+vim.cmd([[
+  autocmd BufNewFile,BufRead *.zig set ft=zig
+  autocmd BufNewFile,BufRead *.zir set ft=zig
+]])
+
+-- TODO:  needed?
+vim.cmd([[
+  autocmd BufNewFile,BufRead *.ex set ft=elixir
+  autocmd BufNewFile,BufRead *.exs set ft=elixir
+]])
+
+vim.cmd([[
+  com! CheckHighlightUnderCursor echo {l,c,n ->
+          \   'hi<'    . synIDattr(synID(l, c, 1), n)             . '> '
+          \  .'trans<' . synIDattr(synID(l, c, 0), n)             . '> '
+          \  .'lo<'    . synIDattr(synIDtrans(synID(l, c, 1)), n) . '> '
+          \ }(line("."), col("."), "name")
+]])
