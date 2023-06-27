@@ -126,6 +126,7 @@ local plugins = {
 			{ "<leader>bf", desc = "Fuzzy find in buffer", "<cmd>Telescope current_buffer_fuzzy_find<cr>" },
 			{ "<leader>rp", desc = "Resume previous picker", "<cmd>Telescope resume<cr>" },
 			{ "<leader>lp", desc = "List previous pickers", "<cmd>Telescope pickers<cr>" },
+			{ "<leader>gs", desc = "Find in git diff files", "<cmd>Telescope git_status<cr>" },
 			{
 				"<leader>sc",
 				desc = "Find config files",
@@ -191,6 +192,7 @@ local plugins = {
 	-- git good
 	{
 		"tpope/vim-fugitive",
+		event = "BufRead",
 		keys = {
 			{ "<leader>gb", desc = "Git blame for buffer", "<cmd>Git blame<cr>" },
 		},
