@@ -437,13 +437,16 @@ local plugins = {
 		end,
 	},
 	{
-		"simrat39/symbols-outline.nvim",
-		keys = {
-			{ "<leader>so", desc = "Toggle the symbol outline view", "<cmd>SymbolsOutline<cr>" },
+		"stevearc/aerial.nvim",
+		opts = {
+			layout = {
+				placement = "edge",
+			},
 		},
-		config = function()
-			require("symbols-outline").setup()
-		end,
+		keys = {
+			{ "<leader>oo", desc = "Toggle aerial", "<cmd>AerialToggle right<cr>" },
+			{ "<leader>oc", desc = "Close aerials", "<cmd>AerialCloseAll<cr>" },
+		},
 	},
 	{
 		"folke/todo-comments.nvim",

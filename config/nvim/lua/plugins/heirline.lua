@@ -36,11 +36,11 @@ local Progress = {
 	utils.surround({ " ", " " }, nil, {
 		provider = function()
 			local progress = vim.api.nvim_eval_statusline("%p", {})
-			local str = progress["str"]
-			if str == "0" then
+			local str = tonumber(progress["str"]) or ""
+			if str == "" or str == 0 then
 				return "Top"
 			end
-			if str == "100" then
+			if str == 100 then
 				return "Bot"
 			end
 			return string.format("%2d", str) .. "%%"
