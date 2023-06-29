@@ -170,7 +170,7 @@ local plugins = {
 				end,
 			},
 			{
-				"<leader>c",
+				"<leader>cc",
 				mode = { "v" },
 				desc = "Toggle comment on visual lines",
 				function()
@@ -437,16 +437,34 @@ local plugins = {
 		end,
 	},
 	{
-		"stevearc/aerial.nvim",
-		opts = {
-			layout = {
-				placement = "edge",
-			},
-		},
+		"simrat39/symbols-outline.nvim",
 		keys = {
-			{ "<leader>oo", desc = "Toggle aerial", "<cmd>AerialToggle right<cr>" },
-			{ "<leader>oc", desc = "Close aerials", "<cmd>AerialCloseAll<cr>" },
+			{ "<leader>so", desc = "Toggle symbols outline", "<cmd>SymbolsOutline<cr>" },
 		},
+		config = function()
+			-- TODO:  this is temporary, can remove if it ever gets fixed
+			-- https://github.com/simrat39/symbols-outline.nvim/issues/220
+			require("symbols-outline").setup({
+				keymaps = {
+					goto_location = {},
+				},
+			})
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "Outline",
+				callback = function()
+					vim.keymap.set("n", "<CR>", function()
+						local outline = require("symbols-outline")
+						local node = outline._current_node()
+
+						vim.api.nvim_win_set_cursor(outline.state.code_win, { node.line + 1, node.character })
+
+						vim.schedule(function()
+							vim.fn.win_gotoid(outline.state.code_win)
+						end)
+					end, { buffer = true })
+				end,
+			})
+		end,
 	},
 	{
 		"folke/todo-comments.nvim",
@@ -580,7 +598,7 @@ local plugins = {
 		event = "VimEnter",
 		keys = {
 			{ "<leader>n", desc = "Open the noice menu", "<cmd>Noice<cr>" },
-			{ "<leader>ds", desc = "Dismiss noice notifications", "<;md>Noice dismiss<cr>" },
+			{ "<leader>ds", desc = "Dismiss noice notifications", "<cmd>Noice dismiss<cr>" },
 		},
 		config = function()
 			require("noice").setup({
