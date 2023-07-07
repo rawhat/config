@@ -7,7 +7,7 @@ vim.opt.encoding = "utf-8"
 -- disable mouse
 vim.cmd("set mouse=")
 
-vim.opt.scrolloff = 3
+vim.opt.scrolloff = 6
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true

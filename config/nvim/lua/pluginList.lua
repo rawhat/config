@@ -770,6 +770,10 @@ local plugins = {
 			vim.cmd("set fcs=stlnc:─,stl:─,vert:│")
 		end,
 	},
+	{
+		"Aasim-A/scrollEOF.nvim",
+		opts = {},
+	},
 }
 
 require("lazy").setup(plugins, {
