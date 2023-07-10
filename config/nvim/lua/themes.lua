@@ -116,16 +116,17 @@ M.themes = {
 		name = "catppuccin",
 		config = function(palette)
 			local variant = palette or "mocha"
-			local colors = require("catppuccin.palettes").get_palette(variant)
 			require("catppuccin").setup({
 				flavour = palette or "mocha",
-				custom_highlights = {
-					cjsxElement = { link = "@constructor" },
-					cjsxAttribProperty = { link = "@tag.attribute" },
-					MatchParenCur = { fg = colors.yellow, style = { "bold" } },
-					MatchParen = { bg = colors.base, fg = colors.yellow, style = { "bold" } },
-					LspInlayHint = { link = "Comment" },
-				},
+				custom_highlights = function(colors)
+					return {
+						cjsxElement = { link = "@constructor" },
+						cjsxAttribProperty = { link = "@tag.attribute" },
+						MatchParenCur = { fg = colors.yellow, style = { "bold" } },
+						MatchParen = { bg = colors.base, fg = colors.yellow, style = { "bold" } },
+						LspInlayHint = { link = "Comment" },
+					}
+				end,
 				integrations = {
 					cmp = true,
 					gitsigns = true,

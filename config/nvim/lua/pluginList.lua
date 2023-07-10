@@ -642,15 +642,9 @@ local plugins = {
 	},
 	{
 		"kosayoda/nvim-lightbulb",
-		config = function()
-			local group = vim.api.nvim_create_augroup("Lightbulb", {
-				clear = false,
-			})
-			vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-				callback = require("nvim-lightbulb").update_lightbulb,
-				group = group,
-			})
-		end,
+		opts = {
+			autocmd = { enabled = true },
+		},
 	},
 	{
 		"sindrets/diffview.nvim",
