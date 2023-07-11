@@ -640,12 +640,12 @@ local plugins = {
 			require("osc52").setup()
 		end,
 	},
-	{
+	--[[ {
 		"kosayoda/nvim-lightbulb",
 		opts = {
 			autocmd = { enabled = true },
 		},
-	},
+	}, ]]
 	{
 		"sindrets/diffview.nvim",
 		keys = {

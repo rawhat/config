@@ -38,8 +38,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	group = options,
 })
 
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-
 -- for toggle term, reuse the same term
 vim.opt.hidden = true
 

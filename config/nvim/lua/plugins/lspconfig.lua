@@ -362,6 +362,7 @@ require("typescript-tools").setup({
 		on_attach_inlay_hints(client, bufnr)
 	end,
 	settings = {
+		tsserver_path = "./node_modules.bak/typescript/bin/tsserver",
 		tsserver_file_preferences = {
 			includeInlayEnumMemberValueHints = true,
 			includeInlayFunctionLikeReturnTypeHints = true,
