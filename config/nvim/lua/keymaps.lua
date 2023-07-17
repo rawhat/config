@@ -32,6 +32,16 @@ register({
 	["<leader>is"] = { "<cmd>Inspect<cr>", "Display highlight information" },
 })
 
+-- visual copy persist cursor location
+register({
+	y = { "ygv<esc>", "Copy block and keep cursor location" },
+}, { mode = { "v" } })
+
+register({
+	H = { "^", "Start of line" },
+	L = { "$", "End of line" },
+})
+
 -- quickfix
 register({
 	q = {
