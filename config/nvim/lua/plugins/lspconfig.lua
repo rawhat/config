@@ -21,7 +21,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach_inlay_hints = function(client, bufnr)
 	if client.supports_method("textDocument/inlayHint") then
-		vim.lsp.buf.inlay_hint(bufnr, true)
+		vim.lsp.inlay_hint(bufnr, true)
 	end
 end
 

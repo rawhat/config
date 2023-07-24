@@ -78,7 +78,7 @@ register({
 	ih = {
 		function()
 			local current_buf = vim.api.nvim_get_current_buf()
-			vim.lsp.buf.inlay_hint(current_buf, nil)
+			vim.lsp.inlay_hint(current_buf, nil)
 		end,
 		"Toggle inlay hints",
 	},

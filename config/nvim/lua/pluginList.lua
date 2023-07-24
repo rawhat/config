@@ -142,7 +142,7 @@ local plugins = {
 				function()
 					require("telescope.builtin").live_grep({
 						search_dirs = { vim.fn.stdpath("config") },
-						additional_args = { "-g" },
+						-- additional_args = { "-g" },
 					})
 				end,
 			},
@@ -640,12 +640,12 @@ local plugins = {
 			require("osc52").setup()
 		end,
 	},
-	--[[ {
+	{
 		"kosayoda/nvim-lightbulb",
 		opts = {
 			autocmd = { enabled = true },
 		},
-	}, ]]
+	},
 	{
 		"sindrets/diffview.nvim",
 		keys = {
