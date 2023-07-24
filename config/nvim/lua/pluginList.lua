@@ -768,6 +768,14 @@ local plugins = {
 		"Aasim-A/scrollEOF.nvim",
 		opts = {},
 	},
+	{
+		"axkirillov/hbac.nvim",
+		opts = {},
+	},
+	{
+		"gbprod/stay-in-place.nvim",
+		opts = {},
+	},
 }
 
 require("lazy").setup(plugins, {
