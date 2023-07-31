@@ -303,7 +303,7 @@ require("lspconfig").java_language_server.setup({
 require("deno-nvim").setup({
 	server = {
 		on_attach = function(client, bufnr)
-			local active_clients = vim.lsp.get_active_clients()
+			local active_clients = vim.lsp.get_clients()
 			for _, running_client in pairs(active_clients) do
 				if running_client.name == "tsserver" then
 					client.stop()
@@ -353,7 +353,7 @@ require("typescript-tools").setup({
 		debounce_text_changes = 150,
 	},
 	on_attach = function(client, bufnr)
-		local active_clients = vim.lsp.get_active_clients()
+		local active_clients = vim.lsp.get_clients()
 		for _, running_client in pairs(active_clients) do
 			if running_client.name == "denols" then
 				client.stop()

@@ -129,6 +129,7 @@ M.themes = {
 				end,
 				integrations = {
 					cmp = true,
+					flash = true,
 					gitsigns = true,
 					hop = true,
 					indent_blankline = {
@@ -143,6 +144,9 @@ M.themes = {
 							hints = { "undercurl" },
 							warnings = { "undercurl" },
 							information = { "undercurl" },
+						},
+						inlay_hints = {
+							background = true,
 						},
 					},
 					noice = true,
