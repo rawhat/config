@@ -224,7 +224,7 @@ local plugins = {
 			},
 			{
 				"S",
-				mode = { "o", "x" },
+				mode = { "n", "o", "x" },
 				desc = "leapin around the trees",
 				function()
 					require("flash").treesitter()
