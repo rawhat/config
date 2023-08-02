@@ -1,7 +1,4 @@
 local lspconfig = require("lspconfig")
-local null = require("null-ls")
-local path = require("mason-core.path")
-local wk = require("which-key")
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
@@ -13,8 +10,6 @@ lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup
 		config.settings = {}
 	end
 end)
-
-local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -128,168 +123,12 @@ require("mason-lspconfig").setup({
 	},
 })
 
-local format_group = vim.api.nvim_create_augroup("LspFormatting", {})
-
-local format_filter = function(client)
-	return not vim.tbl_contains({ "tsserver", "lua_ls", "pyright" }, client.name)
-end
-
-local on_attach_format = function(client, bufnr)
-	if client.supports_method("textDocument/formatting") then
-		vim.api.nvim_clear_autocmds({ group = format_group, buffer = bufnr })
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			group = format_group,
-			buffer = bufnr,
-			callback = function()
-				vim.lsp.buf.format({
-					bufnr = bufnr,
-					filter = format_filter,
-				})
-			end,
-		})
-		wk.register({
-			["<leader>f"] = {
-				function()
-					vim.lsp.buf.format({
-						bufnr = bufnr,
-						filter = format_filter,
-					})
-				end,
-				"LSP Format",
-			},
-		})
-	end
-end
-
-local helpers = require("null-ls.helpers")
-local pyfmt = {
-	method = null.methods.FORMATTING,
-	filetypes = { "python" },
-	generator = helpers.formatter_factory({
-		args = { "run", "//tools/pyfmt" },
-		command = "bazel",
-		timeout = 5000,
-		to_stdin = true,
-	}),
-	condition = function(utils)
-		return utils.root_has_file({ "WORKSPACE" })
-	end,
-}
-local java_format = {
-	method = null.methods.FORMATTING,
-	filetypes = { "java" },
-	generator = helpers.formatter_factory({
-		args = { "run", "//tools/java-format", "--", "--stdin" },
-		command = "bazel",
-		timeout = 5000,
-		to_stdin = true,
-	}),
-}
-local coffeelint = {
-	method = null.methods.DIAGNOSTICS,
-	filetypes = { "coffee" },
-	generator = helpers.generator_factory({
-		args = { "-s", "--reporter", "raw", "--nocolor", "--quiet" },
-		command = "coffeelint",
-		format = "json",
-		from_stderr = true,
-		to_stdin = true,
-		on_output = function(params)
-			local matcher = helpers.diagnostics.from_pattern(
-				"%[stdin%]:(%d+):(%d+):[%s*]error: (.-)\n.*",
-				{ "row", "col", "message" }
-			)
-			local output = params.output.stdin or {}
-			local diagnostics = {}
-			for _, diagnostic in pairs(output) do
-				local parsed = matcher(diagnostic.message, {})
-				if parsed ~= nil then
-					local value = {
-						row = tonumber(parsed.row),
-						col = tonumber(parsed.col),
-						message = parsed.message,
-					}
-					table.insert(diagnostics, value)
-				end
-			end
-			return diagnostics
-		end,
-	}),
-}
-local prettify = {
-	method = null.methods.FORMATTING,
-	filetypes = { "javascript", "typescript", "javascriptreact", "typescriptreact", "javascript.jsx", "typescript.tsx" },
-	generator = helpers.formatter_factory({
-		args = { "run", "//tools/prettier", "--", "--stdin-filepath", "$FILENAME" },
-		command = "bazel",
-		timeout = 5000,
-		to_stdin = true,
-	}),
-	condition = function(utils)
-		return utils.root_has_file({ "WORKSPACE" })
-	end,
-}
-
-null.setup({
-	sources = {
-		null.builtins.code_actions.eslint_d.with({
-			command = path.concat({ mason_data_path, "eslint_d" }),
-			condition = function(utils)
-				return utils.root_has_file({ ".eslintrc*" })
-			end,
-		}),
-
-		null.builtins.diagnostics.buildifier.with({
-			command = path.concat({ mason_data_path, "buildifier" }),
-		}),
-		coffeelint,
-		null.builtins.diagnostics.credo,
-		null.builtins.diagnostics.eslint_d.with({
-			command = path.concat({ mason_data_path, "eslint_d" }),
-			condition = function(utils)
-				return utils.root_has_file({ ".eslintrc*" })
-			end,
-		}),
-		null.builtins.diagnostics.fish,
-		null.builtins.diagnostics.ruff.with({
-			command = path.concat({ mason_data_path, "ruff" }),
-		}),
-
-		null.builtins.formatting.black.with({
-			command = path.concat({ mason_data_path, "black" }),
-			condition = function(utils)
-				return not utils.root_has_file({ "WORKSPACE" })
-			end,
-		}),
-		null.builtins.formatting.buildifier.with({
-			command = path.concat({ mason_data_path, "buildifier" }),
-		}),
-		null.builtins.formatting.fish_indent,
-		java_format,
-		null.builtins.formatting.jq,
-		null.builtins.formatting.just,
-		null.builtins.formatting.prettier.with({
-			command = path.concat({ mason_data_path, "prettier" }),
-			condition = function(utils)
-				return not utils.root_has_file({ "WORKSPACE" })
-			end,
-		}),
-		prettify,
-		pyfmt,
-		null.builtins.formatting.stylua.with({
-			command = path.concat({ mason_data_path, "stylua" }),
-		}),
-	},
-	on_attach = on_attach_format,
-})
-
 for server, config in pairs(lsp_configs) do
 	local on_attach = config.on_attach
 	config.on_attach = function(client, bufnr)
 		if on_attach ~= nil then
 			on_attach(client, bufnr)
 		end
-		on_attach_format(client, bufnr)
 	end
 	config.capabilities = capabilities
 	require("lspconfig")[server].setup(config)
@@ -302,14 +141,13 @@ require("lspconfig").java_language_server.setup({
 
 require("deno-nvim").setup({
 	server = {
-		on_attach = function(client, bufnr)
+		on_attach = function(client)
 			local active_clients = vim.lsp.get_clients()
 			for _, running_client in pairs(active_clients) do
 				if running_client.name == "tsserver" then
 					client.stop()
 				end
 			end
-			on_attach_format(client, bufnr)
 		end,
 		capabilities = capabilities,
 		root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "denonvim.tag"),
@@ -326,7 +164,6 @@ require("rust-tools").setup({
 		capabilities = capabilities,
 		on_attach = function(client, buf_nr)
 			on_attach_inlay_hints(client, buf_nr)
-			on_attach_format(client, buf_nr)
 		end,
 		settings = {
 			["rust-analyzer"] = {

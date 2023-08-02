@@ -260,7 +260,6 @@ local plugins = {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			"jose-elias-alvarez/null-ls.nvim",
 			"williamboman/mason.nvim",
 			"simrat39/rust-tools.nvim",
 			"pmizio/typescript-tools.nvim",
@@ -781,6 +780,18 @@ local plugins = {
 	{
 		"gbprod/stay-in-place.nvim",
 		opts = {},
+	},
+	{
+		"mfussenegger/nvim-lint",
+		config = function()
+			require("plugins.lint")
+		end,
+	},
+	{
+		"elentok/format-on-save.nvim",
+		config = function()
+			require("plugins.format")
+		end,
 	},
 }
 
