@@ -88,7 +88,6 @@ linters.buildifier = {
 			})
 		end
 
-		print(vim.inspect(diagnostics))
 		return diagnostics
 	end,
 }

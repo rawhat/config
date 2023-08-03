@@ -98,5 +98,6 @@ format_on_save.setup({
 		".local/share/nvim/lazy",
 		"/bazel-*/",
 	},
+	stderr_loglevel = vim.log.levels.OFF,
 	formatter_by_ft = formatters_by_ft,
 })
