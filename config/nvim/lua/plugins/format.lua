@@ -36,7 +36,7 @@ local buildifier = formatters.shell({ cmd = { path.concat({ mason_data_path, "bu
 
 local prettify = formatters.shell({ cmd = { "bazel", "run", "//tools/prettier", "--", "--stdin-filepath", "%" } })
 
-local prettierd = formatters.shell({ cmd = { path.concat({ mason_data_path, "prettierd", "%" }) } })
+local prettierd = formatters.shell({ cmd = { path.concat({ mason_data_path, "prettierd" }), "%" } })
 
 local javascript_format = function()
 	if root_has_file({ "WORKSPACE" }) then
