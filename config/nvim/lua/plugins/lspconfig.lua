@@ -21,7 +21,9 @@ local on_attach_inlay_hints = function(client, bufnr)
 end
 
 local lsp_configs = {
+	bufls = {},
 	clangd = {
+		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
 		on_attach = on_attach_inlay_hints,
 	},
 	clojure_lsp = {},
