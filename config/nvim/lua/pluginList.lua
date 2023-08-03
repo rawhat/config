@@ -206,7 +206,11 @@ local plugins = {
 	-- (--'happy times'--)
 	{
 		"kylechui/nvim-surround",
-		opts = {},
+		opts = {
+			keymaps = {
+				visual = "m",
+			},
+		},
 	},
 	-- highlight/jump to words
 	{
