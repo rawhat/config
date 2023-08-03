@@ -14,15 +14,20 @@ local has_words_before = function()
 end
 
 cmp.setup({
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp", priority = 8 },
+		{ name = "luasnip", priority = 7 },
+		{ name = "buffer", priority = 6 },
+	}),
 
 	sorting = {
 		comparators = {
-			cmp.config.compare.sort_text,
+			cmp.config.compare.locality,
+			cmp.config.compare.recently_used,
+			cmp.config.compare.score,
+			cmp.config.compare.offset,
+			cmp.config.compare.order,
+			--[[ cmp.config.compare.sort_text,
 			cmp.config.compare.offset,
 			cmp.config.compare.exact,
 			cmp.config.compare.score,
@@ -41,7 +46,7 @@ cmp.setup({
 
 			cmp.config.compare.kind,
 			cmp.config.compare.length,
-			cmp.config.compare.order,
+			cmp.config.compare.order, ]]
 		},
 	},
 
@@ -78,14 +83,6 @@ cmp.setup({
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 	}),
 
-	sources = cmp.config.sources({
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		-- { name = "nvim_lsp_signature_help" },
-	}, {
-		{ name = "buffer" },
-	}),
-
 	formatting = {
 		format = lspkind.cmp_format({
 			mode = "symbol",
@@ -101,6 +98,12 @@ cmp.setup({
 				return vim_item
 			end,
 		}),
+	},
+
+	snippet = {
+		expand = function(args)
+			luasnip.lsp_expand(args.body)
+		end,
 	},
 })
 
