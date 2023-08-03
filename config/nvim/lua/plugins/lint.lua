@@ -37,61 +37,7 @@ linters.coffeelint = {
 	end,
 }
 
-linters.buildifier = {
-	cmd = path.concat({ mason_data_path, "buildifier" }),
-	stdin = true,
-	args = {
-		"-mode=check",
-		"-lint=warn",
-		"-format=json",
-		function()
-			return "-path=" .. vim.fn.expand("%:.")
-		end,
-	},
-	parser = function(output, bufnr)
-		local filename = vim.api.nvim_buf_get_name(bufnr)
-		filename = vim.fn.fnamemodify(filename, ":.")
-		local warnings = {}
-		local errors = {}
-		local encoded = vim.json.decode(output)
-		for _, entry in pairs(encoded.files or {}) do
-			if entry.filename == filename then
-				warnings = entry.warnings or {}
-				errors = errors.errors or {}
-			end
-		end
-		local diagnostics = {}
-		for _, warning in pairs(warnings) do
-			table.insert(diagnostics, {
-				bufnr = bufnr,
-				lnum = warning.start.line - 1,
-				end_lnum = warning["end"].line - 1,
-				col = warning.start.column - 1,
-				end_col = warning["end"].column - 1,
-				severity = vim.diagnostic.severity.WARNING,
-				message = warning.message,
-				source = "buildifier",
-				code = warning.category,
-			})
-		end
-		for _, error in pairs(errors) do
-			table.insert(diagnostics, {
-				bufnr = bufnr,
-				lnum = error.start.line - 1,
-				end_lnum = error["end"].line - 1,
-				col = error.start.column - 1,
-				end_col = error["end"].column - 1,
-				severity = vim.diagnostic.severity.ERROR,
-				message = error.message,
-				source = "buildifier",
-				code = error.category,
-			})
-		end
-
-		return diagnostics
-	end,
-}
-
+linters.buildifier.command = path.concat({ mason_data_path, "buildifier" })
 linters.eslint_d.command = path.concat({ mason_data_path, "eslint_d" })
 linters.ruff.command = path.concat({ mason_data_path, "ruff" })
 
