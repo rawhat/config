@@ -330,6 +330,9 @@ local plugins = {
 			"windwp/nvim-ts-autotag",
 		},
 		run = ":TSUpdate all",
+		keys = {
+			{ "<leader>ts", desc = "TS Update", "<cmd>TSUpdate all<cr>" },
+		},
 		config = function()
 			require("plugins.treesitter")
 		end,
