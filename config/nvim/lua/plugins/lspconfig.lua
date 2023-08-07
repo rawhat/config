@@ -1,4 +1,5 @@
 local lspconfig = require("lspconfig")
+local configs = require("lspconfig.configs")
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
@@ -20,6 +21,16 @@ local on_attach_inlay_hints = function(client, bufnr)
 	end
 end
 
+configs.erlang_language_platform = {
+	default_config = {
+		cmd = { "elp", "server" },
+		filetypes = { "erlang" },
+		root_dir = function(fname)
+			return vim.uv.cwd()
+		end,
+	},
+}
+
 local lsp_configs = {
 	bufls = {},
 	clangd = {
@@ -31,6 +42,7 @@ local lsp_configs = {
 	elixirls = {
 		filetypes = { "elixir", "leex", "heex", "eex" },
 	},
+	-- erlang_language_platform = {},
 	erlangls = {},
 	fsautocomplete = {
 		on_attach = on_attach_inlay_hints,
