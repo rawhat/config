@@ -449,36 +449,6 @@ local plugins = {
 		end,
 	},
 	{
-		"simrat39/symbols-outline.nvim",
-		keys = {
-			{ "<leader>so", desc = "Toggle symbols outline", "<cmd>SymbolsOutline<cr>" },
-		},
-		config = function()
-			-- TODO:  this is temporary, can remove if it ever gets fixed
-			-- https://github.com/simrat39/symbols-outline.nvim/issues/220
-			require("symbols-outline").setup({
-				keymaps = {
-					goto_location = {},
-				},
-			})
-			vim.api.nvim_create_autocmd("FileType", {
-				pattern = "Outline",
-				callback = function()
-					vim.keymap.set("n", "<CR>", function()
-						local outline = require("symbols-outline")
-						local node = outline._current_node()
-
-						vim.api.nvim_win_set_cursor(outline.state.code_win, { node.line + 1, node.character })
-
-						vim.schedule(function()
-							vim.fn.win_gotoid(outline.state.code_win)
-						end)
-					end, { buffer = true })
-				end,
-			})
-		end,
-	},
-	{
 		"folke/todo-comments.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
@@ -799,6 +769,29 @@ local plugins = {
 		config = function()
 			require("plugins.format")
 		end,
+	},
+	{
+		"nvimdev/lspsaga.nvim",
+		event = { "BufEnter" },
+		opts = {
+			symbol_in_winbar = {
+				enable = false,
+			},
+			outline = {
+				keys = {
+					jump = "<cr>",
+				},
+			},
+			beacon = {
+				enable = false,
+			},
+		},
+		keys = {
+			{ "<leader>pf", "<cmd>Lspsaga finder<cr>", desc = "Open Lspsaga finder" },
+			{ "<leader>hd", "<cmd>Lspsaga hover_doc<cr>", desc = "Open Lspsaga hover doc" },
+			{ "<leader>pd", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek definition" },
+			{ "<leader>so", "<cmd>Lspsaga outline<cr>", desc = "Open LSP symbol outline" },
+		},
 	},
 }
 

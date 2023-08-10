@@ -36,6 +36,9 @@ set __fish_git_prompt_char_untrackedfiles '?'
 set __fish_git_prompt_char_upstream_ahead '⇡ '
 set __fish_git_prompt_char_upstream_behind '⇣ '
 
+function fish_right_prompt -d "Write out the right prompt"
+end
+
 function fish_prompt -d "Write out the prompt"
   set laststatus $status
 
