@@ -64,6 +64,9 @@ require("lint").linters_by_ft = {
 
 vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
 	callback = function()
+		if require("diffview.lib").get_current_view() then
+			return
+		end
 		require("lint").try_lint()
 	end,
 })
