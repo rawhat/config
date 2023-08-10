@@ -9,6 +9,10 @@ linters.coffeelint = {
 	args = { "-s", "--reporter", "raw", "--nocolor", "--quiet" },
 	ignore_exitcode = true,
 	parser = function(output, bufnr)
+		if output == "" then
+			return {}
+		end
+
 		local decoded = vim.json.decode(output)
 
 		local matcher = "%[stdin%]:(%d+):(%d+):[%s*]error: (.-)\n.*"

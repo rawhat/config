@@ -15,6 +15,10 @@ vim.opt.showmatch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+-- split options
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 vim.opt.conceallevel = 2
 
 vim.opt.expandtab = true
@@ -40,11 +44,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 -- for toggle term, reuse the same term
 vim.opt.hidden = true
-
--- These are set for CoC
-vim.g.hidden = true
-vim.g.nobackup = true
-vim.g.nowritebackup = true
 
 vim.opt.updatetime = 300
 
@@ -119,7 +118,7 @@ vim.g.markdown_fenced_languages = {
 	"java",
 	"rust",
 	"scala",
-	-- "elixir",
+	"elixir",
 	"bash=sh",
 }
 
