@@ -6,8 +6,6 @@ source $OMF_PATH/init.fish
 
 fish_add_path /usr/bin/vendor_perl
 
-source $HOME/.asdf/asdf.fish
-
 set -x BAT_THEME ansi
 set -x AWS_REGION us-east-1
 set -x EDITOR (which nvim)
@@ -20,6 +18,8 @@ set fish_user_paths \
   $HOME/.local/bin \
   $HOME/.yarn/bin \
   $HOME/bin
+
+source $HOME/.asdf/asdf.fish
 
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showuntrackedfiles yes
