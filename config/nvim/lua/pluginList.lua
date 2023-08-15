@@ -151,10 +151,6 @@ local plugins = {
 			require("plugins.telescope")
 		end,
 	},
-	-- search!
-	"mileszs/ack.vim",
-	-- removes trailing whitespace
-	"mcauley-penney/tidy.nvim",
 	-- ez commenting
 	{
 		"numToStr/Comment.nvim",
@@ -246,7 +242,7 @@ local plugins = {
 	},
 	-- highlights hex colors rgb(200, 200, 200)
 	{
-		"norcalli/nvim-colorizer.lua",
+		"NvChad/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
 		end,
@@ -279,7 +275,6 @@ local plugins = {
 			require("plugins.snip")
 		end,
 	},
-	"rafamadriz/friendly-snippets",
 	{
 		"hrsh7th/nvim-cmp",
 		dependencies = {
@@ -350,13 +345,6 @@ local plugins = {
 			require("plugins.autopairs")
 		end,
 	},
-	-- markdown preview
-	{
-		"ellisonleao/glow.nvim",
-		branch = "main",
-		run = ":GlowInstall",
-		ft = "markdown",
-	},
 	-- show pictograms on completion dropdown
 	"onsails/lspkind.nvim",
 	-- which key???
@@ -391,8 +379,6 @@ local plugins = {
 			})
 		end,
 	},
-	-- virtual text types (only in some languages)
-	"jubnzv/virtual-types.nvim",
 	{
 		"yamatsum/nvim-cursorline",
 		config = function()

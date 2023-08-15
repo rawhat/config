@@ -18,6 +18,7 @@ treesitter.setup({
 	autopairs = { enable = true },
 	autotag = {
 		enable = true,
+		enable_close_on_slash = false,
 	},
 	indent = {
 		enable = true,

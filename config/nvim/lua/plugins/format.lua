@@ -100,4 +100,7 @@ format_on_save.setup({
 	},
 	stderr_loglevel = vim.log.levels.OFF,
 	formatter_by_ft = formatters_by_ft,
+	fallback_formatter = {
+		formatters.remove_trailing_whitespace,
+	},
 })
