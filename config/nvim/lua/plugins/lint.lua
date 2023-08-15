@@ -27,10 +27,13 @@ linters.coffeelint = {
 				captures[groups[i]] = match
 			end
 
+			local lnum = (tonumber(captures.lnum) or 1) - 1
+			local col = (tonumber(captures.col) or 1) - 1
+
 			table.insert(diagnostics, {
 				bufnr = bufnr,
-				lnum = tonumber(captures.lnum) - 1,
-				col = tonumber(captures.col) - 1,
+				lnum = lnum,
+				col = col,
 				message = captures.message,
 				severity = vim.diagnostic.severity.ERROR,
 				source = "coffeelint",
