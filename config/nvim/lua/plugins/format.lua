@@ -32,7 +32,12 @@ local pyfmt = formatters.shell({ cmd = { "bazel", "run", "//tools/pyfmt" } })
 
 local javafmt = formatters.shell({ cmd = { "bazel", "run", "//tools/java-format", "--", "--stdin" } })
 
-local buildifier = formatters.shell({ cmd = { path.concat({ mason_data_path, "buildifier" }), "-path=%" } })
+local buildifier = formatters.shell({
+	cmd = function()
+		local filepath = "-path=" .. vim.fn.expand("%")
+		return { path.concat({ mason_data_path, "buildifier" }), filepath }
+	end,
+})
 
 local prettify = formatters.shell({ cmd = { "bazel", "run", "//tools/prettier", "--", "--stdin-filepath", "%" } })
 
