@@ -111,6 +111,7 @@ local lsp_configs = {
 			python = {
 				analysis = {
 					diagnosticMode = "openFilesOnly",
+					extra_paths = { vim.uv.cwd() },
 				},
 			},
 		},
