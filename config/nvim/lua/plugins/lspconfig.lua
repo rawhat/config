@@ -1,9 +1,10 @@
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
+local utils = require("utils")
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-	local cwd = vim.uv.cwd()
+	local cwd = utils.cwd()
 	if config.name == "tsserver" and vim.fn.filereadable(cwd .. "/deno.jsonc") == 1 then
 		config.single_file_support = false
 	end
@@ -26,7 +27,7 @@ configs.erlang_language_platform = {
 		cmd = { "elp", "server" },
 		filetypes = { "erlang" },
 		root_dir = function(fname)
-			return vim.uv.cwd()
+			return utils.cwd()
 		end,
 	},
 }
@@ -83,7 +84,7 @@ local lsp_configs = {
 		on_attach = on_attach_inlay_hints,
 		on_init = function(client)
 			local path = client.workspace_folders[1].name
-			if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+			if not utils.fs_stat(path .. "/.luarc.json") and not utils.fs_stat(path .. "/.luarc.jsonc") then
 				client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 					runtime = {
 						version = "LuaJIT",
@@ -111,7 +112,7 @@ local lsp_configs = {
 			python = {
 				analysis = {
 					diagnosticMode = "openFilesOnly",
-					extra_paths = { vim.uv.cwd() },
+					extra_paths = { utils.cwd() },
 				},
 			},
 		},

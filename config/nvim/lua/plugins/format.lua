@@ -1,111 +1,61 @@
-local format_on_save = require("format-on-save")
-local formatters = require("format-on-save.formatters")
-
 local path = require("mason-core.path")
 local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
-local is_windows = vim.uv.os_uname().version:match("Windows")
-local path_separator = is_windows and "\\" or "/"
+local javascript_format = { "prettify", "prettierd" }
 
-local path_join = function(...)
-	return table.concat(vim.tbl_flatten({ ... }), path_separator):gsub(path_separator .. "+", path_separator)
-end
+local jq = require("conform.formatters.jq")
+jq.command = path.concat({ mason_data_path, "jq" })
+local prettierd = require("conform.formatters.prettierd")
+prettierd.command = path.concat({ mason_data_path, "prettierd" })
 
-local path_exists = function(filename)
-	local stat = vim.uv.fs_stat(filename)
-	return stat ~= nil
-end
+local util = require("conform.util")
 
-local root_has_file = function(...)
-	-- TODO:  is this good enough?
-	local root = vim.uv.cwd()
-	local patterns = vim.tbl_flatten({ ... })
-	for _, name in ipairs(patterns) do
-		if path_exists(path_join(root, name)) then
-			return true
-		end
-	end
-	return false
-end
-
-local pyfmt = formatters.shell({ cmd = { "bazel", "run", "//tools/pyfmt" } })
-
-local javafmt = formatters.shell({ cmd = { "bazel", "run", "//tools/java-format", "--", "--stdin" } })
-
-local buildifier = formatters.shell({
-	cmd = function()
-		local filepath = "-path=" .. vim.fn.expand("%")
-		return { path.concat({ mason_data_path, "buildifier" }), filepath }
-	end,
-})
-
-local prettify = formatters.shell({ cmd = { "bazel", "run", "//tools/prettier", "--", "--stdin-filepath", "%" } })
-
-local prettierd = formatters.shell({ cmd = { path.concat({ mason_data_path, "prettierd" }), "%" } })
-
-local javascript_format = function()
-	if root_has_file({ "WORKSPACE" }) then
-		return prettify
-	else
-		return prettierd
-	end
-end
-
-local java_format = function()
-	if root_has_file({ "WORKSPACE" }) then
-		return javafmt
-	else
-		return formatters.lsp
-	end
-end
-
-local formatters_by_ft = {
-	bzl = buildifier,
-	c = formatters.lsp,
-	clojure = formatters.lsp,
-	cpp = formatters.lsp,
-	crystal = formatters.lsp,
-	eex = formatters.lsp,
-	elixir = formatters.lsp,
-	erlang = formatters.lsp,
-	fsharp = formatters.lsp,
-	gleam = formatters.lsp,
-	go = formatters.lsp,
-	heex = formatters.lsp,
-	html = formatters.lsp,
-	java = java_format,
-	javascript = javascript_format,
-	javascriptreact = javascript_format,
-	json = formatters.shell({ cmd = { path.concat({ mason_data_path, "jq" }) } }),
-	jsonnet = formatters.lsp,
-	just = formatters.shell({ cmd = { "just", "--fmt", "--unstable", "-f", "%" } }),
-	leex = formatters.lsp,
-	lua = formatters.stylua,
-	ocaml = formatters.lsp,
-	python = function()
-		if root_has_file({ "WORKSPACE" }) then
-			return pyfmt
-		else
-			return formatters.black
-		end
-	end,
-	ruby = formatters.lsp,
-	sql = formatters.lsp,
-	toml = formatters.lsp,
-	typescript = javascript_format,
-	typescriptreact = javascript_format,
-	zig = formatters.lsp,
-}
-
-format_on_save.setup({
-	exclude_path_patterns = {
-		"/node_modules/",
-		".local/share/nvim/lazy",
-		"/bazel-*/",
+require("conform").setup({
+	formatters_by_ft = {
+		bzl = { "buildifier" },
+		java = { "javafmt" },
+		javascript = javascript_format,
+		javascriptreact = javascript_format,
+		json = { "jq" },
+		just = { "just" },
+		lua = { "stylua" },
+		python = { "pyfmt", "black" },
+		typescript = javascript_format,
+		typescriptreact = javascript_format,
 	},
-	stderr_loglevel = vim.log.levels.OFF,
-	formatter_by_ft = formatters_by_ft,
-	fallback_formatter = {
-		formatters.remove_trailing_whitespace,
+	format_on_save = {
+		lsp_fallback = true,
+	},
+	formatters = {
+		buildifier = {
+			command = path.concat({ mason_data_path, "buildifier" }),
+			args = { "-path=$FILENAME" },
+		},
+		javafmt = {
+			command = "bazel",
+			args = { "run", "//tools/java-format", "--", "--stdin" },
+			stdin = true,
+			cwd = util.root_file("WORKSPACE"),
+			require_cwd = true,
+		},
+		just = {
+			command = "just",
+			args = { "--fmt", "--unstable", "-f", "$FILENAME" },
+			stdin = true,
+		},
+		prettify = {
+			command = "bazel",
+			args = { "run", "//tools/prettier", "--", "--stdin-filename", "$FILENAME" },
+			stdin = true,
+			cwd = util.root_file("WORKSPACE"),
+			require_cwd = true,
+		},
+		pyfmt = {
+			command = "bazel",
+			args = { "run", "//tools/pyfmt" },
+			stdin = true,
+			cwd = util.root_file("WORKSPACE"),
+			require_cwd = true,
+		},
 	},
 })

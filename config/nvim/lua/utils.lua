@@ -1,13 +1,24 @@
 local M = {}
 
-local notify = require("notify")
+local has = function(version)
+	return vim.fn.has(version) == 1
+end
+
+M.cwd = function()
+	if has("nvim-0.10") then
+		return vim.uv.cwd()
+	else
+		return vim.loop.cwd()
+	end
+end
 
 M.gitiles = function()
-	local cwd = vim.uv.cwd()
+	local notify = require("notify")
+	local cwd = M.cwd()
 	if cwd:find("^/home/alex/vistar/vistar") ~= nil then
 		local row = vim.api.nvim_win_get_cursor(0)[1]
 		local file = vim.api.nvim_buf_get_name(0)
-		local relative_path = string.gsub(file, vim.uv.cwd(), "")
+		local relative_path = string.gsub(file, M.cwd(), "")
 
 		local gitiles_url = "https://gerrit.vistarmedia.com/plugins/gitiles/vistar/+/refs/heads/develop"
 
@@ -17,6 +28,22 @@ M.gitiles = function()
 		notify("Gitiles URL copied to clipboard\n\n" .. with_row, "info")
 	else
 		notify("Can only be called from vistar root", "error")
+	end
+end
+
+M.fs_stat = function(...)
+	if has("nvim-0.10") then
+		return vim.uv.fs_stat(...)
+	else
+		return vim.loop.fs_stat(...)
+	end
+end
+
+M.get_lsp_clients = function(...)
+	if has("nvim-0.10") then
+		return vim.lsp.get_clients(...)
+	else
+		return vim.lsp.buf_get_clients(...)
 	end
 end
 

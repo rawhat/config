@@ -1,5 +1,6 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
+local utils = require("utils")
+if not utils.fs_stat(lazypath) then
 	vim.fn.system({
 		"git",
 		"clone",
@@ -751,12 +752,6 @@ local plugins = {
 		end,
 	},
 	{
-		"elentok/format-on-save.nvim",
-		config = function()
-			require("plugins.format")
-		end,
-	},
-	{
 		"nvimdev/lspsaga.nvim",
 		event = { "BufEnter" },
 		opts = {
@@ -778,6 +773,12 @@ local plugins = {
 			{ "<leader>pd", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek definition" },
 			{ "<leader>so", "<cmd>Lspsaga outline<cr>", desc = "Open LSP symbol outline" },
 		},
+	},
+	{
+		"stevearc/conform.nvim",
+		config = function()
+			require("plugins.format")
+		end,
 	},
 }
 

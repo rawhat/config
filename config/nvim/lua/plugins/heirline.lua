@@ -99,7 +99,7 @@ local LSP = {
 		self.filetype = vim.api.nvim_buf_get_option(0, "filetype")
 	end,
 	condition = function()
-		for _, _ in pairs(vim.lsp.get_clients()) do
+		for _, _ in pairs(vim.lsp.buf_get_clients()) do
 			return true
 		end
 		return false
@@ -107,7 +107,7 @@ local LSP = {
 	hl = { bg = "base", fg = "text" },
 	utils.surround({ " ", " " }, nil, {
 		provider = function(self)
-			local clients = vim.lsp.get_clients()
+			local clients = vim.lsp.buf_get_clients()
 			local client_names = {}
 			for _, client in ipairs(clients) do
 				local filetypes = client.config.filetypes
