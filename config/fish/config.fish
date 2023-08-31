@@ -8,8 +8,6 @@ fish_add_path /usr/bin/vendor_perl
 
 set -x BAT_THEME ansi
 set -x AWS_REGION us-east-1
-set -x EDITOR (which nvim)
-set -x SUDO_EDITOR (which nvim)
 
 set fish_user_paths \
   $HOME/.bin \
@@ -79,6 +77,8 @@ function code
 end
 
 set NVIM_BIN (which nvim)
+set -x EDITOR $NVIM_BIN
+set -x SUDO_EDITOR $NVIM_BIN
 
 function nvim
     TERM=wezterm $NVIM_BIN $argv
