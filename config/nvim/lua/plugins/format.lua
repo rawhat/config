@@ -1,3 +1,4 @@
+local conform = require("conform")
 local path = require("mason-core.path")
 local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
@@ -10,7 +11,7 @@ prettierd.command = path.concat({ mason_data_path, "prettierd" })
 
 local util = require("conform.util")
 
-require("conform").setup({
+conform.setup({
 	formatters_by_ft = {
 		bzl = { "buildifier" },
 		java = { "javafmt" },
@@ -59,3 +60,24 @@ require("conform").setup({
 		},
 	},
 })
+
+--[[ local bazel_formatters = { "javafmt", "prettify", "pyfmt" }
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*",
+	callback = function(args)
+		local formatters = conform.list_formatters(args.buf)
+		local opts = {
+			async = true,
+			lsp_fallback = true,
+			buf = args.buf,
+		}
+		for _, formatter in pairs(formatters) do
+			if vim.tbl_contains(bazel_formatters, formatter) then
+          opts.async = false
+			end
+		end
+
+      conform.format(opts)
+	end,
+}) ]]
