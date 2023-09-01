@@ -60,24 +60,3 @@ conform.setup({
 		},
 	},
 })
-
---[[ local bazel_formatters = { "javafmt", "prettify", "pyfmt" }
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function(args)
-		local formatters = conform.list_formatters(args.buf)
-		local opts = {
-			async = true,
-			lsp_fallback = true,
-			buf = args.buf,
-		}
-		for _, formatter in pairs(formatters) do
-			if vim.tbl_contains(bazel_formatters, formatter) then
-          opts.async = false
-			end
-		end
-
-      conform.format(opts)
-	end,
-}) ]]
