@@ -60,3 +60,14 @@ conform.setup({
 		},
 	},
 })
+
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+	pattern = "*",
+	callback = function(args)
+		local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, true)
+		local updated = vim.tbl_map(function(line)
+			return line:gsub("%s*$", "")
+		end, lines)
+		vim.api.nvim_buf_set_lines(args.buf, 0, -1, true, updated)
+	end,
+})
