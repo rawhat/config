@@ -324,6 +324,7 @@ local plugins = {
 			"nvim-treesitter/nvim-treesitter-context",
 			"nvim-treesitter/nvim-treesitter-textobjects",
 			"windwp/nvim-ts-autotag",
+			"Rrethy/nvim-treesitter-endwise",
 		},
 		run = ":TSUpdate all",
 		keys = {
@@ -338,12 +339,6 @@ local plugins = {
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		config = function()
 			vim.api.nvim_set_var("matchup_matchparen_offscreen", { method = "popup" })
-		end,
-	},
-	{
-		"windwp/nvim-autopairs",
-		config = function()
-			require("plugins.autopairs")
 		end,
 	},
 	-- show pictograms on completion dropdown
@@ -779,6 +774,12 @@ local plugins = {
 		config = function()
 			require("plugins.format")
 		end,
+	},
+	{
+		"altermo/ultimate-autopair.nvim",
+		branch = "v0.6",
+		event = { "InsertEnter", "CmdlineEnter" },
+		opts = {},
 	},
 }
 
