@@ -238,7 +238,10 @@ local plugins = {
 		"lukas-reineke/indent-blankline.nvim",
 		event = "VimEnter",
 		config = function()
-			require("plugins.indent-blankline")
+			require("indent_blankline").setup({
+				show_current_context = true,
+				show_first_indent_level = false,
+			})
 		end,
 	},
 	-- highlights hex colors rgb(200, 200, 200)
