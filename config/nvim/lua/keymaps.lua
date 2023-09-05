@@ -56,6 +56,13 @@ register({
 	},
 }, { prefix = "<leader>", noremap = true, silent = true })
 
+register({
+	["<leader>s"] = {
+		":sort<cr>",
+		"Sort visual items",
+	},
+}, { mode = { "v" } })
+
 -- LSP
 register({
 	name = "LSP",

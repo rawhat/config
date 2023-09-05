@@ -784,6 +784,37 @@ local plugins = {
 		event = { "InsertEnter", "CmdlineEnter" },
 		opts = {},
 	},
+	{ "echasnovski/mini.align", version = false, opts = {} },
+	{
+		"Wansmer/treesj",
+		config = function()
+			local tsj = require("treesj")
+			local lang_utils = require("treesj.langs.utils")
+			tsj.setup({
+				use_default_keymaps = false,
+				langs = {
+					gleam = {
+						list = lang_utils.set_preset_for_list({
+							join = {
+								space_in_brackets = false,
+							},
+						}),
+						tuple = lang_utils.set_preset_for_list({
+							join = {
+								space_in_brackets = false,
+							},
+						}),
+						function_parameters = lang_utils.set_preset_for_args(),
+					},
+				},
+			})
+		end,
+		opts = {},
+		keys = {
+			{ "J", "<cmd>TSJJoin<cr>", desc = "Join node under cursor" },
+			{ "<c-j>", "<cmd>TSJSplit<cr>", desc = "Split node under cursor" },
+		},
+	},
 }
 
 require("lazy").setup(plugins, {
