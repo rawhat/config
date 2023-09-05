@@ -793,4 +793,14 @@ require("lazy").setup(plugins, {
 	diff = {
 		cmd = "terminal_git",
 	},
+	disabled_plugins = {
+		"gzip",
+		"matchit",
+		"matchparen",
+		"netrwPlugin",
+		"tarPlugin",
+		"tohtml",
+		"tutor",
+		"zipPlugin",
+	},
 })

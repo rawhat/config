@@ -151,7 +151,10 @@ M.themes = {
 					},
 					noice = true,
 					symbols_outline = true,
-					telescope = true,
+					telescope = {
+						enabled = true,
+						style = "nvchad",
+					},
 					treesitter = true,
 					treesitter_context = true,
 					which_key = true,
