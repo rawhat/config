@@ -46,7 +46,7 @@ conform.setup({
 		},
 		prettify = {
 			command = "bazel",
-			args = { "run", "//tools/prettier", "--", "--stdin-filename", "$FILENAME" },
+			args = { "run", "//tools/prettier", "--", "--stdin-filepath", "$FILENAME" },
 			stdin = true,
 			cwd = util.root_file("WORKSPACE"),
 			require_cwd = true,
