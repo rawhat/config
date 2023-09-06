@@ -791,6 +791,7 @@ local plugins = {
 			local tsj = require("treesj")
 			local lang_utils = require("treesj.langs.utils")
 			tsj.setup({
+				max_join_length = 256,
 				use_default_keymaps = false,
 				langs = {
 					gleam = {
@@ -809,10 +810,8 @@ local plugins = {
 				},
 			})
 		end,
-		opts = {},
 		keys = {
-			{ "J", "<cmd>TSJJoin<cr>", desc = "Join node under cursor" },
-			{ "<c-j>", "<cmd>TSJSplit<cr>", desc = "Split node under cursor" },
+			{ "J", "<cmd>TSJToggle<cr>", desc = "Toggle split/join node under cursor" },
 		},
 	},
 }

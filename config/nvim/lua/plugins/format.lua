@@ -30,7 +30,12 @@ conform.setup({
 	formatters = {
 		buildifier = {
 			command = path.concat({ mason_data_path, "buildifier" }),
-			args = { "-path=$FILENAME" },
+			args = function(ctx)
+				return { "-path=" .. ctx.filename }
+			end,
+			stdin = true,
+			cwd = util.root_file("WORKSPACE"),
+			require_cwd = true,
 		},
 		javafmt = {
 			command = "bazel",
