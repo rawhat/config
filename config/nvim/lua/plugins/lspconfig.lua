@@ -33,6 +33,7 @@ configs.erlang_language_platform = {
 }
 
 local lsp_configs = {
+	biome = {},
 	bufls = {},
 	clangd = {
 		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },

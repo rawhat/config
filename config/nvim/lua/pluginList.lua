@@ -236,12 +236,23 @@ local plugins = {
 	-- fancy indent helper
 	{
 		"lukas-reineke/indent-blankline.nvim",
+		branch = "v3",
 		event = "VimEnter",
 		config = function()
-			require("indent_blankline").setup({
-				show_current_context = true,
-				show_first_indent_level = false,
+			require("ibl").setup({
+				indent = {
+					char = "│",
+				},
+				scope = {
+					enabled = true,
+					show_start = false,
+					show_end = false,
+					highlight = { "Normal" },
+				},
 			})
+			local hooks = require("ibl.hooks")
+			hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_space_indent_level)
+			hooks.register(hooks.type.WHITESPACE, hooks.builtin.hide_first_tab_indent_level)
 		end,
 	},
 	-- highlights hex colors rgb(200, 200, 200)
@@ -813,6 +824,18 @@ local plugins = {
 		keys = {
 			{ "J", "<cmd>TSJToggle<cr>", desc = "Toggle split/join node under cursor" },
 		},
+	},
+	{
+		"tzachar/highlight-undo.nvim",
+		opts = {},
+	},
+	{
+		"axelvc/template-string.nvim",
+		config = function()
+			require("template-string").setup({
+				remove_template_string = true,
+			})
+		end,
 	},
 }
 

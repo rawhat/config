@@ -49,6 +49,8 @@ treesitter.setup({
 			keymaps = {
 				["af"] = "@function.outer",
 				["if"] = "@function.inner",
+				["ab"] = "@block.outer",
+				["ib"] = "@block.inner",
 			},
 		},
 	},
