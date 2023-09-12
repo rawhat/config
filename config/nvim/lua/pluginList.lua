@@ -174,7 +174,7 @@ local plugins = {
 					local func = require("Comment.api").toggle.blockwise
 					local ft = vim.bo.filetype
 					local comment_strings = require("Comment.ft").get(ft)
-					if vim.tbl_count(comment_strings) == 1 then
+					if comment_strings == nil or vim.tbl_count(comment_strings) == 1 then
 						func = require("Comment.api").toggle.linewise
 					end
 					local key = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
