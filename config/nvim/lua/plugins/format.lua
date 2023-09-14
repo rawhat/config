@@ -1,35 +1,54 @@
 local conform = require("conform")
-local path = require("mason-core.path")
-local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
-local javascript_format = { "prettify", "prettierd" }
-
-local jq = require("conform.formatters.jq")
-jq.command = path.concat({ mason_data_path, "jq" })
-local prettierd = require("conform.formatters.prettierd")
-prettierd.command = path.concat({ mason_data_path, "prettierd" })
+local javascript_format = { { "prettify", "prettierd" } }
 
 local util = require("conform.util")
+
+local non_lsp_filetypes = {
+	"javascript",
+	"javascriptreact",
+	"typescript",
+	"typescriptreact",
+	"python",
+	"java",
+	"lua",
+}
+
+local function get_lsp_fallback(bufnr)
+	local always = "always"
+	for _, ft in pairs(non_lsp_filetypes) do
+		if vim.bo[bufnr].filetype:match(ft) then
+			always = true
+			break
+		end
+	end
+	return {
+		lsp_fallback = always,
+	}
+end
 
 conform.setup({
 	formatters_by_ft = {
 		bzl = { "buildifier" },
-		java = { "javafmt" },
+		java = { { "javafmt" } },
 		javascript = javascript_format,
 		javascriptreact = javascript_format,
 		json = { "jq" },
 		just = { "just" },
 		lua = { "stylua" },
-		python = { "pyfmt", "black" },
+		python = { { "pyfmt", "black" } },
 		typescript = javascript_format,
 		typescriptreact = javascript_format,
+		["*"] = { "trim_whitespace" },
 	},
-	format_on_save = {
-		lsp_fallback = true,
-	},
+	format_on_save = function(bufnr)
+		return {
+			lsp_fallback = get_lsp_fallback(bufnr),
+		}
+	end,
 	formatters = {
 		buildifier = {
-			command = path.concat({ mason_data_path, "buildifier" }),
+			command = "buildifier",
 			args = function(ctx)
 				return { "-path=" .. ctx.filename }
 			end,
@@ -64,15 +83,4 @@ conform.setup({
 			require_cwd = true,
 		},
 	},
-})
-
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-	pattern = "*",
-	callback = function(args)
-		local lines = vim.api.nvim_buf_get_lines(args.buf, 0, -1, true)
-		local updated = vim.tbl_map(function(line)
-			return line:gsub("%s*$", "")
-		end, lines)
-		vim.api.nvim_buf_set_lines(args.buf, 0, -1, true, updated)
-	end,
 })
