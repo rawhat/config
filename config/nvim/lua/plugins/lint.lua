@@ -60,6 +60,7 @@ require("lint").linters_by_ft = {
 	eex = elixir_linters,
 	javascript = javascript_linters,
 	javascriptreact = javascript_linters,
+	json = { "jq" },
 	typescript = javascript_linters,
 	typescriptreact = javascript_linters,
 	python = { "ruff" },
