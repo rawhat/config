@@ -5,11 +5,9 @@ return {
 		local heirline = require("heirline")
 		local utils = require("heirline.utils")
 		local conditions = require("heirline.conditions")
-
 		local theme = require("themes").current_theme
 
 		local colors = theme.heirline_colors(theme.palette)
-
 		local mode_colors = colors.modes
 
 		local Filename = {
@@ -26,7 +24,7 @@ return {
 				end,
 			}),
 			hl = function(self)
-				return { bg = mode_colors[self.mode], fg = "fg1", bold = true }
+				return { bg = mode_colors[self.mode], fg = colors.bg0, bold = true }
 			end,
 		}
 
@@ -49,7 +47,7 @@ return {
 			}),
 			hl = function(self)
 				return {
-					bg = "bg1",
+					bg = colors.bg1,
 					fg = mode_colors[self.mode],
 				}
 			end,
@@ -70,7 +68,7 @@ return {
 				self.hint = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 			end,
 			update = { "DiagnosticChanged", "BufEnter" },
-			hl = { bg = "bg0", fg = "white" },
+			hl = { bg = colors.bg1, fg = colors.white },
 			utils.surround({ " ", " " }, nil, {
 				{
 					provider = function(self)
@@ -114,7 +112,7 @@ return {
 				end
 				return false
 			end,
-			hl = { bg = "bg0", fg = "fg0" },
+			hl = { bg = colors.bg1, fg = colors.fg1 },
 			utils.surround({ " ", " " }, nil, {
 				provider = function(self)
 					local clients = require("utils").get_lsp_clients()
@@ -137,19 +135,19 @@ return {
 				self.status_dict = vim.b.gitsigns_status_dict
 			end,
 			hl = {
-				bg = "bg1",
-				fg = "white",
+				bg = colors.bg2,
+				fg = colors.white,
 			},
 			utils.surround({ " ", " " }, nil, {
 				hl = {
-					bg = "bg1",
+					bg = colors.bg2,
 				},
 				{
 					provider = function(self)
 						return " " .. (self.status_dict.added or 0) .. " "
 					end,
 					hl = {
-						fg = "green",
+						fg = colors.green,
 					},
 				},
 				{
@@ -157,7 +155,7 @@ return {
 						return " " .. (self.status_dict.changed or 0) .. " "
 					end,
 					hl = {
-						fg = "yellow",
+						fg = colors.yellow,
 					},
 				},
 				{
@@ -165,7 +163,7 @@ return {
 						return " " .. (self.status_dict.removed or 0)
 					end,
 					hl = {
-						fg = "red",
+						fg = colors.red,
 					},
 				},
 			}),
@@ -180,15 +178,10 @@ return {
 			hl = function(self)
 				return {
 					bg = mode_colors[self.mode],
-					fg = "fg1",
+					fg = colors.bg0,
 					bold = true,
 				}
 			end,
-			utils.surround({ " ", " " }, nil, {
-				provider = function(self)
-					return " " .. self.status_dict.head
-				end,
-			}),
 		}
 
 		heirline.setup({
@@ -196,9 +189,6 @@ return {
 				{ Filename, Progress, Diagnostics },
 				{ Separator },
 				{ LSP, Diff, Branch },
-			},
-			opts = {
-				colors = colors,
 			},
 		})
 	end,

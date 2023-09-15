@@ -12,8 +12,10 @@ return {
 		local colors = theme.heirline_colors(theme.palette)
 		vim.g.tpipeline_clearstl = 1
 		-- Unfortunately, these need to be different or else vim throws in `^^^` :(
-		vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.bg, fg = colors.bg2 })
-		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.bg, fg = colors.fg1 })
+		--[[ vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.bg, fg = colors.bg2 })
+		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.bg, fg = colors.fg1 }) ]]
+		vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.bg1, fg = colors.fg2 })
+		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.bg1, fg = colors.fg3 })
 		vim.cmd("set fcs=stlnc:─,stl:─,vert:│")
 	end,
 }
