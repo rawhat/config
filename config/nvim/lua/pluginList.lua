@@ -667,21 +667,7 @@ local plugins = {
 			},
 		},
 		config = function()
-			require("terminal").setup({
-				layout = {
-					open_cmd = "float",
-					width = 0.75,
-					height = 0.75,
-				},
-			})
-			vim.api.nvim_create_autocmd("TermOpen", {
-				callback = function()
-					vim.cmd([[
-			         setlocal nonumber norelativenumber nocursorline winhl=Normal:NormalFloat
-			         tnoremap <buffer> <Esc> <c-\><c-n>
-			       ]])
-				end,
-			})
+			require("terminal").setup()
 			vim.api.nvim_create_autocmd({ "WinEnter", "BufWinEnter", "TermOpen" }, {
 				callback = function(args)
 					if vim.startswith(vim.api.nvim_buf_get_name(args.buf), "term://") then
