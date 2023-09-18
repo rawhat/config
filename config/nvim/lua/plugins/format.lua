@@ -4,29 +4,6 @@ local javascript_format = { { "prettify", "prettierd" } }
 
 local util = require("conform.util")
 
-local non_lsp_filetypes = {
-	"javascript",
-	"javascriptreact",
-	"typescript",
-	"typescriptreact",
-	"python",
-	"java",
-	"lua",
-}
-
-local function get_lsp_fallback(bufnr)
-	local always = "always"
-	for _, ft in pairs(non_lsp_filetypes) do
-		if vim.bo[bufnr].filetype:match(ft) then
-			always = true
-			break
-		end
-	end
-	return {
-		lsp_fallback = always,
-	}
-end
-
 conform.setup({
 	formatters_by_ft = {
 		bzl = { "buildifier" },
@@ -39,13 +16,11 @@ conform.setup({
 		python = { { "pyfmt", "black" } },
 		typescript = javascript_format,
 		typescriptreact = javascript_format,
-		["*"] = { "trim_whitespace" },
+		["_"] = { "trim_whitespace" },
 	},
-	format_on_save = function(bufnr)
-		return {
-			lsp_fallback = get_lsp_fallback(bufnr),
-		}
-	end,
+	format_on_save = {
+		lsp_fallback = true,
+	},
 	formatters = {
 		buildifier = {
 			command = "buildifier",
