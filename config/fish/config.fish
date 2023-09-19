@@ -65,11 +65,11 @@ function fish_prompt -d "Write out the prompt"
 end
 
 function ls
-    exa $argv
+    eza $argv
 end
 
 function la
-    exa -la $argv
+    eza -la $argv
 end
 
 function code
