@@ -52,11 +52,17 @@ local lsp_configs = {
 	gleam = {},
 	gopls = {
 		on_attach = on_attach_inlay_hints,
+		on_new_config = function(config, new_root_dir)
+			local gopackagesdriver = new_root_dir .. "/gopackagesdriver.sh"
+			if utils.fs_stat(gopackagesdriver) ~= nil then
+				config.cmd_env = {
+					GOPACKAGESDRIVER = gopackagesdriver,
+					GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
+				}
+			end
+		end,
 		settings = {
 			gopls = {
-				env = {
-					GOPACKAGESDRIVER = "/home/alex/gopackagesdriver",
-				},
 				directoryFilters = {
 					"-bazel-bin",
 					"-bazel-out",
@@ -72,6 +78,7 @@ local lsp_configs = {
 					parameterNames = true,
 					rangeVariableTypes = true,
 				},
+				staticcheck = true,
 			},
 		},
 		flags = {
