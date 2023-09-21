@@ -32,7 +32,19 @@ configs.erlang_language_platform = {
 	},
 }
 
+configs.bzl = {
+	default_config = {
+		cmd = { "bzl", "lsp" },
+		filetypes = { "bzl" },
+		root_dir = function(fname)
+			return utils.cwd()
+		end,
+	},
+}
+
 local lsp_configs = {
+	bashls = {},
+	bzl = {},
 	biome = {},
 	bufls = {},
 	clangd = {
