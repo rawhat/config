@@ -63,7 +63,7 @@ require("lint").linters_by_ft = {
 	json = { "jq" },
 	typescript = javascript_linters,
 	typescriptreact = javascript_linters,
-	proto = { "buf" },
+	proto = { "buf_lint" },
 	python = { "ruff" },
 }
 
