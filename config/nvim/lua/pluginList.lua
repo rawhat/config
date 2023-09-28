@@ -236,7 +236,7 @@ local plugins = {
 	-- fancy indent helper
 	{
 		"lukas-reineke/indent-blankline.nvim",
-		branch = "v3",
+		main = "ibl",
 		event = "VimEnter",
 		config = function()
 			require("ibl").setup({
