@@ -147,6 +147,7 @@ local plugins = {
 					})
 				end,
 			},
+			{ "<leader>n", desc = "Open noice menu", "<cmd>Telescope noice<cr>" },
 		},
 		config = function()
 			require("plugins.telescope")
@@ -575,7 +576,6 @@ local plugins = {
 		end,
 		event = "VimEnter",
 		keys = {
-			{ "<leader>n", desc = "Open the noice menu", "<cmd>Noice<cr>" },
 			{ "<leader>ds", desc = "Dismiss noice notifications", "<cmd>Noice dismiss<cr>" },
 		},
 		config = function()
