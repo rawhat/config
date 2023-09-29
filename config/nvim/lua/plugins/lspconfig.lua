@@ -16,12 +16,6 @@ end)
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-local on_attach_inlay_hints = function(client, bufnr)
-	if client.supports_method("textDocument/inlayHint") then
-		vim.lsp.inlay_hint(bufnr, true)
-	end
-end
-
 configs.erlang_language_platform = {
 	default_config = {
 		cmd = { "elp", "server" },
@@ -49,7 +43,6 @@ local lsp_configs = {
 	bufls = {},
 	clangd = {
 		filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-		on_attach = on_attach_inlay_hints,
 	},
 	clojure_lsp = {},
 	crystalline = {},
@@ -58,12 +51,9 @@ local lsp_configs = {
 	},
 	-- erlang_language_platform = {},
 	erlangls = {},
-	fsautocomplete = {
-		on_attach = on_attach_inlay_hints,
-	},
+	fsautocomplete = {},
 	gleam = {},
 	gopls = {
-		on_attach = on_attach_inlay_hints,
 		on_new_config = function(config, new_root_dir)
 			local gopackagesdriver = new_root_dir .. "/gopackagesdriver.sh"
 			if utils.fs_stat(gopackagesdriver) ~= nil then
@@ -101,7 +91,6 @@ local lsp_configs = {
 	jsonls = {},
 	jsonnet_ls = {},
 	lua_ls = {
-		on_attach = on_attach_inlay_hints,
 		on_init = function(client)
 			local path = client.workspace_folders[1].name
 			if not utils.fs_stat(path .. "/.luarc.json") and not utils.fs_stat(path .. "/.luarc.jsonc") then
@@ -196,9 +185,6 @@ require("deno-nvim").setup({
 require("rust-tools").setup({
 	server = {
 		capabilities = capabilities,
-		on_attach = function(client, buf_nr)
-			on_attach_inlay_hints(client, buf_nr)
-		end,
 		settings = {
 			["rust-analyzer"] = {
 				checkOnSave = { command = "clippy" },
@@ -230,7 +216,6 @@ require("typescript-tools").setup({
 				client.stop()
 			end
 		end
-		on_attach_inlay_hints(client, bufnr)
 	end,
 	settings = {
 		tsserver_path = "./node_modules.bak/typescript/bin/tsserver",
