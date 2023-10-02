@@ -1,7 +1,17 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+local fb_actions = require("telescope").extensions.file_browser.actions
 
 telescope.setup({
+	extensions = {
+		file_browser = {
+			mappings = {
+				i = {
+					["<C-r>"] = fb_actions.create,
+				},
+			},
+		},
+	},
 	defaults = {
 		dynamic_preview_title = true,
 		mappings = {
