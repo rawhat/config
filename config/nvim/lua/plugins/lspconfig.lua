@@ -218,7 +218,6 @@ require("typescript-tools").setup({
 		end
 	end,
 	settings = {
-		tsserver_path = "./node_modules.bak/typescript/bin/tsserver",
 		tsserver_file_preferences = {
 			includeInlayEnumMemberValueHints = true,
 			includeInlayFunctionLikeReturnTypeHints = true,
