@@ -147,7 +147,7 @@ local plugins = {
 					})
 				end,
 			},
-			{ "<leader>n", desc = "Open noice menu", "<cmd>Telescope noice<cr>" },
+			{ "<leader>n", desc = "Open noice menu", "<cmd>Telescope noice initial_mode=normal<cr>" },
 		},
 		config = function()
 			require("plugins.telescope")
@@ -825,6 +825,19 @@ local plugins = {
 				remove_template_string = true,
 			})
 		end,
+	},
+	{
+		"dzfrias/arena.nvim",
+		event = "BufWinEnter",
+		config = function()
+			require("arena").setup({
+				ignore_current = true,
+				always_context = { "index.ts", "index.tsx", "index.js", "index.jsx", "mod.rs", "init.lua" },
+			})
+		end,
+		keys = {
+			{ "<leader>f", "<cmd>ArenaOpen<cr>", desc = "Open the arena" },
+		},
 	},
 }
 
