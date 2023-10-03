@@ -115,7 +115,6 @@ M.themes = {
 		package_name = "catppuccin",
 		name = "catppuccin",
 		config = function(palette)
-			local variant = palette or "mocha"
 			require("catppuccin").setup({
 				flavour = palette or "mocha",
 				custom_highlights = function(colors)
@@ -273,8 +272,20 @@ M.themes = {
 			})
 		end,
 	},
+	rosepine = {
+		package = "rose-pine/neovim",
+		package_name = "rose-pine",
+		name = "rose-pine",
+		config = function(palette)
+			require("rose-pine").setup({
+				variant = palette or "moon",
+			})
+			vim.cmd("colorscheme rose-pine")
+		end,
+	},
 }
 
+-- M.current_theme = M.themes["rosepine"]
 -- M.current_theme = M.themes["kanagawa"]
 M.current_theme = M.themes["catppuccin"]
 M.current_theme.palette = "mocha"
