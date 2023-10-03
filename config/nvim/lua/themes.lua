@@ -109,6 +109,26 @@ M.themes = {
 			})
 			vim.cmd.colorscheme("kanagawa")
 		end,
+		heirline_colors = function(palette)
+			local colors = require("kanagawa.colors").setup({ theme = palette or "wave" }).palette
+			return {
+				modes = {
+					n = colors.lotusBlue4,
+					i = colors.lotusGreen2,
+					c = colors.lotusRed2,
+					v = colors.lotusViolet4,
+					V = colors.lotusViolet4,
+				},
+				fg0 = colors.fujiWhite,
+				fg1 = colors.oldWhite,
+				bg0 = colors.sumiInk1,
+				bg1 = colors.sumiInk4,
+				yellow = colors.roninYellow,
+				red = colors.samuraiRed,
+				green = colors.springGreen,
+				white = colors.fujiWhite,
+			}
+		end,
 	},
 	catppuccin = {
 		package = "catppuccin/nvim",
@@ -160,6 +180,27 @@ M.themes = {
 				},
 			})
 			vim.cmd.colorscheme("catppuccin")
+		end,
+		heirline_colors = function(palette)
+			local colors = require("catppuccin.palettes").get_palette(palette or "mocha")
+			return {
+				modes = {
+					n = colors.blue,
+					i = colors.green,
+					c = colors.peach,
+					v = colors.mauve,
+					V = colors.mauve,
+				},
+				fg0 = colors.text,
+				fg1 = colors.mantle,
+				bg0 = colors.base,
+				bg1 = colors.surface1,
+				bg2 = colors.surface0,
+				yellow = colors.yellow,
+				red = colors.red,
+				green = colors.green,
+				white = colors.white,
+			}
 		end,
 	},
 	everforest = {
@@ -286,9 +327,9 @@ M.themes = {
 }
 
 -- M.current_theme = M.themes["rosepine"]
--- M.current_theme = M.themes["kanagawa"]
-M.current_theme = M.themes["catppuccin"]
-M.current_theme.palette = "mocha"
+M.current_theme = M.themes["kanagawa"]
+--[[ M.current_theme = M.themes["catppuccin"]
+M.current_theme.palette = "mocha" ]]
 -- M.current_theme = M.themes["nightfox"]
 -- M.current_theme = M.themes["nordic"]
 -- M.current_theme.palette = "dawnfox"

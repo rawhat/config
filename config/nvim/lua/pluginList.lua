@@ -723,11 +723,11 @@ local plugins = {
 			return (is_linux or is_osx) and is_tmux
 		end,
 		config = function()
-			local colors = require("catppuccin.palettes").get_palette("mocha")
+			local colors = theme.heirline_colors(theme.palette)
 			vim.g.tpipeline_clearstl = 1
 			-- Unfortunately, these need to be different or else vim throws in `^^^` :(
-			vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.base, fg = colors.surface0 })
-			vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.base, fg = colors.mantle })
+			vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.bg0, fg = colors.bg2 })
+			vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.bg0, fg = colors.fg1 })
 			vim.cmd("set fcs=stlnc:─,stl:─,vert:│")
 		end,
 	},

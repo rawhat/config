@@ -1,15 +1,12 @@
 local heirline = require("heirline")
 local utils = require("heirline.utils")
 local conditions = require("heirline.conditions")
-local colors = require("catppuccin.palettes").get_palette("mocha")
 
-local mode_colors = {
-	n = "blue",
-	i = "green",
-	c = "peach",
-	v = "mauve",
-	V = "mauve",
-}
+local theme = require("themes").current_theme
+
+local colors = theme.heirline_colors(theme.palette)
+
+local mode_colors = colors.modes
 
 local Filename = {
 	init = function(self)
@@ -25,7 +22,7 @@ local Filename = {
 		end,
 	}),
 	hl = function(self)
-		return { bg = mode_colors[self.mode], fg = "mantle", bold = true }
+		return { bg = mode_colors[self.mode], fg = "fg1", bold = true }
 	end,
 }
 
@@ -48,7 +45,7 @@ local Progress = {
 	}),
 	hl = function(self)
 		return {
-			bg = "surface1",
+			bg = "bg1",
 			fg = mode_colors[self.mode],
 		}
 	end,
@@ -67,7 +64,7 @@ local Diagnostics = {
 		self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 	end,
 	update = { "DiagnosticChanged", "BufEnter" },
-	hl = { bg = "base", fg = "white" },
+	hl = { bg = "bg0", fg = "white" },
 	utils.surround({ " ", " " }, nil, {
 		{
 			provider = function(self)
@@ -104,7 +101,7 @@ local LSP = {
 		end
 		return false
 	end,
-	hl = { bg = "base", fg = "text" },
+	hl = { bg = "bg0", fg = "fg0" },
 	utils.surround({ " ", " " }, nil, {
 		provider = function(self)
 			local clients = vim.lsp.buf_get_clients()
@@ -127,12 +124,12 @@ local Diff = {
 		self.status_dict = vim.b.gitsigns_status_dict
 	end,
 	hl = {
-		bg = "surface1",
+		bg = "bg1",
 		fg = "white",
 	},
 	utils.surround({ " ", " " }, nil, {
 		hl = {
-			bg = "surface1",
+			bg = "bg1",
 		},
 		{
 			provider = function(self)
@@ -170,7 +167,7 @@ local Branch = {
 	hl = function(self)
 		return {
 			bg = mode_colors[self.mode],
-			fg = "mantle",
+			fg = "fg1",
 			bold = true,
 		}
 	end,
