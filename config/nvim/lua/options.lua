@@ -36,6 +36,10 @@ vim.opt.relativenumber = true
 
 vim.opt.cursorline = true
 
+-- don't really use these, but treesitter parsing for folds
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = { "BUILD", "*.bzl", "WORKSPACE", "BUILD.bazel" },
 	command = "setf bzl",
