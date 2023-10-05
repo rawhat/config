@@ -42,6 +42,11 @@ register({
 	L = { "$", "End of line" },
 })
 
+register({
+	["<c-d>"] = { "<c-d>zz", "down and center" },
+	["<c-u>"] = { "<c-u>zz", "up and center" },
+})
+
 -- quickfix
 register({
 	q = {
