@@ -95,8 +95,9 @@ M.themes = {
 		package = "rebelot/kanagawa.nvim",
 		package_name = "kanagawa.nvim",
 		name = "kanagawa",
-		config = function()
+		config = function(palette)
 			require("kanagawa").setup({
+				theme = palette or "wave",
 				colors = {
 					theme = {
 						all = {
@@ -106,8 +107,14 @@ M.themes = {
 						},
 					},
 				},
+				overrides = function(colors)
+					return {
+						["@lsp.mod.readonly.typescriptreact"] = { link = "@variable" },
+						["@lsp.mod.readonly.typescript"] = { link = "@variable" },
+					}
+				end,
 			})
-			vim.cmd.colorscheme("kanagawa")
+			vim.cmd.colorscheme("kanagawa-" .. (palette or "wave"))
 		end,
 		heirline_colors = function(palette)
 			local colors = require("kanagawa.colors").setup({ theme = palette or "wave" }).palette
@@ -328,6 +335,7 @@ M.themes = {
 
 -- M.current_theme = M.themes["rosepine"]
 M.current_theme = M.themes["kanagawa"]
+-- M.current_theme.palette = "lotus"
 --[[ M.current_theme = M.themes["catppuccin"]
 M.current_theme.palette = "mocha" ]]
 -- M.current_theme = M.themes["nightfox"]
