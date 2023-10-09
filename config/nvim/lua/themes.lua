@@ -111,6 +111,7 @@ M.themes = {
 					return {
 						["@lsp.mod.readonly.typescriptreact"] = { link = "@variable" },
 						["@lsp.mod.readonly.typescript"] = { link = "@variable" },
+						["@type.qualifier"] = { link = "Keyword" },
 					}
 				end,
 			})
