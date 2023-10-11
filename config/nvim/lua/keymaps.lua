@@ -5,7 +5,7 @@ vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, si
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- gimme the relative path
-register({ ["<leader>bp"] = { "<cmd>echo %@", "Show relative path to buffer file" } })
+register({ ["<leader>bp"] = { "<cmd>echo %@<cr>", "Show relative path to buffer file" } })
 
 -- gimme the gitiles link for a vistar file at the current line
 register({

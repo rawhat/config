@@ -47,4 +47,13 @@ M.get_lsp_clients = function(...)
 	end
 end
 
+M.get_option_value = function(option, opts)
+	local opts = opts or {}
+	if has("nvim-0.10") then
+		return vim.api.nvim_get_option_value(option, opts)
+	elseif opts.buf ~= nil then
+		return vim.api.nvim_buf_get_option(opts.buf, option)
+	end
+end
+
 return M

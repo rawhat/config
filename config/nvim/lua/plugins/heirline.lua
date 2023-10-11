@@ -93,10 +93,11 @@ local Separator = {
 
 local LSP = {
 	init = function(self)
-		self.filetype = vim.api.nvim_buf_get_option(0, "filetype")
+		self.filetype = require("utils").get_option_value("filetype", { buf = 0 })
 	end,
 	condition = function()
-		for _, _ in pairs(vim.lsp.buf_get_clients()) do
+		local clients = require("utils").get_lsp_clients()
+		for _, _ in pairs(clients or {}) do
 			return true
 		end
 		return false
@@ -104,7 +105,7 @@ local LSP = {
 	hl = { bg = "bg0", fg = "fg0" },
 	utils.surround({ " ", " " }, nil, {
 		provider = function(self)
-			local clients = vim.lsp.buf_get_clients()
+			local clients = require("utils").get_lsp_clients()
 			local client_names = {}
 			for _, client in ipairs(clients) do
 				local filetypes = client.config.filetypes

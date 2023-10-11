@@ -118,7 +118,9 @@ M.themes = {
 			vim.cmd.colorscheme("kanagawa-" .. (palette or "wave"))
 		end,
 		heirline_colors = function(palette)
-			local colors = require("kanagawa.colors").setup({ theme = palette or "wave" }).palette
+			local scheme = require("kanagawa.colors").setup({ theme = palette or "wave" })
+			local colors = scheme.palette
+			local ui = scheme.theme.ui
 			return {
 				modes = {
 					n = colors.lotusBlue4,
@@ -129,6 +131,7 @@ M.themes = {
 				},
 				fg0 = colors.fujiWhite,
 				fg1 = colors.oldWhite,
+				bg = ui.bg,
 				bg0 = colors.sumiInk1,
 				bg1 = colors.sumiInk4,
 				yellow = colors.roninYellow,

@@ -34,7 +34,7 @@ conform.setup({
 		},
 		javafmt = {
 			command = "bazel",
-			args = { "run", "//tools/java-format", "--", "--stdin" },
+			args = { "run", "//tools/java-format", "--", "--stdin", "--stdin-filepath", "$FILENAME" },
 			stdin = true,
 			cwd = util.root_file("WORKSPACE"),
 			require_cwd = true,
