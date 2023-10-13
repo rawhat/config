@@ -44,6 +44,7 @@ register({
 
 register({
 	["<c-d>"] = { "<c-d>zz", "down and center" },
+	["<c-f>"] = { "<c-f>zz", "down more and center" },
 	["<c-u>"] = { "<c-u>zz", "up and center" },
 })
 
