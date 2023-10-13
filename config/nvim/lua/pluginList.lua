@@ -381,11 +381,13 @@ local plugins = {
 		},
 		config = function()
 			require("legendary").setup({
-				lazy_nvim = {
-					auto_register = true,
-				},
-				which_key = {
-					auto_register = true,
+				extensions = {
+					lazy_nvim = {
+						auto_register = true,
+					},
+					which_key = {
+						auto_register = true,
+					},
 				},
 			})
 		end,
