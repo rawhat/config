@@ -25,4 +25,5 @@ disable = ["go", "node"]
 
 # Custom commands
 #[commands]
+"asdf-update" = "asdf-update"
 #"Python Environment" = "~/dev/.env/bin/pip install -i https://pypi.python.org/simple -U --upgrade-strategy eager jupyter"
