@@ -1,11 +1,3 @@
-local languages = vim.api.nvim_create_augroup("Languages", { clear = true })
-
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-	pattern = { "justfile", ".justfile", "*.just" },
-	command = "set filetype=just",
-	group = languages,
-})
-
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	callback = function()
 		vim.cmd([[
