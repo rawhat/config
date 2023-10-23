@@ -16,16 +16,6 @@ end)
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-configs.erlang_language_platform = {
-	default_config = {
-		cmd = { "elp", "server" },
-		filetypes = { "erlang" },
-		root_dir = function(fname)
-			return utils.cwd()
-		end,
-	},
-}
-
 configs.bzl = {
 	default_config = {
 		cmd = { "bzl", "lsp" },
@@ -49,7 +39,7 @@ local lsp_configs = {
 	elixirls = {
 		filetypes = { "elixir", "leex", "heex", "eex" },
 	},
-	-- erlang_language_platform = {},
+	elp = {},
 	erlangls = {},
 	fsautocomplete = {},
 	gleam = {},
