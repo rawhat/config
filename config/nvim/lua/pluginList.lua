@@ -277,12 +277,16 @@ local plugins = {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			"williamboman/mason.nvim",
-			"simrat39/rust-tools.nvim",
 			"pmizio/typescript-tools.nvim",
 		},
 		config = function()
 			require("plugins.lspconfig")
 		end,
+	},
+	{
+		"mrcjkb/rustaceanvim",
+		version = "^3",
+		ft = { "rust" },
 	},
 	{
 		"L3MON4D3/LuaSnip",

@@ -172,26 +172,23 @@ require("deno-nvim").setup({
 	},
 })
 
-require("rust-tools").setup({
-	server = {
-		capabilities = capabilities,
-		settings = {
-			["rust-analyzer"] = {
-				checkOnSave = { command = "clippy" },
-				diagnostics = {
-					experimental = {
-						enable = true,
-					},
-				},
-			},
-		},
-	},
+vim.g.rustaceanvim = {
 	tools = {
 		inlay_hints = {
 			auto = false,
 		},
 	},
-})
+	server = {
+		["rust-analyzer"] = {
+			checkOnSave = { command = "clippy" },
+			diagnostics = {
+				experimental = {
+					enable = true,
+				},
+			},
+		},
+	},
+}
 
 require("typescript-tools").setup({
 	capabilities = capabilities,
