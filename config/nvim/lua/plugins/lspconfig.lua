@@ -36,6 +36,8 @@ local lsp_configs = {
 	},
 	clojure_lsp = {},
 	crystalline = {},
+	docker_compose_language_service = {},
+	dockerls = {},
 	elixirls = {
 		filetypes = { "elixir", "leex", "heex", "eex" },
 	},
