@@ -839,7 +839,7 @@ local plugins = {
 			require("arena").setup({
 				max_items = 10,
 				ignore_current = true,
-				always_context = { "index.ts", "index.tsx", "index.js", "index.jsx", "mod.rs", "init.lua" },
+				always_context = { "index.ts", "index.tsx", "index.js", "index.jsx", "mod.rs", "init.lua", "BUILD" },
 			})
 		end,
 		keys = {
