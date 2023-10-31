@@ -9,7 +9,7 @@ lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup
 		config.single_file_support = false
 	end
 	if config.name == "gopls" and vim.fn.filereadable(cwd .. "/WORKSPACE") ~= 1 then
-		config.settings = {}
+		config.settings.cmd_env = {}
 	end
 end)
 
@@ -152,26 +152,6 @@ end
 -- non-lsp-install servers
 require("lspconfig").java_language_server.setup({
 	cmd = { "/home/alex/java-language-server/dist/lang_server_linux.sh" },
-})
-
-require("deno-nvim").setup({
-	server = {
-		on_attach = function(client)
-			local active_clients = vim.lsp.get_clients()
-			for _, running_client in pairs(active_clients) do
-				if running_client.name == "tsserver" then
-					client.stop()
-				end
-			end
-		end,
-		capabilities = capabilities,
-		root_dir = require("lspconfig.util").root_pattern("deno.json", "deno.jsonc", "denonvim.tag"),
-		settings = {
-			deno = {
-				unstable = true,
-			},
-		},
-	},
 })
 
 vim.g.rustaceanvim = {

@@ -32,16 +32,8 @@ local plugins = {
 	},
 	{ "kchmck/vim-coffee-script", ft = "coffee" },
 	{ "mtscout6/vim-cjsx", ft = "coffee" },
-	---- crystal
-	{ "rhysd/vim-crystal", ft = "crystal" },
 	---- csv
 	{ "chrisbra/csv.vim", ft = "csv" },
-	---- deno
-	{ "sigmaSd/deno-nvim" },
-	---- fsharp
-	{ "kongo2002/fsharp-vim", ft = "fsharp" },
-	---- git
-	"tpope/vim-git",
 	---- jsonnet
 	{
 		"google/vim-jsonnet",
@@ -50,43 +42,11 @@ local plugins = {
 			vim.cmd([[autocmd BufRead,BufNewFile *.libsonnet set filetype=jsonnet]])
 		end,
 	},
-	-- just
-	"NoahTheDuke/vim-just",
-	{
-		"IndianBoy42/tree-sitter-just",
-		config = function()
-			require("tree-sitter-just").setup({})
-		end,
-	},
-	---- nginx
-	{ "chr4/nginx.vim", ft = "nginx" },
-	---- nim
-	{ "zah/nim.vim", ft = "nim" },
-	---- psql
-	{ "lifepillar/pgsql.vim", ft = "sql" },
-	---- proto
-	{ "uarun/vim-protobuf", ft = "protobuf" },
-	---- Pug
-	{ "digitaltoad/vim-pug", ft = { "pug", "jade" } },
-	---- purescript
-	{ "purescript-contrib/purescript-vim", ft = "purescript" },
-	---- reason
-	{ "reasonml-editor/vim-reason-plus", ft = { "reason", "reasonreact" } },
-	---- sbt
-	{ "derekwyatt/vim-sbt", ft = "sbt" },
-	---- xml
-	{ "amadeus/vim-xml", ft = "xml" },
-	-- # general
-	-- emmet
+	-- a>div>span*2 -> HTML
 	{ "mattn/emmet-vim", ft = { "html", "typescriptreact", "javascriptreact" } },
-	-- * for visual selections
-	"nelstrom/vim-visual-star-search",
-	-- :noh on cursor move
-	"haya14busa/is.vim",
 	-- shell commands
 	"chrisgrieser/nvim-genghis",
-	-- OTHER
-	-- modified status bar
+	-- statusline
 	{
 		"rebelot/heirline.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -360,8 +320,6 @@ local plugins = {
 			vim.api.nvim_set_var("matchup_matchparen_offscreen", { method = "popup" })
 		end,
 	},
-	-- show pictograms on completion dropdown
-	"onsails/lspkind.nvim",
 	-- which key???
 	{
 		"folke/which-key.nvim",
@@ -490,16 +448,6 @@ local plugins = {
 				end,
 			},
 		},
-	},
-	{
-		"mvllow/modes.nvim",
-		dependencies = { theme.package },
-		config = function()
-			require("modes").setup({
-				set_cursor = false,
-				set_number = true,
-			})
-		end,
 	},
 	{
 		"yorickpeterse/nvim-window",
@@ -739,10 +687,6 @@ local plugins = {
 	},
 	{
 		"Aasim-A/scrollEOF.nvim",
-		opts = {},
-	},
-	{
-		"axkirillov/hbac.nvim",
 		opts = {},
 	},
 	{
