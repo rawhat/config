@@ -700,27 +700,11 @@ local plugins = {
 		end,
 	},
 	{
-		"nvimdev/lspsaga.nvim",
-		event = { "BufEnter" },
-		opts = {
-			symbol_in_winbar = {
-				enable = false,
-			},
-			outline = {
-				keys = {
-					jump = "<cr>",
-				},
-			},
-			beacon = {
-				enable = false,
-			},
-		},
+		"stevearc/aerial.nvim",
 		keys = {
-			{ "<leader>pf", "<cmd>Lspsaga finder<cr>", desc = "Open Lspsaga finder" },
-			{ "<leader>hd", "<cmd>Lspsaga hover_doc<cr>", desc = "Open Lspsaga hover doc" },
-			{ "<leader>pd", "<cmd>Lspsaga peek_definition<cr>", desc = "Peek definition" },
-			{ "<leader>so", "<cmd>Lspsaga outline<cr>", desc = "Open LSP symbol outline" },
+			{ "<leader>so", "<cmd>AerialToggle<cr>", desc = "Open aerial outline" },
 		},
+		opts = {},
 	},
 	{
 		"stevearc/conform.nvim",
