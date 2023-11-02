@@ -519,44 +519,6 @@ local plugins = {
 		end,
 	},
 	{
-		"folke/noice.nvim",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"rcarriga/nvim-notify",
-			"hrsh7th/nvim-cmp",
-		},
-		enabled = function()
-			return vim.fn.exists("g:fvim_loaded") == 0
-		end,
-		event = "VimEnter",
-		keys = {
-			{ "<leader>ds", desc = "Dismiss noice notifications", "<cmd>Noice dismiss<cr>" },
-		},
-		config = function()
-			require("noice").setup({
-				lsp = {
-					hover = {
-						enabled = true,
-					},
-					signature = {
-						enabled = true,
-					},
-					message = {
-						enabled = true,
-					},
-					override = {
-						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-						["vim.lsp.util.stylize_markdown"] = true,
-						["cmp.entry.get_documentation"] = true,
-					},
-				},
-				presets = {
-					lsp_doc_border = true,
-				},
-			})
-		end,
-	},
-	{
 		"ojroques/nvim-osc52",
 		keys = {
 			{

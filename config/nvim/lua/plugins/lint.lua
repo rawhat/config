@@ -49,7 +49,7 @@ linters.eslint_d.command = path.concat({ mason_data_path, "eslint_d" })
 linters.ruff.command = path.concat({ mason_data_path, "ruff" })
 
 local elixir_linters = { "credo" }
-local javascript_linters = { "eslint_d" }
+local javascript_linters = {} --{ "eslint_d" }
 
 require("lint").linters_by_ft = {
 	bzl = { "buildifier" },
