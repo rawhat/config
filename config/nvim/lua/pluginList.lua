@@ -107,7 +107,6 @@ local plugins = {
 					})
 				end,
 			},
-			{ "<leader>n", desc = "Open noice menu", "<cmd>Telescope noice initial_mode=normal<cr>" },
 		},
 		config = function()
 			require("plugins.telescope")

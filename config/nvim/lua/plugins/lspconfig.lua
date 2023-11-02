@@ -13,14 +13,24 @@ lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup
 	end
 end)
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local capabilities = vim.tbl_deep_extend(
+	"force",
+	vim.lsp.protocol.make_client_capabilities(),
+	require("cmp_nvim_lsp").default_capabilities()
+)
 capabilities.textDocument.completion.completionItem.snippetSupport = true
+-- See https://github.com/neovim/neovim/issues/23291
+if vim.fn.executable("watchman") == 1 then
+	require("plugins.watchman")
+else
+	capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+end
 
 configs.bzl = {
 	default_config = {
 		cmd = { "bzl", "lsp" },
 		filetypes = { "bzl" },
-		root_dir = function(fname)
+		root_dir = function(_fname)
 			return utils.cwd()
 		end,
 	},
