@@ -107,6 +107,7 @@ local plugins = {
 					})
 				end,
 			},
+			{ "<leader>n", desc = "Open noice menu", "<cmd>Telescope noice initial_mode=normal<cr>" },
 		},
 		config = function()
 			require("plugins.telescope")
@@ -461,12 +462,9 @@ local plugins = {
 			},
 		},
 	},
-	{
-		"rcarriga/nvim-notify",
-		config = function()
-			require("notify").setup({})
-		end,
-	},
+	{ "rcarriga/nvim-notify", opts = {
+		stages = "static",
+	} },
 	{
 		"b0o/incline.nvim",
 		config = function()
@@ -513,6 +511,44 @@ local plugins = {
 					duration = 100,
 					fps = 144,
 					easing = "in_out_sine",
+				},
+			})
+		end,
+	},
+	{
+		"folke/noice.nvim",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+			"hrsh7th/nvim-cmp",
+		},
+		enabled = function()
+			return vim.fn.exists("g:fvim_loaded") == 0
+		end,
+		event = "VimEnter",
+		keys = {
+			{ "<leader>ds", desc = "Dismiss noice notifications", "<cmd>Noice dismiss<cr>" },
+		},
+		config = function()
+			require("noice").setup({
+				lsp = {
+					hover = {
+						enabled = true,
+					},
+					signature = {
+						enabled = true,
+					},
+					message = {
+						enabled = true,
+					},
+					override = {
+						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+						["vim.lsp.util.stylize_markdown"] = true,
+						["cmp.entry.get_documentation"] = true,
+					},
+				},
+				presets = {
+					lsp_doc_border = true,
 				},
 			})
 		end,

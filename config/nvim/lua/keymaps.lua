@@ -4,6 +4,15 @@ local register = require("which-key").register
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
+-- see the description
+vim.keymap.set("n", "i", function()
+	if #vim.fn.getline(".") == 0 then
+		return [["_cc]]
+	else
+		return "i"
+	end
+end, { expr = true, desc = "properly indent on empty line when insert" })
+
 -- gimme the relative path
 register({ ["<leader>bp"] = { "<cmd>echo %@<cr>", "Show relative path to buffer file" } })
 
