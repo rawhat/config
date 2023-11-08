@@ -238,6 +238,7 @@ local plugins = {
 		dependencies = {
 			"williamboman/mason.nvim",
 			"pmizio/typescript-tools.nvim",
+			"elixir-tools/elixir-tools.nvim",
 		},
 		config = function()
 			require("plugins.lspconfig")

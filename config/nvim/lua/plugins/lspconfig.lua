@@ -1,6 +1,8 @@
 local lspconfig = require("lspconfig")
 local configs = require("lspconfig.configs")
 local utils = require("utils")
+local path = require("mason-core.path")
+local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
 -- when in a deno project, we need to disable tsserver single_file_support
 lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
@@ -48,9 +50,6 @@ local lsp_configs = {
 	crystalline = {},
 	docker_compose_language_service = {},
 	dockerls = {},
-	elixirls = {
-		filetypes = { "elixir", "leex", "heex", "eex" },
-	},
 	elp = {},
 	erlangls = {},
 	fsautocomplete = {},
@@ -208,6 +207,25 @@ require("typescript-tools").setup({
 			includeInlayVariableTypeHints = true,
 			includeInlayVariableTypeHintsWhenTypeMatchesName = false,
 		},
+	},
+})
+
+local elixirls = require("elixir.elixirls")
+require("elixir").setup({
+	credo = {
+		enable = true,
+	},
+	elixirls = {
+		cmd = path.concat({ mason_data_path, "elixir-ls" }),
+		enable = true,
+		settings = elixirls.settings({
+			dialyzerEnabled = false,
+			enableTestLenses = false,
+		}),
+	},
+	nextls = {
+		cmd = path.concat({ mason_data_path, "nextls" }),
+		enable = false,
 	},
 })
 
