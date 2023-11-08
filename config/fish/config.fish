@@ -83,3 +83,9 @@ set -x SUDO_EDITOR $NVIM_BIN
 function nvim
     TERM=wezterm $NVIM_BIN $argv
 end
+
+fish_hybrid_key_bindings
+set fish_cursor_default block
+set fish_cursor_insert line
+set fish_cursor_replace_one underscore
+set fish_cursor_visual block
