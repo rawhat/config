@@ -698,11 +698,16 @@ local plugins = {
 		end,
 	},
 	{
-		"stevearc/aerial.nvim",
-		keys = {
-			{ "<leader>so", "<cmd>AerialToggle<cr>", desc = "Open aerial outline" },
+		"hedyhli/outline.nvim",
+		cmd = { "Outline", "OutlineOpen" },
+		opts = {
+			outline_window = {
+				hide_cursor = true,
+			},
 		},
-		opts = {},
+		keys = {
+			{ "<leader>so", "<cmd>Outline<cr>", desc = "Toggle outline" },
+		},
 	},
 	{
 		"stevearc/conform.nvim",
