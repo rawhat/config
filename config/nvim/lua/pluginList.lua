@@ -551,6 +551,11 @@ local plugins = {
 				presets = {
 					lsp_doc_border = true,
 				},
+				routes = {
+					{ filter = { event = "msg_show", find = "search hit BOTTOM" }, skip = true },
+					{ filter = { event = "msg_show", find = "search hit TOP" }, skip = true },
+					{ filter = { event = "msg_show", find = "No signature help" }, skip = true },
+				},
 			})
 		end,
 	},
