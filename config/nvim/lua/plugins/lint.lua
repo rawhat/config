@@ -58,6 +58,7 @@ require("lint").linters_by_ft = {
 	leex = elixir_linters,
 	heex = elixir_linters,
 	eex = elixir_linters,
+	fish = { "fish" },
 	javascript = javascript_linters,
 	javascriptreact = javascript_linters,
 	json = { "jq" },
