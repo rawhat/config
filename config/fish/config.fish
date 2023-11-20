@@ -34,6 +34,21 @@ set __fish_git_prompt_char_untrackedfiles '?'
 set __fish_git_prompt_char_upstream_ahead '⇡ '
 set __fish_git_prompt_char_upstream_behind '⇣ '
 
+function fish_mode_symbol
+  switch $fish_bind_mode
+    case default
+      echo 'η'
+    case insert
+      echo 'δ'
+    case replace_one
+      echo 'Γ'
+    case visual
+      echo 'ν'
+    case '*'
+      echo 'γ'
+  end
+end
+
 function fish_right_prompt -d "Write out the right prompt"
 end
 
@@ -58,9 +73,9 @@ function fish_prompt -d "Write out the prompt"
   end
 
   if test $laststatus -eq 0
-    printf " %sγ " (set_color normal)
+    printf " %s%s " (set_color normal) (fish_mode_symbol)
   else
-    printf " %sγ %s" (set_color red) (set_color normal)
+    printf " %s%s %s" (set_color red) (fish_mode_symbol) (set_color normal)
   end
 end
 
