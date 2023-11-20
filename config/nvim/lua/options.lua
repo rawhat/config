@@ -49,7 +49,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- for toggle term, reuse the same term
 vim.opt.hidden = true
 
-vim.opt.updatetime = 300
+vim.opt.updatetime = 100
 
 vim.opt.shortmess:append({ c = true })
 

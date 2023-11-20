@@ -145,6 +145,11 @@ local plugins = {
 			},
 		},
 		config = function()
+			require("ts_context_commentstring").setup({
+				languages = {
+					gleam = "// %s",
+				},
+			})
 			local ft = require("Comment.ft")
 			ft.set("gleam", "//%s")
 			require("Comment").setup({

@@ -36,3 +36,10 @@ vim.api.nvim_create_user_command("Decaffeinate", function(args)
 		layout = { open_cmd = "botright vertical new" },
 	})
 end, {})
+
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+	pattern = { "*.gleam" },
+	callback = function()
+		vim.cmd([[set formatoptions+=cro]])
+	end,
+})
