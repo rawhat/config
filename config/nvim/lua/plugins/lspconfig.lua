@@ -94,8 +94,12 @@ local lsp_configs = {
 	jsonnet_ls = {},
 	lua_ls = {
 		on_init = function(client)
-			local path = client.workspace_folders[1].name
-			if not utils.fs_stat(path .. "/.luarc.json") and not utils.fs_stat(path .. "/.luarc.jsonc") then
+			local workspace_path = client.workspace_folders and client.workspace_folders[1].name
+			if
+				workspace_path
+				and not utils.fs_stat(workspace_path .. "/.luarc.json")
+				and not utils.fs_stat(workspace_path .. "/.luarc.jsonc")
+			then
 				client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
 					runtime = {
 						version = "LuaJIT",
