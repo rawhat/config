@@ -120,6 +120,7 @@ vim.g.markdown_fenced_languages = {
 	"javascriptreact",
 	"typescript",
 	"typescriptreact",
+	"tsx=typescriptreact",
 	"java",
 	"rust",
 	"scala",
