@@ -25,7 +25,7 @@ conform.setup({
 	formatters = {
 		buildifier = {
 			command = "buildifier",
-			args = function(ctx)
+			args = function(self, ctx)
 				return { "-path=" .. ctx.filename }
 			end,
 			stdin = true,
