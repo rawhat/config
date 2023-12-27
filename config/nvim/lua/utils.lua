@@ -4,6 +4,8 @@ local has = function(version)
 	return vim.fn.has(version) == 1
 end
 
+M.has = has
+
 M.cwd = function()
 	if has("nvim-0.10") then
 		return vim.uv.cwd()

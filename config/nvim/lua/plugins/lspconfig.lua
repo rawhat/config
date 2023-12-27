@@ -82,7 +82,9 @@ local lsp_configs = {
 					rangeVariableTypes = true,
 				},
 				staticcheck = true,
-				["ui.semanticTokens"] = true,
+				ui = {
+					semanticTokens = true,
+				},
 			},
 		},
 		flags = {
@@ -233,11 +235,25 @@ require("elixir").setup({
 	},
 })
 
--- show lsp signs in gutter
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+local has = require("utils").has
+if has("nvim-0.10") then
+	vim.diagnostic.config({
+		signs = {
+			text = {
+				[vim.diagnostic.severity.ERROR] = " ",
+				[vim.diagnostic.severity.WARN] = " ",
+				[vim.diagnostic.severity.HINT] = " ",
+				[vim.diagnostic.severity.INFO] = " ",
+			},
+		},
+	})
+else
+	-- show lsp signs in gutter
+	local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+	for type, icon in pairs(signs) do
+		local hl = "DiagnosticSign" .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+	end
 end
 
 -- i don't want virtual text for LSP diagnostics.  but the lsp installer plugin
