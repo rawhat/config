@@ -4,18 +4,6 @@ local register = require("which-key").register
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- see the description
-vim.keymap.set("n", "i", function()
-	if #vim.fn.getline(".") == 0 then
-		return [["_cc]]
-	else
-		return "i"
-	end
-end, { expr = true, desc = "properly indent on empty line when insert" })
-
--- gimme the relative path
-register({ ["<leader>bp"] = { "<cmd>echo %@<cr>", "Show relative path to buffer file" } })
-
 -- gimme the gitiles link for a vistar file at the current line
 register({
 	["<leader>gt"] = {
@@ -131,7 +119,12 @@ register({
 		function()
 			local start = vim.api.nvim_buf_get_mark(0, "<")
 			local ending = vim.api.nvim_buf_get_mark(0, ">")
-			vim.lsp.buf.code_action(nil, start, ending)
+			vim.lsp.buf.code_action({
+				range = {
+					start = start,
+					["end"] = ending,
+				},
+			})
 		end,
 		"Range Code Actions",
 	},
