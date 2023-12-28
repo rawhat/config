@@ -102,14 +102,18 @@ local lsp_configs = {
 				and not utils.fs_stat(workspace_path .. "/.luarc.json")
 				and not utils.fs_stat(workspace_path .. "/.luarc.jsonc")
 			then
-				client.config.settings = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-					runtime = {
-						version = "LuaJIT",
-					},
-					workspace = {
-						library = { vim.env.VIMRUNTIME },
+				client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
+					Lua = {
+						runtime = {
+							version = "LuaJIT",
+						},
+						workspace = {
+							checkThirdParty = false,
+							library = { vim.env.VIMRUNTIME },
+						},
 					},
 				})
+				client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
 			end
 			return true
 		end,
