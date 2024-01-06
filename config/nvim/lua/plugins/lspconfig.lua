@@ -82,9 +82,7 @@ local lsp_configs = {
 					rangeVariableTypes = true,
 				},
 				staticcheck = true,
-				ui = {
-					semanticTokens = true,
-				},
+				["ui.semanticTokens"] = true,
 			},
 		},
 		flags = {
