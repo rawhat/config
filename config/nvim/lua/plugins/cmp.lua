@@ -59,7 +59,7 @@ cmp.setup({
 
 	formatting = {
 		format = lspkind.cmp_format({
-			mode = "symbol",
+			mode = "symbol_text",
 			maxwidth = 50,
 			before = function(entry, vim_item)
 				vim_item.kind = lspkind.presets.default[vim_item.kind]

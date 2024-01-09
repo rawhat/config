@@ -570,6 +570,11 @@ local plugins = {
 					{ filter = { event = "msg_show", find = "search hit TOP" }, skip = true },
 					{ filter = { event = "msg_show", find = "No signature help" }, skip = true },
 				},
+				views = {
+					mini = {
+						size = { height = "auto", width = "auto", max_height = 5 },
+					},
+				},
 			})
 		end,
 	},
