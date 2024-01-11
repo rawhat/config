@@ -157,12 +157,6 @@ require("mason-lspconfig").setup({
 })
 
 for server, config in pairs(lsp_configs) do
-	local on_attach = config.on_attach
-	config.on_attach = function(client, bufnr)
-		if on_attach ~= nil then
-			on_attach(client, bufnr)
-		end
-	end
 	config.capabilities = capabilities
 	require("lspconfig")[server].setup(config)
 end
@@ -179,11 +173,13 @@ vim.g.rustaceanvim = {
 		},
 	},
 	server = {
-		["rust-analyzer"] = {
-			checkOnSave = { command = "clippy" },
-			diagnostics = {
-				experimental = {
-					enable = true,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = { command = "clippy" },
+				diagnostics = {
+					experimental = {
+						enable = true,
+					},
 				},
 			},
 		},

@@ -33,6 +33,23 @@ M.gitiles = function()
 	end
 end
 
+M.github = function()
+	local notify = require("notify")
+	local cwd = M.cwd()
+	if cwd:find("^/home/alex/vistar/vistar") ~= nil then
+		local row = vim.api.nvim_win_get_cursor(0)[1]
+		local file = vim.api.nvim_buf_get_name(0)
+		local relative_path = string.gsub(file, M.cwd(), "")
+		local github_url = "https://github.com/Vistar-Media/vistar/blob/develop"
+		local with_row = github_url .. relative_path .. "#L" .. row
+
+		require("osc52").copy(with_row)
+		notify("Gitiles URL copied to clipboard\n\n" .. with_row, "info")
+	else
+		notify("Not implemented for anything other than the vistar repo")
+	end
+end
+
 M.fs_stat = function(...)
 	if has("nvim-0.10") then
 		return vim.uv.fs_stat(...)

@@ -8,7 +8,7 @@ vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, si
 register({
 	["<leader>gt"] = {
 		function()
-			require("utils").gitiles()
+			require("utils").github()
 		end,
 		"Gitiles link to current line",
 	},
