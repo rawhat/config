@@ -112,20 +112,19 @@ end
 
 -- enable syntax highlighting in markdown blocks
 vim.g.markdown_fenced_languages = {
-	"html",
-	"python",
 	"bash",
 	"bzl",
+	"html",
+	"java",
 	"javascript",
 	"javascriptreact",
-	"typescript",
-	"typescriptreact",
-	"tsx=typescriptreact",
-	"java",
+	"python",
 	"rust",
 	"scala",
-	"elixir",
-	"bash=sh",
+	"sh",
+	"tsx=typescriptreact",
+	"typescript",
+	"typescriptreact",
 }
 
 vim.opt.clipboard = "unnamedplus"

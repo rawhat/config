@@ -537,7 +537,7 @@ local plugins = {
 			"rcarriga/nvim-notify",
 			"hrsh7th/nvim-cmp",
 		},
-		enabled = function()
+		cond = function()
 			return vim.fn.exists("g:fvim_loaded") == 0
 		end,
 		event = "VimEnter",
@@ -590,6 +590,9 @@ local plugins = {
 				end,
 			},
 		},
+		cond = function()
+			return not require("utils").has("0.10")
+		end,
 		config = function()
 			require("osc52").setup()
 		end,
@@ -801,6 +804,17 @@ local plugins = {
 		keys = {
 			{ "<leader>f", "<cmd>ArenaOpen<cr>", desc = "Open the arena" },
 		},
+	},
+	{
+		"pwntester/octo.nvim",
+		requires = {
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("octo").setup()
+		end,
 	},
 }
 

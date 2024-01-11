@@ -1,13 +1,13 @@
 local M = {}
 
 local has = function(version)
-	return vim.fn.has(version) == 1
+	return vim.fn.has("nvim-" .. version) == 1
 end
 
 M.has = has
 
 M.cwd = function()
-	if has("nvim-0.10") then
+	if has("0.10") then
 		return vim.uv.cwd()
 	else
 		return vim.loop.cwd()
@@ -43,7 +43,12 @@ M.github = function()
 		local github_url = "https://github.com/Vistar-Media/vistar/blob/develop"
 		local with_row = github_url .. relative_path .. "#L" .. row
 
-		require("osc52").copy(with_row)
+		local ok, osc = pcall(require, "vim.ui.clipboard.osc52")
+		if ok then
+			osc.copy("+")({ with_row })
+		else
+			require("osc52").copy(with_row)
+		end
 		notify("Gitiles URL copied to clipboard\n\n" .. with_row, "info")
 	else
 		notify("Not implemented for anything other than the vistar repo")
@@ -51,7 +56,7 @@ M.github = function()
 end
 
 M.fs_stat = function(...)
-	if has("nvim-0.10") then
+	if has("0.10") then
 		return vim.uv.fs_stat(...)
 	else
 		return vim.loop.fs_stat(...)
@@ -59,7 +64,7 @@ M.fs_stat = function(...)
 end
 
 M.get_lsp_clients = function(...)
-	if has("nvim-0.10") then
+	if has("0.10") then
 		return vim.lsp.get_clients(...)
 	else
 		return vim.lsp.buf_get_clients(...)
@@ -68,7 +73,7 @@ end
 
 M.get_option_value = function(option, opts)
 	local opts = opts or {}
-	if has("nvim-0.10") then
+	if has("0.10") then
 		return vim.api.nvim_get_option_value(option, opts)
 	elseif opts.buf ~= nil then
 		return vim.api.nvim_buf_get_option(opts.buf, option)
