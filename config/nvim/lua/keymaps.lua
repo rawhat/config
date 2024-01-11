@@ -90,7 +90,9 @@ register({
 			-- TODO:  check if any client(s) support it
 			-- if client.supports_method("textDocument/inlayHint") then
 			local current_buf = vim.api.nvim_get_current_buf()
-			vim.lsp.inlay_hint(current_buf, nil)
+			local enabled = vim.lsp.inlay_hint.is_enabled(current_buf)
+			vim.lsp.inlay_hint.enable(current_buf, not enabled)
+			-- end
 		end,
 		"Toggle inlay hints",
 	},
