@@ -1,8 +1,8 @@
-local present, gitsigns = pcall(require, "gitsigns")
-
-if not present then
-	error("failed to require gitsigns")
-	return
-end
-
-gitsigns.setup()
+return {
+	"lewis6991/gitsigns.nvim",
+	config = function()
+		require("gitsigns").setup({
+			trouble = true,
+		})
+	end,
+}
