@@ -91,7 +91,7 @@ local plugins = {
 			{ "<leader>lt", desc = "LSP type definition(s)", "<cmd>Telescope lsp_type_definitions<cr>" },
 			{ "<leader>ld", desc = "LSP diagnostics", "<cmd>Telescope diagnostics<cr>" },
 			{ "<leader>th", desc = "Help Tags", "<cmd>Telescope help_tags<cr>" },
-			{ "<leader>pt", desc = "ViM Options", "<cmd>Telescope vim_options<cr>" },
+			{ "<leader>op", desc = "ViM Options", "<cmd>Telescope vim_options<cr>" },
 			{ "<leader>sp", desc = "Spelling suggestions", "<cmd>Telescope spell_suggest<cr>" },
 			{ "<leader>bf", desc = "Fuzzy find in buffer", "<cmd>Telescope current_buffer_fuzzy_find<cr>" },
 			{ "<leader>rp", desc = "Resume previous picker", "<cmd>Telescope resume<cr>" },
@@ -465,17 +465,31 @@ local plugins = {
 		},
 	},
 	{
-		"yorickpeterse/nvim-window",
-		url = "https://gitlab.com/yorickpeterse/nvim-window.git",
+		"s1n7ax/nvim-window-picker",
 		keys = {
 			{
 				"<leader>m",
 				desc = "Jump to window",
 				function()
-					require("nvim-window").pick()
+					local window = require("window-picker").pick_window()
+					if window ~= nil then
+						vim.api.nvim_set_current_win(window)
+					end
 				end,
 			},
 		},
+		config = function()
+			require("window-picker").setup({
+				hint = "floating-big-letter",
+				selection_chars = "asdfqwerghzxcv",
+				show_prompt = false,
+				filter_rules = {
+					bo = {
+						filetype = { "notify", "incline" },
+					},
+				},
+			})
+		end,
 	},
 	{ "rcarriga/nvim-notify", opts = {
 		stages = "static",

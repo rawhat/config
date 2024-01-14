@@ -149,6 +149,14 @@ register({
 	},
 })
 
+-- swap windows
+register({
+	["<leader>sw"] = {
+		require("utils").swap_windows,
+		"Swap buffer between current and other window",
+	},
+})
+
 register({
 	name = "Lazy",
 	z = {

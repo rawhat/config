@@ -80,4 +80,16 @@ M.get_option_value = function(option, opts)
 	end
 end
 
+M.swap_windows = function()
+	local win_to_swap = require("window-picker").pick_window()
+	if win_to_swap == nil or win_to_swap == 0 then
+		return
+	end
+	local current_buf = vim.api.nvim_win_get_buf(0)
+	local buf_to_swap = vim.api.nvim_win_get_buf(win_to_swap)
+	vim.api.nvim_win_set_buf(0, buf_to_swap)
+	vim.api.nvim_win_set_buf(win_to_swap, current_buf)
+	vim.api.nvim_set_current_win(win_to_swap)
+end
+
 return M
