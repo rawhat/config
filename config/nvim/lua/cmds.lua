@@ -60,9 +60,3 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank({ timeout = 200, visual = true })
 	end,
 })
-
-vim.api.nvim_create_autocmd("CursorMoved", {
-	pattern = "*",
-	desc = "Clear search highlight on cursor move",
-	command = "nohlsearch",
-})

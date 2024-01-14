@@ -5,6 +5,7 @@ return {
 			require("plenary.filetype").add_file("gleam")
 		end,
 	},
+	"romainl/vim-cool",
 	-- shell commands
 	"chrisgrieser/nvim-genghis",
 	{
