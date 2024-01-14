@@ -7,8 +7,6 @@ return {
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-nvim-lua",
-		"hrsh7th/cmp-nvim-lsp",
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
@@ -95,7 +93,7 @@ return {
 			},
 		})
 
-		cmp.setup.cmdline("/", {
+		cmp.setup.cmdline({ "/", "?" }, {
 			mapping = cmp.mapping.preset.cmdline(),
 			sources = {
 				{ name = "buffer" },
@@ -107,16 +105,13 @@ return {
 			sources = cmp.config.sources({
 				{ name = "path" },
 			}, {
-				name = "cmdline",
-				option = {
-					ignore_cmds = { "Man", "!" },
-				},
+				{ name = "cmdline" },
 			}),
 		})
 
 		cmp.setup.filetype("gitcommit", {
 			sources = cmp.config.sources({
-				{ name = "cmp_git" },
+				{ name = "git" },
 			}, {
 				{ name = "buffer" },
 			}),
