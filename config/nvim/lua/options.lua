@@ -15,11 +15,18 @@ vim.opt.showmatch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
+vim.opt.smartindent = true
+vim.opt.breakindent = true
+
+vim.opt.wrap = false
+
 -- split options
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 vim.opt.conceallevel = 2
+
+vim.opt.completeopt = { "menuone", "noselect" }
 
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
@@ -49,7 +56,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 -- for toggle term, reuse the same term
 vim.opt.hidden = true
 
-vim.opt.updatetime = 100
+vim.opt.updatetime = 50
 
 vim.opt.shortmess:append({ c = true })
 
@@ -58,6 +65,7 @@ vim.opt.shortmess:append({ c = true })
 vim.wo.signcolumn = "yes"
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 vim.g.backupcopy = "yes"
 
@@ -82,32 +90,6 @@ vim.opt.cmdheight = 0
 
 if vim.fn.exists("&splitkeep") ~= 0 then
 	vim.opt.splitkeep = "screen"
-end
-
--- significant impact here?  idk
-local disabled_built_in_plugins = {
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"gzip",
-	"zip",
-	"zipPlugin",
-	"tar",
-	"tarPlugin",
-	"getscript",
-	"getscriptPlugin",
-	"vimball",
-	"vimballPlugin",
-	"2html_plugin",
-	"logipat",
-	"rrhelper",
-	"spellfile_plugin",
-	"matchit",
-}
-
-for _, plugin in pairs(disabled_built_in_plugins) do
-	vim.g["loaded_" .. plugin] = 1
 end
 
 -- enable syntax highlighting in markdown blocks

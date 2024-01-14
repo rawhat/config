@@ -43,3 +43,26 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 		vim.cmd([[set formatoptions+=cro]])
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "gitcommit", "markdown", "txt" },
+	desc = "Wrap text and spell check for typing-focused filetypes",
+	callback = function()
+		vim.opt_local.wrap = true
+		vim.opt_local.spell = true
+	end,
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+	pattern = "*",
+	desc = "Highlight selection on yank",
+	callback = function()
+		vim.highlight.on_yank({ timeout = 200, visual = true })
+	end,
+})
+
+vim.api.nvim_create_autocmd("CursorMoved", {
+	pattern = "*",
+	desc = "Clear search highlight on cursor move",
+	command = "nohlsearch",
+})

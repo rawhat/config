@@ -158,6 +158,13 @@ register({
 })
 
 register({
+	["<leader>xx"] = {
+		vim.diagnostic.setqflist,
+		"Send diagnostics to quickfix list",
+	},
+})
+
+register({
 	name = "Lazy",
 	z = {
 		s = {

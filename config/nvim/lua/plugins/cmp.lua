@@ -18,8 +18,6 @@ return {
 		local lspkind = require("lspkind")
 		local luasnip = require("luasnip")
 
-		vim.opt.completeopt:remove({ "longest" })
-
 		cmp.setup({
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp", priority = 8 },
