@@ -6,7 +6,7 @@ return {
 		"windwp/nvim-ts-autotag",
 		"Rrethy/nvim-treesitter-endwise",
 	},
-	run = ":TSUpdate all",
+	build = ":TSUpdate all",
 	keys = {
 		{ "<leader>ts", desc = "TS Update", "<cmd>TSUpdate all<cr>" },
 	},
