@@ -81,6 +81,11 @@ return {
 						exclude = { -1 },
 					},
 				},
+				preview = {
+					treesitter = {
+						disable = { "coffee" },
+					},
+				},
 			},
 		})
 

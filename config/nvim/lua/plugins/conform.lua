@@ -3,7 +3,7 @@ return {
 	config = function()
 		local conform = require("conform")
 
-		local javascript_format = { { "prettify", "prettierd" } }
+		local javascript_format = { { "prettier", "prettify", "prettierd" } }
 
 		local util = require("conform.util")
 
