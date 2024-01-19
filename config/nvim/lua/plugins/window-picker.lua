@@ -19,7 +19,10 @@ return {
 			show_prompt = false,
 			filter_rules = {
 				bo = {
-					filetype = { "notify", "incline" },
+					filetype = { "notify", "incline", "noice" },
+				},
+				wo = {
+					winhl = { "NormalFloat:TreesitterContext", "NormalFloat:TreesitterContextLineNumber" },
 				},
 			},
 		})
