@@ -17,7 +17,7 @@ set fish_user_paths \
   $HOME/.yarn/bin \
   $HOME/bin
 
-source $HOME/.asdf/asdf.fish
+mise activate fish | source
 
 set __fish_git_prompt_showdirtystate yes
 set __fish_git_prompt_showuntrackedfiles yes
