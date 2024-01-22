@@ -1,0 +1,25 @@
+# Nightfox Color Palette
+# Style: dayfox
+# Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/dayfox/dayfox.fish
+
+# Syntax Highlighting Colors
+fish_color_normal 3d2b5a
+fish_color_command 287980
+fish_color_keyword a440b5
+fish_color_quote ac5402
+fish_color_redirection 3d2b5a
+fish_color_end 955f61
+fish_color_error a5222f
+fish_color_param 6e33ce
+fish_color_comment 837a72
+fish_color_selection --background=e7d2be
+fish_color_search_match --background=e7d2be
+fish_color_operator 396847
+fish_color_escape a440b5
+fish_color_autosuggestion 837a72
+
+# Completion Pager Colors
+fish_pager_color_progress 837a72
+fish_pager_color_prefix 287980
+fish_pager_color_completion 3d2b5a
+fish_pager_color_description 837a72

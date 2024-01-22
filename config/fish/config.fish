@@ -1,9 +1,3 @@
-# Path to Oh My Fish install.
-set -x OMF_PATH "$HOME/.local/share/omf"
-
-# Load Oh My Fish configuration.
-source $OMF_PATH/init.fish
-
 fish_add_path /usr/bin/vendor_perl
 
 set -x BAT_THEME ansi
@@ -87,17 +81,9 @@ function la
     eza -la $argv
 end
 
-function code
-    "/c/Program Files/Microsoft VS Code/Code.exe" $argv
-end
-
 set NVIM_BIN (which nvim)
 set -x EDITOR $NVIM_BIN
 set -x SUDO_EDITOR $NVIM_BIN
-
-function nvim
-    TERM=wezterm $NVIM_BIN $argv
-end
 
 fish_hybrid_key_bindings
 set fish_cursor_default block
@@ -105,3 +91,5 @@ set fish_cursor_insert line
 set fish_cursor_replace_one underscore
 set fish_cursor_visual block
 function fish_mode_prompt; end
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
