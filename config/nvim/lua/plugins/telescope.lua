@@ -6,13 +6,11 @@ return {
 			"nvim-telescope/telescope-fzf-native.nvim",
 			build = "make",
 		},
-		"nvim-telescope/telescope-file-browser.nvim",
 		"nvim-telescope/telescope-ui-select.nvim",
 		"stevearc/dressing.nvim",
 	},
 	keys = {
 		{ "<C-p>", desc = "Find files", "<cmd>Telescope find_files<cr>" },
-		{ "<C-n>", desc = "Files in CWD", "<cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>" },
 		{ "<leader>ac", desc = "Find commands", "<cmd>Telescope commands<cr>" },
 		{ "<leader>ag", desc = "Live Grep", "<cmd>Telescope live_grep<cr>" },
 		{ "<leader>ag", mode = { "v" }, desc = "Grep string", "<cmd>Telescope grep_string<cr>" },
@@ -55,18 +53,8 @@ return {
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
-		local fb_actions = require("telescope").extensions.file_browser.actions
 
 		telescope.setup({
-			extensions = {
-				file_browser = {
-					mappings = {
-						i = {
-							["<C-r>"] = fb_actions.create,
-						},
-					},
-				},
-			},
 			defaults = {
 				dynamic_preview_title = true,
 				mappings = {
@@ -90,7 +78,6 @@ return {
 		})
 
 		telescope.load_extension("fzf")
-		telescope.load_extension("file_browser")
 		telescope.load_extension("noice")
 		telescope.load_extension("notify")
 		telescope.load_extension("ui-select")
