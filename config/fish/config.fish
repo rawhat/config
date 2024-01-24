@@ -92,4 +92,7 @@ set fish_cursor_replace_one underscore
 set fish_cursor_visual block
 function fish_mode_prompt; end
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
+switch (uname)
+case Darwin
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+end
