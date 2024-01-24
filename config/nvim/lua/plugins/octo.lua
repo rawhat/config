@@ -10,6 +10,10 @@ return {
 		return string.find(cwd, "vistar") ~= nil
 	end,
 	config = function()
-		require("octo").setup()
+		require("octo").setup({
+			ssh_aliases = {
+				["github.com-work"] = "github.com",
+			},
+		})
 	end,
 }
