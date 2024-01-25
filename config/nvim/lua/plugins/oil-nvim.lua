@@ -13,6 +13,7 @@ return {
 		require("oil").setup({
 			keymaps = {
 				q = "actions.close",
+				["<Esc>"] = "actions.close",
 				["<C-v>"] = "actions.select_vsplit",
 				["<C-x>"] = "actions.select_split",
 				["<C-h>"] = false,
