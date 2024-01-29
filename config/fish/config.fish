@@ -129,11 +129,11 @@ function fish_prompt -d "Write out the prompt"
   end
 end
 
-function ls
+function ls --wraps ls
     eza $argv
 end
 
-function la
+function la --wraps ls
     eza -la $argv
 end
 
@@ -141,7 +141,7 @@ set NVIM_BIN (which nvim)
 set -x EDITOR $NVIM_BIN
 set -x SUDO_EDITOR $NVIM_BIN
 
-function nvim
+function nvim --wraps nvim
   TERM=wezterm $NVIM_BIN $argv
 end
 
