@@ -3,7 +3,7 @@ fish_add_path /usr/bin/vendor_perl
 set -x BAT_THEME Coldark-Dark
 set -x AWS_REGION us-east-1
 
-set fish_user_paths \
+fish_add_path \
   $HOME/.bin \
   $HOME/.cargo/bin \
   $HOME/.config/yarn/global/node_modules/.bin \
@@ -12,21 +12,6 @@ set fish_user_paths \
   $HOME/bin
 
 mise activate fish | source
-
-set __fish_git_prompt_showdirtystate yes
-set __fish_git_prompt_showuntrackedfiles yes
-set __fish_git_prompt_showcolorhints yes
-set __fish_git_prompt_showupstream informative
-
-set __fish_git_prompt_color_branch magenta
-set __fish_git_prompt_color magenta
-set __fish_git_prompt_color_flags red
-
-set __fish_git_prompt_char_dirtystate '!'
-set __fish_git_prompt_char_stagedstate '+'
-set __fish_git_prompt_char_untrackedfiles '?'
-set __fish_git_prompt_char_upstream_ahead '⇡ '
-set __fish_git_prompt_char_upstream_behind '⇣ '
 
 function fish_mode_symbol
   switch $fish_bind_mode
@@ -137,7 +122,7 @@ function la --wraps ls
     eza -la $argv
 end
 
-set NVIM_BIN (which nvim)
+set NVIM_BIN (mise which nvim)
 set -x EDITOR $NVIM_BIN
 set -x SUDO_EDITOR $NVIM_BIN
 
