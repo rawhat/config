@@ -29,6 +29,7 @@ return {
 		{ "<leader>rp", desc = "Resume previous picker", "<cmd>Telescope resume<cr>" },
 		{ "<leader>lp", desc = "List previous pickers", "<cmd>Telescope pickers<cr>" },
 		{ "<leader>gs", desc = "Find in git diff files", "<cmd>Telescope git_status<cr>" },
+		{ "<leader>go", desc = "Find in jumplist", "<cmd>Telescope jumplist<cr>" },
 		{
 			"<leader>sc",
 			desc = "Find config files",
