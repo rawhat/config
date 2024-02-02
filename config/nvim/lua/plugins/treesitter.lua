@@ -7,6 +7,7 @@ return {
 		"Rrethy/nvim-treesitter-endwise",
 	},
 	build = ":TSUpdate all",
+	event = "BufEnter",
 	keys = {
 		{ "<leader>ts", desc = "TS Update", "<cmd>TSUpdate all<cr>" },
 	},
