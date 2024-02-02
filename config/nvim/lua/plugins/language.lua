@@ -18,5 +18,5 @@ return {
 			vim.cmd([[autocmd BufRead,BufNewFile *.libsonnet set filetype=jsonnet]])
 		end,
 	},
-	{ "mattn/emmet-vim", ft = { "html", "typescriptreact", "javascriptreact" } },
+	{ "mattn/emmet-vim", ft = { "astro", "html", "typescriptreact", "javascriptreact" } },
 }

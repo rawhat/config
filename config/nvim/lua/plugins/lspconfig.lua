@@ -47,6 +47,7 @@ return {
 		}
 
 		local lsp_configs = {
+			astro = {},
 			bashls = {},
 			bzl = {},
 			biome = {},
