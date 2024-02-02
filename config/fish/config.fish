@@ -1,6 +1,6 @@
 fish_add_path /usr/bin/vendor_perl
 
-set -x BAT_THEME Coldark-Dark
+set -x BAT_THEME ansi
 set -x AWS_REGION us-east-1
 
 fish_add_path \
