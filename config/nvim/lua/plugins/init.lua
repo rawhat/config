@@ -6,8 +6,6 @@ return {
 		end,
 	},
 	"romainl/vim-cool",
-	-- shell commands
-	"chrisgrieser/nvim-genghis",
 	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
