@@ -18,6 +18,7 @@ return {
 				["<C-x>"] = "actions.select_split",
 				["<C-h>"] = false,
 				["<C-t>"] = false,
+				["<C-q>"] = "actions.send_to_qflist",
 			},
 		})
 	end,
