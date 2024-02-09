@@ -90,7 +90,6 @@ return {
 							parameterNames = true,
 							rangeVariableTypes = true,
 						},
-						staticcheck = true,
 						["ui.semanticTokens"] = true,
 					},
 				},

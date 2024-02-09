@@ -61,11 +61,13 @@ return {
 				error_icon = " ",
 				warn_icon = " ",
 				info_icon = " ",
+				hint_icon = " ",
 			},
 			init = function(self)
 				self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
 				self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 				self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
+				self.hint = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
 			end,
 			update = { "DiagnosticChanged", "BufEnter" },
 			hl = { bg = "bg0", fg = "white" },
@@ -74,19 +76,25 @@ return {
 					provider = function(self)
 						return self.errors > 0 and (self.error_icon .. self.errors .. " ")
 					end,
-					h1 = { fg = "red" },
+					h1 = { fg = colors.red },
 				},
 				{
 					provider = function(self)
 						return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
 					end,
-					hl = { fg = "yellow" },
+					hl = { fg = colors.yellow },
 				},
 				{
 					provider = function(self)
 						return self.info > 0 and (self.info_icon .. self.info .. " ")
 					end,
-					hl = { fg = "green" },
+					hl = { fg = colors.green },
+				},
+				{
+					provider = function(self)
+						return self.hint > 0 and (self.hint_icon .. self.hint .. " ")
+					end,
+					hl = { fg = colors.dimWhite },
 				},
 			}),
 		}
@@ -138,7 +146,7 @@ return {
 				},
 				{
 					provider = function(self)
-						return " " .. (self.status_dict.added or 0) .. " "
+						return " " .. (self.status_dict.added or 0) .. " "
 					end,
 					hl = {
 						fg = "green",
@@ -146,7 +154,7 @@ return {
 				},
 				{
 					provider = function(self)
-						return "柳" .. (self.status_dict.changed or 0) .. " "
+						return " " .. (self.status_dict.changed or 0) .. " "
 					end,
 					hl = {
 						fg = "yellow",

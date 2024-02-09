@@ -90,6 +90,30 @@ M.themes = {
 			})
 			vim.cmd("colorscheme " .. variant)
 		end,
+		heirline_colors = function(palette)
+			local colors = require("nightfox.palette").load(palette or "nightfox")
+			return {
+				modes = {
+					n = colors.blue.dim,
+					i = colors.green.dim,
+					c = colors.red.dim,
+					v = colors.magenta.dim,
+					V = colors.magenta.dim,
+				},
+				fg0 = colors.fg0,
+				fg1 = colors.fg1,
+				bg = colors.bg1,
+				bg0 = colors.bg0,
+				bg1 = colors.bg1,
+				bg2 = colors.bg2,
+				yellow = colors.yellow.base,
+				red = colors.red.base,
+				green = colors.green.base,
+				white = colors.white.base,
+				blue = colors.blue.base,
+				dimWhite = colors.white.dim,
+			}
+		end,
 	},
 	kanagawa = {
 		package = "rebelot/kanagawa.nvim",
@@ -158,6 +182,8 @@ M.themes = {
 				red = colors.samuraiRed,
 				green = colors.springGreen,
 				white = colors.fujiWhite,
+				blue = colors.waveBlue1,
+				dimWhite = colors.fujiGray,
 			}
 		end,
 	},
