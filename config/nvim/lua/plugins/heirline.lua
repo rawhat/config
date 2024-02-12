@@ -76,7 +76,7 @@ return {
 					provider = function(self)
 						return self.errors > 0 and (self.error_icon .. self.errors .. " ")
 					end,
-					h1 = { fg = colors.red },
+					hl = { fg = colors.red },
 				},
 				{
 					provider = function(self)
