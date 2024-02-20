@@ -5,7 +5,11 @@ return {
 			require("plenary.filetype").add_file("gleam")
 		end,
 	},
-	"romainl/vim-cool",
+	{
+		"nvimdev/hlsearch.nvim",
+		event = "BufRead",
+		opts = {},
+	},
 	{
 		"kevinhwang91/nvim-bqf",
 		ft = "qf",
