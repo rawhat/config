@@ -5,6 +5,11 @@ return {
 			hide = {
 				cursorline = "focused_win",
 			},
+			window = {
+				margin = {
+					vertical = { bottom = 0, top = 0 },
+				},
+			},
 			render = function(props)
 				local buffer_name = vim.api.nvim_buf_get_name(props.buf)
 				local text = ""
