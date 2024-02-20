@@ -30,14 +30,16 @@ return {
 						captures[groups[i]] = match
 					end
 
-					local lnum = (tonumber(captures.lnum) or 1) - 1
+					local lnum = (captures.lnum and (tonumber(captures.lnum) - 1))
+						or (entry.lineNumber and (tonumber(entry.lineNumber) - 1))
+						or 0
 					local col = (tonumber(captures.col) or 1) - 1
 
 					table.insert(diagnostics, {
 						bufnr = bufnr,
 						lnum = lnum,
 						col = col,
-						message = captures.message,
+						message = captures.message or entry.message,
 						severity = vim.diagnostic.severity.ERROR,
 						source = "coffeelint",
 					})
