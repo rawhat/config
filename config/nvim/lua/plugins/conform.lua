@@ -16,6 +16,7 @@ return {
 				json = { "jq" },
 				just = { "just" },
 				lua = { "stylua" },
+				ocaml = { "ocamlformat" },
 				python = { { "pyfmt", "black" } },
 				typescript = javascript_format,
 				typescriptreact = javascript_format,
@@ -25,6 +26,7 @@ return {
 				lsp_fallback = true,
 				timeout_ms = 5000,
 			},
+			notify_on_error = true,
 			formatters = {
 				buildifier = {
 					command = "buildifier",

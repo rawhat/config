@@ -141,3 +141,6 @@ switch (uname)
 case Darwin
   eval "$(/opt/homebrew/bin/brew shellenv)"
 end
+
+# opam configuration
+source /home/alex/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true

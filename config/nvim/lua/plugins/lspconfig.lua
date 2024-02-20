@@ -132,7 +132,13 @@ return {
 					},
 				},
 			},
-			ocamllsp = {},
+			ocamllsp = {
+				settings = {
+					["ocaml.server.extraEnv"] = {
+						["OCAMLLSP_SEMANTIC_HIGHLIGHTING"] = "full",
+					},
+				},
+			},
 			pyright = {
 				flags = { debounce_text_changes = 300 },
 				settings = {
