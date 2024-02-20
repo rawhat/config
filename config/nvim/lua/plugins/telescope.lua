@@ -17,10 +17,10 @@ return {
 		{ "<leader>bl", desc = "Find buffers", "<cmd>Telescope buffers<cr>" },
 		{ "<leader>ch", desc = "Command history", "<cmd>Telescope command_history<cr>" },
 		{ "<leader>sh", desc = "Search history", "<cmd>Telescope search_history<cr>" },
-		{ "<leader>lr", desc = "LSP references", "<cmd>Telescope lsp_references<cr>" },
+		--[[ { "<leader>lr", desc = "LSP references", "<cmd>Telescope lsp_references<cr>" },
 		{ "<leader>lf", desc = "LSP definition(s)", "<cmd>Telescope lsp_definitions<cr>" },
 		{ "<leader>lm", desc = "LSP implementations", "<cmd>Telescope lsp_implementations<cr>" },
-		{ "<leader>lt", desc = "LSP type definition(s)", "<cmd>Telescope lsp_type_definitions<cr>" },
+		{ "<leader>lt", desc = "LSP type definition(s)", "<cmd>Telescope lsp_type_definitions<cr>" }, ]]
 		{ "<leader>ld", desc = "LSP diagnostics", "<cmd>Telescope diagnostics<cr>" },
 		{ "<leader>th", desc = "Help Tags", "<cmd>Telescope help_tags<cr>" },
 		{ "<leader>op", desc = "ViM Options", "<cmd>Telescope vim_options<cr>" },
