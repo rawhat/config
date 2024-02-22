@@ -2,8 +2,6 @@ local M = {}
 
 local options = vim.api.nvim_create_augroup("Options", { clear = true })
 
-vim.opt.encoding = "utf-8"
-
 -- disable mouse
 vim.cmd("set mouse=")
 
@@ -19,6 +17,8 @@ vim.opt.smartindent = true
 vim.opt.breakindent = true
 
 vim.opt.wrap = false
+
+vim.opt.undofile = true
 
 -- split options
 vim.opt.splitright = true
@@ -57,6 +57,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 vim.opt.hidden = true
 
 vim.opt.updatetime = 50
+vim.opt.timeoutlen = 300
 
 vim.opt.shortmess:append({ c = true })
 

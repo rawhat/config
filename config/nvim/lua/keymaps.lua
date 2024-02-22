@@ -131,6 +131,10 @@ register({
 		"Range Code Actions",
 	},
 }, { mode = "v" })
+register({
+	name = "LSP",
+	["<C-k>"] = { vim.lsp.buf.signature_help, "Display signature help" },
+})
 
 -- close buffers
 register({
