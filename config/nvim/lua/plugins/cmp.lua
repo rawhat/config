@@ -15,6 +15,8 @@ return {
 		local lspkind = require("lspkind")
 		local luasnip = require("luasnip")
 
+		luasnip.config.setup({})
+
 		cmp.setup({
 			sources = cmp.config.sources({
 				{ name = "nvim_lsp", priority = 8 },

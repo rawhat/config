@@ -5,11 +5,14 @@ local options = vim.api.nvim_create_augroup("Options", { clear = true })
 -- disable mouse
 vim.cmd("set mouse=")
 
+vim.opt.showmode = false
+
 vim.opt.scrolloff = 6
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.showmatch = true
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
@@ -59,7 +62,7 @@ vim.opt.hidden = true
 vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
 
-vim.opt.shortmess:append({ c = true })
+vim.opt.shortmess:append("WcC")
 
 -- always show column to left of numbers for lsp/git symbols
 -- vim.wo.signcolumn = "auto:1-2"
