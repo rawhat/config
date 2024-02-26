@@ -2,7 +2,7 @@ return {
 	"s1n7ax/nvim-window-picker",
 	keys = {
 		{
-			"<leader>m",
+			"<leader>w",
 			desc = "Jump to window",
 			function()
 				local window = require("window-picker").pick_window()

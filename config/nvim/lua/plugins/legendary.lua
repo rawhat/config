@@ -4,7 +4,7 @@ return {
 	priority = 10000,
 	lazy = false,
 	keys = {
-		{ "<leader>wk", desc = "Search keybinds, commands, autocommands", "<cmd>Legendary keymaps<cr>" },
+		{ "<leader>sk", desc = "Search keybinds, commands, autocommands", "<cmd>Legendary keymaps<cr>" },
 	},
 	config = function()
 		require("legendary").setup({

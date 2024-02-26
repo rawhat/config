@@ -3,7 +3,6 @@ return {
 	event = "BufEnter",
 	keys = {
 		{ "<leader>gd", desc = "Git diff this", "<cmd>Gitsigns diffthis<cr>" },
-		{ "<leader>gb", desc = "Git blame line", "<cmd>Gitsigns blame_line<cr>" },
 		{
 			"<leader>gf",
 			desc = "Git diff something",
