@@ -130,7 +130,10 @@ function nvim --wraps nvim
   TERM=wezterm $NVIM_BIN $argv
 end
 
-fish_hybrid_key_bindings
+function fish_user_key_bindings
+  fish_hybrid_key_bindings
+end
+set fish_vi_force_cursor
 set fish_cursor_default block
 set fish_cursor_insert line
 set fish_cursor_replace_one underscore

@@ -155,7 +155,7 @@ register({
 
 -- swap windows
 register({
-	["<leader>sw"] = {
+	["<leader>pw"] = {
 		require("utils").swap_windows,
 		"Swap buffer between current and other window",
 	},
