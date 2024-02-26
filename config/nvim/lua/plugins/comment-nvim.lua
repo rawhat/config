@@ -5,14 +5,14 @@ return {
 	},
 	keys = {
 		{
-			"<leader>cc",
+			"gcc",
 			desc = "Toggle comment on current line",
 			function()
 				require("Comment.api").toggle.linewise.current()
 			end,
 		},
 		{
-			"<leader>cc",
+			"gc",
 			mode = { "v" },
 			desc = "Toggle comment on visual lines",
 			function()
