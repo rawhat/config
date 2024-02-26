@@ -7,6 +7,6 @@ return {
 		},
 	},
 	keys = {
-		{ "<leader>so", "<cmd>Outline<cr>", desc = "Toggle outline" },
+		{ "<leader>oi", "<cmd>Outline<cr>", desc = "Toggle outline" },
 	},
 }
