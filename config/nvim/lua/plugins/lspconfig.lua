@@ -159,13 +159,8 @@ return {
 			zls = {},
 		}
 
-		local lsp_servers = {}
-		for server, _ in pairs(lsp_configs) do
-			table.insert(lsp_servers, server)
-		end
-
 		require("mason-lspconfig").setup({
-			ensure_installed = lsp_servers,
+			ensure_installed = { "lua_ls" },
 			icons = {
 				server_installed = "✓",
 				server_pending = "➜",
