@@ -160,7 +160,7 @@ return {
 		}
 
 		local lsp_servers = {}
-		for server, _ in pairs(lsp_servers) do
+		for server, _ in pairs(lsp_configs) do
 			table.insert(lsp_servers, server)
 		end
 
