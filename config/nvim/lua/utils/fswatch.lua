@@ -46,7 +46,6 @@ do
 	end
 
 	local function fswatch(path, opts, callback)
-		print("hi mom")
 		local obj = vim.system({
 			"fswatch",
 			"--recursive",

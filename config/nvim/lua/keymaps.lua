@@ -60,7 +60,7 @@ register({
 }, { prefix = "<leader>", noremap = true, silent = true })
 
 register({
-	["<leader>s"] = {
+	["<leader>rs"] = {
 		":sort<cr>",
 		"Sort visual items",
 	},

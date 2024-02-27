@@ -30,6 +30,7 @@ return {
 			desc = "Find config files",
 			function()
 				require("telescope.builtin").find_files({
+					prompt_title = "Find files in config",
 					search_dirs = { vim.fn.stdpath("config") },
 				})
 			end,
@@ -39,6 +40,7 @@ return {
 			desc = "Grep config files",
 			function()
 				require("telescope.builtin").live_grep({
+					prompt_title = "Find word in config",
 					search_dirs = { vim.fn.stdpath("config") },
 					-- additional_args = { "-g" },
 				})
