@@ -22,7 +22,21 @@ return {
 		local utils = require("utils")
 
 		treesitter.setup({
-			ensure_installed = "all",
+			ensure_installed = {
+				"bash",
+				"dockerfile",
+				"fish",
+				"git_rebase",
+				"gitcommit",
+				"gleam",
+				"html",
+				"javascript",
+				"json",
+				"rust",
+				"tsx",
+				"typescript",
+			},
+			auto_install = true,
 			highlight = {
 				enable = true,
 				additional_vim_regex_highlighting = false,
