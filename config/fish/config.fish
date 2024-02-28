@@ -143,6 +143,10 @@ function fish_mode_prompt; end
 switch (uname)
 case Darwin
   eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  # NOTE:  Currently need these to get bazel working
+  set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@1.1/lib"
+  set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@1.1/include"
 end
 
 # opam configuration
