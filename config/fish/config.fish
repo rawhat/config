@@ -147,6 +147,9 @@ case Darwin
   # NOTE:  Currently need these to get bazel working
   set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@1.1/lib"
   set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@1.1/include"
+
+  # for `gnu-sed`
+  fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
 end
 
 # opam configuration
