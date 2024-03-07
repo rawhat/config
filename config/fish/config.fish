@@ -150,6 +150,8 @@ case Darwin
 
   # for `gnu-sed`
   fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
+  # for scala support
+  fish_add_path "/Users/amanning/Library/Application Support/Coursier/bin"
 end
 
 # opam configuration
