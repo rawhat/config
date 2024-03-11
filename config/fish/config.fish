@@ -144,6 +144,8 @@ switch (uname)
 case Darwin
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
+  set -x AWS_SDK_LOAD_CONFIG 1
+
   # NOTE:  Currently need these to get bazel working
   set -gx LDFLAGS "-L/opt/homebrew/opt/openssl@1.1/lib"
   set -gx CPPFLAGS "-I/opt/homebrew/opt/openssl@1.1/include"
