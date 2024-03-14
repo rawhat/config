@@ -126,8 +126,12 @@ set NVIM_BIN (mise which nvim)
 set -x EDITOR $NVIM_BIN
 set -x SUDO_EDITOR $NVIM_BIN
 
-function nvim --wraps nvim
-  TERM=wezterm $NVIM_BIN $argv
+switch (uname)
+  case Darwin
+  case '*'
+    function nvim --wraps nvim
+      TERM=wezterm $NVIM_BIN $argv
+    end
 end
 
 function fish_user_key_bindings
@@ -142,7 +146,7 @@ function fish_mode_prompt; end
 
 switch (uname)
 case Darwin
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  eval "$(brew shellenv)"
 
   set -x AWS_SDK_LOAD_CONFIG 1
 
