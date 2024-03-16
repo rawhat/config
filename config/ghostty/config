@@ -1,4 +1,6 @@
-font-family = "Berkeley Mono"
+# font-family = "Berkeley Mono"
+# font-family = "Iosevka SS14 Extended"
+font-family = "Iosevka Extended"
 font-family = "nonicons"
 font-family = "Symbols Nerd Font Mono"
 
