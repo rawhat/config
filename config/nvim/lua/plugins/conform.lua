@@ -3,55 +3,31 @@ return {
 	config = function()
 		local conform = require("conform")
 
-		local javascript_format = { { "prettier", "prettify", "prettierd" } }
-
 		local util = require("conform.util")
 
 		conform.setup({
 			formatters_by_ft = {
 				bzl = { "buildifier" },
 				java = { { "javafmt" } },
-				javascript = javascript_format,
-				javascriptreact = javascript_format,
+				javascript = { "prettier" },
+				javascriptreact = { "prettier" },
 				json = { "jq" },
 				just = { "just" },
 				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
 				python = { { "pyfmt", "black" } },
-				typescript = javascript_format,
-				typescriptreact = javascript_format,
+				typescript = { "prettier" },
+				typescriptreact = { "prettier" },
 				["_"] = { "trim_whitespace" },
 			},
 			format_on_save = {
 				lsp_fallback = true,
-				timeout_ms = 5000,
 			},
 			notify_on_error = true,
 			formatters = {
-				buildifier = {
-					command = "buildifier",
-					args = function(self, ctx)
-						return { "-path=" .. ctx.filename }
-					end,
-					stdin = true,
-					cwd = util.root_file("WORKSPACE"),
-					require_cwd = true,
-				},
 				javafmt = {
 					command = "bazel",
 					args = { "run", "//tools/java-format", "--", "--stdin", "--stdin-filepath", "$FILENAME" },
-					stdin = true,
-					cwd = util.root_file("WORKSPACE"),
-					require_cwd = true,
-				},
-				just = {
-					command = "just",
-					args = { "--fmt", "--unstable", "-f", "$FILENAME" },
-					stdin = true,
-				},
-				prettify = {
-					command = "bazel",
-					args = { "run", "//tools/prettier", "--", "--stdin-filepath", "$FILENAME" },
 					stdin = true,
 					cwd = util.root_file("WORKSPACE"),
 					require_cwd = true,
