@@ -142,7 +142,7 @@ return {
 					},
 				},
 			},
-			pyright = {
+			basedpyright = {
 				flags = { debounce_text_changes = 300 },
 				settings = {
 					python = {

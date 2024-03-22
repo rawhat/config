@@ -146,7 +146,7 @@ function fish_mode_prompt; end
 
 switch (uname)
 case Darwin
-  eval "$(brew shellenv)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 
   set -x AWS_SDK_LOAD_CONFIG 1
 
