@@ -45,20 +45,6 @@ register({
 	["<c-u>"] = { "<c-u>zz", "up and center" },
 })
 
--- quickfix
-register({
-	q = {
-		o = {
-			":copen<cr>",
-			"Open quickfix",
-		},
-		c = {
-			":cclose<cr>",
-			"Close quickfix",
-		},
-	},
-}, { prefix = "<leader>", noremap = true, silent = true })
-
 register({
 	["<leader>rs"] = {
 		":sort<cr>",
@@ -158,13 +144,6 @@ register({
 	["<leader>pw"] = {
 		require("utils").swap_windows,
 		"Swap buffer between current and other window",
-	},
-})
-
-register({
-	["<leader>xx"] = {
-		vim.diagnostic.setqflist,
-		"Send diagnostics to quickfix list",
 	},
 })
 
