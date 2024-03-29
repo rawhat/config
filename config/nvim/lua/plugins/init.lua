@@ -11,10 +11,6 @@ return {
 		opts = {},
 	},
 	{
-		"kevinhwang91/nvim-bqf",
-		ft = "qf",
-	},
-	{
 		"stevearc/dressing.nvim",
 		config = function()
 			require("dressing").setup({
