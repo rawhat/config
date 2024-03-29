@@ -122,7 +122,7 @@ function la --wraps ls
     eza -la $argv
 end
 
-set NVIM_BIN (mise which nvim)
+set NVIM_BIN (mise which nvim || which nvim)
 set -x EDITOR $NVIM_BIN
 set -x SUDO_EDITOR $NVIM_BIN
 

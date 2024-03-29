@@ -31,6 +31,8 @@ return {
 				},
 			},
 			presets = {
+				bottom_search = true,
+				inc_rename = false,
 				lsp_doc_border = true,
 			},
 			routes = {
