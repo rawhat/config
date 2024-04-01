@@ -51,7 +51,7 @@ return {
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
-		local trouble = require("trouble.sources.telescope")
+		local trouble_open = require("trouble.sources.telescope").open
 
 		telescope.setup({
 			defaults = {
@@ -59,7 +59,7 @@ return {
 				mappings = {
 					i = {
 						["<Esc>"] = actions.close,
-						["<C-f>"] = trouble.open,
+						["<C-f>"] = trouble_open,
 					},
 				},
 				path_display = {
