@@ -14,6 +14,7 @@ return {
 		config = function()
 			require("trouble").setup({
 				focus = true,
+				follow = false,
 				results = {
 					auto_close = true,
 				},
