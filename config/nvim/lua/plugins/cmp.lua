@@ -105,7 +105,14 @@ return {
 		})
 
 		cmp.setup.cmdline(":", {
-			mapping = cmp.mapping.preset.cmdline(),
+			mapping = cmp.mapping.preset.cmdline({
+				["<C-n>"] = {
+					c = false,
+				},
+				["<C-p>"] = {
+					c = false,
+				},
+			}),
 			sources = cmp.config.sources({
 				{ name = "path" },
 			}, {
