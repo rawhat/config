@@ -39,20 +39,20 @@ return {
 			capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 		end
 
-		configs.bzl = {
-			default_config = {
-				cmd = { "bzl", "lsp" },
-				filetypes = { "bzl" },
-				root_dir = function(_fname)
-					return utils.cwd()
-				end,
-			},
-		}
-
 		local lsp_configs = {
 			astro = {},
+			basedpyright = {
+				flags = { debounce_text_changes = 300 },
+				settings = {
+					python = {
+						analysis = {
+							diagnosticMode = "openFilesOnly",
+							extra_paths = { utils.cwd() },
+						},
+					},
+				},
+			},
 			bashls = {},
-			bzl = {},
 			biome = {},
 			bufls = {},
 			clangd = {
@@ -142,19 +142,9 @@ return {
 					},
 				},
 			},
-			basedpyright = {
-				flags = { debounce_text_changes = 300 },
-				settings = {
-					python = {
-						analysis = {
-							diagnosticMode = "openFilesOnly",
-							extra_paths = { utils.cwd() },
-						},
-					},
-				},
-			},
 			sorbet = {},
 			sqlls = {},
+			starpls = {},
 			taplo = {},
 			zls = {},
 		}
