@@ -5,6 +5,7 @@ font-family = "Rec Mono Linear"
 # font-family = "Iosevka Wide"
 font-family = "nonicons"
 font-family = "Symbols Nerd Font Mono"
+adjust-cell-height=10%
 
 font-size = 18
 
