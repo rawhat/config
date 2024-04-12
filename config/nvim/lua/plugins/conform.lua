@@ -7,7 +7,7 @@ return {
 
 		conform.setup({
 			formatters_by_ft = {
-				bzl = { "buildifier" },
+				bzl = { "my_buildifier" },
 				java = { { "javafmt" } },
 				javascript = { "prettier" },
 				javascriptreact = { "prettier" },
@@ -23,8 +23,16 @@ return {
 			format_on_save = {
 				lsp_fallback = true,
 			},
+			log_level = vim.log.levels.TRACE,
 			notify_on_error = true,
 			formatters = {
+				my_buildifier = {
+					command = "buildifier",
+					args = { "$FILENAME" },
+					stdin = false,
+					cwd = util.root_file("WORKSPACE"),
+					require_cwd = true,
+				},
 				javafmt = {
 					command = "bazel",
 					args = { "run", "//tools/java-format", "--", "--stdin", "--stdin-filepath", "$FILENAME" },
