@@ -8,7 +8,6 @@ return {
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
-		local configs = require("lspconfig.configs")
 		local utils = require("utils")
 		local path = require("mason-core.path")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
@@ -239,11 +238,17 @@ return {
 			nextls = {
 				cmd = path.concat({ mason_data_path, "nextls" }),
 				enable = false,
+				init_options = {
+					experimental = {
+						completions = {
+							enable = true,
+						},
+					},
+				},
 			},
 		})
 
-		local has = require("utils").has
-		if has("nvim-0.10") then
+		if utils.has("nvim-0.10") then
 			vim.diagnostic.config({
 				signs = {
 					text = {
