@@ -2,7 +2,6 @@ return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		"williamboman/mason.nvim",
-		"pmizio/typescript-tools.nvim",
 		"elixir-tools/elixir-tools.nvim",
 		"folke/neodev.nvim",
 	},
@@ -17,7 +16,7 @@ return {
 		-- when in a deno project, we need to disable tsserver single_file_support
 		lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
 			local cwd = utils.cwd()
-			if config.name == "tsserver" and vim.fn.filereadable(cwd .. "/deno.jsonc") == 1 then
+			if config.name == "vtsls" and vim.fn.filereadable(cwd .. "/deno.jsonc") == 1 then
 				config.single_file_support = false
 			end
 			if config.name == "gopls" and vim.fn.filereadable(cwd .. "/WORKSPACE") ~= 1 then
@@ -145,11 +144,36 @@ return {
 			sqlls = {},
 			starpls = {},
 			taplo = {},
+			vtsls = {
+				on_attach = function(client, bufnr)
+					local active_clients = vim.lsp.get_clients()
+					for _, running_client in pairs(active_clients) do
+						if running_client.name == "denols" then
+							client.stop()
+						end
+					end
+				end,
+				settings = {
+					typescript = {
+						inlayHints = {
+							parameterNames = { enabled = "literals" },
+							parameterTypes = { enabled = true },
+							variableTypes = { enabled = true },
+							propertyDeclarationTypes = { enabled = true },
+							functionLikeReturnTypes = { enabled = true },
+							enumMemberValues = { enabled = true },
+						},
+					},
+				},
+			},
 			zls = {},
 		}
 
 		require("mason-lspconfig").setup({
 			ensure_installed = { "lua_ls" },
+			automatic_installation = {
+				exclude = { "gleam", "java_language_server" },
+			},
 			icons = {
 				server_installed = "✓",
 				server_pending = "➜",
@@ -193,34 +217,6 @@ return {
 				},
 			},
 		}
-
-		require("typescript-tools").setup({
-			capabilities = capabilities,
-			root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", ".git"),
-			flags = {
-				debounce_text_changes = 150,
-			},
-			on_attach = function(client, bufnr)
-				local active_clients = vim.lsp.get_clients()
-				for _, running_client in pairs(active_clients) do
-					if running_client.name == "denols" then
-						client.stop()
-					end
-				end
-			end,
-			settings = {
-				tsserver_file_preferences = {
-					includeInlayEnumMemberValueHints = true,
-					includeInlayFunctionLikeReturnTypeHints = true,
-					includeInlayFunctionParameterTypeHints = true,
-					includeInlayParameterNameHints = "all",
-					includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-					includeInlayPropertyDeclarationTypeHints = true,
-					includeInlayVariableTypeHints = true,
-					includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-				},
-			},
-		})
 
 		local elixirls = require("elixir.elixirls")
 		require("elixir").setup({
