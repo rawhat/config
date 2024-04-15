@@ -171,9 +171,6 @@ return {
 
 		require("mason-lspconfig").setup({
 			ensure_installed = { "lua_ls" },
-			automatic_installation = {
-				exclude = { "gleam", "java_language_server" },
-			},
 			icons = {
 				server_installed = "✓",
 				server_pending = "➜",
