@@ -2,7 +2,7 @@ return {
 	{
 		"FabijanZulj/blame.nvim",
 		keys = {
-			{ "<leader>gb", desc = "Toggle git blame", "<cmd>ToggleBlame window<cr>" },
+			{ "<leader>gb", desc = "Toggle git blame", "<cmd>BlameToggle window<cr>" },
 		},
 		config = function()
 			-- TODO:  this is not scoped to theme
