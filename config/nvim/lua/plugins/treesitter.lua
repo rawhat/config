@@ -73,5 +73,9 @@ return {
 				},
 			},
 		})
+
+		require("treesitter-context").setup({
+			multiline_threshold = 6,
+		})
 	end,
 }

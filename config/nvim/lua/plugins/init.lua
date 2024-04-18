@@ -58,4 +58,12 @@ return {
 		"tzachar/highlight-undo.nvim",
 		opts = {},
 	},
+	{
+		"ghostty",
+		dir = "/Applications/Ghostty.app/Contents/Resources/vim/vimfiles/",
+		lazy = false,
+		cond = function()
+			return vim.fn.executable("ghostty") == 1
+		end,
+	},
 }
