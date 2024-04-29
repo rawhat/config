@@ -47,6 +47,18 @@ return {
 			end,
 		},
 		{ "<leader>sn", desc = "Search noice", "<cmd>Telescope noice initial_mode=normal<cr>" },
+		{
+			"<leader>st",
+			desc = "Grep within path",
+			function()
+				vim.ui.input({ prompt = "Enter directory to search: " }, function(dir)
+					require("telescope.builtin").live_grep({
+						prompt_title = "Find word in " .. dir,
+						search_dirs = { dir },
+					})
+				end)
+			end,
+		},
 	},
 	config = function()
 		local telescope = require("telescope")

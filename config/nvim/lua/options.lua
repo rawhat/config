@@ -89,6 +89,8 @@ vim.g.mix_format_on_save = 1
 
 vim.g.node_client_debug = 1
 
+vim.g.termsync = 0
+
 vim.o.laststatus = 3
 vim.opt.cmdheight = 0
 
