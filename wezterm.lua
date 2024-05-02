@@ -6,7 +6,7 @@ local graphics = require("graphics")
 local keys = require("keys")
 local style = require("style")
 
-local domains
+local domains = {}
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	domains = require("domains.windows")
 elseif wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin" then
