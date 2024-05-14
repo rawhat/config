@@ -1,14 +1,14 @@
 local module = {}
 
 function module.apply(config)
-	config.animation_fps = 144
-	config.max_fps = 144
+	config.animation_fps = 240
+	config.max_fps = 240
 
 	-- temporary
-	-- front_end = "WebGpu",
+	-- config.front_end = "WebGpu"
 
 	config.freetype_load_flags = "NO_HINTING"
-	-- freetype_render_target = "HorizontalLcd"
+	config.freetype_render_target = "HorizontalLcd"
 	-- freetype_interpreter_version = 40
 	config.glyph_cache_image_cache_size = 1024
 	config.shape_cache_size = 4096

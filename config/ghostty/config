@@ -1,5 +1,5 @@
-font-family = "Rec Mono Linear"
-# font-family = "Berkeley Mono"
+# font-family = "Rec Mono Linear"
+font-family = "Berkeley Mono"
 # font-family = "Iosevka SS14 Extended"
 # font-family = "Iosevka Extended"
 # font-family = "Iosevka Wide"
@@ -8,11 +8,13 @@ font-family = "Symbols Nerd Font Mono"
 adjust-cell-height=10%
 
 font-size = 18
+font-thicken = true
 
 window-padding-x = 0
 window-padding-y = 0
 
 window-decoration = false
+window-vsync = true
 
 quit-after-last-window-closed = true
 
