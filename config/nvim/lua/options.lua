@@ -94,6 +94,8 @@ vim.g.termsync = 0
 vim.o.laststatus = 3
 vim.opt.cmdheight = 0
 
+vim.g.notermsync = true
+
 if vim.fn.exists("&splitkeep") ~= 0 then
 	vim.opt.splitkeep = "screen"
 end

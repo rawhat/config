@@ -16,6 +16,7 @@ return {
 				follow = false,
 				results = {
 					auto_close = true,
+					auto_jump = true,
 				},
 			})
 		end,
