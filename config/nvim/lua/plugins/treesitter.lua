@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-context",
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		"windwp/nvim-ts-autotag",
+		"PriceHiller/nvim-ts-autotag",
 		"Rrethy/nvim-treesitter-endwise",
 	},
 	build = ":TSUpdate all",
@@ -12,12 +12,7 @@ return {
 		{ "<leader>ts", desc = "TS Update", "<cmd>TSUpdate all<cr>" },
 	},
 	config = function()
-		local present, treesitter = pcall(require, "nvim-treesitter.configs")
-
-		if not present then
-			error("Couldn't load treesitter")
-			return
-		end
+		local treesitter = require("nvim-treesitter.configs")
 
 		local utils = require("utils")
 
@@ -49,11 +44,6 @@ return {
 				end,
 			},
 			matchup = { enable = true },
-			autopairs = { enable = true },
-			autotag = {
-				enable = true,
-				enable_close_on_slash = false,
-			},
 			indent = {
 				enable = true,
 			},
@@ -72,6 +62,11 @@ return {
 					},
 				},
 			},
+		})
+
+		require("nvim-ts-autotag").setup({
+			enable = true,
+			enable_close_on_slash = false,
 		})
 
 		require("treesitter-context").setup({
