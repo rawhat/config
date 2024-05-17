@@ -9,6 +9,7 @@ return {
 		"L3MON4D3/LuaSnip",
 		"saadparwaiz1/cmp_luasnip",
 		"onsails/lspkind.nvim",
+		"petertriho/cmp-git",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -127,5 +128,6 @@ return {
 				{ name = "buffer" },
 			}),
 		})
+		require("cmp_git").setup()
 	end,
 }

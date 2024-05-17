@@ -72,6 +72,7 @@ return {
 					i = {
 						["<Esc>"] = actions.close,
 						["<C-f>"] = trouble_open,
+						["<C-q>"] = actions.send_to_qflist,
 					},
 				},
 				path_display = {
