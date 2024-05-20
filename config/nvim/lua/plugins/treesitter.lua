@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-context",
 		"nvim-treesitter/nvim-treesitter-textobjects",
-		"PriceHiller/nvim-ts-autotag",
+		"windwp/nvim-ts-autotag",
 		"Rrethy/nvim-treesitter-endwise",
 	},
 	build = ":TSUpdate all",
