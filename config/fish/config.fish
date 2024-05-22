@@ -128,6 +128,9 @@ set -x SUDO_EDITOR $NVIM_BIN
 
 switch (uname)
   case Darwin
+    function nvim --wraps nvim
+      TERM=ghostty $NVIM_BIN $argv
+    end
   case '*'
     function nvim --wraps nvim
       TERM=wezterm $NVIM_BIN $argv
