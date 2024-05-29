@@ -186,7 +186,7 @@ return {
 			end,
 			utils.surround({ " ", " " }, nil, {
 				provider = function(self)
-					return " " .. self.status_dict.head
+					return " " .. (self.status_dict.head or "unknown")
 				end,
 			}),
 		}
