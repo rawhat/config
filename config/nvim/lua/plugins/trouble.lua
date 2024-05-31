@@ -1,7 +1,6 @@
 return {
 	{
 		"folke/trouble.nvim",
-		branch = "dev",
 		keys = {
 			{ "<leader>xx", "<cmd>Trouble diagnostics toggle<cr>", desc = "LSP diagnostics" },
 			{ "<leader>qo", "<cmd>Trouble qflist toggle<cr>", desc = "Quickfix toggle" },
