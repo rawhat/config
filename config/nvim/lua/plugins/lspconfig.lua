@@ -3,15 +3,12 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		"folke/neodev.nvim",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
 		local utils = require("utils")
 		local path = require("mason-core.path")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
-
-		require("neodev").setup()
 
 		-- when in a deno project, we need to disable tsserver single_file_support
 		lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
