@@ -21,12 +21,19 @@ return {
 
 		luasnip.config.setup({})
 
+		local sources = cmp.config.sources({
+			{ name = "nvim_lsp", priority = 8 },
+			{ name = "luasnip", priority = 7 },
+			{ name = "buffer", priority = 6 },
+		})
+
+		table.insert(sources, {
+			name = "lazydev",
+			group_index = 0,
+		})
+
 		cmp.setup({
-			sources = cmp.config.sources({
-				{ name = "nvim_lsp", priority = 8 },
-				{ name = "luasnip", priority = 7 },
-				{ name = "buffer", priority = 6 },
-			}),
+			sources = sources,
 
 			sorting = {
 				comparators = {

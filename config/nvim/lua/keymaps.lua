@@ -57,13 +57,13 @@ register({
 	name = "LSP",
 	j = {
 		function()
-			vim.diagnostic.jump({ count = 1 })
+			vim.diagnostic.jump({ count = 1, float = true })
 		end,
 		"Next LSP diagnostic",
 	},
 	k = {
 		function()
-			vim.diagnostic.jump({ count = -1 })
+			vim.diagnostic.jump({ count = -1, float = true })
 		end,
 		"Prev LSP diagnostic",
 	},
