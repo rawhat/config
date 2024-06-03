@@ -17,6 +17,13 @@ return {
 					auto_close = true,
 					auto_jump = true,
 				},
+				modes = {
+					diagnostics = {
+						groups = {
+							{ "filename", format = "{file_icon} {basename} {count}" },
+						},
+					},
+				},
 			})
 		end,
 	},
