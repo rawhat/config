@@ -230,7 +230,7 @@ return {
 			},
 		})
 
-		if utils.has("nvim-0.10") then
+		if utils.has("nvim-0.10") or utils.has("nvim-0.11") then
 			vim.diagnostic.config({
 				signs = {
 					text = {
