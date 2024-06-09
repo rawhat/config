@@ -76,8 +76,8 @@ register({
 			-- TODO:  check if any client(s) support it
 			-- if client.supports_method("textDocument/inlayHint") then
 			local current_buf = vim.api.nvim_get_current_buf()
-			local enabled = vim.lsp.inlay_hint.is_enabled(current_buf)
-			if require("utils").has("0.10") then
+			local enabled = vim.lsp.inlay_hint.is_enabled({ buf_nr = current_buf })
+			if require("utils").has("0.10.0") then
 				vim.lsp.inlay_hint.enable(not enabled, { bufnr = current_buf })
 			else
 				vim.lsp.inlay_hint.enable(current_buf, not enabled)

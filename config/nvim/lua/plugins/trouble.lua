@@ -9,22 +9,20 @@ return {
 			{ "gD", "<cmd>Trouble lsp_type_definitions toggle<cr>", desc = "LSP type definitions" },
 			{ "gm", "<cmd>Trouble lsp_implementations toggle<cr>", desc = "LSP implementations" },
 		},
-		config = function()
-			require("trouble").setup({
-				focus = true,
-				follow = false,
-				results = {
-					auto_close = true,
-					auto_jump = true,
-				},
-				modes = {
-					diagnostics = {
-						groups = {
-							{ "filename", format = "{file_icon} {basename} {count}" },
-						},
+		opts = {
+			focus = true,
+			follow = false,
+			auto_close = true,
+			auto_jump = true,
+			modes = {
+				diagnostics = {
+					auto_jump = false,
+					focus = true,
+					groups = {
+						{ "filename", format = "{file_icon} {basename} {count}" },
 					},
 				},
-			})
-		end,
+			},
+		},
 	},
 }

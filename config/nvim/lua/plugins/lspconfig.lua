@@ -99,20 +99,6 @@ return {
 			jsonls = {},
 			jsonnet_ls = {},
 			lua_ls = {
-				--[[ on_init = function(client)
-					client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-						Lua = {
-							runtime = {
-									version = "LuaJIT",
-								},
-							workspace = {
-									checkThirdParty = false,
-									library = { vim.env.VIMRUNTIME },
-								},
-						},
-					})
-					client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-				end, ]]
 				settings = {
 					Lua = {
 						-- Do not send telemetry data containing a randomized but unique identifier
@@ -134,7 +120,7 @@ return {
 			starpls = {},
 			taplo = {},
 			vtsls = {
-				on_attach = function(client, bufnr)
+				on_attach = function(client)
 					local active_clients = vim.lsp.get_clients()
 					for _, running_client in pairs(active_clients) do
 						if running_client.name == "denols" then
@@ -230,7 +216,7 @@ return {
 			},
 		})
 
-		if utils.has("nvim-0.10") or utils.has("nvim-0.11") then
+		if utils.has("0.10.0") then
 			vim.diagnostic.config({
 				signs = {
 					text = {
