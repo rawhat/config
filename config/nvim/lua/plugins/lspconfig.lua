@@ -119,7 +119,7 @@ return {
 			sqlls = {},
 			starpls = {},
 			taplo = {},
-			vtsls = {
+			tsserver = {
 				on_attach = function(client)
 					local active_clients = vim.lsp.get_clients()
 					for _, running_client in pairs(active_clients) do
