@@ -21,7 +21,7 @@ return {
 				["_"] = { "trim_whitespace" },
 			},
 			format_on_save = {
-				lsp_fallback = true,
+				lsp_format = "fallback",
 			},
 			log_level = vim.log.levels.TRACE,
 			notify_on_error = true,
