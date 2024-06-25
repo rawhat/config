@@ -16,7 +16,7 @@ local theme = require("themes").current_theme
 
 require("lazy").setup("plugins", {
 	install = {
-		colorscheme = { theme.current_theme },
+		colorscheme = { theme.package_name },
 	},
 	diff = {
 		cmd = "terminal_git",

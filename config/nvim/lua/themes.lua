@@ -117,7 +117,7 @@ M.themes = {
 	},
 	kanagawa = {
 		package = "rebelot/kanagawa.nvim",
-		package_name = "kanagawa.nvim",
+		package_name = "kanagawa",
 		name = "kanagawa",
 		config = function(palette)
 			require("kanagawa").setup({
