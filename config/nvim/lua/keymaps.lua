@@ -1,3 +1,4 @@
+local has = require("utils").has
 local register = require("which-key").register
 
 -- better up/down??? maybe
@@ -57,13 +58,21 @@ register({
 	name = "LSP",
 	j = {
 		function()
-			vim.diagnostic.jump({ count = 1, float = true })
+			if has("0.11") then
+				vim.diagnostic.jump({ count = 1, float = true })
+			else
+				vim.diagnostic.goto_next({ float = true })
+			end
 		end,
 		"Next LSP diagnostic",
 	},
 	k = {
 		function()
-			vim.diagnostic.jump({ count = -1, float = true })
+			if has("0.11") then
+				vim.diagnostic.jump({ count = -1, float = true })
+			else
+				vim.diagnostic.goto_next({ float = true })
+			end
 		end,
 		"Prev LSP diagnostic",
 	},
