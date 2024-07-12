@@ -1,62 +1,42 @@
 local has = require("utils").has
-local register = require("which-key").register
+local wk = require("which-key")
 
 -- better up/down??? maybe
 vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
--- gimme the gitiles link for a vistar file at the current line
-register({
-	["<leader>gt"] = {
+wk.add({
+	-- gimme the gitiles link for a vistar file at the current line
+	{
+		"<leader>gt",
 		function()
 			require("utils").github()
 		end,
-		"Gitiles link to current line",
+		desc = "Gitiles link to current line",
 	},
-})
-
--- delete that buffer
-register({
-	["<leader>bd"] = { ":bd!<cr>", "Delete buffer (press enter)" },
-})
-
--- quit
-register({
-	["<leader>qq"] = { ":qa<cr>", "Quit and close all" },
-})
-
--- inspect
-register({
-	["<leader>is"] = { "<cmd>Inspect<cr>", "Display highlight information" },
-})
-
--- visual copy persist cursor location
-register({
-	y = { "ygv<esc>", "Copy block and keep cursor location" },
-}, { mode = { "v" } })
-
-register({
-	H = { "^", "Start of line" },
-	L = { "$", "End of line" },
-})
-
-register({
-	["<c-d>"] = { "<c-d>zz", "down and center" },
-	["<c-f>"] = { "<c-f>zz", "down more and center" },
-	["<c-u>"] = { "<c-u>zz", "up and center" },
-})
-
-register({
-	["<leader>rs"] = {
-		":sort<cr>",
-		"Sort visual items",
+	-- delete that buffer
+	{ "<leader>bd", ":bd!<cr>", desc = "Delete buffer (press enter)" },
+	-- quit
+	{ "<leader>qq", ":qa<cr>", desc = "Quit and close all" },
+	-- inspect
+	{ "<leader>is", "<cmd>Inspect<cr>", desc = "Display highlight information" },
+	-- visual copy persist cursor location
+	{
+		mode = { "v" },
+		{ "y", "ygv<esc>", desc = "Copy block and keep cursor location" },
 	},
-}, { mode = { "v" } })
-
--- LSP
-register({
-	name = "LSP",
-	j = {
+	{ "H", "^", desc = "Start of line" },
+	{ "L", "$", desc = "End of line" },
+	{ "<c-d>", "<c-d>zz", desc = "down and center" },
+	{ "<c-f>", "<c-f>zz", desc = "down more and center" },
+	{ "<c-u>", "<c-u>zz", desc = "up and center" },
+	{
+		mode = { "v" },
+		{ "<leader>rs", ":sort<cr>", desc = "Sort visual items" },
+	},
+	-- LSP
+	{
+		"<leader>j",
 		function()
 			if has("0.11") then
 				vim.diagnostic.jump({ count = 1, float = true })
@@ -64,9 +44,10 @@ register({
 				vim.diagnostic.goto_next({ float = true })
 			end
 		end,
-		"Next LSP diagnostic",
+		desc = "Next LSP diagnostic",
 	},
-	k = {
+	{
+		"<leader>k",
 		function()
 			if has("0.11") then
 				vim.diagnostic.jump({ count = -1, float = true })
@@ -74,13 +55,11 @@ register({
 				vim.diagnostic.goto_next({ float = true })
 			end
 		end,
-		"Prev LSP diagnostic",
+		desc = "Prev LSP diagnostic",
 	},
-	ls = {
-		"<cmd>LspRestart<cr>",
-		"Restart LSP server(s)",
-	},
-	ih = {
+	{ "<leader>ls", "<cmd>LspRestart<cr>", desc = "Restart LSP server(s)" },
+	{
+		"<leader>ih",
 		function()
 			-- TODO:  check if any client(s) support it
 			-- if client.supports_method("textDocument/inlayHint") then
@@ -93,51 +72,44 @@ register({
 			end
 			-- end
 		end,
-		"Toggle inlay hints",
+		desc = "Toggle inlay hints",
 	},
-}, { prefix = "<leader>" })
-register({
-	name = "LSP",
-	K = {
+	{
+		"K",
 		function()
 			vim.lsp.buf.hover()
 		end,
-		"LSP hover",
+		desc = "LSP hover",
 	},
-})
-register({
-	name = "LSP",
-	["<leader>ca"] = {
+	{
+		"<leader>ca",
 		function()
 			vim.lsp.buf.code_action()
 		end,
-		"Code Actions",
+		desc = "Code Actions",
 	},
-})
-register({
-	name = "LSP",
-	["<leader>ca"] = {
-		function()
-			local start = vim.api.nvim_buf_get_mark(0, "<")
-			local ending = vim.api.nvim_buf_get_mark(0, ">")
-			vim.lsp.buf.code_action({
-				range = {
-					start = start,
-					["end"] = ending,
-				},
-			})
-		end,
-		"Range Code Actions",
+	{
+		mode = { "v" },
+		{
+			"<leader>ca",
+			function()
+				local start = vim.api.nvim_buf_get_mark(0, "<")
+				local ending = vim.api.nvim_buf_get_mark(0, ">")
+				vim.lsp.buf.code_action({
+					range = {
+						start = start,
+						["end"] = ending,
+					},
+				})
+			end,
+			desc = "Range Code Actions",
+		},
 	},
-}, { mode = "v" })
-register({
-	name = "LSP",
-	["<C-k>"] = { vim.lsp.buf.signature_help, "Display signature help" },
-})
+	{ "<C-k>", vim.lsp.buf.signature_help, desc = "Display signature help" },
 
--- close buffers
-register({
-	["<leader>bc"] = {
+	-- close buffers
+	{
+		"<leader>bc",
 		function()
 			local buffers = vim.api.nvim_list_bufs()
 			local current_buf = vim.api.nvim_get_current_buf()
@@ -148,32 +120,16 @@ register({
 				end
 			end
 		end,
-		"Close all buffers but current",
+		desc = "Close all buffers but current",
 	},
-})
+	-- swap windows
+	{ "<leader>pw", require("utils").swap_windows, desc = "Swap buffer between current and other window" },
 
--- swap windows
-register({
-	["<leader>pw"] = {
-		require("utils").swap_windows,
-		"Swap buffer between current and other window",
+	{
+		"<leader>z",
+		group = "lazy",
 	},
+	{ "<leader>zs", "<cmd>Lazy sync<cr>", desc = "Lazy sync" },
+	{ "<leader>zi", "<cmd>Lazy<cr>", desc = "Lazy install" },
+	{ "<leader>zo", "<cmd>Lazy home<cr>", desc = "Lazy open" },
 })
-
-register({
-	name = "Lazy",
-	z = {
-		s = {
-			"<cmd>Lazy sync<cr>",
-			"Lazy sync",
-		},
-		i = {
-			"<cmd>Lazy<cr>",
-			"Lazy install",
-		},
-		o = {
-			"<cmd>Lazy home<cr>",
-			"Lazy open",
-		},
-	},
-}, { prefix = "<leader>" })

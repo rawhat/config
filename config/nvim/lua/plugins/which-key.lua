@@ -10,5 +10,6 @@ return {
 				operators = false,
 			},
 		},
+		preset = "modern",
 	},
 }
