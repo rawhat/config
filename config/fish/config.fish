@@ -122,20 +122,21 @@ function la --wraps ls
     eza -la $argv
 end
 
-set NVIM_BIN (which nvim || mise which nvim)
-set -x EDITOR $NVIM_BIN
-set -x SUDO_EDITOR $NVIM_BIN
-
 switch (uname)
   case Darwin
     function nvim --wraps nvim
+      set NVIM_BIN (which nvim)
       TERM=ghostty $NVIM_BIN $argv
     end
   case '*'
     function nvim --wraps nvim
+      set NVIM_BIN (which nvim)
       TERM=wezterm $NVIM_BIN $argv
     end
 end
+
+set -x EDITOR nvim
+set -x SUDO_EDITOR nvim
 
 function fish_user_key_bindings
   fish_hybrid_key_bindings
