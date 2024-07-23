@@ -81,8 +81,12 @@ vim.opt.relativenumber = true
 vim.opt.cursorline = true
 
 -- don't really use these, but treesitter parsing for folds
-vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()"
+--[[ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" ]]
+vim.o.foldcolumn = "1" -- '0' is not bad
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
 
 -- probably don't need this, but set filetype to bazel for... bazel files
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
