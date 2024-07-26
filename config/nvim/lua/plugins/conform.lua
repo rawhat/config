@@ -8,14 +8,14 @@ return {
 		conform.setup({
 			formatters_by_ft = {
 				bzl = { "my_buildifier" },
-				java = { { "javafmt" } },
+				java = { "javafmt", stop_after_first = true },
 				javascript = { "prettier" },
 				javascriptreact = { "prettier" },
 				json = { "jq" },
 				just = { "just" },
 				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
-				python = { { "pyfmt", "black" } },
+				python = { "pyfmt", "black", stop_after_first = true },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 				["_"] = { "trim_whitespace" },

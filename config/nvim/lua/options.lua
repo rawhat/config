@@ -137,9 +137,6 @@ vim.o.laststatus = 3
 -- hide command line
 vim.opt.cmdheight = 0
 
--- just draw the terminal as fast as possible
-vim.g.notermsync = true
-
 -- don't move cursor when splitting
 if vim.fn.exists("&splitkeep") ~= 0 then
 	vim.opt.splitkeep = "screen"
