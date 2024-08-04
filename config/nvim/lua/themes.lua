@@ -273,8 +273,8 @@ M.themes = {
 		package_name = "nordic",
 		name = "nordic",
 		config = function()
-			local colors = require("nordic.colors")
 			require("nordic").load({
+				italic_comments = true,
 				telescope = {
 					style = "classic",
 				},
@@ -282,6 +282,9 @@ M.themes = {
 					style = "classic",
 				},
 				override = {
+					Keyword = { italic = true },
+				},
+				--[[ override = {
 					HopNextKey = {
 						fg = colors.cyan.base,
 						bold = true,
@@ -346,8 +349,31 @@ M.themes = {
 						fg = colors.gray1,
 						bg = colors.bg,
 					},
-				},
+				}, ]]
 			})
+		end,
+		heirline_colors = function(_palette)
+			local colors = require("nordic.colors")
+			return {
+				modes = {
+					n = colors.blue0,
+					i = colors.green.dim,
+					c = colors.red.dim,
+					v = colors.magenta.dim,
+					V = colors.magenta.dim,
+				},
+				fg0 = colors.white1,
+				fg1 = colors.white2,
+				bg = colors.gray0,
+				bg0 = colors.gray1,
+				bg1 = colors.gray2,
+				yellow = colors.yellow.base,
+				red = colors.red.base,
+				green = colors.green.base,
+				white = colors.white1,
+				blue = colors.blue0,
+				dimWhite = colors.white0_reduce_blue,
+			}
 		end,
 	},
 	rosepine = {
@@ -364,12 +390,12 @@ M.themes = {
 }
 
 -- M.current_theme = M.themes["rosepine"]
-M.current_theme = M.themes["kanagawa"]
+-- M.current_theme = M.themes["kanagawa"]
 -- M.current_theme.palette = "lotus"
 --[[ M.current_theme = M.themes["catppuccin"]
 M.current_theme.palette = "mocha" ]]
 -- M.current_theme = M.themes["nightfox"]
--- M.current_theme = M.themes["nordic"]
+M.current_theme = M.themes["nordic"]
 -- M.current_theme = M.themes["embark"]
 -- M.current_theme = M.themes["tundra"]
 
