@@ -1,8 +1,8 @@
-# font-family = "Rec Mono Linear"
+font-family = "Rec Mono Linear"
 # font-family = "Berkeley Mono"
 # font-family = "Iosevka SS14 Extended"
 # font-family = "Iosevka Term SS15"
-font-family = "Iosevka Plex"
+# font-family = "Iosevka Plex"
 # font-family = "Iosevka JetBrains Mono"
 # font-family = "Iosevka Extended"
 # font-family = "Iosevka Wide"
@@ -10,8 +10,8 @@ font-family = "nonicons"
 font-family = "Symbols Nerd Font Mono"
 adjust-cell-height=10%
 
-font-size = 18
 font-thicken = true
+font-size = 16
 
 window-padding-x = 0
 window-padding-y = 0
@@ -23,41 +23,82 @@ quit-after-last-window-closed = true
 
 macos-option-as-alt = true
 
-# Kanagawa
-foreground = dcd7ba
-background = 1f1f28
+# # Kanagawa
+# foreground = dcd7ba
+# background = 1f1f28
+#
+# selection-foreground = c8c093
+# selection-background = 2d4f67
+#
+# # black
+# palette = 0=090618
+# palette = 8=727169
+#
+# #red
+# palette = 1=c34043
+# palette = 9=e82424
+#
+# # green
+# palette = 2=76946a
+# palette = 10=98bb6c
+#
+# # yellow
+# palette = 3=c0a36e
+# palette = 11=e6c384
+#
+# # blue
+# palette = 4=7e9cd8
+# palette = 12=7fb4ca
+#
+# # purple
+# palette = 5=957fb8
+# palette = 13=938aa9
+#
+# # aqua
+# palette = 6=6a9589
+# palette = 14=7aa89f
+#
+# # white
+# palette = 7=c8c093
+# palette = 15=dcd7ba
 
-selection-foreground = c8c093
-selection-background = 2d4f67
+
+# Nordic
+foreground =            D8DEE9
+background  =          242933
+selection-foreground =  D8DEE9
+selection-background =  2E3440
+# url_color             #88C0D0
+# cursor                #D8DEE9
 
 # black
-palette = 0=090618
-palette = 8=727169
+palette=  0=191D24
+palette = 8=3B4252
 
-#red
-palette = 1=c34043
-palette = 9=e82424
+# red
+palette = 1=BF616A
+palette = 9=D06F79
 
 # green
-palette = 2=76946a
-palette = 10=98bb6c
+palette = 2=A3BE8C
+palette = 10=B1D196
 
 # yellow
-palette = 3=c0a36e
-palette = 11=e6c384
+palette = 3=EBCB8B
+palette = 11=F0D399
 
 # blue
-palette = 4=7e9cd8
-palette = 12=7fb4ca
+palette = 4=81A1C1
+palette = 12=88C0D0
 
-# purple
-palette = 5=957fb8
-palette = 13=938aa9
+# magenta
+palette = 5=B48EAD
+palette = 13=C895BF
 
-# aqua
-palette = 6=6a9589
-palette = 14=7aa89f
+# cyan
+palette = 6=8FBCBB
+palette = 14=93CCDC
 
 # white
-palette = 7=c8c093
-palette = 15=dcd7ba
+palette = 7=D8DEE9
+palette = 15=E5E9F0
