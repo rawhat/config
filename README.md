@@ -3,7 +3,7 @@
 This is the repo for my dotfiles, or at least some of them.
 
 At this point, I'm developing mostly on MacOS and in WSL2.  The bits have been
-pared down to pretty much just `neovim` and `wezterm`.
+pared down to pretty much just `neovim` and `wezterm`/`ghostty`.
 
 ## Editor
 * [nvim](https://github.com/neovim/neovim)
@@ -23,3 +23,4 @@ pared down to pretty much just `neovim` and `wezterm`.
 * Cascadia Code
 * Berkeley Mono (?)
 * JetBrainsMono
+* Recursive Mono

@@ -103,6 +103,19 @@ return {
 			provider = "%=",
 		}
 
+		local Tmux = {
+			condition = require("tmux-status").show,
+			hl = { bg = "bg0", fg = "fg0" },
+			provider = function()
+				local tmux_status = require("tmux-status")
+				local ok, data = pcall(tmux_status.tmux_windows)
+				if not ok then
+					return ""
+				end
+				return data
+			end,
+		}
+
 		local LSP = {
 			init = function(self)
 				self.filetype = require("utils").get_option_value("filetype", { buf = 0 })
@@ -194,6 +207,8 @@ return {
 		heirline.setup({
 			statusline = {
 				{ Filename, Progress, Diagnostics },
+				{ Separator },
+				{ Tmux },
 				{ Separator },
 				{ LSP, Diff, Branch },
 			},
