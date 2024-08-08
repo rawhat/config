@@ -1,5 +1,5 @@
 return {
-	"windwp/nvim-autopairs",
+	--[[ "windwp/nvim-autopairs",
 	event = "InsertEnter",
 	config = function()
 		local Rule = require("nvim-autopairs.rule")
@@ -21,5 +21,5 @@ return {
 				end)
 				:use_key(")"),
 		})
-	end,
+	end, ]]
 }
