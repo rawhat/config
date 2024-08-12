@@ -12,6 +12,7 @@ return {
 	},
 	config = function()
 		require("oil").setup({
+			default_file_explorer = true,
 			keymaps = {
 				q = "actions.close",
 				["<Esc>"] = "actions.close",
