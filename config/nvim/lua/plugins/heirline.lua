@@ -104,6 +104,17 @@ return {
 		}
 
 		local Tmux = {
+			init = function(self)
+				if not rawget(self, "once") then
+					local clear_cache = function()
+						self._win_cache = nil
+					end
+					vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter" }, {
+						callback = clear_cache,
+					})
+					self.once = true
+				end
+			end,
 			condition = require("tmux-status").show,
 			hl = { bg = "bg0", fg = "fg0" },
 			provider = function()

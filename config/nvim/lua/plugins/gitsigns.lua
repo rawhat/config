@@ -35,7 +35,7 @@ return {
 		})
 
 		vim.api.nvim_create_autocmd({ "FileType" }, {
-			pattern = { "gitsigns.blame" },
+			pattern = { "gitsigns-blame" },
 			callback = function()
 				vim.keymap.set("n", "q", function()
 					vim.api.nvim_buf_delete(0, {})
