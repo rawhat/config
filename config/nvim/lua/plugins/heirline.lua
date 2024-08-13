@@ -103,7 +103,7 @@ return {
 			provider = "%=",
 		}
 
-		local Tmux = {
+		--[[ local Tmux = {
 			init = function(self)
 				if not rawget(self, "once") then
 					local clear_cache = function()
@@ -125,7 +125,7 @@ return {
 				end
 				return data
 			end,
-		}
+		} ]]
 
 		local LSP = {
 			init = function(self)
@@ -219,8 +219,8 @@ return {
 			statusline = {
 				{ Filename, Progress, Diagnostics },
 				{ Separator },
-				{ Tmux },
-				{ Separator },
+				-- { Tmux },
+				-- { Separator },
 				{ LSP, Diff, Branch },
 			},
 			opts = {
