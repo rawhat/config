@@ -122,17 +122,14 @@ function la --wraps ls
     eza -la $argv
 end
 
-switch (uname)
+function nvim --wraps nvim
+  set NVIM_BIN (which nvim)
+  switch (uname)
   case Darwin
-    function nvim --wraps nvim
-      set NVIM_BIN (which nvim)
-      $NVIM_BIN $argv
-    end
+    $NVIM_BIN $argv
   case '*'
-    function nvim --wraps nvim
-      set NVIM_BIN (which nvim)
-      TERM=wezterm $NVIM_BIN $argv
-    end
+    TERM=wezterm $NVIM_BIN $argv
+  end
 end
 
 set -x EDITOR nvim
