@@ -132,4 +132,12 @@ wk.add({
 	{ "<leader>zs", "<cmd>Lazy sync<cr>", desc = "Lazy sync" },
 	{ "<leader>zi", "<cmd>Lazy<cr>", desc = "Lazy install" },
 	{ "<leader>zo", "<cmd>Lazy home<cr>", desc = "Lazy open" },
+
+	{
+		"<leader>yp",
+		function()
+			vim.fn.setreg("+", vim.fn.expand("%:p:.:h"))
+		end,
+		desc = "Copy relative directory to clipboard",
+	},
 })
