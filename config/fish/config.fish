@@ -126,7 +126,7 @@ function nvim --wraps nvim
   set NVIM_BIN (which nvim)
   switch (uname)
   case Darwin
-    $NVIM_BIN $argv
+    TERM=xterm-ghostty $NVIM_BIN $argv
   case '*'
     TERM=wezterm $NVIM_BIN $argv
   end

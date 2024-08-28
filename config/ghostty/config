@@ -1,14 +1,15 @@
 # font-family = "Rec Mono Linear"
-# font-family = "Berkeley Mono"
+font-family = "Berkeley Mono"
 # font-family = "Iosevka SS14 Extended"
 # font-family = "Iosevka Term SS15"
-font-family = "Iosevka Plex"
+# font-family = "Iosevka Plex"
 # font-family = "Iosevka JetBrains Mono"
 # font-family = "Iosevka Extended"
 # font-family = "Iosevka Wide"
 font-family = "nonicons"
 font-family = "Symbols Nerd Font Mono"
-adjust-cell-height=10%
+adjust-cell-height=15%
+cursor-invert-fg-bg = true
 
 font-thicken = true
 font-size = 18

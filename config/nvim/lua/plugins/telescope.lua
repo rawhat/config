@@ -63,7 +63,6 @@ return {
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
-		local trouble_open = require("trouble.sources.telescope").open
 
 		telescope.setup({
 			defaults = {
@@ -71,8 +70,10 @@ return {
 				mappings = {
 					i = {
 						["<Esc>"] = actions.close,
-						["<C-f>"] = trouble_open,
-						["<C-q>"] = actions.send_to_qflist,
+						["<C-f>"] = function(bufnr)
+							actions.smart_send_to_qflist(bufnr)
+							require("quicker").open({ focus = true })
+						end,
 					},
 				},
 				path_display = {
