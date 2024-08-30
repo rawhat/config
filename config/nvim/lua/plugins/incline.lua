@@ -9,6 +9,7 @@ return {
 				margin = {
 					vertical = { bottom = 0, top = 0 },
 				},
+				zindex = 25,
 			},
 			render = function(props)
 				local buffer_name = vim.api.nvim_buf_get_name(props.buf)
