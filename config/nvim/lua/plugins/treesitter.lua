@@ -27,6 +27,7 @@ return {
 				"html",
 				"javascript",
 				"json",
+				"regex",
 				"rust",
 				"tsx",
 				"typescript",
