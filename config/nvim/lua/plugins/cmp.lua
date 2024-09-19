@@ -35,6 +35,10 @@ return {
 		cmp.setup({
 			sources = sources,
 
+			matching = {
+				disallow_partial_fuzzy_matching = true,
+			},
+
 			sorting = {
 				comparators = {
 					cmp.config.compare.exact,
