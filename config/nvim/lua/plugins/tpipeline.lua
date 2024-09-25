@@ -1,7 +1,7 @@
 local theme = require("themes").current_theme
 
 return {
-	"vimpostor/vim-tpipeline",
+	--[[ "vimpostor/vim-tpipeline",
 	cond = function()
 		local is_linux = vim.fn.has("linux") == 1
 		local is_osx = vim.fn.has("macunix") == 1
@@ -15,5 +15,5 @@ return {
 		vim.api.nvim_set_hl(0, "StatusLine", { bg = colors.bg, fg = colors.bg2 })
 		vim.api.nvim_set_hl(0, "StatusLineNC", { bg = colors.bg, fg = colors.fg1 })
 		vim.cmd("set fcs=stlnc:─,stl:─,vert:│")
-	end,
+	end, ]]
 }
