@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		"pmizio/typescript-tools.nvim",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -134,6 +133,24 @@ return {
 			sqlls = {},
 			starpls = {},
 			taplo = {},
+			vtsls = {
+				settings = {
+					complete_function_calls = true,
+					typescript = {
+						suggest = {
+							completeFunctionCalls = true,
+						},
+						inlayHints = {
+							parameterNames = { enabled = "literals" },
+							parameterTypes = { enabled = true },
+							variableTypes = { enabled = true },
+							propertyDeclarationTypes = { enabled = true },
+							functionLikeReturnTypes = { enabled = true },
+							enumMemberValues = { enabled = true },
+						},
+					},
+				},
+			},
 			zls = {},
 		}
 
@@ -204,29 +221,6 @@ return {
 						completions = {
 							enable = true,
 						},
-					},
-				},
-			},
-		})
-
-		require("typescript-tools").setup({
-			on_attach = function(client)
-				local active_clients = vim.lsp.get_clients()
-				for _, running_client in pairs(active_clients) do
-					if running_client.name == "denols" then
-						client.stop()
-					end
-				end
-			end,
-			settings = {
-				typescript = {
-					inlayHints = {
-						parameterNames = { enabled = "literals" },
-						parameterTypes = { enabled = true },
-						variableTypes = { enabled = true },
-						propertyDeclarationTypes = { enabled = true },
-						functionLikeReturnTypes = { enabled = true },
-						enumMemberValues = { enabled = true },
 					},
 				},
 			},
