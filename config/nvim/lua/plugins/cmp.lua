@@ -1,4 +1,5 @@
-return {
+return {}
+--[[ return {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
 		"hrsh7th/cmp-buffer",
@@ -154,4 +155,4 @@ return {
 		})
 		require("cmp_git").setup()
 	end,
-}
+} ]]
