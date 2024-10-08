@@ -58,7 +58,7 @@ return {
 
 		require("lint").linters_by_ft = {
 			bzl = { "buildifier" },
-			coffee = { "coffeelint" },
+			-- coffee = { "coffeelint" },
 			elixir = elixir_linters,
 			leex = elixir_linters,
 			heex = elixir_linters,
@@ -76,6 +76,11 @@ return {
 		vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
 			callback = function()
 				if require("diffview.lib").get_current_view() then
+					return
+				end
+				local current_buf = vim.api.nvim_get_current_buf()
+				local is_quickfix = vim.bo[current_buf].ft == "qf"
+				if is_quickfix then
 					return
 				end
 				require("lint").try_lint()

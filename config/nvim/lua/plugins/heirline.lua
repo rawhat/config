@@ -121,7 +121,7 @@ return {
 				local tmux_status = require("tmux-status")
 				local ok, data = pcall(tmux_status.tmux_windows)
 				if not ok then
-					return ""
+					return " "
 				end
 				return data
 			end,
@@ -148,6 +148,9 @@ return {
 						if filetypes and vim.fn.index(filetypes, self.filetype) ~= -1 then
 							table.insert(client_names, client.name)
 						end
+					end
+					if #client_names == 0 then
+						return " "
 					end
 					local formatted = table.concat(client_names, "|")
 					return " " .. formatted
