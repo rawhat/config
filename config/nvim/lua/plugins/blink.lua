@@ -12,11 +12,11 @@ return {
 				enabled = true,
 			},
 		},
-		trigger = {
+		--[[ trigger = {
 			signature_help = {
 				enabled = true,
 			},
-		},
+		}, ]]
 		highlight = {
 			use_npm_cmp_as_default = true,
 		},
