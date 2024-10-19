@@ -1,0 +1,14 @@
+{
+  "npm_install": {
+    "body": "npm_install(\n    name = \"$1\",\n    version = \"$2\",\n    sha256 = \"$3\",\n)",
+    "prefix": "npm install"
+  },
+  "npm_tarball_install": {
+    "body": "npm_install(\n    name = \"$1\",\n    version = \"$2\",\n    sha256 = \"$3\",\n    type_version = \"$4\",\n    type_sha256 = \"$5\",\n)",
+    "prefix": "npm tarball install"
+  },
+  "ts_library": {
+    "body": "ts_library(\n    name = \"$1\",\n    srcs = [\"$2\"],\n    tsc_config = \"//:ts_config_strict\",\n    deps = [\n      \"$3\",\n    ]\n)",
+    "prefix": "ts library"
+  }
+}
