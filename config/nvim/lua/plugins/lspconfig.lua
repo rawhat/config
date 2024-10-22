@@ -22,11 +22,6 @@ return {
 		end)
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		--[[ local capabilities = vim.tbl_deep_extend(
-			"force",
-			vim.lsp.protocol.make_client_capabilities(),
-			require("cmp_nvim_lsp").default_capabilities()
-		) ]]
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
 		-- See https://github.com/neovim/neovim/issues/23291
 		if vim.fn.executable("watchman") == 1 then
