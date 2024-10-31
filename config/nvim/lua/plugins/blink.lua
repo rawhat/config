@@ -11,6 +11,7 @@ return {
 		highlight = {
 			use_nvim_cmp_as_default = true,
 		},
+		keymap = "super-tab",
 		windows = {
 			autocomplete = {
 				draw = "minimal",

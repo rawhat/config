@@ -15,4 +15,9 @@ return {
 		{ "<leader>dc", desc = "Close diffview", "<cmd>DiffviewClose<cr>" },
 		{ "<leader>df", desc = "Toggle diffview file panel", "<cmd>DiffviewToggleFiles<cr>" },
 	},
+	opts = {
+		default_args = {
+			DiffviewOpen = { "--imply-local" },
+		},
+	},
 }
