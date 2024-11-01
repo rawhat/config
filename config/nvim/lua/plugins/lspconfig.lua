@@ -3,6 +3,7 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
+		"Saghen/blink.cmp",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -173,7 +174,7 @@ return {
 		})
 
 		for server, config in pairs(lsp_configs) do
-			config.capabilities = capabilities
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 			require("lspconfig")[server].setup(config)
 		end
 
