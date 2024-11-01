@@ -174,7 +174,7 @@ return {
 		})
 
 		for server, config in pairs(lsp_configs) do
-			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities, true)
 			require("lspconfig")[server].setup(config)
 		end
 
