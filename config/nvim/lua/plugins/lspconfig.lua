@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		"Saghen/blink.cmp",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
