@@ -36,20 +36,6 @@ return {
 			basedpyright = {
 				flags = { debounce_text_changes = 300 },
 				settings = {
-					basedpyright = {
-						analysis = {
-							diagnosticMode = "openFilesOnly",
-							diagnosticSeverityOverrides = {
-								reportUnknownParameterType = false,
-								reportMissingParameterType = false,
-								reportUntypedFunctionDecorator = false,
-								reportUnknownVariableType = false,
-								reportUnknownArgumentType = false,
-							},
-							typeCheckingMode = "off",
-							useLibraryCodeForTypes = true,
-						},
-					},
 					python = {
 						analysis = {
 							extra_paths = { utils.cwd() },
@@ -139,6 +125,18 @@ return {
 					},
 				},
 			},
+			--[[ pyright = {
+				settings = {
+					python = {
+						analysis = {
+							diagnosticMode = "openFilesOnly",
+							extra_paths = { utils.cwd() },
+							typeCheckingMode = "basic",
+							useLibraryCodeForTypes = true,
+						},
+					},
+				},
+			}, ]]
 			sorbet = {},
 			sqlls = {},
 			starpls = {},
