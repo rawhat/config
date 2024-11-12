@@ -14,8 +14,6 @@ wk.add({
 		end,
 		desc = "Gitiles link to current line",
 	},
-	-- delete that buffer
-	{ "<leader>bd", ":bd!<cr>", desc = "Delete buffer (press enter)" },
 	-- quit
 	{ "<leader>qq", ":qa<cr>", desc = "Quit and close all" },
 	-- inspect

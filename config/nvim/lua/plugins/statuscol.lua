@@ -1,5 +1,5 @@
 return {
-	"luukvbaal/statuscol.nvim",
+	--[[ "luukvbaal/statuscol.nvim",
 	config = function()
 		local builtin = require("statuscol.builtin")
 		require("statuscol").setup({
@@ -11,5 +11,5 @@ return {
 				{ sign = { namespace = { "gitsigns" } }, maxwidth = 1, colwidth = 1, auto = true },
 			},
 		})
-	end,
+	end, ]]
 }

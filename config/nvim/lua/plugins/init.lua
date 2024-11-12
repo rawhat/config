@@ -20,13 +20,13 @@ return {
 			})
 		end,
 	},
-	{
+	--[[ {
 		"rcarriga/nvim-notify",
 		opts = {
 			render = "wrapped-compact",
 			stages = "static",
 		},
-	},
+	}, ]]
 	{
 		"rawhat/nvim-lightbulb",
 		opts = {

@@ -24,9 +24,6 @@ return {
 			},
 		},
 		windows = {
-			autocomplete = {
-				draw = "minimal",
-			},
 			documentation = {
 				auto_show = true,
 			},

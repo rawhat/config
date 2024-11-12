@@ -8,9 +8,6 @@ return {
 		return vim.fn.exists("g:fvim_loaded") == 0
 	end,
 	event = "VimEnter",
-	keys = {
-		{ "<leader>ds", desc = "Dismiss noice notifications", "<cmd>Noice dismiss<cr>" },
-	},
 	config = function()
 		require("noice").setup({
 			lsp = {
