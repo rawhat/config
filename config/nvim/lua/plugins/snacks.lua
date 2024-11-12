@@ -25,4 +25,11 @@ return {
 			desc = "Dismiss notifications",
 		},
 	},
+	opts = {
+		statuscolumn = {
+			left = { "sign" },
+			right = { "git" },
+		},
+		words = { enabled = false },
+	},
 }
