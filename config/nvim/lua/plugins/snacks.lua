@@ -26,10 +26,14 @@ return {
 		},
 	},
 	opts = {
-		statuscolumn = {
+		bigfile = { enabled = true },
+		bufdelete = { enabled = true },
+		notify = { enabled = true },
+		notifier = { enabled = true },
+		quickfile = { enabled = true },
+		--[[ statuscolumn = {
 			left = { "sign" },
 			right = { "git" },
-		},
-		words = { enabled = false },
+		}, ]]
 	},
 }
