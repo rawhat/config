@@ -3,11 +3,19 @@ return {
 	lazy = false,
 	build = "cargo build --release",
 	opts = {
-		highlight = {
+		appearance = {
 			use_nvim_cmp_as_default = true,
 		},
 		keymap = {
 			preset = "super-tab",
+		},
+		completion = {
+			trigger = {
+				show_in_snippet = false,
+			},
+			documentation = {
+				auto_show = true,
+			},
 		},
 		sources = {
 			completion = {
@@ -16,16 +24,6 @@ return {
 			providers = {
 				lsp = { fallback_for = { "lazydev" } },
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
-			},
-		},
-		trigger = {
-			completion = {
-				show_in_snippet = false,
-			},
-		},
-		windows = {
-			documentation = {
-				auto_show = true,
 			},
 		},
 	},

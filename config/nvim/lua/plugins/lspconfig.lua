@@ -124,18 +124,6 @@ return {
 					},
 				},
 			},
-			--[[ pyright = {
-				settings = {
-					python = {
-						analysis = {
-							diagnosticMode = "openFilesOnly",
-							extra_paths = { utils.cwd() },
-							typeCheckingMode = "basic",
-							useLibraryCodeForTypes = true,
-						},
-					},
-				},
-			}, ]]
 			sorbet = {},
 			sqlls = {},
 			starpls = {},
