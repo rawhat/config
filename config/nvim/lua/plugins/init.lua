@@ -48,7 +48,8 @@ return {
 		opts = {},
 	},
 	{
-		"tzachar/highlight-undo.nvim",
+		"aileot/emission.nvim",
+		event = "VeryLazy",
 		opts = {},
 	},
 	{
