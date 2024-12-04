@@ -10,6 +10,11 @@ return {
 			preset = "super-tab",
 		},
 		completion = {
+			menu = {
+				draw = {
+					treesitter = true,
+				},
+			},
 			trigger = {
 				show_in_snippet = false,
 			},
