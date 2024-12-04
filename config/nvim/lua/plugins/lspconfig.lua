@@ -23,12 +23,6 @@ return {
 
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
 		capabilities.textDocument.completion.completionItem.snippetSupport = true
-		-- See https://github.com/neovim/neovim/issues/23291
-		if vim.fn.executable("watchman") == 1 then
-			require("utils.watchman")
-		else
-			capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-		end
 
 		local lsp_configs = {
 			astro = {},
