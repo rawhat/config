@@ -56,6 +56,7 @@ return {
 		"ghostty",
 		dir = "/Applications/Ghostty.app/Contents/Resources/vim/vimfiles/",
 		lazy = false,
+		virtual = true,
 		cond = function()
 			return vim.fn.executable("ghostty") == 1
 		end,

@@ -31,9 +31,9 @@ return {
 		notify = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
-		--[[ statuscolumn = {
+		statuscolumn = {
 			left = { "sign" },
 			right = { "git" },
-		}, ]]
+		},
 	},
 }
