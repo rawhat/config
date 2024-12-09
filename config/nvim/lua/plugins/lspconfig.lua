@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		"mfussenegger/nvim-jdtls",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -157,6 +156,18 @@ return {
 			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities, true)
 			require("lspconfig")[server].setup(config)
 		end
+
+		local java_language_server
+		if vim.fn.has("mac") == 1 then
+			java_language_server = "/Users/amanning/java-language-server/dist/lang_server_mac.sh"
+		else
+			java_language_server = "/home/alex/java-language-server/dist/lang_server_linux.sh"
+		end
+
+		-- non-lsp-install servers
+		require("lspconfig").java_language_server.setup({
+			cmd = { java_language_server },
+		})
 
 		vim.g.rustaceanvim = {
 			capabilities = capabilities,
