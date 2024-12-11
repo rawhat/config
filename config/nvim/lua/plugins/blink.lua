@@ -18,9 +18,12 @@ return {
 			},
 		},
 		sources = {
-			default = { "lsp", "path", "snippets", "buffer", "lazydev" },
+			default = { "lsp", "path", "snippets", "buffer" },
+			per_filetype = {
+				lua = { "lsp", "path", "snippets", "buffer", "lazydev" },
+			},
 			providers = {
-				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallback = { "lsp" } },
+				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallbacks = { "lsp" } },
 			},
 		},
 	},
