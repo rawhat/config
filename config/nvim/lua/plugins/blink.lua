@@ -18,12 +18,9 @@ return {
 			},
 		},
 		sources = {
-			completion = {
-				enabled_providers = { "lsp", "path", "snippets", "buffer", "lazydev" },
-			},
+			default = { "lsp", "path", "snippets", "buffer", "lazydev" },
 			providers = {
-				lsp = { fallback_for = { "lazydev" } },
-				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink" },
+				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallback = { "lsp" } },
 			},
 		},
 	},
