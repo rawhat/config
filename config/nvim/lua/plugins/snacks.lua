@@ -28,6 +28,7 @@ return {
 	opts = {
 		bigfile = { enabled = true },
 		bufdelete = { enabled = true },
+		-- indent = { enabled = true, indent = { only_scope = true } },
 		notify = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
