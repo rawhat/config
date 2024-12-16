@@ -28,7 +28,20 @@ return {
 	opts = {
 		bigfile = { enabled = true },
 		bufdelete = { enabled = true },
-		-- indent = { enabled = true, indent = { only_scope = true } },
+		indent = {
+			enabled = true,
+			animate = { enabled = false },
+			indent = {
+				enabled = true,
+				char = "│",
+				-- char = "▎",
+				-- only_scope = true,
+			},
+			scope = {
+				enabled = true,
+				hl = "IndentBlanklineContextChar",
+			},
+		},
 		notifier = { enabled = true },
 		notify = { enabled = true },
 		quickfile = { enabled = true },
