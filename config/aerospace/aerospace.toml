@@ -12,17 +12,20 @@ on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
 after-startup-command = ['exec-and-forget sketchybar']
 
-exec-on-workspace-change = ['/bin/bash', '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE']
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+]
 
 [mode.main.binding]
 # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
 alt-enter = 'exec-and-forget open -n -a ghostty'
 
 # i3 wraps focus by default
-alt-h =         'focus --boundaries-action wrap-around-the-workspace left'
-alt-j =         'focus --boundaries-action wrap-around-the-workspace down'
-alt-k =         'focus --boundaries-action wrap-around-the-workspace up'
+alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
+alt-j = 'focus --boundaries-action wrap-around-the-workspace down'
+alt-k = 'focus --boundaries-action wrap-around-the-workspace up'
 alt-l = 'focus --boundaries-action wrap-around-the-workspace right'
 
 alt-shift-h = 'move left'
@@ -36,8 +39,8 @@ alt-v = 'join-with down'
 
 alt-f = 'fullscreen'
 
-alt-s = 'layout v_accordion' # 'layout stacking' in i3
-alt-w = 'layout h_accordion' # 'layout tabbed' in i3
+alt-s = 'layout v_accordion'               # 'layout stacking' in i3
+alt-w = 'layout h_accordion'               # 'layout tabbed' in i3
 alt-e = 'layout tiles horizontal vertical' # 'layout toggle split' in i3
 
 alt-shift-space = 'layout floating tiling' # 'floating toggle' in i3
@@ -92,4 +95,4 @@ esc = 'mode main'
 5 = 'secondary'
 
 [gaps]
-outer.top = [{monitor."built-in" = 0}, 25]
+outer.top = [{ monitor."built-in" = 0 }, 25]
