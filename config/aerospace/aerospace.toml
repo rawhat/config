@@ -34,8 +34,8 @@ alt-shift-k = 'move up'
 alt-shift-l = 'move right'
 
 # Consider using 'join-with' command as a 'split' replacement if you want to enable normalizations
-# alt-h = 'split horizontal'
-alt-v = 'join-with down'
+alt-semicolon = 'join-with down'
+alt-v = 'join-with right'
 
 alt-f = 'fullscreen'
 
