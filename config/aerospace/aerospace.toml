@@ -1,5 +1,7 @@
 # Reference: https://github.com/i3/i3/blob/next/etc/config
 
+start-at-login = true
+
 # i3 doesn't have "normalizations" feature that why we disable them here.
 # But the feature is very helpful.
 # Normalizations eliminate all sorts of weird tree configurations that don't make sense.
@@ -10,12 +12,12 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # Mouse follows focus when focused monitor changes
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
 
-after-startup-command = ['exec-and-forget sketchybar']
+after-startup-command = ['exec-and-forget brew services restart sketchybar']
 
 exec-on-workspace-change = [
   '/bin/bash',
   '-c',
-  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
+  '/opt/homebrew/bin/sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE',
 ]
 
 [mode.main.binding]
@@ -96,3 +98,8 @@ esc = 'mode main'
 
 [gaps]
 outer.top = [{ monitor."built-in" = 0 }, 25]
+
+[exec]
+inherit-env-vars = true
+[exec.env-vars]
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/Users/amanning/.local/share/mise/installs/lua/5.4.7/bin:${PATH}'
