@@ -15,7 +15,7 @@ font-family-bold = "Berkeley Mono"
 font-family-italic = "Berkeley Mono"
 
 font-thicken = true
-font-size = 18
+font-size = 16
 
 window-padding-x = 0
 window-padding-y = 0

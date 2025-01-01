@@ -6,7 +6,7 @@ sbar.begin_config()
 
 sbar.bar({
 	position = "top",
-	height = 25,
+	height = 30,
 	blur_radius = 30,
 	color = "0x4000000",
 })
@@ -21,7 +21,7 @@ sbar.default({
 		padding_right = 4,
 	},
 	label = {
-		font = "Iosevka Plex:Bold:14.0",
+		font = "Berkeley Mono:Bold:14.0",
 		color = "0xffffffff",
 		padding_left = 4,
 		padding_right = 4,

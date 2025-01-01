@@ -24,7 +24,12 @@ return {
 		{ "<leader>sm", desc = "Search command history", "<cmd>Telescope command_history<cr>" },
 		{ "<leader>sp", desc = "Search ViM Options", "<cmd>Telescope vim_options<cr>" },
 		{ "<leader>sw", desc = "Search word", "<cmd>Telescope live_grep<cr>" },
-		{ "<leader>sw", mode = { "v" }, desc = "Search highlighted word", "<cmd>Telescope grep_string<cr>" },
+		{
+			"<leader>sw",
+			mode = { "v" },
+			desc = "Search highlighted word",
+			"<cmd>Telescope grep_string<cr>",
+		},
 		{
 			"<leader>sg",
 			desc = "Find config files",
