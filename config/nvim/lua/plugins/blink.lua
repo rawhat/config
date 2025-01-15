@@ -10,6 +10,12 @@ return {
 			preset = "super-tab",
 		},
 		completion = {
+			--[[ list = {
+				selection = {
+					preselect = false,
+					-- auto_insert = false,
+				},
+			}, ]]
 			trigger = {
 				show_in_snippet = false,
 			},

@@ -7,7 +7,7 @@ return {
 		ft = "lua",
 		config = function()
 			local libraries = {
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			}
 			if vim.fn.has("macunix") == 1 then
 				table.insert(libraries, { path = "/Users/amanning/.local/share/sketchybar_lua/" })
