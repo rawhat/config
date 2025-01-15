@@ -115,7 +115,9 @@ return {
 					self.once = true
 				end
 			end,
-			condition = require("tmux-status").show,
+			condition = function()
+				return vim.fn.has("win32") ~= 1 and require("tmux-status").show()
+			end,
 			hl = { bg = "bg0", fg = "fg0" },
 			provider = function()
 				local tmux_status = require("tmux-status")
