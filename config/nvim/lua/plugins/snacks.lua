@@ -25,7 +25,7 @@ return {
 			desc = "Dismiss notifications",
 		},
 		{
-			"<leader>gd",
+			"<leader>se",
 			desc = "Find in git diff files",
 			function()
 				Snacks.picker.git_status()

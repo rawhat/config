@@ -3,9 +3,9 @@ return {
 	lazy = false,
 	build = "cargo build --release",
 	opts = {
-		appearance = {
+		--[[ appearance = {
 			use_nvim_cmp_as_default = true,
-		},
+		}, ]]
 		keymap = {
 			preset = "super-tab",
 		},

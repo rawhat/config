@@ -8,6 +8,7 @@ return {
 		config = function()
 			local libraries = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				{ path = "snacks.nvim", words = { "Snacks" } },
 			}
 			if vim.fn.has("macunix") == 1 then
 				table.insert(libraries, { path = "/Users/amanning/.local/share/sketchybar_lua/" })
