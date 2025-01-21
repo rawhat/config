@@ -71,7 +71,7 @@ return {
 			"<leader>sf",
 			desc = "Search files",
 			function()
-				Snacks.picker.files()
+				Snacks.picker.smart()
 			end,
 		},
 		{
