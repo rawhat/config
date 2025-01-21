@@ -1,6 +1,8 @@
 return {
 	"mrjones2014/legendary.nvim",
-	dependencies = { "folke/which-key.nvim", "nvim-telescope/telescope.nvim" },
+	dependencies = {
+		"folke/which-key.nvim",
+	},
 	priority = 10000,
 	lazy = false,
 	keys = {
