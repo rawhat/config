@@ -10,6 +10,9 @@ return {
 			preset = "super-tab",
 		},
 		completion = {
+			accept = {
+				resolve_timeout_ms = 10000,
+			},
 			--[[ list = {
 				selection = {
 					preselect = false,

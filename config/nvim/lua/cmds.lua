@@ -1,16 +1,26 @@
-vim.api.nvim_create_autocmd({ "TermOpen" }, {
-	callback = function()
-		vim.cmd([[
-       setlocal nonumber norelativenumber nocursorline winhl=Normal:NormalFloat
-       tnoremap <buffer> <Esc> <c-\><c-n>
-     ]])
-	end,
-})
+-- vim.api.nvim_create_autocmd({ "TermOpen" }, {
+-- 	callback = function()
+-- 		vim.cmd([[
+--        setlocal nonumber norelativenumber nocursorline winhl=Normal:NormalFloat
+--        tnoremap <buffer> <Esc> <c-\><c-n>
+--      ]])
+-- 	end,
+-- })
 
 -- TODO:  do i care about supporting a custom path?
 vim.api.nvim_create_user_command("Decaffeinate", function()
-	local cmd = vim.o.shell .. " -l bazel run @decaffeinate//:run -- " .. vim.fn.expand("%:p")
-	require("terminal").run({
+	-- local cmd = vim.o.shell .. " -l bazel run @decaffeinate//:run -- " .. vim.fn.expand("%:p")
+	local cmd = "bazel run @decaffeinate//:run -- " .. vim.fn.expand("%:p")
+	Snacks.terminal.open(cmd, {
+		env = {
+			PATH = os.getenv("PATH"),
+		},
+		interactive = false,
+		win = {
+			position = "right",
+		},
+	})
+	--[[ require("terminal").run({
 		"bazel",
 		"run",
 		"@decaffeinate//:run",
@@ -18,7 +28,7 @@ vim.api.nvim_create_user_command("Decaffeinate", function()
 		vim.fn.expand("%:p"),
 	}, {
 		layout = { open_cmd = "botright vertical new" },
-	})
+	}) ]]
 end, {})
 
 local npm_install = function(args)

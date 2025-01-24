@@ -160,6 +160,13 @@ return {
 				Snacks.picker.lsp_implementations()
 			end,
 		},
+		{
+			"<leader>sk",
+			desc = "Search keymaps",
+			function()
+				Snacks.picker.keymaps()
+			end,
+		},
 	},
 	opts = {
 		bigfile = { enabled = true },
@@ -226,5 +233,6 @@ return {
 			left = { "sign" },
 			right = { "git" },
 		},
+		terminal = {},
 	},
 }

@@ -3,7 +3,7 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		"pmizio/typescript-tools.nvim",
+		-- "pmizio/typescript-tools.nvim",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -123,7 +123,8 @@ return {
 			sqlls = {},
 			starpls = {},
 			taplo = {},
-			--[[ vtsls = {
+			-- ts_ls = {},
+			vtsls = {
 				settings = {
 					complete_function_calls = true,
 					typescript = {
@@ -140,7 +141,7 @@ return {
 						},
 					},
 				},
-			}, ]]
+			},
 			zls = {},
 		}
 
@@ -217,9 +218,9 @@ return {
 			},
 		})
 
-		require("typescript-tools").setup({
+		--[[ require("typescript-tools").setup({
 			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities, true),
-		})
+		}) ]]
 
 		if utils.has("0.10.0") then
 			vim.diagnostic.config({
