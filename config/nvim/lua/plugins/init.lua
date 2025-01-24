@@ -11,16 +11,6 @@ return {
 		opts = {},
 	},
 	{
-		"stevearc/dressing.nvim",
-		config = function()
-			require("dressing").setup({
-				input = {
-					min_width = { 120 },
-				},
-			})
-		end,
-	},
-	{
 		"rawhat/nvim-lightbulb",
 		opts = {
 			autocmd = { enabled = true },
@@ -29,7 +19,6 @@ return {
 	{
 		"m4xshen/smartcolumn.nvim",
 		opts = {
-			-- colorcolumn = "81",
 			disabled_filetypes = {
 				"help",
 				"lazy",

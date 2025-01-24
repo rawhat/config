@@ -38,7 +38,6 @@ return {
 				Snacks.picker.jumps()
 			end,
 		},
-		-- { "<leader>lp", desc = "List previous pickers", "<cmd>Telescope pickers<cr>" },
 		{
 			"<leader>rp",
 			desc = "Resume previous picker",
@@ -81,7 +80,6 @@ return {
 				Snacks.picker.help()
 			end,
 		},
-		-- { "<leader>si", desc = "Search... search history", "<cmd>Telescope search_history<cr>" },
 		{
 			"<leader>sl",
 			desc = "Search buffers",
@@ -177,17 +175,23 @@ return {
 			indent = {
 				enabled = true,
 				char = "│",
-				-- char = "▎",
-				-- only_scope = true,
 			},
 			scope = {
 				enabled = true,
 				hl = "IndentBlanklineContextChar",
 			},
 		},
+		input = {
+			enabled = true,
+		},
 		notifier = { enabled = true },
 		notify = { enabled = true },
 		picker = {
+			formatters = {
+				file = {
+					truncate = 80,
+				},
+			},
 			layout = {
 				reverse = true,
 				layout = {

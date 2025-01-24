@@ -3,7 +3,6 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		-- "pmizio/typescript-tools.nvim",
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
@@ -95,20 +94,6 @@ return {
 						telemetry = {
 							enable = false,
 						},
-						-- TODO:  obviously not really doing this correctly...
-						--[[ runtime = {
-							path = {
-								vim.fn.expand("~/repos/InterfaceExport/Interface/AddOns/?.lua"),
-								vim.fn.expand("~/repos/InterfaceExport/Interface/AddOns/?/init.lua"),
-							},
-						},
-						workspace = {
-							library = {
-								vim.fn.expand("~/repos/InterfaceExport/Interface/AddOns"),
-								vim.fn.expand("~/repos/InterfaceExport/Interface/FrameXML"),
-								vim.fn.expand("~/repos/InterfaceExport/Interface/GlueXML"),
-							},
-						}, ]]
 					},
 				},
 			},
@@ -123,7 +108,6 @@ return {
 			sqlls = {},
 			starpls = {},
 			taplo = {},
-			-- ts_ls = {},
 			vtsls = {
 				settings = {
 					complete_function_calls = true,
@@ -217,10 +201,6 @@ return {
 				},
 			},
 		})
-
-		--[[ require("typescript-tools").setup({
-			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities, true),
-		}) ]]
 
 		if utils.has("0.10.0") then
 			vim.diagnostic.config({

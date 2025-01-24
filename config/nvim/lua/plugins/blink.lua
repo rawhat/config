@@ -3,9 +3,6 @@ return {
 	lazy = false,
 	build = "cargo build --release",
 	opts = {
-		--[[ appearance = {
-			use_nvim_cmp_as_default = true,
-		}, ]]
 		keymap = {
 			preset = "super-tab",
 		},
@@ -13,12 +10,6 @@ return {
 			accept = {
 				resolve_timeout_ms = 10000,
 			},
-			--[[ list = {
-				selection = {
-					preselect = false,
-					-- auto_insert = false,
-				},
-			}, ]]
 			trigger = {
 				show_in_snippet = false,
 			},
