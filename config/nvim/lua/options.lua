@@ -3,7 +3,7 @@ local M = {}
 local options = vim.api.nvim_create_augroup("Options", { clear = true })
 
 -- disable mouse
-vim.cmd("set mouse=")
+vim.opt.mouse = ""
 
 -- don't display the mode; status bar handles that
 vim.opt.showmode = false
