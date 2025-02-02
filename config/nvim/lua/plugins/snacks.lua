@@ -165,6 +165,13 @@ return {
 				Snacks.picker.keymaps()
 			end,
 		},
+		{
+			"<leader>sj",
+			desc = "Search projects",
+			function()
+				Snacks.picker.projects()
+			end,
+		},
 	},
 	opts = {
 		bigfile = { enabled = true },

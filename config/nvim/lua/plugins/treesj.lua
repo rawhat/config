@@ -8,6 +8,12 @@ return {
 			use_default_keymaps = false,
 			langs = {
 				gleam = {
+					arguments = lang_utils.set_preset_for_args({
+						join = {
+							space_in_brackets = false,
+						},
+					}),
+					function_body = lang_utils.set_preset_for_statement(),
 					list = lang_utils.set_preset_for_list({
 						join = {
 							space_in_brackets = false,

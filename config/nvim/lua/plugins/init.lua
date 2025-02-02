@@ -6,6 +6,10 @@ return {
 		end,
 	},
 	{
+		"folke/ts-comments.nvim",
+		opts = {},
+	},
+	{
 		"nvimdev/hlsearch.nvim",
 		event = "BufRead",
 		opts = {},
@@ -36,11 +40,11 @@ return {
 		"gbprod/stay-in-place.nvim",
 		opts = {},
 	},
-	{
-		"aileot/emission.nvim",
-		event = "VeryLazy",
-		opts = {},
-	},
+	-- {
+	-- 	"aileot/emission.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- },
 	{
 		"ghostty",
 		dir = "/Applications/Ghostty.app/Contents/Resources/vim/vimfiles/",
