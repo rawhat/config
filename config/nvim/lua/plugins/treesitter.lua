@@ -21,6 +21,42 @@ return {
 		-- 	},
 		-- }
 
+		vim.treesitter.query.set(
+			"gleam",
+			"indent",
+			[[
+[
+  (anonymous_function)
+  (assert)
+  (case)
+  (case_clause)
+  (constant)
+  (external_function)
+  (function)
+  (let)
+  (list)
+  (constant)
+  (function)
+  (type_definition)
+  (type_alias)
+  (todo)
+  (tuple)
+  (unqualified_imports)
+] @indent.begin
+
+[
+  ")"
+  "]"
+  "}"
+] @indent.end @indent.branch
+
+; Gleam pipelines are not indented, but other binary expression chains are
+((binary_expression
+  operator: _ @_operator) @indent.begin
+  (#not-eq? @_operator "|>"))
+    ]]
+		)
+
 		treesitter.setup({
 			ensure_installed = {
 				"bash",
