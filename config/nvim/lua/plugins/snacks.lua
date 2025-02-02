@@ -169,7 +169,23 @@ return {
 			"<leader>sj",
 			desc = "Search projects",
 			function()
-				Snacks.picker.projects()
+				Snacks.picker.projects({
+					confirm = function(picker, item)
+						require("snacks.picker.actions").load_session(picker, item)
+						local bufs = vim.api.nvim_list_bufs()
+						local wins = vim.api.nvim_list_wins()
+						for _, win in pairs(wins) do
+							if vim.w[win].snacks_win ~= nil then
+								bufs = vim.tbl_filter(function(b)
+									return b ~= vim.api.nvim_win_get_buf(win)
+								end, bufs)
+							end
+						end
+						for _, buf in pairs(bufs) do
+							vim.api.nvim_buf_delete(buf, {})
+						end
+					end,
+				})
 			end,
 		},
 	},

@@ -13,7 +13,11 @@ return {
 							space_in_brackets = false,
 						},
 					}),
-					function_body = lang_utils.set_preset_for_statement(),
+					function_body = lang_utils.set_preset_for_statement({
+						join = {
+							force_insert = "",
+						},
+					}),
 					list = lang_utils.set_preset_for_list({
 						join = {
 							space_in_brackets = false,
