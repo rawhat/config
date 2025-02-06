@@ -13,7 +13,7 @@ return {
 							space_in_brackets = false,
 						},
 					}),
-					function_body = lang_utils.set_preset_for_statement({
+					block = lang_utils.set_preset_for_statement({
 						join = {
 							force_insert = "",
 						},
@@ -26,6 +26,14 @@ return {
 					tuple = lang_utils.set_preset_for_list({
 						join = {
 							space_in_brackets = false,
+						},
+					}),
+					unqualified_imports = lang_utils.set_preset_for_dict({
+						join = {
+							space_in_brackets = false,
+						},
+						both = {
+							omit = { "{" },
 						},
 					}),
 					function_parameters = lang_utils.set_preset_for_args(),

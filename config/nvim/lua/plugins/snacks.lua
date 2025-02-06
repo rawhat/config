@@ -11,13 +11,6 @@ return {
 			desc = "Delete buffer",
 		},
 		{
-			"<leader>gB",
-			function()
-				Snacks.gitbrowse()
-			end,
-			desc = "Git Browse",
-		},
-		{
 			"<leader>ds",
 			function()
 				Snacks.notifier.hide()
@@ -25,11 +18,11 @@ return {
 			desc = "Dismiss notifications",
 		},
 		{
-			"<leader>se",
-			desc = "Find in git diff files",
+			"<leader>gB",
 			function()
-				Snacks.picker.git_status()
+				Snacks.gitbrowse()
 			end,
+			desc = "Git Browse",
 		},
 		{
 			"<leader>gl",
@@ -67,54 +60,18 @@ return {
 			end,
 		},
 		{
+			"<leader>se",
+			desc = "Find in git diff files",
+			function()
+				Snacks.picker.git_status()
+			end,
+		},
+		{
 			"<leader>sf",
 			desc = "Search files",
 			function()
 				Snacks.picker.smart()
 			end,
-		},
-		{
-			"<leader>sh",
-			desc = "Search help Tags",
-			function()
-				Snacks.picker.help()
-			end,
-		},
-		{
-			"<leader>sl",
-			desc = "Search buffers",
-			function()
-				Snacks.picker.buffers()
-			end,
-		},
-		{
-			"<leader>sm",
-			desc = "Search command history",
-			function()
-				Snacks.picker.command_history()
-			end,
-		},
-		{
-			"<leader>sp",
-			desc = "Search ViM Options",
-			function()
-				Snacks.picker.man()
-			end,
-		},
-		{
-			"<leader>sw",
-			desc = "Search word",
-			function()
-				Snacks.picker.grep()
-			end,
-		},
-		{
-			"<leader>sw",
-			desc = "Search highlighted word",
-			function()
-				Snacks.picker.grep_word()
-			end,
-			mode = { "v" },
 		},
 		{
 			"<leader>sg",
@@ -124,45 +81,10 @@ return {
 			end,
 		},
 		{
-			"<leader>so",
-			desc = "Grep config files",
+			"<leader>sh",
+			desc = "Search help Tags",
 			function()
-				Snacks.picker.grep({ dirs = { vim.fn.stdpath("config") } })
-			end,
-		},
-		{
-			"gd",
-			desc = "LSP definitions",
-			function()
-				Snacks.picker.lsp_definitions()
-			end,
-		},
-		{
-			"gr",
-			desc = "LSP references",
-			function()
-				Snacks.picker.lsp_references()
-			end,
-		},
-		{
-			"gD",
-			desc = "LSP type definitions",
-			function()
-				Snacks.picker.lsp_type_definitions()
-			end,
-		},
-		{
-			"gm",
-			desc = "LSP implementations",
-			function()
-				Snacks.picker.lsp_implementations()
-			end,
-		},
-		{
-			"<leader>sk",
-			desc = "Search keymaps",
-			function()
-				Snacks.picker.keymaps()
+				Snacks.picker.help()
 			end,
 		},
 		{
@@ -186,6 +108,91 @@ return {
 						end
 					end,
 				})
+			end,
+		},
+		{
+			"<leader>sk",
+			desc = "Search keymaps",
+			function()
+				Snacks.picker.keymaps()
+			end,
+		},
+		{
+			"<leader>sl",
+			desc = "Search buffers",
+			function()
+				Snacks.picker.buffers()
+			end,
+		},
+		{
+			"<leader>sm",
+			desc = "Search command history",
+			function()
+				Snacks.picker.command_history()
+			end,
+		},
+		{
+			"<leader>sn",
+			desc = "Search notifications",
+			function()
+				Snacks.picker.notifications()
+			end,
+		},
+		{
+			"<leader>so",
+			desc = "Grep config files",
+			function()
+				Snacks.picker.grep({ dirs = { vim.fn.stdpath("config") } })
+			end,
+		},
+		{
+			"<leader>sp",
+			desc = "Search ViM Options",
+			function()
+				Snacks.picker.man()
+			end,
+		},
+		{
+			"<leader>sw",
+			desc = "Search highlighted word",
+			function()
+				Snacks.picker.grep_word()
+			end,
+			mode = { "v" },
+		},
+		{
+			"<leader>sw",
+			desc = "Search word",
+			function()
+				Snacks.picker.grep()
+			end,
+		},
+		{
+			"gD",
+			desc = "LSP type definitions",
+			function()
+				Snacks.picker.lsp_type_definitions()
+			end,
+		},
+		{
+			"gd",
+			desc = "LSP definitions",
+			function()
+				Snacks.picker.lsp_definitions()
+			end,
+		},
+		{
+			"gm",
+			desc = "LSP implementations",
+			function()
+				Snacks.picker.lsp_implementations()
+			end,
+		},
+		{
+			"gr",
+			desc = "LSP references",
+			function()
+				Snacks.picker.lsp_references()
 			end,
 		},
 	},

@@ -13,48 +13,49 @@ return {
 	},
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
-		-- local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-		-- parser_config.gleam = {
-		-- 	install_info = {
-		-- 		url = "/home/alex/repos/tree-sitter-gleam",
-		-- 		files = { "src/parser.c", "src/scanner.c" },
-		-- 	},
-		-- }
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+		parser_config.gleam = {
+			install_info = {
+				url = "/home/alex/repos/tree-sitter-gleam",
+				files = { "src/parser.c", "src/scanner.c" },
+			},
+		}
 
 		vim.treesitter.query.set(
 			"gleam",
 			"indent",
 			[[
-[
-  (anonymous_function)
-  (assert)
-  (case)
-  (case_clause)
-  (constant)
-  (external_function)
-  (function)
-  (let)
-  (list)
-  (constant)
-  (function)
-  (type_definition)
-  (type_alias)
-  (todo)
-  (tuple)
-  (unqualified_imports)
-] @indent.begin
+			 [
+			   (anonymous_function)
+			   (assert)
+         (block)
+			   (case)
+			   (case_clause)
+			   (constant)
+			   (external_function)
+			   (function)
+			   (let)
+			   (list)
+			   (constant)
+			   (function)
+			   (type_definition)
+			   (type_alias)
+			   (todo)
+			   (tuple)
+			   (unqualified_imports)
+			 ] @indent.begin
 
-[
-  ")"
-  "]"
-  "}"
-] @indent.end @indent.branch
+			 [
+			   ")"
+			   "]"
+			   "}"
+			 ] @indent.end @indent.branch
 
-; Gleam pipelines are not indented, but other binary expression chains are
-((binary_expression
-  operator: _ @_operator) @indent.begin
-  (#not-eq? @_operator "|>"))
-    ]]
+			 ; Gleam pipelines are not indented, but other binary expression chains are
+			 ((binary_expression
+			   operator: _ @_operator) @indent.begin
+			   (#not-eq? @_operator "|>"))
+			     ]]
 		)
 
 		treesitter.setup({
