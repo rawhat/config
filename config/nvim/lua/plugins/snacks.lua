@@ -153,6 +153,13 @@ return {
 			end,
 		},
 		{
+			"<leader>ss",
+			desc = "Search LSP symbols",
+			function()
+				Snacks.picker.lsp_symbols()
+			end,
+		},
+		{
 			"<leader>sw",
 			desc = "Search highlighted word",
 			function()
