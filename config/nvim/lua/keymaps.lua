@@ -55,6 +55,16 @@ wk.add({
 		end,
 		desc = "Prev LSP diagnostic",
 	},
+	{
+		"<leader>h",
+		"<cmd>cprev<cr>",
+		desc = "Previous quickfix item",
+	},
+	{
+		"<leader>l",
+		"<cmd>cnext<cr>",
+		desc = "Next quickfix item",
+	},
 	{ "<leader>ls", "<cmd>LspRestart<cr>", desc = "Restart LSP server(s)" },
 	{
 		"<leader>ih",

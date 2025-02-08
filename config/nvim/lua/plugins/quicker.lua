@@ -11,6 +11,13 @@ return {
 		},
 	},
 	opts = {
+		keys = {
+			{
+				">",
+				"<cmd>lua require('quicker').toggle_expand()<cr>",
+				desc = "Expand quickfix content",
+			},
+		},
 		on_qf = function(bufnr)
 			vim.keymap.set("n", "q", require("quicker").close)
 		end,
