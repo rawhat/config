@@ -7,7 +7,11 @@ return {
 			"<C-n>",
 			desc = "Oil in CWD",
 			function()
-				require("oil").open_float(vim.fn.expand("%:p:h"))
+				require("oil").open_float(vim.fn.expand("%:p:h"), {
+					preview = {
+						vertical = true,
+					},
+				})
 			end,
 		},
 	},
