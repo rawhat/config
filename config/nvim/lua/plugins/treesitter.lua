@@ -16,6 +16,44 @@ return {
 
 		vim.treesitter.query.set(
 			"gleam",
+			"textobjects",
+			[[
+      ;extends
+      (function
+        (block
+          .
+          "{"
+          .
+          (_) @_start @_end
+          (_)? @_end
+          .
+          "}"
+          (#make-range! "function.inner" @_start @_end)) @function.outer)
+      (anonymous_function
+        (block
+          .
+          "{"
+          .
+          (_) @_start @_end
+          (_)? @_end
+          .
+          "}"
+          (#make-range! "function.inner" @_start @_end)) @function.outer)
+        (_
+          (block
+            .
+            "{"
+            .
+            (_) @_start @_end
+            (_)? @_end
+            .
+            "}"
+            (#make-range! "block.inner" @_start @_end)) @block.outer)
+      ]]
+		)
+
+		vim.treesitter.query.set(
+			"gleam",
 			"indent",
 			[[
 			 [
