@@ -6,12 +6,18 @@ return {
 		"rafamadriz/friendly-snippets",
 	},
 	opts = {
+		fuzzy = {
+			sorts = { "exact", "score", "sort_text" },
+		},
 		keymap = {
 			preset = "super-tab",
 		},
 		completion = {
 			accept = {
 				resolve_timeout_ms = 10000,
+			},
+			keyword = {
+				range = "full",
 			},
 			trigger = {
 				show_in_snippet = false,

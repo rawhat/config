@@ -10,6 +10,7 @@ return {
 	end,
 	config = function()
 		require("octo").setup({
+			picker = "snacks",
 			ssh_aliases = {
 				["github.com-work"] = "github.com",
 			},

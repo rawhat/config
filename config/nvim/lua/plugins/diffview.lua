@@ -7,8 +7,12 @@ return {
 			"<leader>db",
 			desc = "Open diffview against branch",
 			function()
-				vim.ui.input({ prompt = "Branch to diff against" }, function(search)
-					vim.cmd.DiffviewOpen(search)
+				local output = vim.system({ "git", "branch", "-a" }, { text = true }):wait()
+				local branches = vim.split(output.stdout, "\n")
+				vim.ui.select(branches, { prompt = "Select branch to diff against" }, function(item)
+					if item ~= nil then
+						vim.cmd.DiffviewOpen(item)
+					end
 				end)
 			end,
 		},

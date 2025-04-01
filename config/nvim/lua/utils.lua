@@ -34,7 +34,14 @@ end
 M.github = function()
 	local notify = require("notify")
 	local cwd = M.cwd()
-	if cwd and (cwd:find("^/home/alex/vistar/vistar") ~= nil or cwd:find("^/Users/amanning/vistar/vistar")) then
+	if
+		cwd
+		and (
+			cwd:find("^/home/alex/vistar/vistar") ~= nil
+			or cwd:find("^/Users/amanning/vistar/vistar")
+			or cwd:find("^/Volumes/vistar/vistar")
+		)
+	then
 		local row = vim.api.nvim_win_get_cursor(0)[1]
 		local file = vim.api.nvim_buf_get_name(0)
 		local relative_path = string.gsub(file, cwd, "")

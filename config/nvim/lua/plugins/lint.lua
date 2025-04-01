@@ -53,11 +53,21 @@ return {
 		linters.eslint_d.command = path.concat({ mason_data_path, "eslint_d" })
 		linters.ruff.command = path.concat({ mason_data_path, "ruff" })
 
+		linters.mypy.append_fname = true
+		linters.mypy.args = vim.fn.extend(linters.mypy.args, {
+			"--config-file",
+			vim.env.HOME .. "/vistar/vistar/tools/mypy/mypy.ini",
+			"--exclude",
+			"'/bazel-[a-z]*/'",
+			"--explicit-package-bases",
+		})
+
 		local elixir_linters = { "credo" }
-		local javascript_linters = {}
+		local javascript_linters = { "eslint_d" }
 
 		require("lint").linters_by_ft = {
 			bzl = { "buildifier" },
+			coffee = { "coffeelint" },
 			elixir = elixir_linters,
 			leex = elixir_linters,
 			heex = elixir_linters,
@@ -69,7 +79,7 @@ return {
 			typescript = javascript_linters,
 			typescriptreact = javascript_linters,
 			proto = { "buf_lint" },
-			python = { "ruff" },
+			python = { "mypy" },
 		}
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {

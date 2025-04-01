@@ -179,8 +179,9 @@ return {
 			},
 		}
 
+		local elixir = require("elixir")
 		local elixirls = require("elixir.elixirls")
-		require("elixir").setup({
+		elixir.setup({
 			credo = {
 				enable = true,
 			},
@@ -193,8 +194,8 @@ return {
 				}),
 			},
 			nextls = {
-				cmd = path.concat({ mason_data_path, "nextls" }),
-				enable = false,
+				cmd = path.concat({ mason_data_path, "elixir-ls" }),
+				enable = true,
 				init_options = {
 					experimental = {
 						completions = {
@@ -202,6 +203,9 @@ return {
 						},
 					},
 				},
+			},
+			projectionist = {
+				enable = true,
 			},
 		})
 
