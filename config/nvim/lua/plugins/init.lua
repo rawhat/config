@@ -15,7 +15,7 @@ return {
 		opts = {},
 	},
 	{
-		"rawhat/nvim-lightbulb",
+		"kosayoda/nvim-lightbulb",
 		opts = {
 			autocmd = { enabled = true },
 		},

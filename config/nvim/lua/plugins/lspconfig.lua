@@ -51,23 +51,22 @@ return {
 			fsautocomplete = {},
 			gleam = {},
 			gopls = {
-				on_new_config = function(config, new_root_dir)
-					local gopackagesdriver = new_root_dir .. "/gopackagesdriver.sh"
-					if utils.fs_stat(gopackagesdriver) ~= nil then
-						config.cmd_env = {
-							GOPACKAGESDRIVER = gopackagesdriver,
-							GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
-						}
-					end
-				end,
 				settings = {
+					cmd_env = {
+						GOPACKAGESDRIVER = "./gopackagesdriver.sh",
+						GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
+					},
 					gopls = {
 						directoryFilters = {
 							"-bazel-bin",
 							"-bazel-out",
 							"-bazel-testlogs",
 							"-bazel-vistar",
-							"-bazel-app",
+							-- "-bazel-app",
+						},
+						env = {
+							GOPACKAGESDRIVER = "./gopackagesdriver.sh",
+							GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
 						},
 						hints = {
 							assignVariableTypes = true,
@@ -78,6 +77,11 @@ return {
 							rangeVariableTypes = true,
 						},
 						["ui.semanticTokens"] = true,
+						workspaceFiles = {
+							"**/BUILD",
+							"**/WORKSPACE",
+							"**/*.{bzl,bazel}",
+						},
 					},
 				},
 				flags = {
@@ -146,7 +150,7 @@ return {
 			require("lspconfig")[server].setup(config)
 		end
 
-		local java_language_server
+		-- local java_language_server
 		if vim.fn.has("mac") == 1 then
 			java_language_server = "/Users/amanning/java-language-server/dist/lang_server_mac.sh"
 		else

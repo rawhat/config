@@ -18,6 +18,17 @@ return {
 		},
 		{ "<leader>dc", desc = "Close diffview", "<cmd>DiffviewClose<cr>" },
 		{ "<leader>df", desc = "Toggle diffview file panel", "<cmd>DiffviewToggleFiles<cr>" },
+		{
+			"<leader>dr",
+			desc = "Open diffview against ref",
+			function()
+				vim.ui.input({ prompt = "Enter a git ref to diff against" }, function(input)
+					if input then
+						vim.cmd.DiffviewOpen(input)
+					end
+				end)
+			end,
+		},
 	},
 	opts = {
 		default_args = {

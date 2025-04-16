@@ -387,6 +387,17 @@ M.themes = {
 			vim.cmd("colorscheme rose-pine")
 		end,
 	},
+	jellybeans = {
+		package = "wtfox/jellybeans.nvim",
+		package_name = "jellybeans-muted",
+		name = "jellybeans",
+		config = function(palette)
+			require("jellybeans").setup({
+				style = palette or "muted",
+			})
+			vim.cmd("colorscheme jellybeans-" .. (palette or "muted"))
+		end,
+	},
 }
 
 -- M.current_theme = M.themes["rosepine"]
@@ -398,5 +409,6 @@ M.current_theme.palette = "mocha" ]]
 -- M.current_theme = M.themes["nordic"]
 -- M.current_theme = M.themes["embark"]
 -- M.current_theme = M.themes["tundra"]
+-- M.current_theme = M.themes["jellybeans"]
 
 return M

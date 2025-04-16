@@ -2,7 +2,7 @@ local theme = require("themes").current_theme
 
 return {
 	"folke/which-key.nvim",
-	dependencies = { theme.package_name },
+	dependencies = { theme.package },
 	opts = {
 		plugins = {
 			presets = {

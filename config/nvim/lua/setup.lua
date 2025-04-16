@@ -15,9 +15,9 @@ vim.opt.runtimepath:prepend(lazypath)
 local theme = require("themes").current_theme
 
 require("lazy").setup("plugins", {
-	install = {
-		colorscheme = { theme.package_name },
-	},
+	-- install = {
+	-- 	colorscheme = { theme.package_name },
+	-- },
 	diff = {
 		cmd = "terminal_git",
 	},
