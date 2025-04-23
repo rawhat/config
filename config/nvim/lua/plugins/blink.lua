@@ -33,6 +33,7 @@ return {
 			},
 			providers = {
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallbacks = { "lsp" } },
+				lsp = { fallbacks = {} },
 			},
 		},
 	},

@@ -97,6 +97,13 @@ wk.add({
 		desc = "Code Actions",
 	},
 	{
+		"<leader>rn",
+		function()
+			vim.lsp.buf.rename()
+		end,
+		desc = "LSP rename",
+	},
+	{
 		mode = { "v" },
 		{
 			"<leader>ca",

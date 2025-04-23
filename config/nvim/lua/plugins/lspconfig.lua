@@ -51,11 +51,18 @@ return {
 			fsautocomplete = {},
 			gleam = {},
 			gopls = {
-				settings = {
-					cmd_env = {
-						GOPACKAGESDRIVER = "./gopackagesdriver.sh",
+				on_new_config = function(config, new_root_dir)
+					local gopackagesdriver = new_root_dir .. "/gopackagesdriver.sh"
+					local stat = utils.fs_stat(gopackagesdriver)
+					if not stat or stat.type ~= "file" then
+						return
+					end
+					config.cmd_env = {
+						GOPACKAGESDRIVER = gopackagesdriver,
 						GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
-					},
+					}
+				end,
+				settings = {
 					gopls = {
 						directoryFilters = {
 							"-bazel-bin",
@@ -63,10 +70,6 @@ return {
 							"-bazel-testlogs",
 							"-bazel-vistar",
 							-- "-bazel-app",
-						},
-						env = {
-							GOPACKAGESDRIVER = "./gopackagesdriver.sh",
-							GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
 						},
 						hints = {
 							assignVariableTypes = true,
