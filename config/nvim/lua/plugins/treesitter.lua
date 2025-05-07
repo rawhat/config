@@ -13,6 +13,16 @@ return {
 	},
 	config = function()
 		local treesitter = require("nvim-treesitter.configs")
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+		parser_config.gleam = {
+			install_info = {
+				url = "https://github.com/gleam-lang/tree-sitter-gleam",
+				revision = "main",
+				files = { "src/parser.c", "src/scanner.c" },
+			},
+			filetype = "gleam",
+		}
 
 		vim.treesitter.query.set(
 			"gleam",

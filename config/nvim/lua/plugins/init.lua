@@ -10,6 +10,10 @@ return {
 		opts = {},
 	},
 	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		opts = {},
+	},
+	{
 		"nvimdev/hlsearch.nvim",
 		event = "BufRead",
 		opts = {},
