@@ -3,26 +3,22 @@ return {
 	dependencies = {
 		"williamboman/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
+		{ "mrcjkb/rustaceanvim", version = "^6", ft = { "rust" }, lazy = false },
 	},
 	config = function()
-		local lspconfig = require("lspconfig")
 		local utils = require("utils")
 		local path = require("mason-core.path")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
-		-- when in a deno project, we need to disable tsserver single_file_support
-		lspconfig.util.on_setup = lspconfig.util.add_hook_before(lspconfig.util.on_setup, function(config)
-			local cwd = utils.cwd()
-			if config.name == "vtsls" and vim.fn.filereadable(cwd .. "/deno.jsonc") == 1 then
-				config.single_file_support = false
-			end
-			if config.name == "gopls" and vim.fn.filereadable(cwd .. "/WORKSPACE") ~= 1 then
-				config.settings.cmd_env = {}
-			end
-		end)
-
-		local capabilities = vim.lsp.protocol.make_client_capabilities()
-		capabilities.textDocument.completion.completionItem.snippetSupport = true
+		require("mason-lspconfig").setup({
+			automatic_enable = false,
+			ensure_installed = { "lua_ls" },
+			icons = {
+				server_installed = "✓",
+				server_pending = "➜",
+				server_uninstalled = "✗",
+			},
+		})
 
 		local lsp_configs = {
 			astro = {},
@@ -69,7 +65,7 @@ return {
 							"-bazel-out",
 							"-bazel-testlogs",
 							"-bazel-vistar",
-							-- "-bazel-app",
+							"-bazel-app",
 						},
 						hints = {
 							assignVariableTypes = true,
@@ -111,6 +107,18 @@ return {
 					},
 				},
 			},
+			["rust-analyzer"] = {
+				settings = {
+					["rust-analyzer"] = {
+						checkOnSave = { command = "clippy" },
+						diagnostics = {
+							experimental = {
+								enable = true,
+							},
+						},
+					},
+				},
+			},
 			sorbet = {},
 			sqlls = {},
 			starpls = {},
@@ -139,52 +147,34 @@ return {
 			zls = {},
 		}
 
-		require("mason-lspconfig").setup({
-			ensure_installed = { "lua_ls" },
-			icons = {
-				server_installed = "✓",
-				server_pending = "➜",
-				server_uninstalled = "✗",
-			},
-		})
-
-		for server, config in pairs(lsp_configs) do
-			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities, true)
-			require("lspconfig")[server].setup(config)
-		end
-
-		-- local java_language_server
-		if vim.fn.has("mac") == 1 then
-			java_language_server = "/Users/amanning/java-language-server/dist/lang_server_mac.sh"
-		else
-			java_language_server = "/home/alex/java-language-server/dist/lang_server_linux.sh"
-		end
-
-		-- non-lsp-install servers
-		require("lspconfig").java_language_server.setup({
-			cmd = { java_language_server },
-		})
-
 		vim.g.rustaceanvim = {
-			capabilities = capabilities,
 			tools = {
 				inlay_hints = {
 					auto = false,
 				},
 			},
-			server = {
-				settings = {
-					["rust-analyzer"] = {
-						checkOnSave = { command = "clippy" },
-						diagnostics = {
-							experimental = {
-								enable = true,
-							},
-						},
-					},
-				},
-			},
 		}
+
+		for server, config in pairs(lsp_configs) do
+			vim.lsp.config(server, config)
+			vim.lsp.enable(server)
+		end
+
+		local jls_path = vim.tbl_filter(function(path)
+			return vim.fn.executable(path) ~= 0
+		end, {
+			"/Users/amanning/java-language-server/dist/lang_server_mac.sh",
+			"/home/alex/java-language-server/dist/lang_server_linux.sh",
+		})
+
+		if jls_path then
+			vim.lsp.config("java_language_server", {
+				cmd = { jls_path[1] },
+			})
+			vim.lsp.enable("java_language_server")
+		else
+			vim.lsp.enable("jdtls")
+		end
 
 		local elixir = require("elixir")
 		local elixirls = require("elixir.elixirls")
@@ -201,7 +191,7 @@ return {
 				}),
 			},
 			nextls = {
-				cmd = path.concat({ mason_data_path, "elixir-ls" }),
+				cmd = path.concat({ mason_data_path, "nextls" }),
 				enable = true,
 				init_options = {
 					experimental = {
@@ -236,11 +226,12 @@ return {
 			end
 		end
 
-		-- i don't want virtual text for LSP diagnostics.  but the lsp installer plugin
-		-- uses diagnostics for displaying information!  so just disable it in the
+		-- i don't want virtual text for LSP diagnostics.  but mason uses
+		-- diagnostics for displaying information!  so just disable it in the
 		-- handler
-		vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-			virtual_text = false,
-		})
+		vim.lsp.handlers["textDocument/publishDiagnostics"] = function(err, params, ctx)
+			params = vim.tbl_extend("force", params, { virtual_text = false })
+			return vim.lsp.diagnostic.on_publish_diagnostics(err, params, ctx)
+		end
 	end,
 }
