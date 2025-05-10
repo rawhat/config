@@ -1,7 +1,8 @@
 return {
 	"neovim/nvim-lspconfig",
 	dependencies = {
-		"williamboman/mason.nvim",
+		"mason-org/mason-lspconfig.nvim",
+		"mason-org/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
 		{ "mrcjkb/rustaceanvim", version = "^6", ft = { "rust" }, lazy = false },
 	},
@@ -146,6 +147,23 @@ return {
 			},
 			zls = {},
 		}
+
+		for server, config in pairs(lsp_configs) do
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(capabilities, true)
+			require("lspconfig")[server].setup(config)
+		end
+
+		-- local java_language_server
+		if vim.fn.has("mac") == 1 then
+			java_language_server = "/Users/amanning/java-language-server/dist/lang_server_mac.sh"
+		else
+			java_language_server = "/home/alex/java-language-server/dist/lang_server_linux.sh"
+		end
+
+		-- non-lsp-install servers
+		require("lspconfig").java_language_server.setup({
+			cmd = { java_language_server },
+		})
 
 		vim.g.rustaceanvim = {
 			tools = {
