@@ -13,7 +13,5 @@ return {
 	cond = function()
 		return not require("utils").has("0.10.0")
 	end,
-	config = function()
-		require("osc52").setup()
-	end,
+	opts = {},
 }

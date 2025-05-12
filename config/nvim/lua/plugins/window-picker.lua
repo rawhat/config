@@ -12,19 +12,17 @@ return {
 			end,
 		},
 	},
-	config = function()
-		require("window-picker").setup({
-			hint = "floating-big-letter",
-			selection_chars = "asdfqwerghzxcv",
-			show_prompt = false,
-			filter_rules = {
-				bo = {
-					filetype = { "notify", "incline", "noice" },
-				},
-				wo = {
-					winhl = { "NormalFloat:TreesitterContext", "NormalFloat:TreesitterContextLineNumber" },
-				},
+	opts = {
+		hint = "floating-big-letter",
+		selection_chars = "asdfqwerghzxcv",
+		show_prompt = false,
+		filter_rules = {
+			bo = {
+				filetype = { "notify", "incline", "noice" },
 			},
-		})
-	end,
+			wo = {
+				winhl = { "NormalFloat:TreesitterContext", "NormalFloat:TreesitterContextLineNumber" },
+			},
+		},
+	},
 }

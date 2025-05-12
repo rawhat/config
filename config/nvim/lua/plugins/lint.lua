@@ -1,12 +1,13 @@
 return {
 	"mfussenegger/nvim-lint",
-	config = function()
+	opts = function()
 		local path = require("mason-core.path")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
 		local linters = require("lint").linters
 
 		linters.coffeelint = {
+			name = "coffelint",
 			cmd = "coffeelint",
 			stdin = true,
 			args = { "-s", "--reporter", "raw", "--nocolor", "--quiet" },
@@ -64,23 +65,27 @@ return {
 
 		local elixir_linters = { "credo" }
 		local javascript_linters = { "eslint_d" }
-
-		require("lint").linters_by_ft = {
-			bzl = { "buildifier" },
-			coffee = { "coffeelint" },
-			elixir = elixir_linters,
-			leex = elixir_linters,
-			heex = elixir_linters,
-			eex = elixir_linters,
-			fish = { "fish" },
-			javascript = javascript_linters,
-			javascriptreact = javascript_linters,
-			json = { "jq" },
-			typescript = javascript_linters,
-			typescriptreact = javascript_linters,
-			proto = { "buf_lint" },
-			python = { "mypy" },
+		return {
+			linters_by_ft = {
+				bzl = { "buildifier" },
+				coffee = { "coffeelint" },
+				elixir = elixir_linters,
+				leex = elixir_linters,
+				heex = elixir_linters,
+				eex = elixir_linters,
+				fish = { "fish" },
+				javascript = javascript_linters,
+				javascriptreact = javascript_linters,
+				json = { "jq" },
+				typescript = javascript_linters,
+				typescriptreact = javascript_linters,
+				proto = { "buf_lint" },
+				python = { "mypy" },
+			},
 		}
+	end,
+	config = function(_, opts)
+		require("lint").linters_by_ft = opts.linters_by_ft
 
 		vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
 			callback = function()

@@ -8,12 +8,10 @@ return {
 		local cwd = require("utils").cwd()
 		return string.find(cwd, "vistar") ~= nil
 	end,
-	config = function()
-		require("octo").setup({
-			picker = "snacks",
-			ssh_aliases = {
-				["github.com-work"] = "github.com",
-			},
-		})
-	end,
+	opts = {
+		picker = "snacks",
+		ssh_aliases = {
+			["github.com-work"] = "github.com",
+		},
+	},
 }

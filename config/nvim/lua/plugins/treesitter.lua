@@ -11,19 +11,7 @@ return {
 	keys = {
 		{ "<leader>ts", desc = "TS Update", "<cmd>TSUpdate all<cr>" },
 	},
-	config = function()
-		local treesitter = require("nvim-treesitter.configs")
-		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
-
-		parser_config.gleam = {
-			install_info = {
-				url = "https://github.com/gleam-lang/tree-sitter-gleam",
-				revision = "main",
-				files = { "src/parser.c", "src/scanner.c" },
-			},
-			filetype = "gleam",
-		}
-
+	init = function()
 		vim.treesitter.query.set(
 			"gleam",
 			"textobjects",
@@ -98,8 +86,21 @@ return {
 			   (#not-eq? @_operator "|>"))
 			     ]]
 		)
+	end,
+	opts = function()
+		local treesitter = require("nvim-treesitter.configs")
+		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
-		treesitter.setup({
+		parser_config.gleam = {
+			install_info = {
+				url = "https://github.com/gleam-lang/tree-sitter-gleam",
+				revision = "main",
+				files = { "src/parser.c", "src/scanner.c" },
+			},
+			filetype = "gleam",
+		}
+
+		return {
 			ensure_installed = {
 				"bash",
 				"dockerfile",
@@ -139,7 +140,10 @@ return {
 					},
 				},
 			},
-		})
+		}
+	end,
+	config = function(_, opts)
+		require("nvim-treesitter.configs").setup(opts)
 
 		require("nvim-ts-autotag").setup({
 			enable = true,

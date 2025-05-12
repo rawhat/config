@@ -1,9 +1,11 @@
 return {
 	"Wansmer/treesj",
-	config = function()
-		local tsj = require("treesj")
+	keys = {
+		{ "J", "<cmd>TSJToggle<cr>", desc = "Toggle split/join node under cursor" },
+	},
+	opts = function()
 		local lang_utils = require("treesj.langs.utils")
-		tsj.setup({
+		return {
 			max_join_length = 256,
 			use_default_keymaps = false,
 			langs = {
@@ -39,9 +41,6 @@ return {
 					function_parameters = lang_utils.set_preset_for_args(),
 				},
 			},
-		})
+		}
 	end,
-	keys = {
-		{ "J", "<cmd>TSJToggle<cr>", desc = "Toggle split/join node under cursor" },
-	},
 }

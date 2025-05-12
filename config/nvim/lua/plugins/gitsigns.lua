@@ -16,23 +16,24 @@ return {
 		},
 		{ "<leader>gb", desc = "Open git blame", "<cmd>Gitsigns blame<cr>" },
 	},
-	config = function()
-		require("gitsigns").setup({
-			trouble = true,
-			on_attach = function()
-				local windows = vim.api.nvim_list_wins()
-				for _, win in pairs(windows) do
-					local buf = vim.api.nvim_win_get_buf(win)
-					local name = vim.api.nvim_buf_get_name(buf)
-					if vim.wo[win].diff and name:find("gitsigns://") ~= nil then
-						vim.api.nvim_set_current_win(win)
-						vim.keymap.set("n", "q", function()
-							vim.api.nvim_win_close(win, false)
-						end, { buffer = true })
-					end
+	opts = {
+		trouble = true,
+		on_attach = function()
+			local windows = vim.api.nvim_list_wins()
+			for _, win in pairs(windows) do
+				local buf = vim.api.nvim_win_get_buf(win)
+				local name = vim.api.nvim_buf_get_name(buf)
+				if vim.wo[win].diff and name:find("gitsigns://") ~= nil then
+					vim.api.nvim_set_current_win(win)
+					vim.keymap.set("n", "q", function()
+						vim.api.nvim_win_close(win, false)
+					end, { buffer = true })
 				end
-			end,
-		})
+			end
+		end,
+	},
+	config = function(_, opts)
+		require("gitsigns").setup(opts)
 
 		vim.api.nvim_create_autocmd({ "FileType" }, {
 			pattern = { "gitsigns-blame" },

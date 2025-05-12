@@ -1,7 +1,7 @@
 return {
 	{
 		"kchmck/vim-coffee-script",
-		config = function()
+		init = function()
 			vim.filetype.add({
 				extension = {
 					coffee = "coffee",
@@ -14,8 +14,12 @@ return {
 	{
 		"google/vim-jsonnet",
 		ft = { "jsonnet", "libsonnet" },
-		config = function()
-			vim.cmd([[autocmd BufRead,BufNewFile *.libsonnet set filetype=jsonnet]])
+		init = function()
+			vim.filetype.add({
+				extension = {
+					libsonnet = "jsonnet",
+				},
+			})
 		end,
 	},
 	{ "mattn/emmet-vim", ft = { "astro", "html", "typescriptreact", "javascriptreact" } },

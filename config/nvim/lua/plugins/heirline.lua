@@ -1,8 +1,7 @@
 return {
 	"rebelot/heirline.nvim",
 	dependencies = { "nvim-tree/nvim-web-devicons" },
-	config = function()
-		local heirline = require("heirline")
+	opts = function()
 		local utils = require("heirline.utils")
 		local conditions = require("heirline.conditions")
 
@@ -220,7 +219,7 @@ return {
 			}),
 		}
 
-		heirline.setup({
+		return {
 			statusline = {
 				{ Filename, Progress, Diagnostics },
 				{ Separator },
@@ -231,6 +230,6 @@ return {
 			opts = {
 				colors = colors,
 			},
-		})
+		}
 	end,
 }

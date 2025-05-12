@@ -5,7 +5,7 @@ return {
 			{ "Bilal2453/luvit-meta", lazy = true },
 		},
 		ft = "lua",
-		config = function()
+		opts = function()
 			local libraries = {
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 				{ path = "snacks.nvim", words = { "Snacks" } },
@@ -13,9 +13,9 @@ return {
 			if vim.fn.has("macunix") == 1 then
 				table.insert(libraries, { path = "/Users/amanning/.local/share/sketchybar_lua/" })
 			end
-			require("lazydev").setup({
+			return {
 				library = libraries,
-			})
+			}
 		end,
 	},
 }

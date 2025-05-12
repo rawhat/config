@@ -1,21 +1,19 @@
 return {
 	"scalameta/nvim-metals",
-	config = function()
-		local present, metals = pcall(require, "metals")
-
-		if not present then
-			error("No metals :(")
-			return
-		end
-
-		vim.cmd([[
-  augroup lsp
-    au!
-    au FileType scala,sbt lua require("metals").initialize_or_attach({})
-  augroup end
-]])
-
-		METALS_CONFIG = metals.bare_config()
-		METALS_CONFIG.init_options.statusBarProvider = "on"
+	ft = { "scala", "sbt" },
+	opts = function()
+		local metals_config = require("metals").bare_config()
+		metals_config.init_options.statusBarProvider = "on"
+		return metals_config
+	end,
+	config = function(self, opts)
+		local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = self.ft,
+			callback = function()
+				require("metals").initialize_or_attach(opts)
+			end,
+			group = nvim_metals_group,
+		})
 	end,
 }

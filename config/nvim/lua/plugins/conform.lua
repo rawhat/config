@@ -1,11 +1,9 @@
 return {
 	"stevearc/conform.nvim",
-	config = function()
-		local conform = require("conform")
-
+	opts = function()
 		local util = require("conform.util")
 
-		conform.setup({
+		return {
 			formatters_by_ft = {
 				bzl = { "my_buildifier" },
 				gleam = { lsp_format = "fallback" },
@@ -54,6 +52,6 @@ return {
 					require_cwd = true,
 				},
 			},
-		})
+		}
 	end,
 }
