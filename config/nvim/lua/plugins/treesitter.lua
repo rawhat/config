@@ -2,10 +2,11 @@ return {
 	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
 		"nvim-treesitter/nvim-treesitter-context",
-		"nvim-treesitter/nvim-treesitter-textobjects",
+		-- "nvim-treesitter/nvim-treesitter-textobjects",
 		"windwp/nvim-ts-autotag",
-		"Rrethy/nvim-treesitter-endwise",
+		-- "Rrethy/nvim-treesitter-endwise",
 	},
+	branch = "main",
 	build = ":TSUpdate all",
 	event = "BufEnter",
 	keys = {
@@ -86,64 +87,105 @@ return {
 			   (#not-eq? @_operator "|>"))
 			     ]]
 		)
-	end,
-	opts = function()
-		local treesitter = require("nvim-treesitter.configs")
-		local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
 
-		parser_config.gleam = {
-			install_info = {
-				url = "https://github.com/gleam-lang/tree-sitter-gleam",
-				revision = "main",
-				files = { "src/parser.c", "src/scanner.c" },
-			},
-			filetype = "gleam",
-		}
+		local group = vim.api.nvim_create_augroup("treesitter", { clear = true })
 
-		return {
-			ensure_installed = {
-				"bash",
-				"dockerfile",
-				"fish",
-				"git_rebase",
-				"gitcommit",
+		vim.api.nvim_create_autocmd("FileType", {
+			group = group,
+			pattern = {
+				"sh",
+				"Dockerfile",
+				"git",
+				"lua",
 				"gleam",
 				"html",
 				"javascript",
-				"json",
-				"regex",
-				"rust",
-				"tsx",
+				"javascriptreact",
 				"typescript",
+				"typescriptreact",
+				"python",
+				"go",
+				"rust",
+				"json",
 			},
-			auto_install = true,
-			highlight = {
-				enable = true,
-				additional_vim_regex_highlighting = false,
-			},
-			matchup = { enable = true },
-			indent = {
-				enable = true,
-			},
-			endwise = {
-				enable = true,
-			},
-			textobjects = {
-				select = {
-					enable = true,
-					lookahead = true,
-					keymaps = {
-						["af"] = "@function.outer",
-						["if"] = "@function.inner",
-						["ab"] = "@block.outer",
-						["ib"] = "@block.inner",
-					},
-				},
+			callback = function()
+				vim.treesitter.start()
+				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end,
+		})
+	end,
+	-- opts = function()
+	--
+	--    require("nvim-treesitter")
+	--
+	-- 	return {
+	-- 		ensure_installed = {
+	-- 			"bash",
+	-- 			"dockerfile",
+	-- 			"fish",
+	-- 			"git_rebase",
+	-- 			"gitcommit",
+	-- 			"gleam",
+	-- 			"html",
+	-- 			"javascript",
+	-- 			"json",
+	-- 			"regex",
+	-- 			"rust",
+	-- 			"tsx",
+	-- 			"typescript",
+	-- 		},
+	-- 		auto_install = true,
+	-- 		highlight = {
+	-- 			enable = true,
+	-- 			additional_vim_regex_highlighting = false,
+	-- 		},
+	-- 		matchup = { enable = true },
+	-- 		indent = {
+	-- 			enable = true,
+	-- 		},
+	-- 		endwise = {
+	-- 			enable = true,
+	-- 		},
+	-- 		textobjects = {
+	-- 			select = {
+	-- 				enable = true,
+	-- 				lookahead = true,
+	-- 				keymaps = {
+	-- 					["af"] = "@function.outer",
+	-- 					["if"] = "@function.inner",
+	-- 					["ab"] = "@block.outer",
+	-- 					["ib"] = "@block.inner",
+	-- 				},
+	-- 			},
+	-- 		},
+	-- 	}
+	-- end,
+	config = function()
+		local parsers = require("nvim-treesitter.parsers")
+
+		parsers.gleam = {
+			install_info = {
+				url = "https://github.com/gleam-lang/tree-sitter-gleam",
+				ref = "HEAD",
 			},
 		}
-	end,
-	config = function(_, opts)
-		require("nvim-treesitter.configs").setup(opts)
+
+		require("nvim-treesitter").install({
+			"bash",
+			"dockerfile",
+			"fish",
+			"git_rebase",
+			"gitcommit",
+			"gleam",
+			"html",
+			"javascript",
+			"json",
+			"regex",
+			"rust",
+			"tsx",
+			"typescript",
+		})
 
 		require("nvim-ts-autotag").setup({
 			enable = true,
