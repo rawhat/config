@@ -124,6 +124,11 @@ return {
 			sqlls = {},
 			starpls = {},
 			taplo = {},
+			-- tsgo = {
+			-- 	cmd = { "tsgo", "--lsp", "--stdio" },
+			-- 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+			-- 	root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
+			-- },
 			vtsls = {
 				settings = {
 					complete_function_calls = true,
