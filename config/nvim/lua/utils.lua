@@ -19,7 +19,7 @@ M.github_url = function(remote)
 	end
 	local remote_url = string.gsub(result.stdout, "\n", "")
 
-	local repo = string.match(remote_url, "git@github.com:(.*).git")
+	local repo = string.match(remote_url, "git@github.com[-%a]*:(.*).git")
 
 	local head = vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }):wait()
 	local branch = string.gsub(head.stdout, "\n", "")

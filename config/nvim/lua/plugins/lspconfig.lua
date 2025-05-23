@@ -108,6 +108,7 @@ return {
 					},
 				},
 			},
+			-- pyrefly = {},
 			["rust-analyzer"] = {
 				settings = {
 					["rust-analyzer"] = {
@@ -129,6 +130,7 @@ return {
 			-- 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 			-- 	root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 			-- },
+			-- ty = {},
 			vtsls = {
 				settings = {
 					complete_function_calls = true,
