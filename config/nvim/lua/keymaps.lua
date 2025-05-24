@@ -6,14 +6,6 @@ vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, si
 vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 wk.add({
-	-- gimme the github link for a file at the current line
-	{
-		"<leader>gt",
-		function()
-			require("utils").github()
-		end,
-		desc = "GitHub link to current line",
-	},
 	-- quit
 	{ "<leader>qq", ":qa<cr>", desc = "Quit and close all" },
 	-- inspect

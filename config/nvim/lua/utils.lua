@@ -12,61 +12,6 @@ M.cwd = function()
 	end
 end
 
-M.github_url = function(remote)
-	local result = vim.system({ "git", "remote", "get-url", (remote or "origin") }, { text = true }):wait()
-	if result.code ~= 0 then
-		return nil, nil
-	end
-	local remote_url = string.gsub(result.stdout, "\n", "")
-
-	local repo = string.match(remote_url, "git@github.com[-%a]*:(.*).git")
-
-	local head = vim.system({ "git", "rev-parse", "--abbrev-ref", "HEAD" }):wait()
-	local branch = string.gsub(head.stdout, "\n", "")
-	local remote_exists = vim.system({ "git", "ls-remote", "--exit-code", "--heads", (remote or "origin"), branch })
-		:wait()
-	if remote_exists.code == 0 then
-		return repo, branch
-	end
-
-	local develop = vim.system({ "git", "show-ref", "--quiet", "--branches", "develop" }):wait()
-	if develop.code == 0 then
-		return repo, "develop"
-	else
-		local main = vim.system({ "git", "show-ref", "--quiet", "--branches", "main" }):wait()
-		if main.code == 0 then
-			return repo, "main"
-		end
-	end
-
-	return repo, "master"
-end
-
-M.github = function()
-	local notify = require("notify")
-
-	local url, branch = M.github_url()
-	if not url then
-		notify("Could not find GitHub URL")
-		return
-	end
-
-	local cwd = M.cwd()
-	local row = vim.api.nvim_win_get_cursor(0)[1]
-	local file = vim.api.nvim_buf_get_name(0)
-	local relative_path = string.gsub(file, cwd, "")
-	local github_url = "https://github.com/" .. url .. "/blob/" .. branch
-	local with_row = github_url .. relative_path .. "#L" .. row
-
-	local ok, osc = pcall(require, "vim.ui.clipboard.osc52")
-	if ok then
-		osc.copy("+")({ with_row })
-	else
-		require("osc52").copy(with_row)
-	end
-	notify("GitHub URL copied to clipboard\n\n" .. with_row, "info")
-end
-
 M.fs_stat = function(...)
 	if M.has("0.10.0") then
 		return vim.uv.fs_stat(...)

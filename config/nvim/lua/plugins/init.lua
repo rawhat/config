@@ -44,6 +44,28 @@ return {
 		"gbprod/stay-in-place.nvim",
 		opts = {},
 	},
+	{
+		"linrongbin16/gitlinker.nvim",
+		cmd = "GitLink",
+		opts = {},
+		keys = {
+			{
+				"<leader>gk",
+				"<cmd>GitLink current_branch<cr>",
+				desc = "Get link to current line / range on current branch",
+			},
+			{
+				"<leader>gt",
+				"<cmd>GitLink default_branch<cr>",
+				desc = "Get link to current line / range on default",
+			},
+			{
+				"<leader>gp",
+				"<cmd>GitLink rev=develop<cr>",
+				desc = "Get link to current line / range on develop",
+			},
+		},
+	},
 	-- {
 	-- 	"aileot/emission.nvim",
 	-- 	event = "VeryLazy",
