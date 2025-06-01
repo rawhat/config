@@ -1,7 +1,6 @@
-return {
+local opts = {
 	"saghen/blink.cmp",
 	lazy = false,
-	build = "cargo build --release",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 	},
@@ -44,3 +43,11 @@ return {
 		},
 	},
 }
+
+if jit.os:lower() ~= "windows" then
+	opts.build = "cargo build --release"
+else
+	opts.version = "1.*"
+end
+
+return opts
