@@ -20,6 +20,7 @@ local opts = {
 			},
 			trigger = {
 				show_in_snippet = false,
+				show_on_backspace_in_keyword = true,
 			},
 			documentation = {
 				auto_show = true,
