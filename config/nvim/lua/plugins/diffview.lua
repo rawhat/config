@@ -29,6 +29,7 @@ return {
 				end)
 			end,
 		},
+		{ "<leader>dh", desc = "Show git history for currenty file", "<cmd>DiffviewFileHistory %<cr>" },
 	},
 	opts = {
 		default_args = {
