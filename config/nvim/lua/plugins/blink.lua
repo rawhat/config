@@ -5,9 +5,6 @@ local opts = {
 		"rafamadriz/friendly-snippets",
 	},
 	opts = {
-		fuzzy = {
-			sorts = { "exact", "score", "sort_text" },
-		},
 		keymap = {
 			preset = "super-tab",
 		},
