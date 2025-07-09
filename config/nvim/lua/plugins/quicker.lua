@@ -9,17 +9,29 @@ return {
 				require("quicker").toggle({ focus = true })
 			end,
 		},
+		{
+			"<leader>qd",
+			desc = "Open diagnostics in quickfix",
+			function()
+				vim.diagnostic.setqflist()
+			end,
+		},
 	},
 	opts = {
 		keys = {
 			{
 				">",
-				"<cmd>lua require('quicker').toggle_expand()<cr>",
+				function()
+					require("quicker").toggle_expand()
+				end,
 				desc = "Expand quickfix content",
 			},
 		},
-		on_qf = function(bufnr)
-			vim.keymap.set("n", "q", require("quicker").close)
+		follow = { enabled = true },
+		on_qf = function()
+			vim.keymap.set("n", "q", function()
+				require("quicker").close()
+			end)
 		end,
 	},
 }
