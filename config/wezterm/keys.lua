@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 
 local module = {}
 
@@ -85,7 +86,7 @@ function module.apply(config)
 			action = wezterm.action.EmitEvent("send-pane-to-new-window"),
 		},
 		{
-			key = "L",
+			key = "D",
 			mods = "CTRL",
 			action = wezterm.action.ShowDebugOverlay,
 		},
@@ -119,27 +120,14 @@ function module.apply(config)
 			mods = "ALT",
 			action = wezterm.action.ActivateKeyTable({ name = "vsplit", one_shot = true }),
 		},
-		{
-			key = "h",
-			mods = "ALT",
-			action = wezterm.action.ActivatePaneDirection("Left"),
-		},
-		{
-			key = "j",
-			mods = "ALT",
-			action = wezterm.action.ActivatePaneDirection("Down"),
-		},
-		{
-			key = "k",
-			mods = "ALT",
-			action = wezterm.action.ActivatePaneDirection("Up"),
-		},
-		{
-			key = "l",
-			mods = "ALT",
-			action = wezterm.action.ActivatePaneDirection("Right"),
-		},
 	}
+
+	smart_splits.apply_to_config(config, {
+		modifiers = {
+			move = "ALT",
+			resize = "CTRL|SHIFT",
+		},
+	})
 
 	wezterm.on("send-pane-to-new-window", function(window, pane)
 		local args = {

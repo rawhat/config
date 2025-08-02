@@ -102,29 +102,56 @@ return {
 			provider = "%=",
 		}
 
-		local Tmux = {
+		local Wezterm = {
 			init = function(self)
-				if not rawget(self, "once") then
-					local clear_cache = function()
-						self._win_cache = nil
-					end
-					vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter" }, {
-						callback = clear_cache,
-					})
-					self.once = true
-				end
+				local tabs = require("utils.wezterm").get_tabs()
+				local entries = vim.iter(tabs)
+					:map(function(entry)
+						local hl
+						if entry.active then
+							hl = {
+								bg = colors.active,
+								fg = colors.bg0,
+							}
+						else
+							hl = {
+								bg = colors.white,
+								fg = colors.bg1,
+							}
+						end
+						return utils.surround({ " ", " " }, nil, {
+							{
+								provider = "",
+								hl = {
+									bg = hl.fg,
+									fg = hl.bg,
+								},
+							},
+							{
+								provider = function()
+									return entry.title
+								end,
+								hl = hl,
+							},
+							{
+								provider = "",
+								hl = {
+									bg = hl.fg,
+									fg = hl.bg,
+								},
+							},
+						})
+					end)
+					:totable()
+
+				self.child = self:new(entries)
 			end,
 			condition = function()
-				return vim.fn.has("win32") ~= 1 and require("tmux-status").show()
+				return vim.fn.has("wezterm") ~= 1
 			end,
-			hl = { bg = "bg0", fg = "fg0" },
-			provider = function()
-				local tmux_status = require("tmux-status")
-				local ok, data = pcall(tmux_status.tmux_windows)
-				if not ok then
-					return " "
-				end
-				return data
+			update = { "FocusGained", "VimEnter" },
+			provider = function(self)
+				return self.child:eval()
 			end,
 		}
 
@@ -223,7 +250,7 @@ return {
 			statusline = {
 				{ Filename, Progress, Diagnostics },
 				{ Separator },
-				{ Tmux },
+				{ Wezterm },
 				{ Separator },
 				{ LSP, Diff, Branch },
 			},

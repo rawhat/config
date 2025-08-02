@@ -164,6 +164,7 @@ M.themes = {
 				white = colors.fujiWhite,
 				blue = colors.waveBlue1,
 				dimWhite = colors.fujiGray,
+				active = colors.autumnYellow,
 			}
 		end,
 	},
@@ -186,8 +187,8 @@ M.themes = {
 				integrations = {
 					cmp = true,
 					flash = true,
-					gitsigns = true,
 					hop = true,
+					gitsigns = true,
 					indent_blankline = {
 						enabled = true,
 					},

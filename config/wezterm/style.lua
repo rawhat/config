@@ -10,6 +10,7 @@ local function apply_tab_bar(config)
 	config.tab_bar_at_bottom = true
 	config.hide_tab_bar_if_only_one_tab = true
 	config.show_new_tab_button_in_tab_bar = false
+	config.tab_max_width = 64
 	config.window_frame = {
 		font = wezterm.font({ family = font.current_font, weight = "Bold" }),
 	}
@@ -24,6 +25,9 @@ local function apply_tab_bar(config)
 		return {
 			{ Background = { Color = background } },
 			{ Foreground = { Color = foreground } },
+			{ Text = " " },
+			{ Background = { Color = background } },
+			{ Foreground = { Color = foreground } },
 			{ Text = wezterm.nerdfonts.ple_left_half_circle_thick },
 			{ Background = { Color = foreground } },
 			{ Foreground = { Color = background } },
@@ -31,32 +35,35 @@ local function apply_tab_bar(config)
 			{ Background = { Color = background } },
 			{ Foreground = { Color = foreground } },
 			{ Text = wezterm.nerdfonts.ple_right_half_circle_thick },
-			{ Background = { Color = foreground } },
-			{ Foreground = { Color = background } },
+			{ Background = { Color = background } },
+			{ Foreground = { Color = foreground } },
+			{ Text = " " },
 		}
 	end)
-	-- config.tab_bar_style = {
-	-- 	active_tab_left = wezterm.format({
-	-- 		{ Background = { Color = scheme.background } },
-	-- 		{ Foreground = { Color = scheme.foreground } },
-	-- 		{ Text = wezterm.nerdfonts.ple_left_half_circle_thick },
-	-- 	}),
-	-- 	active_tab_right = wezterm.format({
-	-- 		{ Background = { Color = scheme.background } },
-	-- 		{ Foreground = { Color = scheme.foreground } },
-	-- 		{ Text = wezterm.nerdfonts.ple_right_half_circle_thick },
-	-- 	}),
-	-- 	inactive_tab_left = wezterm.format({
-	-- 		{ Background = { Color = scheme.background } },
-	-- 		{ Foreground = { Color = scheme.foreground } },
-	-- 		{ Text = wezterm.nerdfonts.ple_left_half_circle_thick },
-	-- 	}),
-	-- 	inactive_tab_right = wezterm.format({
-	-- 		{ Background = { Color = scheme.background } },
-	-- 		{ Foreground = { Color = scheme.foreground } },
-	-- 		{ Text = wezterm.nerdfonts.ple_right_half_circle_thick },
-	-- 	}),
-	-- }
+	wezterm.on("update-status", function(gui_window, pane)
+		local is_one_pane = #pane:tab():panes() == 1
+		local overrides = gui_window:get_config_overrides() or {}
+		if is_one_pane and string.match(pane:get_foreground_process_name(), "nvim") then
+			overrides.enable_tab_bar = false
+		else
+			overrides.enable_tab_bar = true
+		end
+
+		local tabs = gui_window:mux_window():tabs()
+		local mid_width = 0
+		for idx, tab in ipairs(tabs) do
+			local title = tab:get_title()
+			mid_width = mid_width + math.floor(math.log(idx, 10)) + 1
+			mid_width = mid_width + 2 + #title + 1
+		end
+		local tab_width = gui_window:active_tab():get_size().cols
+		local max_left = tab_width / 2 - mid_width / 2
+
+		gui_window:set_left_status(wezterm.pad_left(" ", max_left))
+		gui_window:set_right_status("")
+
+		gui_window:set_config_overrides(overrides)
+	end)
 end
 
 function module.apply(config)

@@ -1,6 +1,10 @@
 return {
 	"mrjones2014/smart-splits.nvim",
-	event = "VimEnter",
+	lazy = false,
+	opts = {
+		multiplexer_itegration = "wezterm",
+		at_edge = "stop",
+	},
 	keys = {
 		{
 			"<A-h>",
