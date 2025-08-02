@@ -83,7 +83,10 @@ function module.apply(config)
 		{
 			key = "s",
 			mods = "ALT",
-			action = wezterm.action.EmitEvent("send-pane-to-new-window"),
+			action = wezterm.action.Multiple({
+				wezterm.action.EmitEvent("send-pane-to-new-window"),
+				wezterm.action.EmitEvent("re-center-status"),
+			}),
 		},
 		{
 			key = "D",
@@ -93,7 +96,10 @@ function module.apply(config)
 		{
 			key = "q",
 			mods = "ALT",
-			action = wezterm.action.CloseCurrentPane({ confirm = true }),
+			action = wezterm.action.Multiple({
+				wezterm.action.CloseCurrentPane({ confirm = true }),
+				wezterm.action.EmitEvent("re-center-status"),
+			}),
 		},
 		{
 			key = "x",
@@ -103,7 +109,10 @@ function module.apply(config)
 		{
 			key = "n",
 			mods = "ALT",
-			action = wezterm.action.SpawnTab("CurrentPaneDomain"),
+			action = wezterm.action.Multiple({
+				wezterm.action.SpawnTab("CurrentPaneDomain"),
+				wezterm.action.EmitEvent("re-center-status"),
+			}),
 		},
 		{
 			key = "w",

@@ -149,7 +149,7 @@ return {
 			condition = function()
 				return vim.fn.has("wezterm") ~= 1
 			end,
-			update = { "FocusGained", "VimEnter" },
+			update = { "FocusGained", "VimEnter", "FocusLost" },
 			provider = function(self)
 				return self.child:eval()
 			end,
