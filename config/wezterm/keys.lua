@@ -138,6 +138,21 @@ function module.apply(config)
 			mods = "ALT|SHIFT",
 			action = wezterm.action.RotatePanes("CounterClockwise"),
 		},
+		{
+			key = "=",
+			mods = "ALT",
+			action = wezterm.action.IncreaseFontSize,
+		},
+		{
+			key = "-",
+			mods = "ALT",
+			action = wezterm.action.DecreaseFontSize,
+		},
+		{
+			key = "0",
+			mods = "ALT",
+			action = wezterm.action.ResetFontSize,
+		},
 	}
 
 	smart_splits.apply_to_config(config, {
