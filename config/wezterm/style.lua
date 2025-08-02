@@ -8,15 +8,12 @@ local function re_center_status(window, pane)
 	local tabs = window:mux_window():tabs()
 	local tab_width = 0
 	for _, tab in pairs(tabs) do
-		wezterm.log_info(tab:tab_id(), tab:get_title())
 		tab_width = tab_width + #tab:get_title()
 	end
 	local cols = window:active_tab():get_size().cols
 
 	local half_of_tab_width = math.floor(tab_width / 2)
 	local half_of_col_width = math.floor(cols / 2)
-	wezterm.log_info(tab_width, cols)
-	wezterm.log_info("active title: ", window:active_tab():get_title())
 
 	-- Magic number :(
 	local max_left = half_of_col_width - (half_of_tab_width + math.floor(6.5 * #tabs))
@@ -31,7 +28,6 @@ local function toggle_tab_bar(window, pane)
 		return
 	end
 	local panes = tab:panes()
-	wezterm.log_info(panes)
 	local is_one_pane = panes and #panes == 1
 	local overrides = window:get_config_overrides() or {}
 	if is_one_pane and string.match(pane:get_foreground_process_name(), "nvim") then

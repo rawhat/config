@@ -16,7 +16,6 @@ local number_to_shift = {
 
 local function move_pane_to_tab(window, pane_to_move, target_tab_index)
 	local all_tabs = window:mux_window():tabs_with_info()
-	wezterm.log_info(all_tabs)
 	local target_tab
 	for _, tab in pairs(all_tabs) do
 		if target_tab_index - 1 == tab.index then
@@ -128,6 +127,16 @@ function module.apply(config)
 			key = "v",
 			mods = "ALT",
 			action = wezterm.action.ActivateKeyTable({ name = "vsplit", one_shot = true }),
+		},
+		{
+			key = "L",
+			mods = "ALT|SHIFT",
+			action = wezterm.action.RotatePanes("Clockwise"),
+		},
+		{
+			key = "H",
+			mods = "ALT|SHIFT",
+			action = wezterm.action.RotatePanes("CounterClockwise"),
 		},
 	}
 
