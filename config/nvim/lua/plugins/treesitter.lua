@@ -50,42 +50,44 @@ return {
       ]]
 		)
 
-		vim.treesitter.query.set(
-			"gleam",
-			"indent",
-			[[
-			 [
-			   (anonymous_function)
-			   (assert)
-         (block)
-			   (case)
-			   (case_clause)
-			   (constant)
-			   (external_function)
-			   (function)
-			   (let)
-			   (list)
-			   (constant)
-			   (function)
-			   (type_definition)
-			   (type_alias)
-			   (todo)
-			   (tuple)
-			   (unqualified_imports)
-			 ] @indent.begin
-
-			 [
-			   ")"
-			   "]"
-			   "}"
-			 ] @indent.end @indent.branch
-
-			 ; Gleam pipelines are not indented, but other binary expression chains are
-			 ((binary_expression
-			   operator: _ @_operator) @indent.begin
-			   (#not-eq? @_operator "|>"))
-			     ]]
-		)
+		-- vim.treesitter.query.set(
+		-- 	"gleam",
+		-- 	"indent",
+		-- 	[[
+		-- 	 [
+		-- 	   (anonymous_function)
+		--        (arguments)
+		--        (assert)
+		--        (block)
+		-- 	   (case)
+		-- 	   (case_clause)
+		-- 	   (constant)
+		--        (data_constructor)
+		--        (data_constructor_argument)
+		--        (data_constructor_arguments)
+		-- 	   (external_function)
+		-- 	   (function)
+		-- 	   (let)
+		-- 	   (list)
+		-- 	   (todo)
+		-- 	   (tuple)
+		-- 	   (type_alias)
+		-- 	   (type_definition)
+		-- 	   (unqualified_imports)
+		-- 	 ] @indent.begin
+		--
+		-- 	 [
+		-- 	   ")"
+		-- 	   "]"
+		-- 	   "}"
+		-- 	 ] @indent.end @indent.branch
+		--
+		-- 	 ; Gleam pipelines are not indented, but other binary expression chains are
+		-- 	 ((binary_expression
+		-- 	   operator: _ @_operator) @indent.begin
+		-- 	   (#not-eq? @_operator "|>"))
+		-- 	     ]]
+		-- )
 	end,
 	opts = function()
 		local treesitter = require("nvim-treesitter.configs")

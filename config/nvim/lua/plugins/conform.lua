@@ -16,6 +16,7 @@ return {
 				ocaml = { "ocamlformat" },
 				python = { "pyfmt", "black", stop_after_first = true },
 				rust = { lsp_format = "fallback" },
+				sql = { "sleek" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 				["_"] = { "trim_whitespace" },
@@ -34,7 +35,9 @@ return {
 					command = "buildifier",
 					args = { "$FILENAME" },
 					stdin = false,
-					cwd = util.root_file("WORKSPACE"),
+					cwd = function(self, ctx)
+						return util.root_file("WORKSPACE")(self, ctx) or util.root_file("MODULE.bazel")(self, ctx)
+					end,
 					require_cwd = true,
 				},
 				javafmt = {

@@ -201,6 +201,8 @@ local color_schemes = {
 	},
 }
 
+module.color_scheme = "kanagawa (Gogh)"
+
 function module.apply(config)
 	config.color_schemes = color_schemes
 	-- config.color_scheme = "ayu"
@@ -214,7 +216,7 @@ function module.apply(config)
 	-- config.color_scheme = "Catppuccin Mocha"
 	-- config.color_scheme = "Catppuccin Latte"
 	-- config.color_scheme = "dayfox"
-	config.color_scheme = "Kanagawa (Gogh)"
+	config.color_scheme = module.color_scheme
 	-- for kanagawa
 	config.force_reverse_video_cursor = true
 end

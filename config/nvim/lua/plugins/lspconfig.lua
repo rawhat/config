@@ -67,6 +67,7 @@ return {
 							"-bazel-testlogs",
 							"-bazel-vistar",
 							"-bazel-app",
+							"-bazel-supersonic",
 						},
 						hints = {
 							assignVariableTypes = true,
@@ -124,34 +125,35 @@ return {
 			sorbet = {},
 			sqlls = {},
 			starpls = {},
+			tailwindcss = {},
 			taplo = {},
-			-- tsgo = {
-			-- 	cmd = { "tsgo", "--lsp", "--stdio" },
-			-- 	filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-			-- 	root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-			-- },
-			-- ty = {},
-			vtsls = {
-				settings = {
-					complete_function_calls = true,
-					typescript = {
-						suggest = {
-							completeFunctionCalls = true,
-						},
-						inlayHints = {
-							parameterNames = { enabled = "literals" },
-							parameterTypes = { enabled = true },
-							variableTypes = { enabled = true },
-							propertyDeclarationTypes = { enabled = true },
-							functionLikeReturnTypes = { enabled = true },
-							enumMemberValues = { enabled = true },
-						},
-						tsserver = {
-							maxTsServerMemory = 8192,
-						},
-					},
-				},
+			tsgo = {
+				cmd = { "tsgo", "--lsp", "--stdio" },
+				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+				root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 			},
+			-- ty = {},
+			-- vtsls = {
+			-- 	settings = {
+			-- 		complete_function_calls = true,
+			-- 		typescript = {
+			-- 			suggest = {
+			-- 				completeFunctionCalls = true,
+			-- 			},
+			-- 			inlayHints = {
+			-- 				parameterNames = { enabled = "literals" },
+			-- 				parameterTypes = { enabled = true },
+			-- 				variableTypes = { enabled = true },
+			-- 				propertyDeclarationTypes = { enabled = true },
+			-- 				functionLikeReturnTypes = { enabled = true },
+			-- 				enumMemberValues = { enabled = true },
+			-- 			},
+			-- 			tsserver = {
+			-- 				maxTsServerMemory = 8192,
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
 			zls = {},
 		}
 

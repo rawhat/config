@@ -34,22 +34,25 @@ local font_configs = {
 	{ font = "VictorMono Nerd Font" },
 }
 
-local current_font = "Rec Mono Linear"
+-- local current_font = "Rec Mono Linear"
 -- local current_font = "Iosevka Wide"
--- local current_font = "Berkeley Mono"
+module.current_font = "Berkeley Mono"
+
+local font = {}
 
 function module.apply(config)
-	config.font_size = 18.0
+	config.font_size = 14.0
 	for _, entry in pairs(font_configs) do
-		if entry.font == current_font or entry.font.family == current_font then
-			config.font = wezterm.font_with_fallback({ entry.font, "nonicons", "SauceCodePro NF" })
+		if entry.font == module.current_font or entry.font.family == module.current_font then
+			font = wezterm.font_with_fallback({ entry.font, "nonicons", "Symbols Nerd Font Mono" })
 			for key, value in pairs(entry) do
 				if key ~= "font" then
-					config[key] = value
+					font[key] = value
 				end
 			end
 		end
 	end
+	config.font = font
 end
 
 return module

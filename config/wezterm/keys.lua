@@ -3,86 +3,100 @@ local wezterm = require("wezterm")
 local module = {}
 
 function module.apply(config)
+	config.disable_default_key_bindings = true
+
+	wezterm.on("send-pane-to-new-window", function(window, pane)
+		local args = {
+			"wezterm",
+			"cli",
+			"move-pane-to-new-tab",
+			"--window-id",
+			window:window_id(),
+			"--pane-id",
+			pane:pane_id(),
+		}
+		local success, stdout, stderr = wezterm.run_child_process(args)
+		if not success then
+			wezterm.log_error(stderr)
+		end
+	end)
+
+	config.key_tables = {
+		vsplit = {
+			{ key = "Enter", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
+		},
+	}
+
 	config.keys = {
-		-- {
-		-- 	key = "h",
-		-- 	mods = "ALT",
-		-- 	action = wezterm.action({
-		-- 		ActivateTabRelative = -1,
-		-- 	}),
-		-- },
-		-- {
-		-- 	key = "l",
-		-- 	mods = "ALT",
-		-- 	action = wezterm.action({
-		-- 		ActivateTabRelative = 1,
-		-- 	}),
-		-- },
 		{
-			key = "1",
-			mods = "CTRL|SHIFT",
+			key = "s",
+			mods = "ALT",
+			action = wezterm.action.EmitEvent("send-pane-to-new-window"),
+		},
+		{
+			key = "L",
+			mods = "CTRL",
+			action = wezterm.action.ShowDebugOverlay,
+		},
+		{
+			key = "q",
+			mods = "ALT",
+			action = wezterm.action.CloseCurrentPane({ confirm = true }),
+		},
+		{
+			key = "x",
+			mods = "ALT",
+			action = wezterm.action.TogglePaneZoomState,
+		},
+		{
+			key = "n",
+			mods = "ALT",
 			action = wezterm.action.SpawnTab("CurrentPaneDomain"),
 		},
 		{
-			key = "2",
-			mods = "CTRL|SHIFT",
-			action = wezterm.action.SpawnCommandInNewTab({
-				label = "PowerShell",
-				args = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe -NoExit -WorkingDirectory ~" },
-			}),
-		},
-		{
-			key = "h",
+			key = "w",
 			mods = "ALT",
-			action = wezterm.action.DisableDefaultAssignment,
-		},
-		{
-			key = "j",
-			mods = "ALT",
-			action = wezterm.action.DisableDefaultAssignment,
-		},
-		{
-			key = "k",
-			mods = "ALT",
-			action = wezterm.action.DisableDefaultAssignment,
-		},
-		{
-			key = "l",
-			mods = "ALT",
-			action = wezterm.action.DisableDefaultAssignment,
-		},
-		-- {
-		-- 	key = "4",
-		-- 	mods = "CTRL|SHIFT",
-		-- 	action = wezterm.action({
-
-		-- 	}),
-		-- },
-		{
-			key = "F11",
-			action = "ToggleFullScreen",
+			action = wezterm.action.ShowTabNavigator,
 		},
 		{
 			key = "Enter",
 			mods = "ALT",
-			action = wezterm.action.DisableDefaultAssignment,
+			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
 		{
-			key = "1",
-			mods = "ALT|SHIFT",
-			action = wezterm.action.DisableDefaultAssignment,
+			key = "v",
+			mods = "ALT",
+			action = wezterm.action.ActivateKeyTable({ name = "vsplit", one_shot = true }),
 		},
 		{
-			key = "2",
-			mods = "ALT|SHIFT",
-			action = wezterm.action.DisableDefaultAssignment,
+			key = "h",
+			mods = "ALT",
+			action = wezterm.action.ActivatePaneDirection("Left"),
 		},
 		{
-			key = "3",
-			mods = "ALT|SHIFT",
-			action = wezterm.action.DisableDefaultAssignment,
+			key = "j",
+			mods = "ALT",
+			action = wezterm.action.ActivatePaneDirection("Down"),
+		},
+		{
+			key = "k",
+			mods = "ALT",
+			action = wezterm.action.ActivatePaneDirection("Up"),
+		},
+		{
+			key = "l",
+			mods = "ALT",
+			action = wezterm.action.ActivatePaneDirection("Right"),
 		},
 	}
+
+	for i = 1, 8 do
+		table.insert(config.keys, {
+			key = tostring(i),
+			mods = "ALT",
+			action = wezterm.action.ActivateTab(i - 1),
+		})
+	end
 end
 
 return module

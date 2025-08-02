@@ -1,14 +1,9 @@
 fish_add_path /usr/bin/vendor_perl
 
 set -x BAT_THEME kanagawa
-set -x AWS_REGION us-east-1
 
 fish_add_path \
-  $HOME/.bin \
   $HOME/.cargo/bin \
-  $HOME/.config/yarn/global/node_modules/.bin \
-  $HOME/.local/bin \
-  $HOME/.yarn/bin \
   $HOME/bin
 
 mise activate fish | source
