@@ -8,6 +8,12 @@ function module.apply(config)
 			username = "alex",
 		},
 	}
+	config.launch_menu = {
+		{
+			label = "skanderbeg",
+			domain = { DomainName = "skanderbeg" },
+		},
+	}
 end
 
 return module

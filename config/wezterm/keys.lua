@@ -153,6 +153,11 @@ function module.apply(config)
 			mods = "ALT",
 			action = wezterm.action.ResetFontSize,
 		},
+		{
+			key = "m",
+			mods = "ALT",
+			action = wezterm.action.ShowLauncher,
+		},
 	}
 
 	smart_splits.apply_to_config(config, {

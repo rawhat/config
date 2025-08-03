@@ -30,7 +30,7 @@ end
 
 function module.get_tabs()
 	local ok, list = get_list()
-	if not ok then
+	if not ok or #list == 1 then
 		return {}
 	end
 	local focused_pane_id = get_focused_pane()
@@ -57,7 +57,11 @@ function module.get_tabs()
 		return {}
 	end
 
-	local values = vim.iter(tab_id_to_info):totable()
+	local values = vim.iter(tab_id_to_info)
+		:map(function(entry)
+			return entry
+		end)
+		:totable()
 	table.sort(values, function(a, b)
 		return a.tab_id < b.tab_id
 	end)
