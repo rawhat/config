@@ -107,13 +107,13 @@ function module.apply(config)
 
 	config.keys = {
 		{
-			key = "C",
-			mods = "CTRL|SHIFT",
+			key = is_macos and "c" or "C",
+			mods = is_macos and "SUPER" or "CTRL|SHIFT",
 			action = wezterm.action.CopyTo("Clipboard"),
 		},
 		{
-			key = "V",
-			mods = "CTRL|SHIFT",
+			key = is_macos and "v" or "V",
+			mods = is_macos and "SUPER" or "CTRL|SHIFT",
 			action = wezterm.action.PasteFrom("Clipboard"),
 		},
 		{
@@ -162,7 +162,7 @@ function module.apply(config)
 		},
 		{
 			key = "v",
-			mods = leader_mod,
+			mods = is_macos and "CTRL" or "ALT",
 			action = wezterm.action.ActivateKeyTable({ name = "vsplit", one_shot = true }),
 		},
 		{
