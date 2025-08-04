@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local domain = require("domain")
 
 local module = {}
 
@@ -42,7 +43,11 @@ module.current_font = "Berkeley Mono"
 local font = {}
 
 function module.apply(config)
-	config.font_size = 18.0
+	if domain.platform() == "macos" then
+		config.font_size = 18.0
+	else
+		config.font_size = 14.0
+	end
 	for _, entry in pairs(font_configs) do
 		if entry.font == module.current_font or entry.font.family == module.current_font then
 			font = wezterm.font_with_fallback({ entry.font, "nonicons", "Symbols Nerd Font Mono" })

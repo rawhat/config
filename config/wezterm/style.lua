@@ -1,6 +1,7 @@
 local wezterm = require("wezterm")
 local font = require("fonts")
 local colors = require("colors")
+local domain = require("domain")
 
 local module = {}
 
@@ -101,7 +102,11 @@ function module.apply(config)
 		bottom = 0,
 	}
 
-	config.window_decorations = "RESIZE"
+	if domain.platform() == "macos" then
+		config.window_decorations = "RESIZE"
+	else
+		config.window_decorations = "NONE"
+	end
 
 	config.enable_scroll_bar = false
 	config.scrollback_lines = 5000

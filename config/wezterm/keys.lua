@@ -74,7 +74,8 @@ local key_to_direction = {
 
 function bind_nvim_keys(key, mods, action)
 	return function(window, pane)
-		local is_nvim = pane:get_foreground_process_name():match(".*/([^/]+)$") == "nvim"
+		local foreground_process_name = pane:get_foreground_process_name()
+		local is_nvim = foreground_process_name and foreground_process_name:match(".*/([^/]+)$") == "nvim"
 		if not is_nvim then
 			if action ~= "resize" then
 				window:perform_action({ ActivatePaneDirection = key_to_direction[key] }, pane)
