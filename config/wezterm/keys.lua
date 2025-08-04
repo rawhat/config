@@ -72,14 +72,22 @@ local key_to_direction = {
 	l = "Right",
 }
 
-function bind_nvim_keys(key, mods)
+function bind_nvim_keys(key, mods, action)
 	return function(window, pane)
 		local is_nvim = pane:get_foreground_process_name():match(".*/([^/]+)$") == "nvim"
 		if not is_nvim then
-			window:perform_action({ ActivatePaneDirection = key_to_direction[key] }, pane)
+			if action ~= "resize" then
+				window:perform_action({ ActivatePaneDirection = key_to_direction[key] }, pane)
+			else
+				window:perform_action({ AdjustPaneSize = { key_to_direction[key], 3 } }, pane)
+			end
+		else
+			if action ~= "resize" then
+				window:perform_action({ SendKey = { key = key, mods = mods } }, pane)
+			else
+				window:perform_action({ SendKey = { key = key, mods = "CTRL|ALT" } }, pane)
+			end
 		end
-
-		window:perform_action({ SendKey = { key = key, mods = mods } }, pane)
 	end
 end
 
@@ -187,37 +195,47 @@ function module.apply(config)
 			mods = leader_mod,
 			action = wezterm.action.ShowLauncher,
 		},
-	}
-
-	if is_macos then
-		table.insert(config.keys, {
+		{
 			key = "h",
-			mods = "CMD",
+			mods = leader_mod,
 			action = wezterm.action_callback(bind_nvim_keys("h", "ALT")),
-		})
-		table.insert(config.keys, {
+		},
+		{
 			key = "j",
-			mods = "CMD",
+			mods = leader_mod,
 			action = wezterm.action_callback(bind_nvim_keys("j", "ALT")),
-		})
-		table.insert(config.keys, {
+		},
+		{
 			key = "k",
-			mods = "CMD",
+			mods = leader_mod,
 			action = wezterm.action_callback(bind_nvim_keys("k", "ALT")),
-		})
-		table.insert(config.keys, {
+		},
+		{
 			key = "l",
-			mods = "CMD",
+			mods = leader_mod,
 			action = wezterm.action_callback(bind_nvim_keys("l", "ALT")),
-		})
-	else
-		smart_splits.apply_to_config(config, {
-			modifiers = {
-				move = "ALT",
-				resize = "CTRL|SHIFT",
-			},
-		})
-	end
+		},
+		{
+			key = "h",
+			mods = "CTRL|SHIFT",
+			action = wezterm.action_callback(bind_nvim_keys("h", "CTRL|SHIFT", "resize")),
+		},
+		{
+			key = "j",
+			mods = "CTRL|SHIFT",
+			action = wezterm.action_callback(bind_nvim_keys("j", "CTRL|SHIFT", "resize")),
+		},
+		{
+			key = "k",
+			mods = "CTRL|SHIFT",
+			action = wezterm.action_callback(bind_nvim_keys("k", "CTRL|SHIFT", "resize")),
+		},
+		{
+			key = "l",
+			mods = "CTRL|SHIFT",
+			action = wezterm.action_callback(bind_nvim_keys("l", "CTRL|SHIFT", "resize")),
+		},
+	}
 
 	wezterm.on("send-pane-to-new-window", function(window, pane)
 		local args = {
