@@ -30,7 +30,8 @@ local function toggle_tab_bar(window, pane)
 	local panes = tab:panes()
 	local is_one_pane = panes and #panes == 1
 	local overrides = window:get_config_overrides() or {}
-	if is_one_pane and string.match(pane:get_foreground_process_name(), "nvim") then
+	local foreground_process = pane:get_foreground_process_name()
+	if is_one_pane and foreground_process and string.match(foreground_process, "nvim") then
 		overrides.enable_tab_bar = false
 	else
 		overrides.enable_tab_bar = true
@@ -100,7 +101,7 @@ function module.apply(config)
 		bottom = 0,
 	}
 
-	config.window_decorations = "NONE"
+	config.window_decorations = "RESIZE"
 
 	config.enable_scroll_bar = false
 	config.scrollback_lines = 5000

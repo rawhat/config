@@ -8,7 +8,7 @@ sbar.bar({
 	position = "top",
 	height = 30,
 	blur_radius = 30,
-	color = "0x4000000",
+	color = "0x04000000",
 })
 
 sbar.default({
@@ -16,15 +16,17 @@ sbar.default({
 	padding_right = 5,
 	icon = {
 		font = "Symbols Nerd Font Mono:Bold:17.0",
-		color = "0xffffffff",
+		color = "0xffadadad",
 		padding_left = 4,
 		padding_right = 4,
+		align = "center",
 	},
 	label = {
 		font = "Berkeley Mono:Bold:14.0",
-		color = "0xffffffff",
+		color = "0xffadadad",
 		padding_left = 4,
 		padding_right = 4,
+		align = "center",
 	},
 })
 

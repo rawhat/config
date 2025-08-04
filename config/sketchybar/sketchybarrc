@@ -1,3 +1,3 @@
-#!/Users/alex/.local/share/mise/installs/lua/5.4.7/bin/lua
+#!/Users/amanning/.local/share/mise/installs/lua/5.4.8/bin/lua
 
 require("init")

@@ -32,6 +32,7 @@ local font_configs = {
 	{ font = "Hack" },
 	{ font = "Monoid HalfLoose" },
 	{ font = "VictorMono Nerd Font" },
+	{ font = "Maple Mono" },
 }
 
 -- local current_font = "Rec Mono Linear"
@@ -41,7 +42,7 @@ module.current_font = "Berkeley Mono"
 local font = {}
 
 function module.apply(config)
-	config.font_size = 14.0
+	config.font_size = 18.0
 	for _, entry in pairs(font_configs) do
 		if entry.font == module.current_font or entry.font.family == module.current_font then
 			font = wezterm.font_with_fallback({ entry.font, "nonicons", "Symbols Nerd Font Mono" })

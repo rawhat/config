@@ -26,6 +26,15 @@ return {
 			basedpyright = {
 				flags = { debounce_text_changes = 300 },
 				settings = {
+					basedpyright = {
+						defineConstant = {
+							DEBUG = true,
+						},
+						exclude = {},
+						include = { "traffficking" },
+						pythonVersion = "3.13",
+						typeCheckingMode = "basic",
+					},
 					python = {
 						analysis = {
 							extra_paths = { utils.cwd() },
@@ -40,6 +49,7 @@ return {
 				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
 			},
 			clojure_lsp = {},
+			coffeesense = {},
 			crystalline = {},
 			docker_compose_language_service = {},
 			dockerls = {},
@@ -217,7 +227,21 @@ return {
 		})
 
 		if utils.has("0.10.0") then
+			-- local virt_lines_ns = vim.api.nvim_create_namespace("on_diagnostic_jump")
 			vim.diagnostic.config({
+				-- jump = {
+				-- 	on_jump = function(diagnostic, bufnr)
+				-- 		if not diagnostic then
+				-- 			return
+				-- 		end
+				-- 		vim.diagnostic.show(
+				-- 			virt_lines_ns,
+				-- 			bufnr,
+				-- 			{ diagnostic },
+				-- 			{ virtual_lines = { current_line = true }, virtual_text = false }
+				-- 		)
+				-- 	end,
+				-- },
 				signs = {
 					text = {
 						[vim.diagnostic.severity.ERROR] = " ",
@@ -226,6 +250,15 @@ return {
 						[vim.diagnostic.severity.INFO] = " ",
 					},
 				},
+				-- virtual_text = {
+				-- 	format = function(diagnostic)
+				-- 		local match = string.match(diagnostic.message, "(.-)\n")
+				-- 		return match or diagnostic.message
+				-- 	end,
+				-- },
+				-- virtual_lines = {
+				-- 	current_line = true,
+				-- },
 			})
 		else
 			-- show lsp signs in gutter

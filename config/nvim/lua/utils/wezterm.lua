@@ -49,7 +49,17 @@ function module.get_tabs()
 		return acc
 	end)
 
-	local more_than_nvim_in_tab = vim.iter(tab_id_to_info):find(function(entry)
+	local values = vim.iter(tab_id_to_info)
+		:map(function(key, entry)
+			if type(key) == "number" then
+				return entry
+			else
+				return key
+			end
+		end)
+		:totable()
+
+	local more_than_nvim_in_tab = vim.iter(values):find(function(entry)
 		return #entry.panes > 1
 	end)
 
@@ -57,11 +67,6 @@ function module.get_tabs()
 		return {}
 	end
 
-	local values = vim.iter(tab_id_to_info)
-		:map(function(entry)
-			return entry
-		end)
-		:totable()
 	table.sort(values, function(a, b)
 		return a.tab_id < b.tab_id
 	end)

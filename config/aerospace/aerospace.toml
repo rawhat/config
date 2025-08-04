@@ -103,3 +103,15 @@ outer.top = [{ monitor."built-in" = 0 }, 25]
 inherit-env-vars = true
 [exec.env-vars]
 PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:/Users/amanning/.local/share/mise/installs/lua/5.4.7/bin:${PATH}'
+
+[[on-window-detected]]
+if.app-id="com.mitchellh.ghostty"
+run= [
+  "layout tiling",
+]
+
+[[on-window-detected]]
+if.app-id="com.github.wez.wezterm"
+run= [
+  "layout tiling",
+]

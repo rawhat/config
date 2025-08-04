@@ -175,6 +175,27 @@ return {
 			end,
 		},
 		{
+			"<leader>tr",
+			desc = "Open terminal to the right",
+			function()
+				Snacks.terminal.open(nil, { win = { position = "right" } })
+			end,
+		},
+		{
+			"<leader>to",
+			desc = "Open terminal to the bottom",
+			function()
+				Snacks.terminal.open(nil, { win = { position = "bottom" } })
+			end,
+		},
+		{
+			"<leader>tt",
+			desc = "Toggle terminal",
+			function()
+				Snacks.terminal.toggle()
+			end,
+		},
+		{
 			"gD",
 			desc = "LSP type definitions",
 			function()

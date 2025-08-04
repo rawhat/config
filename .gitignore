@@ -4,3 +4,5 @@ config/nvim/lua/.luarc.json
 config/fish/*
 !config/fish/config.fish
 !config/fish/themes
+DS_Info
+.DS_Store

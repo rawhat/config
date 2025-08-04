@@ -1,6 +1,12 @@
 local wezterm = require("wezterm")
 local smart_splits = wezterm.plugin.require("https://github.com/mrjones2014/smart-splits.nvim")
 
+local is_macos = wezterm.target_triple == "x86_64-apple-darwin" or wezterm.target_triple == "aarch64-apple-darwin"
+local wezterm_binary = "wezterm"
+if is_macos then
+	wezterm_binary = "/opt/homebrew/bin/wezterm"
+end
+
 local module = {}
 
 local number_to_shift = {
@@ -42,7 +48,7 @@ local function move_pane_to_tab(window, pane_to_move, target_tab_index)
 	end
 
 	local args = {
-		"wezterm",
+		wezterm_binary,
 		"cli",
 		"split-pane",
 		"--right",
@@ -59,6 +65,24 @@ local function move_pane_to_tab(window, pane_to_move, target_tab_index)
 	end
 end
 
+local key_to_direction = {
+	h = "Left",
+	j = "Down",
+	k = "Up",
+	l = "Right",
+}
+
+function bind_nvim_keys(key, mods)
+	return function(window, pane)
+		local is_nvim = pane:get_foreground_process_name():match(".*/([^/]+)$") == "nvim"
+		if not is_nvim then
+			window:perform_action({ ActivatePaneDirection = key_to_direction[key] }, pane)
+		end
+
+		window:perform_action({ SendKey = { key = key, mods = mods } }, pane)
+	end
+end
+
 function module.apply(config)
 	config.disable_default_key_bindings = true
 
@@ -67,6 +91,11 @@ function module.apply(config)
 			{ key = "Enter", action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }) },
 		},
 	}
+
+	local leader_mod = "ALT"
+	if is_macos then
+		leader_mod = "SUPER"
+	end
 
 	config.keys = {
 		{
@@ -81,7 +110,7 @@ function module.apply(config)
 		},
 		{
 			key = "s",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.Multiple({
 				wezterm.action.EmitEvent("send-pane-to-new-window"),
 				wezterm.action.EmitEvent("re-center-status"),
@@ -94,7 +123,7 @@ function module.apply(config)
 		},
 		{
 			key = "q",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.Multiple({
 				wezterm.action.CloseCurrentPane({ confirm = true }),
 				wezterm.action.EmitEvent("re-center-status"),
@@ -102,12 +131,12 @@ function module.apply(config)
 		},
 		{
 			key = "x",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.TogglePaneZoomState,
 		},
 		{
 			key = "n",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.Multiple({
 				wezterm.action.SpawnTab("CurrentPaneDomain"),
 				wezterm.action.EmitEvent("re-center-status"),
@@ -115,61 +144,84 @@ function module.apply(config)
 		},
 		{
 			key = "w",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.ShowTabNavigator,
 		},
 		{
 			key = "Enter",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
 		{
 			key = "v",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.ActivateKeyTable({ name = "vsplit", one_shot = true }),
 		},
 		{
 			key = "L",
-			mods = "ALT|SHIFT",
+			mods = leader_mod .. "|SHIFT",
 			action = wezterm.action.RotatePanes("Clockwise"),
 		},
 		{
 			key = "H",
-			mods = "ALT|SHIFT",
+			mods = leader_mod .. "|SHIFT",
 			action = wezterm.action.RotatePanes("CounterClockwise"),
 		},
 		{
 			key = "=",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.IncreaseFontSize,
 		},
 		{
 			key = "-",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.DecreaseFontSize,
 		},
 		{
 			key = "0",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.ResetFontSize,
 		},
 		{
 			key = "m",
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.ShowLauncher,
 		},
 	}
 
-	smart_splits.apply_to_config(config, {
-		modifiers = {
-			move = "ALT",
-			resize = "CTRL|SHIFT",
-		},
-	})
+	if is_macos then
+		table.insert(config.keys, {
+			key = "h",
+			mods = "CMD",
+			action = wezterm.action_callback(bind_nvim_keys("h", "ALT")),
+		})
+		table.insert(config.keys, {
+			key = "j",
+			mods = "CMD",
+			action = wezterm.action_callback(bind_nvim_keys("j", "ALT")),
+		})
+		table.insert(config.keys, {
+			key = "k",
+			mods = "CMD",
+			action = wezterm.action_callback(bind_nvim_keys("k", "ALT")),
+		})
+		table.insert(config.keys, {
+			key = "l",
+			mods = "CMD",
+			action = wezterm.action_callback(bind_nvim_keys("l", "ALT")),
+		})
+	else
+		smart_splits.apply_to_config(config, {
+			modifiers = {
+				move = "ALT",
+				resize = "CTRL|SHIFT",
+			},
+		})
+	end
 
 	wezterm.on("send-pane-to-new-window", function(window, pane)
 		local args = {
-			"wezterm",
+			wezterm_binary,
 			"cli",
 			"move-pane-to-new-tab",
 			"--window-id",
@@ -186,12 +238,12 @@ function module.apply(config)
 	for i = 1, 8 do
 		table.insert(config.keys, {
 			key = tostring(i),
-			mods = "ALT",
+			mods = leader_mod,
 			action = wezterm.action.ActivateTab(i - 1),
 		})
 		table.insert(config.keys, {
 			key = number_to_shift[i],
-			mods = "ALT|SHIFT",
+			mods = leader_mod .. "|SHIFT",
 			action = wezterm.action.EmitEvent("send-pane-to-window-" .. tostring(i)),
 		})
 		wezterm.on("send-pane-to-window-" .. tostring(i), function(window, pane)
