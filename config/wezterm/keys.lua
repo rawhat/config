@@ -162,8 +162,8 @@ function module.apply(config)
 			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
 		},
 		{
-			key = "v",
-			mods = is_macos and "CTRL" or "ALT",
+			key = is_macos and "p" or "v",
+			mods = is_macos and "ALT" or "ALT",
 			action = wezterm.action.ActivateKeyTable({ name = "vsplit", one_shot = true }),
 		},
 		{
