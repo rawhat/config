@@ -22,7 +22,7 @@ exec-on-workspace-change = [
 
 [mode.main.binding]
 # See: https://nikitabobko.github.io/AeroSpace/goodies#open-a-new-window-with-applescript
-alt-enter = 'exec-and-forget open -n -a ghostty'
+alt-enter = 'exec-and-forget open -n -a wezterm'
 
 # i3 wraps focus by default
 alt-h = 'focus --boundaries-action wrap-around-the-workspace left'
