@@ -19,6 +19,7 @@ return {
 			},
 		},
 		"windwp/nvim-ts-autotag",
+		-- TODO:  migrate back to original
 		{ "AbaoFromCUG/nvim-treesitter-endwise", commit = "b826f3ee910b5f071840d9ecd39998740e19e60d" },
 	},
 	branch = "main",
@@ -120,16 +121,21 @@ return {
 
 		require("nvim-treesitter").install({
 			"bash",
+			"css",
 			"dockerfile",
 			"fish",
 			"git_rebase",
 			"gitcommit",
 			"gleam",
+			"go",
 			"html",
 			"javascript",
 			"json",
+			"markdown",
 			"regex",
 			"rust",
+			"sh",
+			"toml",
 			"tsx",
 			"typescript",
 		})
