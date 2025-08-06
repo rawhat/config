@@ -5,22 +5,55 @@ local domain = require("domain")
 
 local module = {}
 
-local function re_center_status(window, pane)
-	local tabs = window:mux_window():tabs()
-	local tab_width = 0
-	for _, tab in pairs(tabs) do
-		tab_width = tab_width + #tab:get_title()
+local tab_max_width = 64
+
+-- thanks @mrjones2014 !
+local function tab_title(tab, is_mux_win)
+	local title
+
+	if is_mux_win then
+		title = tab:get_title()
+	else
+		title = tab.tab_title
 	end
-	local cols = window:active_tab():get_size().cols
 
-	local half_of_tab_width = math.floor(tab_width / 2)
-	local half_of_col_width = math.floor(cols / 2)
+	if title and #title > 0 then
+		return title
+	end
 
-	-- Magic number :(
-	local max_left = half_of_col_width - (half_of_tab_width + math.floor(6.5 * #tabs))
+	-- remove hostname
 
-	window:set_left_status(wezterm.pad_left(" ", max_left))
-	window:set_right_status("")
+	if is_mux_win then
+		title = tab:window():gui_window():active_pane():get_title()
+	else
+		title = tab.active_pane.title
+	end
+
+	return string.gsub(title, "^%[?[%a%d\\-]%]? ", "")
+end
+
+local function format_tab_title(tab, idx, max_width, is_mux_win)
+	-- 6 because of the two spaces below, plus 2 separators, plus tab index
+
+	return string.format(" %d %s ", idx, wezterm.truncate_left(tab_title(tab, is_mux_win), max_width - 6))
+end
+
+local function re_center_status(window, pane)
+	local mux_win = window:mux_window()
+
+	local total_width = mux_win:active_tab():get_size().cols
+
+	-- local all_tabs = mux_win:tabs()
+	--
+	-- local tabs_max_width = tab_max_width * #all_tabs
+
+	local tabs_total_width = 0
+
+	for _, tab in ipairs(mux_win:tabs()) do
+		tabs_total_width = tabs_total_width + #format_tab_title(tab, 0, tab_max_width, true) + 6
+	end
+
+	window:set_left_status(string.rep(" ", math.floor((total_width / 2) - (tabs_total_width / 2))))
 end
 
 local function toggle_tab_bar(window, pane)
