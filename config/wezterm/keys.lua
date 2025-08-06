@@ -178,17 +178,17 @@ function module.apply(config)
 		},
 		{
 			key = "=",
-			mods = leader_mod,
+			mods = is_macos and leader_mod or "CTRL",
 			action = wezterm.action.IncreaseFontSize,
 		},
 		{
 			key = "-",
-			mods = leader_mod,
+			mods = is_macos and leader_mod or "CTRL",
 			action = wezterm.action.DecreaseFontSize,
 		},
 		{
 			key = "0",
-			mods = leader_mod,
+			mods = is_macos and leader_mod or "CTRL",
 			action = wezterm.action.ResetFontSize,
 		},
 		{
