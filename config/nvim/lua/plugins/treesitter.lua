@@ -121,6 +121,7 @@ return {
 
 		require("nvim-treesitter").install({
 			"bash",
+			"caddy",
 			"css",
 			"dockerfile",
 			"fish",

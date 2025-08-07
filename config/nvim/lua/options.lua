@@ -88,11 +88,21 @@ vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decr
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
--- probably don't need this, but set filetype to bazel for... bazel files
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	pattern = { "BUILD", "*.bzl", "WORKSPACE", "BUILD.bazel" },
-	command = "setf bzl",
-	group = options,
+vim.filetype.add({
+	extension = {
+		bzl = "bzl",
+	},
+	filename = {
+		["BUILD"] = "bzl",
+		["WORKSPACE"] = "bzl",
+		["BUILD.bazel"] = "bzl",
+	},
+})
+
+vim.filetype.add({
+	filename = {
+		["Caddyfile"] = "caddy",
+	},
 })
 
 -- for toggle term, reuse the same term
