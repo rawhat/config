@@ -16,6 +16,7 @@ return {
 				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
 				python = { "pyfmt", "black", stop_after_first = true },
+				proto = { "trim_whitespace" },
 				sql = { "sleek" },
 				typescript = js_formatters,
 				typescriptreact = js_formatters,
