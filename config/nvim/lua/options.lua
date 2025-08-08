@@ -1,7 +1,5 @@
 local M = {}
 
-local options = vim.api.nvim_create_augroup("Options", { clear = true })
-
 -- disable mouse
 vim.opt.mouse = ""
 
@@ -80,24 +78,12 @@ vim.opt.relativenumber = true
 -- display different highlight for line cursor is on
 vim.opt.cursorline = true
 
--- don't really use these, but treesitter parsing for folds
---[[ vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-vim.opt.foldtext = "v:lua.vim.treesitter.foldtext()" ]]
-vim.o.foldcolumn = "1" -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+-- '0' is not bad
+vim.o.foldcolumn = "1"
+-- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-
-vim.filetype.add({
-	extension = {
-		bzl = "bzl",
-	},
-	filename = {
-		["BUILD"] = "bzl",
-		["WORKSPACE"] = "bzl",
-		["BUILD.bazel"] = "bzl",
-	},
-})
 
 vim.filetype.add({
 	filename = {
