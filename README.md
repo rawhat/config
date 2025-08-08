@@ -2,18 +2,19 @@
 
 This is the repo for my dotfiles, or at least some of them.
 
-At this point, I'm developing mostly on MacOS and in WSL2.  The bits have been
-pared down to pretty much just `neovim` and `Microsoft Terminal`/`ghostty`.
+At this point, I'm developing mostly on MacOS and Linux.  The bits have been
+pared down to pretty much just `neovim` and `wezterm`.
 
 ## Editor
 * [nvim](https://github.com/neovim/neovim)
 
 ## Terminal
 ### MacOS/Linux
+* [wezterm](https://wezfurlong.org/wezterm/)
 * [ghostty](https://github.com/ghostty-org/ghostty)
 ### Windows
-* [Microsoft Terminal](https://github.com/microsoft/terminal)
 * [wezterm](https://wezfurlong.org/wezterm/)
+* [Microsoft Terminal](https://github.com/microsoft/terminal)
 
 ## Shell stuff
 * [eza](https://github.com/eza-community/eza)
