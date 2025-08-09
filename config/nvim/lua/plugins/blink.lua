@@ -8,6 +8,19 @@ local opts = {
 		keymap = {
 			preset = "super-tab",
 		},
+		cmdline = {
+			completion = {
+				menu = {
+					auto_show = function(ctx)
+						return vim.fn.getcmdtype() == ":" or vim.fn.getcmdtype() == "@"
+					end,
+				},
+			},
+			keymap = {
+				["<Tab>"] = { "show", "accept" },
+				-- preset = "inherit",
+			},
+		},
 		completion = {
 			accept = {
 				resolve_timeout_ms = 10000,

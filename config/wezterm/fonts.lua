@@ -5,11 +5,16 @@ local module = {}
 
 -- @type { font: string | { family: string, weight?: string, italic?: boolean }, line_height?: number }
 local font_configs = {
-	{ font = "Rec Mono Linear", line_height = 1.1 },
-	{ font = "Berkeley Mono" },
+	-- { font = "Rec Mono Linear", line_height = 1.1 },
+	{ font = "Rec Mono Linear" },
+	{ font = { family = "Berkeley Mono" } },
 	{ font = "Iosevka JetBrains Mono" },
 	{ font = "Iosevka Plex" },
 	{ font = "Iosevka Wide" },
+	{ font = "Iosevka Input" },
+	{ font = "Iosevka Plex" },
+	{ font = "Iosevka Jet Brains" },
+	{ font = "Iosevka Recursive" },
 	{ font = { family = "Cascadia Code", weight = "DemiLight" }, line_height = 1.1 },
 	{ font = "Hasklig" },
 	{ font = "Ligalex Mono" },
@@ -36,9 +41,13 @@ local font_configs = {
 	{ font = "Maple Mono" },
 }
 
--- local current_font = "Rec Mono Linear"
--- local current_font = "Iosevka Wide"
+-- module.current_font = "Iosevka Wide"
 module.current_font = "Berkeley Mono"
+-- module.current_font = "Rec Mono Linear"
+-- module.current_font = "Iosevka Input"
+-- module.current_font = "Iosevka Jet Brains"
+-- module.current_font = "Iosevka Plex"
+-- module.current_font = "Iosevka Recursive"
 
 local font = {}
 

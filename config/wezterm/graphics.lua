@@ -6,8 +6,12 @@ function module.apply(config)
 
 	-- temporary
 	-- config.front_end = "WebGpu"
+	if require("domain").platform == "linux" then
+		config.enable_wayland = true
+	end
 
-	config.freetype_load_flags = "NO_HINTING"
+	-- config.freetype_load_flags = "NO_HINTING"
+	config.freetype_load_target = "Light"
 	config.freetype_render_target = "HorizontalLcd"
 	-- freetype_interpreter_version = 40
 	config.glyph_cache_image_cache_size = 1024
