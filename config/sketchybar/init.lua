@@ -14,6 +14,8 @@ sbar.bar({
 sbar.default({
 	padding_left = 5,
 	padding_right = 5,
+	icons = "NerdFont",
+	text = "Berkeley Mono",
 	icon = {
 		font = "Symbols Nerd Font Mono:Bold:17.0",
 		color = "0xffadadad",
