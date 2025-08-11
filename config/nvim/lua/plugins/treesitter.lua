@@ -161,13 +161,22 @@ return {
 			"yaml",
 		})
 
+		local indent_cache = {}
+
 		vim.api.nvim_create_autocmd("FileType", {
 			pattern = "*",
 			callback = function(ev)
 				local ft = ev.match
 				local lang = vim.treesitter.language.get_lang(ft)
 				if lang and vim.treesitter.language.add(lang) then
-					vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+					if not vim.tbl_contains(indent_cache, lang) then
+						local has_indents = vim.treesitter.query.get(lang, "indents") and true
+						indent_cache[lang] = has_indents
+					end
+					local should_indent = indent_cache[lang]
+					if should_indent then
+						vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+					end
 					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 					vim.treesitter.start(ev.buf, lang)
 				end

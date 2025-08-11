@@ -1,3 +1,4 @@
+config/bat/syntaxes
 config/nvim/plugin
 config/nvim/lazy-lock.json
 config/nvim/lua/.luarc.json
