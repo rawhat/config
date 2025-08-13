@@ -223,6 +223,13 @@ return {
 				Snacks.picker.lsp_references()
 			end,
 		},
+		{
+			"gl",
+			desc = "LSP declarations",
+			function()
+				Snacks.picker.lsp_declarations()
+			end,
+		},
 	},
 	opts = {
 		bigfile = { enabled = true },

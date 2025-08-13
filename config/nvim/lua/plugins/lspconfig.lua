@@ -143,6 +143,7 @@ return {
 				root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
 			},
 			-- ty = {},
+			-- ts_ls = {},
 			-- vtsls = {
 			-- 	settings = {
 			-- 		complete_function_calls = true,
