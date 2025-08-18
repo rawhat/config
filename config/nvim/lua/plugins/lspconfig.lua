@@ -100,6 +100,9 @@ return {
 				},
 			},
 			html = {},
+			java_language_server = {
+				cmd = { "java-language-server" },
+			},
 			jsonls = {},
 			jsonnet_ls = {},
 			lua_ls = {
@@ -181,22 +184,6 @@ return {
 			vim.lsp.enable(server)
 		end
 
-		local jls_path = vim.tbl_filter(function(path)
-			return vim.fn.executable(path) ~= 0
-		end, {
-			"/Users/amanning/java-language-server/dist/lang_server_mac.sh",
-			"/home/alex/java-language-server/dist/lang_server_linux.sh",
-		})
-
-		if jls_path then
-			vim.lsp.config("java_language_server", {
-				cmd = { jls_path[1] },
-			})
-			vim.lsp.enable("java_language_server")
-		else
-			vim.lsp.enable("jdtls")
-		end
-
 		local elixir = require("elixir")
 		local elixirls = require("elixir.elixirls")
 		elixir.setup({
@@ -228,21 +215,7 @@ return {
 		})
 
 		if utils.has("0.10.0") then
-			-- local virt_lines_ns = vim.api.nvim_create_namespace("on_diagnostic_jump")
 			vim.diagnostic.config({
-				-- jump = {
-				-- 	on_jump = function(diagnostic, bufnr)
-				-- 		if not diagnostic then
-				-- 			return
-				-- 		end
-				-- 		vim.diagnostic.show(
-				-- 			virt_lines_ns,
-				-- 			bufnr,
-				-- 			{ diagnostic },
-				-- 			{ virtual_lines = { current_line = true }, virtual_text = false }
-				-- 		)
-				-- 	end,
-				-- },
 				signs = {
 					text = {
 						[vim.diagnostic.severity.ERROR] = " ",
@@ -251,15 +224,6 @@ return {
 						[vim.diagnostic.severity.INFO] = " ",
 					},
 				},
-				-- virtual_text = {
-				-- 	format = function(diagnostic)
-				-- 		local match = string.match(diagnostic.message, "(.-)\n")
-				-- 		return match or diagnostic.message
-				-- 	end,
-				-- },
-				-- virtual_lines = {
-				-- 	current_line = true,
-				-- },
 			})
 		else
 			-- show lsp signs in gutter
