@@ -139,6 +139,7 @@ return {
 			"heex",
 			"html",
 			"html_tags",
+			"ini",
 			"javascript",
 			"java",
 			"json",
@@ -176,7 +177,7 @@ return {
 					end
 					local should_indent = indent_cache[lang]
 					if should_indent then
-						vim.bo.indentexpr = "v:lua.require('nvim-treesitter').indentexpr()"
+						vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 					end
 					vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 					vim.treesitter.start(ev.buf, lang)
