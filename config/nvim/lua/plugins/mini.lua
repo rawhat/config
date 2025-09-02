@@ -1,8 +1,8 @@
 return {
-	{ "echasnovski/mini.align", version = false, opts = {} },
-	{ "echasnovski/mini.ai", version = false, opts = {} },
+	{ "nvim-mini/mini.align", version = false, opts = {} },
+	{ "nvim-mini/mini.ai", version = false, opts = {} },
 	{
-		"echasnovski/mini.move",
+		"nvim-mini/mini.move",
 		version = false,
 		opts = {
 			mappings = {
