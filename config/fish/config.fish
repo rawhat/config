@@ -127,6 +127,10 @@ function nvim --wraps nvim
   end
 end
 
+function grep
+  ggrep $argv
+end
+
 set -x EDITOR nvim
 set -x SUDO_EDITOR nvim
 

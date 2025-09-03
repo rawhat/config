@@ -15,8 +15,7 @@ return {
 				just = { "just" },
 				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
-				python = { "pyfmt", "black", stop_after_first = true },
-				proto = { "trim_whitespace" },
+				python = { "pyfmt", "ruff", stop_after_first = true },
 				sql = { "sleek" },
 				typescript = js_formatters,
 				typescriptreact = js_formatters,
@@ -32,16 +31,32 @@ return {
 			notify_on_error = true,
 			formatters = {
 				javafmt = {
-					command = "bazel",
-					args = { "run", "//tools/java-format", "--", "--stdin", "--stdin-filepath", "$FILENAME" },
+					command = "./tools/java-format/node_modules/prettier/bin-prettier.js",
+					args = { "--config", "config.json", "--parser", "java", "--plugin=prettier-plugin-java" },
 					stdin = true,
-					cwd = util.root_file("WORKSPACE"),
+					cwd = function()
+						return "./tools/java-format"
+					end,
 					require_cwd = true,
 				},
 				pyfmt = {
-					command = "bazel",
-					args = { "run", "//tools/pyfmt" },
-					stdin = true,
+					command = "yapf",
+					args = function(self, ctx)
+						local cwd = self.cwd(self, ctx)
+						local yapf_style = require("utils").path_join(cwd, "tools", "pyfmt", ".style.yapf")
+						return { "--quiet", "--style", yapf_style }
+					end,
+					range_args = function(self, ctx)
+						local cwd = self.cwd(self, ctx)
+						local yapf_style = require("utils").path_join(cwd, "tools", "pyfmt", ".style.yapf")
+						return {
+							"--quiet",
+							"--style",
+							yapf_style,
+							"--lines",
+							string.format("%d-%d", ctx.range.start[1], ctx.range["end"][1]),
+						}
+					end,
 					cwd = util.root_file("WORKSPACE"),
 					require_cwd = true,
 				},
