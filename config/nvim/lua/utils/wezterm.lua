@@ -34,20 +34,30 @@ function module.get_tabs()
 		return {}
 	end
 	local focused_pane_id = get_focused_pane()
-
-	local tab_id_to_info = vim.iter(list):fold({}, function(acc, entry)
-		if acc[entry.tab_id] then
-			table.insert(acc[entry.tab_id].panes, entry.pane_id)
-		else
-			acc[entry.tab_id] = {
-				title = entry.title,
-				active = entry.pane_id == focused_pane_id,
-				tab_id = entry.tab_id,
-				panes = { entry.pane_id },
-			}
-		end
-		return acc
+	local focused_window_id = vim.iter(list):find(function(entry)
+		return entry.pane_id == focused_pane_id
+	end).window_id
+	local tabs_in_focused_window = vim.iter(list):filter(function(entry)
+		return entry.window_id == focused_window_id
 	end)
+
+	local tab_id_to_info = tabs_in_focused_window
+		:filter(function(entry)
+			return entry.window_id == focused_window_id
+		end)
+		:fold({}, function(acc, entry)
+			if acc[entry.tab_id] then
+				table.insert(acc[entry.tab_id].panes, entry.pane_id)
+			else
+				acc[entry.tab_id] = {
+					title = entry.title,
+					active = entry.pane_id == focused_pane_id,
+					tab_id = entry.tab_id,
+					panes = { entry.pane_id },
+				}
+			end
+			return acc
+		end)
 
 	local values = vim.iter(tab_id_to_info)
 		:map(function(key, entry)

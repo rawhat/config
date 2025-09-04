@@ -1,4 +1,9 @@
-local js_formatters = { "prettierd", lsp_format = "fallback" }
+local js_formatters = {
+	"prettierd",
+	"prettier",
+	lsp_format = "fallback",
+	stop_after_first = true,
+}
 
 return {
 	"stevearc/conform.nvim",
