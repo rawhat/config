@@ -7,8 +7,8 @@ return {
 		{ "mrcjkb/rustaceanvim", version = "^6", ft = { "rust" }, lazy = false },
 	},
 	config = function()
-		local utils = require("utils")
 		local path = require("mason-core.path")
+		local utils = require("utils")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
 
 		require("mason-lspconfig").setup({
@@ -106,6 +106,10 @@ return {
 			jsonls = {},
 			jsonnet_ls = {},
 			lua_ls = {
+				on_attach = function(client)
+					client.server_capabilities.formatting = false
+					client.server_capabilities.rangeFormatting = false
+				end,
 				settings = {
 					Lua = {
 						-- Do not send telemetry data containing a randomized but unique identifier
@@ -138,6 +142,7 @@ return {
 			sorbet = {},
 			sqlls = {},
 			starpls = {},
+			stylua = {},
 			tailwindcss = {},
 			taplo = {},
 			tsgo = {
