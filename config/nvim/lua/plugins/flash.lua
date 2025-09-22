@@ -4,7 +4,7 @@ return {
 	opts = {},
 	keys = {
 		{
-			"s",
+			"<cr>",
 			mode = { "n", "x", "o" },
 			desc = "jump around",
 			function()
