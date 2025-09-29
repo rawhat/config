@@ -1,6 +1,6 @@
 return {
 	"stevearc/quicker.nvim",
-	event = "Filetype qf",
+	ft = "qf",
 	keys = {
 		{
 			"<leader>qo",
