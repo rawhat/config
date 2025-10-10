@@ -18,7 +18,6 @@ return {
 				javascriptreact = js_formatters,
 				json = { "jq" },
 				just = { "just" },
-				lua = { "stylua" },
 				ocaml = { "ocamlformat" },
 				python = { "pyfmt", "ruff", stop_after_first = true },
 				sql = { "sleek" },

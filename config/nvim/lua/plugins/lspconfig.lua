@@ -7,6 +7,7 @@ return {
 		{ "mrcjkb/rustaceanvim", version = "^6", ft = { "rust" }, lazy = false },
 	},
 	config = function()
+		local util = require("lspconfig.util")
 		local path = require("mason-core.path")
 		local utils = require("utils")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
@@ -103,7 +104,7 @@ return {
 			java_language_server = {
 				cmd = { "java-language-server" },
 			},
-			jsonls = {},
+			json_lsp = {},
 			jsonnet_ls = {},
 			lua_ls = {
 				on_attach = function(client)
@@ -144,6 +145,25 @@ return {
 			starpls = {},
 			stylua = {},
 			tailwindcss = {},
+			-- tailwindcss = {
+			-- 	root_dir = function(bufnr, on_dir)
+			-- 		local root_files = {
+			-- 			"tailwind.config.js",
+			-- 			"tailwind.config.cjs",
+			-- 			"tailwind.config.mjs",
+			-- 			"tailwind.config.ts",
+			-- 			"postcss.config.js",
+			-- 			"postcss.config.cjs",
+			-- 			"postcss.config.mjs",
+			-- 			"postcss.config.ts",
+			-- 		}
+			-- 		local fname = vim.api.nvim_buf_get_name(bufnr)
+			-- 		root_files = util.insert_package_json(root_files, "tailwindcss", fname)
+			-- 		root_files =
+			-- 			util.root_markers_with_field(root_files, { "mix.lock", "Gemfile.lock" }, "tailwind", fname)
+			-- 		on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
+			-- 	end,
+			-- },
 			taplo = {},
 			tsgo = {},
 			-- ty = {},

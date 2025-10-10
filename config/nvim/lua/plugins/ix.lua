@@ -18,6 +18,5 @@ return {
 		ix.charmap.set({ "i", "c" }, "<C-e>", ix.action.completion.close())
 
 		ix.charmap.set({ "c" }, "<CR>", ix.action.completion.commit_cmdline())
-		ix.charmap.set({ "i" }, "<CR>", ix.action.completion.commit({ select_first = true }))
 	end,
 }

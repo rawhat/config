@@ -127,8 +127,20 @@ function nvim --wraps nvim
   end
 end
 
-function grep
-  ggrep $argv
+# function grep
+#   ggrep $argv
+# end
+
+function curl_time
+    curl -so /dev/null -w "\
+   namelookup:  %{time_namelookup}s\n\
+      connect:  %{time_connect}s\n\
+   appconnect:  %{time_appconnect}s\n\
+  pretransfer:  %{time_pretransfer}s\n\
+     redirect:  %{time_redirect}s\n\
+starttransfer:  %{time_starttransfer}s\n\
+-------------------------\n\
+        total:  %{time_total}s\n" $argv
 end
 
 set -x EDITOR nvim
@@ -161,6 +173,8 @@ case Darwin
   fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
   # for scala support
   fish_add_path "/Users/amanning/Library/Application Support/Coursier/bin"
+case Linux
+  set -x FSR4_UPGRADE 1
 end
 
 # opam configuration

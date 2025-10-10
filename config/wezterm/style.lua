@@ -141,8 +141,8 @@ function module.apply(config)
 		config.window_decorations = "NONE"
 	end
 
-	config.enable_scroll_bar = false
-	config.scrollback_lines = 5000
+	config.enable_scroll_bar = true
+	config.scrollback_lines = 50000
 
 	config.cursor_blink_rate = 0
 
