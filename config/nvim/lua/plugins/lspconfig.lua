@@ -23,25 +23,25 @@ return {
 
 		local lsp_configs = {
 			astro = {},
-			basedpyright = {
-				flags = { debounce_text_changes = 300 },
-				settings = {
-					basedpyright = {
-						defineConstant = {
-							DEBUG = true,
-						},
-						exclude = {},
-						include = { "traffficking" },
-						pythonVersion = "3.13",
-						typeCheckingMode = "basic",
-					},
-					python = {
-						analysis = {
-							extra_paths = { utils.cwd() },
-						},
-					},
-				},
-			},
+			-- basedpyright = {
+			-- 	flags = { debounce_text_changes = 300 },
+			-- 	settings = {
+			-- 		basedpyright = {
+			-- 			defineConstant = {
+			-- 				DEBUG = true,
+			-- 			},
+			-- 			exclude = {},
+			-- 			include = { "traffficking" },
+			-- 			pythonVersion = "3.13",
+			-- 			typeCheckingMode = "basic",
+			-- 		},
+			-- 		python = {
+			-- 			analysis = {
+			-- 				extra_paths = { utils.cwd() },
+			-- 			},
+			-- 		},
+			-- 	},
+			-- },
 			bashls = {},
 			biome = {},
 			buf_ls = {},
@@ -145,34 +145,8 @@ return {
 			stylua = {},
 			tailwindcss = {},
 			taplo = {},
-			tsgo = {
-				cmd = { "tsgo", "--lsp", "--stdio" },
-				filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-				root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-			},
-			-- ty = {},
-			-- ts_ls = {},
-			-- vtsls = {
-			-- 	settings = {
-			-- 		complete_function_calls = true,
-			-- 		typescript = {
-			-- 			suggest = {
-			-- 				completeFunctionCalls = true,
-			-- 			},
-			-- 			inlayHints = {
-			-- 				parameterNames = { enabled = "literals" },
-			-- 				parameterTypes = { enabled = true },
-			-- 				variableTypes = { enabled = true },
-			-- 				propertyDeclarationTypes = { enabled = true },
-			-- 				functionLikeReturnTypes = { enabled = true },
-			-- 				enumMemberValues = { enabled = true },
-			-- 			},
-			-- 			tsserver = {
-			-- 				maxTsServerMemory = 8192,
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
+			tsgo = {},
+			ty = {},
 			zls = {},
 		}
 

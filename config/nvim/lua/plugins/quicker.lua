@@ -16,6 +16,13 @@ return {
 				vim.diagnostic.setqflist()
 			end,
 		},
+		{
+			"<leader>lo",
+			desc = "Toggle loclist window",
+			function()
+				require("quicker").toggle({ loclist = true })
+			end,
+		},
 	},
 	opts = {
 		keys = {
