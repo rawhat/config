@@ -42,7 +42,7 @@ vim.opt.conceallevel = 2
 
 -- display menu even if only one entry
 -- don't automatically select an entry, require actual selection
-vim.opt.completeopt = { "menuone", "noselect" }
+vim.opt.completeopt = { "menuone", "noselect", "noinsert" }
 
 -- try these
 vim.opt.jumpoptions = { "stack", "view" }

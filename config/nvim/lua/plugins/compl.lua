@@ -1,0 +1,25 @@
+return {}
+-- return {
+-- 	"brianaung/compl.nvim",
+-- 	opts = {},
+-- 	setup = function()
+-- 		require("compl").setup({})
+--
+-- 		vim.keymap.set("i", "<Tab>", function()
+-- 			if vim.fn.complete_info()["selected"] ~= -1 then
+-- 				return "<C-y>"
+-- 			end
+-- 			if vim.snippet.active({ direction = 1 }) then
+-- 				return "<cmd>lua vim.snippet.jump(1)<cr>"
+-- 			end
+-- 			return "<Tab>"
+-- 		end, { expr = true })
+--
+-- 		vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
+-- 			if vim.snippet.active({ direction = -1 }) then
+-- 				return "<cmd>lua vim.snippet.jump(-1)<cr>"
+-- 			end
+-- 			return "<S-Tab>"
+-- 		end, { expr = true })
+-- 	end,
+-- }

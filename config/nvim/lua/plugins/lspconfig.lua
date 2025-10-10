@@ -126,7 +126,7 @@ return {
 					},
 				},
 			},
-			-- pyrefly = {},
+			pyrefly = {},
 			["rust-analyzer"] = {
 				settings = {
 					["rust-analyzer"] = {
@@ -146,7 +146,7 @@ return {
 			tailwindcss = {},
 			taplo = {},
 			tsgo = {},
-			ty = {},
+			-- ty = {},
 			zls = {},
 		}
 
