@@ -2,6 +2,7 @@ return {
 	"hrsh7th/nvim-ix",
 	dependencies = {
 		"hrsh7th/nvim-cmp-kit",
+		"onsails/lspkind.nvim",
 	},
 	config = function()
 		local ix = require("ix")
