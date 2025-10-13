@@ -2,7 +2,6 @@ return {
 	{ "nvim-mini/mini.ai", version = false, opts = {} },
 	{ "nvim-mini/mini.align", version = false, opts = {} },
 	{ "nvim-mini/mini.comment", version = false, opts = {} },
-	{ "nvim-mini/mini.pairs", version = false, opts = {} },
 	{ "nvim-mini/mini.splitjoin", version = false, opts = {
 		mappings = {
 			toggle = "J",
