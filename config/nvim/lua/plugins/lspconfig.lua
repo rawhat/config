@@ -165,7 +165,13 @@ return {
 			-- 	end,
 			-- },
 			taplo = {},
-			tsgo = {},
+			tsgo = {
+				init_options = {
+					preferences = {
+						importModuleSpecifierPreference = "non-relative",
+					},
+				},
+			},
 			-- ty = {},
 			zls = {},
 		}
