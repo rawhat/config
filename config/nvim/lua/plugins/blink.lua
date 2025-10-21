@@ -4,6 +4,7 @@ local opts = {
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 	},
+	enabled = false,
 	opts = {
 		keymap = {
 			preset = "super-tab",

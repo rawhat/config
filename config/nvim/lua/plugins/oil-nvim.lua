@@ -17,6 +17,9 @@ return {
 	},
 	opts = {
 		default_file_explorer = true,
+		float = {
+			border = "rounded",
+		},
 		keymaps = {
 			q = "actions.close",
 			["<Esc>"] = "actions.close",
