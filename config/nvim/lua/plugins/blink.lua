@@ -22,6 +22,9 @@ local opts = {
 		},
 		completion = {
 			accept = {
+				auto_brackets = {
+					enabled = false,
+				},
 				resolve_timeout_ms = 10000,
 			},
 			keyword = {
