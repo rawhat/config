@@ -4,6 +4,7 @@ return {
 		"hrsh7th/nvim-cmp-kit",
 		"onsails/lspkind.nvim",
 	},
+	enabled = false,
 	config = function()
 		-- vim.o.winborder = "rounded"
 

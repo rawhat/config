@@ -32,8 +32,29 @@ return {
 			{ filter = { event = "msg_show", find = "No signature help" }, skip = true },
 		},
 		views = {
+			cmdline_popup = {
+				position = {
+					row = 5,
+					col = "50%",
+				},
+				size = {
+					width = 60,
+					height = "auto",
+				},
+			},
 			mini = {
 				size = { height = "auto", width = "auto", max_height = 5 },
+			},
+			popupmenu = {
+				relative = "editor",
+				position = {
+					row = 8,
+					col = "50%",
+				},
+				size = {
+					width = 60,
+					height = 10,
+				},
 			},
 		},
 	},
