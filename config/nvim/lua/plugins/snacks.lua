@@ -70,7 +70,7 @@ return {
 			"<leader>sf",
 			desc = "Search files",
 			function()
-				Snacks.picker.smart()
+				Snacks.picker.smart({ show_delay = 100 })
 			end,
 		},
 		{
@@ -163,7 +163,7 @@ return {
 			"<leader>sw",
 			desc = "Search highlighted word",
 			function()
-				Snacks.picker.grep_word()
+				Snacks.picker.grep_word({ show_delay = 100 })
 			end,
 			mode = { "v" },
 		},
@@ -171,7 +171,7 @@ return {
 			"<leader>sw",
 			desc = "Search word",
 			function()
-				Snacks.picker.grep()
+				Snacks.picker.grep({ show_delay = 100 })
 			end,
 		},
 		{
