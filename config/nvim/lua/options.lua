@@ -1,5 +1,3 @@
-local M = {}
-
 -- disable mouse
 vim.opt.mouse = ""
 
@@ -36,7 +34,7 @@ vim.o.pumheight = 10
 -- Wrap lines at 'breakat' (if 'wrap' is set)
 vim.o.linebreak = true
 -- Show helpful text indicators
-vim.o.list = true
+-- vim.o.list = true
 -- Improve comment editing
 vim.o.formatoptions = "rqnl1j"
 -- Treat camelCase word parts as separate words
@@ -155,9 +153,6 @@ vim.o.iskeyword = "@,48-57,_,192-255,-"
 -- Use already opened buffers when switching
 vim.o.switchbuf = "usetab,uselast"
 
--- Use border in floating windows
-vim.o.winborder = "single"
-
 -- don't move cursor when splitting
 if vim.fn.exists("&splitkeep") ~= 0 then
 	vim.opt.splitkeep = "screen"
@@ -184,12 +179,10 @@ vim.g.markdown_fenced_languages = {
 vim.opt.clipboard = "unnamedplus"
 
 -- make 0 go to first word in line instead of start of line...
-vim.api.nvim_exec(
+vim.api.nvim_exec2(
 	[[
     noremap 0 ^
     noremap ^ 0
   ]],
-	false
+	{ output = false }
 )
-
-return M
