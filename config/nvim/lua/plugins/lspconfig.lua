@@ -166,6 +166,11 @@ return {
 			-- },
 			taplo = {},
 			tsgo = {
+				filetypes = {
+					"typescript",
+					"typescriptreact",
+					"typescript.tsx",
+				},
 				init_options = {
 					preferences = {
 						importModuleSpecifierPreference = "non-relative",
@@ -173,6 +178,13 @@ return {
 				},
 			},
 			-- ty = {},
+			vtsls = {
+				filetypes = {
+					"javascript",
+					"javascriptreact",
+					"javascript.jsx",
+				},
+			},
 			zls = {},
 		}
 

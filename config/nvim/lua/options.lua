@@ -21,10 +21,26 @@ vim.opt.ignorecase = true
 -- match case when upper is provided
 vim.opt.smartcase = true
 
+-- Use auto indent
+vim.o.autoindent = true
 -- "smart" indent
 vim.opt.smartindent = true
 -- indent wrapped lines to match previous line
 vim.opt.breakindent = true
+
+-- Add padding for lists (if 'wrap' is set)
+vim.o.breakindentopt = "list:-1"
+
+-- Make popup menu smaller
+vim.o.pumheight = 10
+-- Wrap lines at 'breakat' (if 'wrap' is set)
+vim.o.linebreak = true
+-- Show helpful text indicators
+vim.o.list = true
+-- Improve comment editing
+vim.o.formatoptions = "rqnl1j"
+-- Treat camelCase word parts as separate words
+vim.o.spelloptions = "camel"
 
 -- extend lines past screen instead of wrapping
 vim.opt.wrap = false
@@ -132,6 +148,15 @@ vim.cmd([[cnoreabbrev rg Ack]])
 vim.o.laststatus = 3
 -- hide command line
 vim.opt.cmdheight = 0
+
+-- Treat dash as `word` textobject part
+vim.o.iskeyword = "@,48-57,_,192-255,-"
+
+-- Use already opened buffers when switching
+vim.o.switchbuf = "usetab,uselast"
+
+-- Use border in floating windows
+vim.o.winborder = "single"
 
 -- don't move cursor when splitting
 if vim.fn.exists("&splitkeep") ~= 0 then
