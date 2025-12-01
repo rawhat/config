@@ -19,8 +19,7 @@ return {
 			},
 		},
 		"windwp/nvim-ts-autotag",
-		-- TODO:  migrate back to original
-		{ "AbaoFromCUG/nvim-treesitter-endwise", commit = "b826f3ee910b5f071840d9ecd39998740e19e60d" },
+		"RRethy/nvim-treesitter-endwise",
 	},
 	branch = "main",
 	build = ":TSUpdate all",
@@ -105,16 +104,16 @@ return {
 			   (#not-eq? @_operator "|>"))
 			     ]]
 		)
-		vim.treesitter.query.set(
-			"gleam",
-			"highlights",
-			[[;extends
-		      ; Inject markdown into documentation comments
-		      ((doc_comment_content) @injection.content
-		       (#set! injection.language "markdown")
-		       (#set! injection.combined))
-		    ]]
-		)
+		-- vim.treesitter.query.set(
+		-- 	"gleam",
+		-- 	"highlights",
+		-- 	[[;extends
+		--       ; Inject markdown into documentation comments
+		--       ((doc_comment_content) @injection.content
+		--        (#set! injection.language "markdown")
+		--        (#set! injection.combined))
+		--     ]]
+		-- )
 	end,
 	config = function(plug)
 		vim.opt.rtp:prepend(plug.dir)
