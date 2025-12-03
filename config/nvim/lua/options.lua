@@ -151,7 +151,7 @@ vim.opt.cmdheight = 0
 vim.o.iskeyword = "@,48-57,_,192-255,-"
 
 -- Use already opened buffers when switching
-vim.o.switchbuf = "usetab,uselast"
+-- vim.o.switchbuf = "usetab,uselast"
 
 -- don't move cursor when splitting
 if vim.fn.exists("&splitkeep") ~= 0 then
