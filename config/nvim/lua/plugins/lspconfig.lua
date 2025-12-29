@@ -4,7 +4,7 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		"mason-org/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
-		{ "mrcjkb/rustaceanvim", version = "^6", ft = { "rust" }, lazy = false },
+		{ "mrcjkb/rustaceanvim", ft = { "rust" }, lazy = false },
 	},
 	config = function()
 		local util = require("lspconfig.util")
