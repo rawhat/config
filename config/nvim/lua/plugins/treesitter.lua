@@ -142,7 +142,6 @@ return {
 			"javascript",
 			"java",
 			"json",
-			"jsonc",
 			"jsonnet",
 			"jsx",
 			"lua",
