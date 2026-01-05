@@ -10,7 +10,6 @@ return {
 		end,
 	},
 	{ "mtscout6/vim-cjsx", ft = "coffee" },
-	{ "chrisbra/csv.vim", ft = "csv" },
 	{
 		"google/vim-jsonnet",
 		ft = { "jsonnet", "libsonnet" },

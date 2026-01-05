@@ -8,9 +8,28 @@ return {
 	},
 	config = function()
 		local util = require("lspconfig.util")
+		local configs = require("lspconfig.configs")
 		local path = require("mason-core.path")
 		local utils = require("utils")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
+
+		-- if not configs.jls then
+		-- 	configs.jls = {
+		-- 		default_config = {
+		-- 			cmd = {
+		-- 				"/Users/amanning/repos/jls/dist/lang_server_mac.sh",
+		-- 			},
+		-- 			filetypes = { "java" },
+		-- 			root_dir = util.root_pattern(
+		-- 				"pom.xml",
+		-- 				"build.gradle",
+		-- 				"build.gradle.kts",
+		-- 				".java-version",
+		-- 				".git"
+		-- 			),
+		-- 		},
+		-- 	}
+		-- end
 
 		require("mason-lspconfig").setup({
 			automatic_enable = false,
@@ -104,6 +123,14 @@ return {
 			java_language_server = {
 				cmd = { "java-language-server" },
 			},
+			-- jls = {
+			-- 	cmd = {
+			-- 		"/Users/amanning/repos/jls/dist/lang_server_mac.sh",
+			-- 	},
+			-- 	filetypes = { "java" },
+			-- 	-- root_dir = util.root_pattern("pom.xml", "build.gradle", "build.gradle.kts", ".java-version", ".git"),
+			-- 	root_dir = util.root_pattern(".git"),
+			-- },
 			json_lsp = {},
 			jsonnet_ls = {},
 			lua_ls = {
