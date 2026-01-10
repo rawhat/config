@@ -127,6 +127,7 @@ return {
 			"elixir",
 			"erlang",
 			"fish",
+			"gdscript",
 			"git_config",
 			"git_rebase",
 			"gitcommit",

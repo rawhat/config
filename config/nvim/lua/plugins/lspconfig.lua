@@ -76,6 +76,7 @@ return {
 			elp = {},
 			erlangls = {},
 			fsautocomplete = {},
+			gdscript = {},
 			gleam = {},
 			gopls = {
 				on_new_config = function(config, new_root_dir)
