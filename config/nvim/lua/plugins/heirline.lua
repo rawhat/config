@@ -25,7 +25,7 @@ return {
 				end,
 			}),
 			hl = function(self)
-				return { bg = mode_colors[self.mode], fg = "fg1", bold = true }
+				return { bg = mode_colors[self.mode], fg = "fg_dark", bold = true }
 			end,
 		}
 
@@ -166,7 +166,7 @@ return {
 				end
 				return false
 			end,
-			hl = { bg = "bg0", fg = "fg0" },
+			hl = { bg = "bg0", fg = "fg" },
 			utils.surround({ " ", " " }, nil, {
 				provider = function(self)
 					local clients = require("utils").get_lsp_clients()
@@ -235,7 +235,7 @@ return {
 			hl = function(self)
 				return {
 					bg = mode_colors[self.mode],
-					fg = "fg1",
+					fg = "fg_dark",
 					bold = true,
 				}
 			end,

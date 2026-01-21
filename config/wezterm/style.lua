@@ -101,7 +101,7 @@ local function format_tab_title(tab, hover, scheme)
 end
 
 local function apply_tab_bar(config)
-	local scheme = wezterm.color.get_builtin_schemes()[colors.color_scheme]
+	local scheme = colors.scheme
 	config.use_fancy_tab_bar = false
 	config.tab_bar_at_bottom = true
 	config.hide_tab_bar_if_only_one_tab = true

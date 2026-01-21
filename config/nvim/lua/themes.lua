@@ -5,13 +5,32 @@ M.themes = {
 		package = "folke/tokyonight.nvim",
 		package_name = "tokyonight.nvim",
 		name = "tokyonight",
-		config = function()
-			vim.g.tokyonight_sidebars = {
-				-- "which-key",
-				"toggleterm",
-				"packer.nvim",
+		config = function(palette)
+			vim.cmd("colorscheme tokyonight-" .. (palette or "night"))
+		end,
+		heirline_colors = function(palette)
+			local colors = require("tokyonight.colors").setup({ style = palette or "night" })
+			return {
+				modes = {
+					n = colors.rainbow[1],
+					i = colors.rainbow[3],
+					c = colors.rainbow[8],
+					v = colors.rainbow[5],
+					V = colors.rainbow[5],
+				},
+				fg = colors.fg,
+				fg_dark = colors.fg_gutter,
+				bg = colors.bg,
+				bg0 = colors.bg_dark,
+				bg1 = colors.bg_visual,
+				yellow = colors.yellow,
+				red = colors.red,
+				green = colors.green,
+				white = colors.white,
+				blue = colors.blue,
+				dimWhite = colors.white,
+				active = colors.yellow,
 			}
-			vim.cmd.colorscheme("tokyonight-night")
 		end,
 	},
 	nord = {
@@ -153,8 +172,8 @@ M.themes = {
 					v = colors.lotusViolet4,
 					V = colors.lotusViolet4,
 				},
-				fg0 = colors.fujiWhite,
-				fg1 = colors.oldWhite,
+				fg = colors.fujiWhite,
+				fg_dark = colors.oldWhite,
 				bg = ui.bg,
 				bg0 = colors.sumiInk1,
 				bg1 = colors.sumiInk4,
@@ -399,6 +418,37 @@ M.themes = {
 			vim.cmd("colorscheme jellybeans-" .. (palette or "muted"))
 		end,
 	},
+	teide = {
+		package = "serhez/teide.nvim",
+		name = "teide",
+		config = function(palette)
+			vim.cmd("colorscheme teide-" .. (palette or "darker"))
+		end,
+		heirline_colors = function(palette)
+			local colors = require("teide.colors").setup({ style = palette or "darker" })
+			return {
+				modes = {
+					n = colors.rainbow[2],
+					i = colors.rainbow[1],
+					c = colors.rainbow[4],
+					v = colors.rainbow[3],
+					V = colors.rainbow[3],
+				},
+				fg = colors.fg,
+				fg_dark = colors.dark3,
+				bg = colors.bg,
+				bg0 = colors.bg_dark,
+				bg1 = colors.bg_visual,
+				yellow = colors.yellow,
+				red = colors.red,
+				green = colors.green,
+				white = colors.white,
+				blue = colors.blue,
+				dimWhite = colors.white,
+				active = colors.yellow,
+			}
+		end,
+	},
 }
 
 -- M.current_theme = M.themes["rosepine"]
@@ -411,5 +461,7 @@ M.current_theme.palette = "mocha" ]]
 -- M.current_theme = M.themes["embark"]
 -- M.current_theme = M.themes["tundra"]
 -- M.current_theme = M.themes["jellybeans"]
+-- M.current_theme = M.themes["teide"]
+-- M.current_theme = M.themes["tokyonight"]
 
 return M

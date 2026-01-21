@@ -1,3 +1,5 @@
+local wezterm = require("wezterm")
+
 local module = {}
 
 local color_schemes = {
@@ -199,9 +201,172 @@ local color_schemes = {
 			"#E5E9F0",
 		},
 	},
+	teide_darker = {
+		foreground = "#E7EAEE",
+		background = "#171B20",
+		cursor_bg = "#E7EAEE",
+		cursor_border = "#E7EAEE",
+		cursor_fg = "#171B20",
+		selection_bg = "#2f3546",
+		selection_fg = "#E7EAEE",
+		split = "#5CCEFF",
+		compose_cursor = "#FFA064",
+		scrollbar_thumb = "#2C313A",
+		ansi = { "#12161a", "#F97791", "#38FFA5", "#FFA064", "#5CCEFF", "#B1A2FF", "#0AE7FF", "#a9b1d6" },
+		brights = { "#414868", "#F73F64", "#41FFDC", "#FFE77A", "#89BEFF", "#FFB3EC", "#00FBFF", "#E7EAEE" },
+
+		tab_bar = {
+			inactive_tab_edge = "#111418",
+			background = "#171B20",
+			active_tab = {
+				fg_color = "#111418",
+				bg_color = "#5CCEFF",
+			},
+			inactive_tab = {
+				fg_color = "#545c7e",
+				bg_color = "#2C313A",
+			},
+			inactive_tab_hover = {
+				fg_color = "#5CCEFF",
+				bg_color = "#2C313A",
+				-- intensity = "Bold",
+			},
+			new_tab_hover = {
+				fg_color = "#5CCEFF",
+				bg_color = "#171B20",
+				intensity = "Bold",
+			},
+			new_tab = {
+				fg_color = "#5CCEFF",
+				bg_color = "#171B20",
+			},
+		},
+	},
+	teide_dark = {
+		foreground = "#E7EAEE",
+		background = "#1D2228",
+		cursor_bg = "#E7EAEE",
+		cursor_border = "#E7EAEE",
+		cursor_fg = "#1D2228",
+		selection_bg = "#33394a",
+		selection_fg = "#E7EAEE",
+		split = "#5CCEFF",
+		compose_cursor = "#FFA064",
+		scrollbar_thumb = "#2C313A",
+		ansi = { "#171b20", "#F97791", "#38FFA5", "#FFA064", "#5CCEFF", "#B1A2FF", "#0AE7FF", "#a9b1d6" },
+		brights = { "#414868", "#F73F64", "#41FFDC", "#FFE77A", "#89BEFF", "#FFB3EC", "#00FBFF", "#E7EAEE" },
+		tab_bar = {
+			inactive_tab_edge = "#161a1e",
+			background = "#1D2228",
+			active_tab = {
+				fg_color = "#161a1e",
+				bg_color = "#5CCEFF",
+			},
+			inactive_tab = {
+				fg_color = "#545c7e",
+				bg_color = "#2C313A",
+			},
+			inactive_tab_hover = {
+				fg_color = "#5CCEFF",
+				bg_color = "#2C313A",
+			},
+			new_tab_hover = {
+				fg_color = "#5CCEFF",
+				bg_color = "#1D2228",
+				intensity = "Bold",
+			},
+			new_tab = {
+				fg_color = "#5CCEFF",
+				bg_color = "#1D2228",
+			},
+		},
+	},
+	teide_dimmed = {
+		foreground = "#E7EAEE",
+		background = "#232930",
+		cursor_bg = "#E7EAEE",
+		cursor_border = "#E7EAEE",
+		cursor_fg = "#232930",
+		selection_bg = "#373d4f",
+		selection_fg = "#E7EAEE",
+		split = "#5CCEFF",
+		compose_cursor = "#FFA064",
+		scrollbar_thumb = "#2C313A",
+		ansi = { "#1c2126", "#F97791", "#38FFA5", "#FFA064", "#5CCEFF", "#B1A2FF", "#0AE7FF", "#a9b1d6" },
+		brights = { "#414868", "#F73F64", "#41FFDC", "#FFE77A", "#89BEFF", "#FFB3EC", "#00FBFF", "#E7EAEE" },
+		tab_bar = {
+			inactive_tab_edge = "#1a1f24",
+			background = "#232930",
+			active_tab = {
+				fg_color = "#1a1f24",
+				bg_color = "#5CCEFF",
+			},
+			inactive_tab = {
+				fg_color = "#545c7e",
+				bg_color = "#2C313A",
+			},
+			inactive_tab_hover = {
+				fg_color = "#5CCEFF",
+				bg_color = "#2C313A",
+				-- intensity = "Bold",
+			},
+			new_tab_hover = {
+				fg_color = "#5CCEFF",
+				bg_color = "#232930",
+				intensity = "Bold",
+			},
+			new_tab = {
+				fg_color = "#5CCEFF",
+				bg_color = "#232930",
+			},
+		},
+	},
+	teide_light = {
+		foreground = "#4c545d",
+		background = "#d4dbe4",
+		cursor_bg = "#4c545d",
+		cursor_border = "#4c545d",
+		cursor_fg = "#d4dbe4",
+		selection_bg = "#b6bdd0",
+		selection_fg = "#4c545d",
+		split = "#007496",
+		compose_cursor = "#ae5d00",
+		scrollbar_thumb = "#c0c6d3",
+		ansi = { "#aaafb6", "#f62466", "#00663d", "#ae5d00", "#007496", "#7e58ff", "#006b77", "#6172b0" },
+		brights = { "#a1a6c5", "#c81d47", "#006252", "#615400", "#0074ba", "#bb00a0", "#006263", "#4c545d" },
+		tab_bar = {
+			inactive_tab_edge = "#e1e6eb",
+			background = "#d4dbe4",
+			active_tab = {
+				fg_color = "#e1e6eb",
+				bg_color = "#007496",
+			},
+			inactive_tab = {
+				fg_color = "#8990b3",
+				bg_color = "#c0c6d3",
+			},
+			inactive_tab_hover = {
+				fg_color = "#007496",
+				bg_color = "#c0c6d3",
+				-- intensity = "Bold"
+			},
+			new_tab_hover = {
+				fg_color = "#007496",
+				bg_color = "#d4dbe4",
+				intensity = "Bold",
+			},
+			new_tab = {
+				fg_color = "#007496",
+				bg_color = "#d4dbe4",
+			},
+		},
+	},
 }
 
 module.color_scheme = "kanagawa (Gogh)"
+-- module.color_scheme = "teide_darker"
+-- module.color_scheme = "tokyonight_moon"
+module.scheme = color_schemes[module.color_scheme] or wezterm.color.get_builtin_schemes()[module.color_scheme]
 
 function module.apply(config)
 	config.color_schemes = color_schemes
