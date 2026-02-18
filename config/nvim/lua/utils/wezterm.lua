@@ -37,9 +37,14 @@ function module.get_tabs()
 		return {}
 	end
 	local focused_pane_id = get_focused_pane()
-	local focused_window_id = vim.iter(list):find(function(entry)
+	local focused_window = vim.iter(list):find(function(entry)
 		return entry.pane_id == focused_pane_id
-	end).window_id
+	end)
+	if not focused_window then
+		vim.notify("Failed to get focused window", vim.log.levels.WARN)
+		return {}
+	end
+	local focused_window_id = focused_window.window_id
 	local tabs_in_focused_window = vim.iter(list):filter(function(entry)
 		return entry.window_id == focused_window_id
 	end)

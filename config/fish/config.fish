@@ -119,12 +119,7 @@ end
 
 function nvim --wraps nvim
   set NVIM_BIN (which nvim)
-  switch (uname)
-  case Darwin
-    TERM=xterm-ghostty $NVIM_BIN $argv
-  case '*'
-    TERM=wezterm $NVIM_BIN $argv
-  end
+  TERM=wezterm $NVIM_BIN $argv
 end
 
 # function grep

@@ -155,7 +155,7 @@ return {
 					},
 				},
 			},
-			pyrefly = {},
+			-- pyrefly = {},
 			["rust-analyzer"] = {
 				settings = {
 					["rust-analyzer"] = {
@@ -194,6 +194,9 @@ return {
 			-- },
 			taplo = {},
 			tsgo = {
+				cmd_env = {
+					GOMEMLIMIT = "2048MiB",
+				},
 				filetypes = {
 					"typescript",
 					"typescriptreact",
@@ -205,7 +208,7 @@ return {
 					},
 				},
 			},
-			-- ty = {},
+			ty = {},
 			vtsls = {
 				filetypes = {
 					"javascript",
