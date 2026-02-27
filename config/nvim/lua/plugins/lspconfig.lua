@@ -7,29 +7,9 @@ return {
 		{ "mrcjkb/rustaceanvim", ft = { "rust" }, lazy = false },
 	},
 	config = function()
-		local util = require("lspconfig.util")
-		local configs = require("lspconfig.configs")
 		local path = require("mason-core.path")
 		local utils = require("utils")
 		local mason_data_path = path.concat({ vim.fn.stdpath("data"), "mason", "bin" })
-
-		-- if not configs.jls then
-		-- 	configs.jls = {
-		-- 		default_config = {
-		-- 			cmd = {
-		-- 				"/Users/amanning/repos/jls/dist/lang_server_mac.sh",
-		-- 			},
-		-- 			filetypes = { "java" },
-		-- 			root_dir = util.root_pattern(
-		-- 				"pom.xml",
-		-- 				"build.gradle",
-		-- 				"build.gradle.kts",
-		-- 				".java-version",
-		-- 				".git"
-		-- 			),
-		-- 		},
-		-- 	}
-		-- end
 
 		require("mason-lspconfig").setup({
 			automatic_enable = false,
@@ -43,27 +23,7 @@ return {
 
 		local lsp_configs = {
 			astro = {},
-			-- basedpyright = {
-			-- 	flags = { debounce_text_changes = 300 },
-			-- 	settings = {
-			-- 		basedpyright = {
-			-- 			defineConstant = {
-			-- 				DEBUG = true,
-			-- 			},
-			-- 			exclude = {},
-			-- 			include = { "traffficking" },
-			-- 			pythonVersion = "3.13",
-			-- 			typeCheckingMode = "basic",
-			-- 		},
-			-- 		python = {
-			-- 			analysis = {
-			-- 				extra_paths = { utils.cwd() },
-			-- 			},
-			-- 		},
-			-- 	},
-			-- },
 			bashls = {},
-			biome = {},
 			buf_ls = {},
 			clangd = {
 				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
@@ -124,14 +84,6 @@ return {
 			java_language_server = {
 				cmd = { "java-language-server" },
 			},
-			-- jls = {
-			-- 	cmd = {
-			-- 		"/Users/amanning/repos/jls/dist/lang_server_mac.sh",
-			-- 	},
-			-- 	filetypes = { "java" },
-			-- 	-- root_dir = util.root_pattern("pom.xml", "build.gradle", "build.gradle.kts", ".java-version", ".git"),
-			-- 	root_dir = util.root_pattern(".git"),
-			-- },
 			json_lsp = {},
 			jsonnet_ls = {},
 			lua_ls = {
@@ -155,7 +107,6 @@ return {
 					},
 				},
 			},
-			-- pyrefly = {},
 			["rust-analyzer"] = {
 				settings = {
 					["rust-analyzer"] = {
@@ -173,25 +124,6 @@ return {
 			starpls = {},
 			stylua = {},
 			tailwindcss = {},
-			-- tailwindcss = {
-			-- 	root_dir = function(bufnr, on_dir)
-			-- 		local root_files = {
-			-- 			"tailwind.config.js",
-			-- 			"tailwind.config.cjs",
-			-- 			"tailwind.config.mjs",
-			-- 			"tailwind.config.ts",
-			-- 			"postcss.config.js",
-			-- 			"postcss.config.cjs",
-			-- 			"postcss.config.mjs",
-			-- 			"postcss.config.ts",
-			-- 		}
-			-- 		local fname = vim.api.nvim_buf_get_name(bufnr)
-			-- 		root_files = util.insert_package_json(root_files, "tailwindcss", fname)
-			-- 		root_files =
-			-- 			util.root_markers_with_field(root_files, { "mix.lock", "Gemfile.lock" }, "tailwind", fname)
-			-- 		on_dir(vim.fs.dirname(vim.fs.find(root_files, { path = fname, upward = true })[1]))
-			-- 	end,
-			-- },
 			taplo = {},
 			tsgo = {
 				cmd_env = {

@@ -1,8 +1,9 @@
 local js_formatters = {
-	"prettierd",
-	"prettier",
+	"biome",
+	"biome-organize-imports",
+	-- "prettierd",
+	-- "prettier",
 	lsp_format = "fallback",
-	stop_after_first = true,
 }
 
 return {
@@ -43,7 +44,8 @@ return {
 				sql = { "sleek" },
 				typescript = js_formatters,
 				typescriptreact = js_formatters,
-				["_"] = { "trim_whitespace", lsp_format = "prefer" },
+				-- NOTE:  this is broken right now?
+				-- ["_"] = { "trim_whitespace", lsp_format = "prefer" },
 			},
 			default_format_opts = {
 				lsp_format = "fallback",
