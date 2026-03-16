@@ -22,22 +22,21 @@ return {
 		})
 
 		local lsp_configs = {
-			astro = {},
+			---@type lspconfig.settings.bashls
 			bashls = {},
+			---@type lspconfig.settings.buf_ls
 			buf_ls = {},
-			clangd = {
-				filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-			},
-			clojure_lsp = {},
-			coffeesense = {},
-			crystalline = {},
+			---@type lspconfig.settings.docker_compose_language_service
 			docker_compose_language_service = {},
+			---@type lspconfig.settings.dockerls
 			dockerls = {},
+			---@type lspconfig.settings.elp
 			elp = {},
-			erlangls = {},
-			fsautocomplete = {},
+			---@type lspconfig.settings.gdscript
 			gdscript = {},
+			---@type lspconfig.settings.gleam
 			gleam = {},
+			---@type lspconfig.settings.gopls
 			gopls = {
 				on_new_config = function(config, new_root_dir)
 					local gopackagesdriver = new_root_dir .. "/gopackagesdriver.sh"
@@ -80,12 +79,17 @@ return {
 					debounce_text_changes = 150,
 				},
 			},
+			---@type lspconfig.settings.htlm
 			html = {},
+			---@type lspconfig.settings.java_language_server
 			java_language_server = {
 				cmd = { "java-language-server" },
 			},
-			json_lsp = {},
+			---@type lspconfig.settings.jsonls
+			jsonls = {},
+			---@type lspconfig.settings.jsonnet_ls
 			jsonnet_ls = {},
+			---@type lspconfig.settings.lua_ls
 			lua_ls = {
 				on_attach = function(client)
 					client.server_capabilities.formatting = false
@@ -100,13 +104,7 @@ return {
 					},
 				},
 			},
-			ocamllsp = {
-				settings = {
-					["ocaml.server.extraEnv"] = {
-						["OCAMLLSP_SEMANTIC_HIGHLIGHTING"] = "full",
-					},
-				},
-			},
+			---@type lspconfig.settings.rust_analyzer
 			["rust-analyzer"] = {
 				settings = {
 					["rust-analyzer"] = {
@@ -119,12 +117,17 @@ return {
 					},
 				},
 			},
-			sorbet = {},
+			---@type lspconfig.settings.sqlls
 			sqlls = {},
+			---@type lspconfig.settings.starpls
 			starpls = {},
+			---@type lspconfig.settings.stylua
 			stylua = {},
+			---@type lspconfig.settings.tailwindcss
 			tailwindcss = {},
+			---@type lspconfig.settings.taplo
 			taplo = {},
+			---@type lspconfig.settings.ts_ls
 			tsgo = {
 				cmd_env = {
 					GOMEMLIMIT = "2048MiB",
@@ -140,7 +143,9 @@ return {
 					},
 				},
 			},
+			---@type lspconfig.settings.ty
 			ty = {},
+			---@type lspconfig.settings.vtsls
 			vtsls = {
 				filetypes = {
 					"javascript",
@@ -148,7 +153,6 @@ return {
 					"javascript.jsx",
 				},
 			},
-			zls = {},
 		}
 
 		vim.g.rustaceanvim = {
