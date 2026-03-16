@@ -11,7 +11,9 @@ return {
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
-		opts = {},
+		opts = {
+			enable_autocmd = false,
+		},
 	},
 	{
 		"nvimdev/hlsearch.nvim",

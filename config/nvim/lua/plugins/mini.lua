@@ -1,7 +1,15 @@
 return {
 	{ "nvim-mini/mini.ai", version = false, opts = {} },
 	{ "nvim-mini/mini.align", version = false, opts = {} },
-	{ "nvim-mini/mini.comment", version = false, opts = {} },
+	{
+		"nvim-mini/mini.comment",
+		version = false,
+		opts = {
+			custom_commentstring = function()
+				return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
+			end,
+		},
+	},
 	{ "nvim-mini/mini.splitjoin", version = false, opts = {
 		mappings = {
 			toggle = "J",
