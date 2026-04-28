@@ -1,9 +1,13 @@
-local opts = {
+return {
 	"saghen/blink.cmp",
 	lazy = false,
 	dependencies = {
 		"rafamadriz/friendly-snippets",
+		"saghen/blink.lib",
 	},
+	build = function()
+		require("blink.cmp").build():wait(60000)
+	end,
 	-- enabled = false,
 	opts = {
 		keymap = {
@@ -47,15 +51,14 @@ local opts = {
 			providers = {
 				lazydev = { name = "LazyDev", module = "lazydev.integrations.blink", fallbacks = { "lsp" } },
 				lsp = { fallbacks = {} },
+				path = {
+					opts = {
+						get_cwd = function(_)
+							return vim.fn.getcwd()
+						end,
+					},
+				},
 			},
 		},
 	},
 }
-
-if jit.os:lower() ~= "windows" then
-	opts.build = "cargo build --release"
-else
-	opts.version = "1.*"
-end
-
-return opts

@@ -6,48 +6,52 @@ local module = {}
 -- @type { font: string | { family: string, weight?: string, italic?: boolean }, line_height?: number }
 local font_configs = {
 	-- { font = "Rec Mono Linear", line_height = 1.1 },
-	{ font = "Rec Mono Linear" },
-	{ font = { family = "Berkeley Mono" } },
-	{ font = "Iosevka JetBrains Mono" },
-	{ font = "Iosevka Plex" },
-	{ font = "Iosevka Wide" },
-	{ font = "Iosevka Input" },
-	{ font = "Iosevka Plex" },
-	{ font = "Iosevka Jet Brains" },
-	{ font = "Iosevka Recursive" },
-	{ font = { family = "Cascadia Code", weight = "DemiLight" }, line_height = 1.1 },
-	{ font = "Hasklig" },
-	{ font = "Ligalex Mono" },
-	{ font = "JetBrains Mono" },
 	{ font = "Fira Code" },
-	{ font = { family = "CommitMono", weight = "Regular", italic = false } },
+	{ font = "Hack JBM Ligatured CCG" },
+	{ font = "Hack" },
+	{ font = "Hasklig" },
+	{ font = "Iosevka Input" },
+	{ font = "Iosevka JetBrains Mono" },
+	{ font = "Iosevka JetBrains" },
+	{ font = "Iosevka Plex" },
+	{ font = "Iosevka Recursive" },
+	{ font = "Iosevka SourceCode" },
+	{ font = "Iosevka Wide" },
+	{ font = "Ioskeley Mono" },
+	{ font = "JetBrains Mono" },
 	{ font = "JuliaMono" },
-	{ font = "SF Mono" },
+	{ font = "League Mono" },
+	{ font = "Liga Hack" },
+	{ font = "Liga SFMono Nerd Font" },
+	{ font = "Ligalex Mono" },
+	{ font = "Maple Mono" },
 	{ font = "Monaspace Argon" },
 	{ font = "Monaspace Krypton" },
 	{ font = "Monaspace Neon" },
 	{ font = "Monaspace Radon" },
 	{ font = "Monaspace Xenon" },
-	{ font = "Liga Hack" },
-	{ font = "Hack JBM Ligatured CCG" },
+	{ font = "Monoid HalfLoose" },
+	{ font = "Rec Mono Custom" },
+	{ font = "Rec Mono Linear" },
+	{ font = "SF Mono" },
+	{ font = "VictorMono Nerd Font" },
+	{ font = { family = "Berkeley Mono" } },
+	{ font = { family = "Cascadia Code", weight = "DemiLight" }, line_height = 1.1 },
+	{ font = { family = "CommitMono", weight = "Regular", italic = false } },
 	{ font = { family = "IBM Plex Mono", weight = "Medium" } },
 	{ font = { family = "Lilex", weight = "Regular" } },
-	{ font = "League Mono" },
-	{ font = "Liga SFMono Nerd Font" },
-	{ font = "Rec Mono Custom" },
-	{ font = "Hack" },
-	{ font = "Monoid HalfLoose" },
-	{ font = "VictorMono Nerd Font" },
-	{ font = "Maple Mono" },
 }
 
 -- module.current_font = "Iosevka Wide"
-module.current_font = "Berkeley Mono"
+-- module.current_font = "Berkeley Mono"
 -- module.current_font = "Rec Mono Linear"
 -- module.current_font = "Iosevka Input"
--- module.current_font = "Iosevka Jet Brains"
+-- module.current_font = "Iosevka JetBrains"
 -- module.current_font = "Iosevka Plex"
 -- module.current_font = "Iosevka Recursive"
+module.current_font = "Ioskeley Mono"
+-- module.current_font = "Lilex"
+-- module.current_font = "Iosevka SourceCode"
 
 local font = {}
 
