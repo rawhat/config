@@ -19,6 +19,18 @@ hl.window_rule({
 })
 
 hl.window_rule({
+	name = "fullscreen-games",
+	match = { fullscreen = true },
+	tag = "+game",
+})
+
+hl.window_rule({
+	name = "xwayland",
+	match = { xwayland = true },
+	tag = "+game",
+})
+
+hl.window_rule({
 	name = "game-content",
 	match = { tag = "game" },
 	content = "game",
