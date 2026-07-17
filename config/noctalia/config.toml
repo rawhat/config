@@ -1,0 +1,21 @@
+[bar]
+# order = ["secondary", "main"]
+
+[bar.secondary]
+position = "bottom"
+enabled = true
+auto_hide = false
+reserve_space = true
+layer = "top"
+[bar.secondary.monitor.DP-3]
+enabled = false
+
+[bar.main]
+position = "bottom"
+enabled = false
+auto_hide = true
+reserve_space = false
+# smart_auto_hide = true
+[bar.main.monitor.DP-3]
+enabled = true
+reserve_space = false
