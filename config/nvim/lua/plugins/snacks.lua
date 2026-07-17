@@ -293,6 +293,7 @@ return {
 						["<c-d>"] = { "preview_scroll_down", mode = { "n", "i" } },
 						["<c-u>"] = { "preview_scroll_up", mode = { "n", "i" } },
 						["<c-x>"] = { "edit_split", mode = { "n", "i" } },
+						["<c-a>"] = { "sidekick_send", mode = { "n", "i" } },
 					},
 				},
 			},

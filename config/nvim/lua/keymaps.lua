@@ -29,7 +29,16 @@ wk.add({
 		"<leader>j",
 		function()
 			if has("0.11") then
-				vim.diagnostic.jump({ count = 1, float = true })
+				vim.diagnostic.jump({
+					count = 1,
+					on_jump = function(_, bufnr)
+						vim.diagnostic.open_float({
+							bufnr = bufnr,
+							scope = "cursor",
+							focus = false,
+						})
+					end,
+				})
 			else
 				vim.diagnostic.goto_next({ float = true })
 			end
@@ -40,7 +49,16 @@ wk.add({
 		"<leader>k",
 		function()
 			if has("0.11") then
-				vim.diagnostic.jump({ count = -1, float = true })
+				vim.diagnostic.jump({
+					count = -1,
+					on_jump = function(_, bufnr)
+						vim.diagnostic.open_float({
+							bufnr = bufnr,
+							scope = "cursor",
+							focus = false,
+						})
+					end,
+				})
 			else
 				vim.diagnostic.goto_next({ float = true })
 			end
@@ -141,9 +159,16 @@ wk.add({
 	{ "<leader>zo", "<cmd>Lazy home<cr>", desc = "Lazy open" },
 
 	{
-		"<leader>yp",
+		"<leader>yd",
 		function()
 			vim.fn.setreg("+", vim.fn.expand("%:p:.:h"))
+		end,
+		desc = "Copy relative directory to clipboard",
+	},
+	{
+		"<leader>yp",
+		function()
+			vim.fn.setreg("+", vim.fn.expand("%:."))
 		end,
 		desc = "Copy relative directory to clipboard",
 	},

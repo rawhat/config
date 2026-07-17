@@ -4,6 +4,23 @@ return {
 		"mason-org/mason-lspconfig.nvim",
 		"mason-org/mason.nvim",
 		"elixir-tools/elixir-tools.nvim",
+		{
+			"idelice/nvim-jls",
+			opts = {
+				root_markers = {
+					"pom.xml",
+					"build.gradle",
+					"build.gradle.kts",
+					"settings.gradle",
+					"settings.gradle.kts",
+					"WORKSPACE",
+					"WORKSPACE.bazel",
+					".java-version",
+					".git",
+					"MODULE.bazel",
+				},
+			},
+		},
 		{ "mrcjkb/rustaceanvim", ft = { "rust" }, lazy = false },
 	},
 	config = function()
@@ -26,6 +43,8 @@ return {
 			bashls = {},
 			---@type lspconfig.settings.buf_ls
 			buf_ls = {},
+			---@type lspconfig.settings.copilot
+			-- copilot = {},
 			---@type lspconfig.settings.docker_compose_language_service
 			docker_compose_language_service = {},
 			---@type lspconfig.settings.dockerls
@@ -46,7 +65,7 @@ return {
 					end
 					config.cmd_env = {
 						GOPACKAGESDRIVER = gopackagesdriver,
-						GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
+						-- GOPACKAGESDRIVER_BAZEL_BUILD_FLAGS = "--strategy=GoStdlibList=local",
 					}
 				end,
 				settings = {
@@ -75,16 +94,16 @@ return {
 						},
 					},
 				},
-				flags = {
-					debounce_text_changes = 150,
-				},
+				-- flags = {
+				-- 	debounce_text_changes = 150,
+				-- },
 			},
 			---@type lspconfig.settings.htlm
 			html = {},
 			---@type lspconfig.settings.java_language_server
-			java_language_server = {
-				cmd = { "java-language-server" },
-			},
+			-- java_language_server = {
+			-- 	cmd = { "java-language-server" },
+			-- },
 			---@type lspconfig.settings.jsonls
 			jsonls = {},
 			---@type lspconfig.settings.jsonnet_ls
@@ -104,6 +123,8 @@ return {
 					},
 				},
 			},
+			---@type lspconfig.settings.pyrefly
+			pyrefly = {},
 			---@type lspconfig.settings.rust_analyzer
 			["rust-analyzer"] = {
 				settings = {
@@ -124,7 +145,7 @@ return {
 			---@type lspconfig.settings.stylua
 			stylua = {},
 			---@type lspconfig.settings.tailwindcss
-			tailwindcss = {},
+			-- tailwindcss = {},
 			---@type lspconfig.settings.taplo
 			taplo = {},
 			---@type lspconfig.settings.ts_ls
@@ -144,7 +165,7 @@ return {
 				},
 			},
 			---@type lspconfig.settings.ty
-			ty = {},
+			-- ty = {},
 			---@type lspconfig.settings.vtsls
 			vtsls = {
 				filetypes = {

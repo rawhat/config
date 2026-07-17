@@ -1,9 +1,9 @@
 local js_formatters = {
-	"biome",
-	"biome-organize-imports",
-	-- "prettierd",
-	-- "prettier",
+	"biome-check",
+	"prettierd",
+	"prettier",
 	lsp_format = "fallback",
+	stop_after_first = true,
 }
 
 return {
@@ -69,6 +69,11 @@ return {
 					end,
 					require_cwd = true,
 				},
+				prettierd = {
+					env = {
+						PRETTIERD_DEFAULT_CONFIG = "/Volumes/vistar/vistar/.prettierrc.js",
+					},
+				},
 				pyfmt = {
 					command = "yapf",
 					args = function(self, ctx)
@@ -87,7 +92,7 @@ return {
 							string.format("%d-%d", ctx.range.start[1], ctx.range["end"][1]),
 						}
 					end,
-					cwd = util.root_file("WORKSPACE"),
+					cwd = util.root_file("MODULE.bazel"),
 					require_cwd = true,
 				},
 			},
