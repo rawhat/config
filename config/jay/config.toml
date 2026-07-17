@@ -18,12 +18,31 @@ on-graphics-initialized = [
   { type = "exec", exec = ["steam"] },
   { type = "exec", exec = ["firefox"] },
   { type = "exec", exec = ["noctalia", "--daemon"], privileged = true },
+  { type = "exec", exec = ["xrandr", "--output", "DP-3", "--primary"] },
 ]
 
 show-bar = false
 show-titles = false
 
-on-idle = { type = "exec", exec = { shell = "noctalia msg session lock" } }
+auto-reload = true
+
+# on-idle = { type = "exec", exec = { shell = "noctalia msg session lock" } }
+
+[[outputs]]
+name = "right"
+match.connector = "DP-3"
+x = 1920
+y = 0
+mode = { width = 2560, height = 1440, refresh-rate = 359.979 }
+vrr = { mode = "variant1", cursor-hz = 90 }
+tearing.mode = "variant1"
+
+[[outputs]]
+name = "left"
+match.connector = "HDMI-A-1"
+x = 0
+y = 0
+mode = { width = 1920, height = 1080, refresh-rate = 100.0 }
 
 [[windows]]
 match.x-class = "discord"
@@ -66,20 +85,6 @@ enabled = true
 # name = "slup"
 # capabilities = "layer-shell"
 
-[[outputs]]
-name = "right"
-match.connector = "DP-3"
-x = 1920
-y = 0
-mode = { width = 2560, height = 1440, refresh-rate = 359.979 }
-vrr = { mode = "variant1", cursor-hz = 90 }
-
-[[outputs]]
-name = "left"
-match.connector = "HDMI-A-1"
-x = 0
-y = 0
-mode = { width = 1920, height = 1080, refresh-rate = 100.0 }
 
 [workspaces."1"]
 initial-output.connector = "DP-3"
