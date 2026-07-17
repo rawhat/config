@@ -6,7 +6,8 @@ fish_add_path \
   $HOME/.cargo/bin \
   $HOME/bin
 
-mise activate fish | source
+# mise activate fish | source
+~/.local/bin/mise activate fish | source
 
 function fish_mode_symbol
   switch $fish_bind_mode
@@ -168,9 +169,4 @@ case Darwin
   fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
   # for scala support
   fish_add_path "/Users/amanning/Library/Application Support/Coursier/bin"
-case Linux
-  set -x FSR4_UPGRADE 1
 end
-
-# opam configuration
-source /home/alex/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true

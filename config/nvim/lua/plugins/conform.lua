@@ -42,6 +42,7 @@ return {
 				ocaml = { "ocamlformat" },
 				python = { "pyfmt", "ruff", stop_after_first = true },
 				sql = { "sleek" },
+				toml = { "taplo" },
 				typescript = js_formatters,
 				typescriptreact = js_formatters,
 				-- NOTE:  this is broken right now?

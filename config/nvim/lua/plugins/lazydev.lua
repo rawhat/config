@@ -11,6 +11,7 @@ return {
 				{ path = "snacks.nvim", words = { "Snacks" } },
 				{ path = "wezterm-types", mods = { "wezterm" } },
 				{ path = "nvim-lspconfig", words = { "lspconfig" } },
+				{ path = "/usr/share/hypr/stubs", words = { "hl" } },
 			}
 			if vim.fn.has("macunix") == 1 then
 				table.insert(libraries, { path = os.getenv("HOME") .. ".local/share/sketchybar_lua/" })

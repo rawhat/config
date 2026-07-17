@@ -36,6 +36,8 @@ hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + EQUAL", hl.dsp.layout("colresize +0.5"))
 hl.bind(mainMod .. " + MINUS", hl.dsp.layout("colresize -0.5"))
 
+hl.bind(mainMod .. " + g", hl.dsp.focus({ workspace = "gaming" }))
+
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do

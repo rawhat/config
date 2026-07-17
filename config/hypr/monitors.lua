@@ -37,6 +37,12 @@ hl.workspace_rule({
 })
 
 hl.workspace_rule({
+	workspace = "gaming",
+	monitor = "DP-3",
+	persistent = true,
+})
+
+hl.workspace_rule({
 	workspace = "4",
 	monitor = "HDMI-A-1",
 	default = true,
