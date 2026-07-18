@@ -11,6 +11,7 @@ keymap.rmlvo = { layout = "us", variants = "" }
 on-graphics-initialized = [
   # { type = "exec", exec = "mako" },
   # { type = "exec", exec = "wl-tray-bridge" },
+  { type = "exec", exec = "wayland-pipewire-idle-inhibit" },
   { type = "exec", exec = ["vicinae", "server"] },
   { type = "exec", exec = ["solaar", "-w", "hide"] },
   { type = "exec", exec = ["discord"] },
@@ -127,15 +128,10 @@ alt-shift-x = "quit"
 alt-shift-r = "reload-config-toml"
 logo-e = { type = "exec", exec = "dolphin" }
 
-alt-shift-s = { type = "exec", exec = { prog = "sh", args = [
-  "-c",
-  "grim -g \"$(slurp)\" - | wl-copy --type image/png",
-] } }
+alt-shift-s = { type = "exec", exec = { shell = "grim -g \"$(slurp)\" - | wl-copy --type image/png" } }
+Print = { type = "exec", exec = { shell = "grim -o DP-3 \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"" } }
 
-Print = { type = "exec", exec = { prog = "sh", args = [
-  "-c",
-  "grim -o DP-3 \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"",
-] } }
+logo-l = { type = "exec", exec = { shell = "noctalia msg session lock" } }
 
 
 ctrl-alt-F1 = { type = "switch-to-vt", num = 1 }
