@@ -27,7 +27,8 @@ show-titles = false
 
 auto-reload = true
 
-# on-idle = { type = "exec", exec = { shell = "noctalia msg session lock" } }
+idle = { minutes = 5, grace-period = { seconds = 3 } }
+on-idle = { type = "exec", exec = { shell = "noctalia msg session lock" } }
 
 [[outputs]]
 name = "right"
