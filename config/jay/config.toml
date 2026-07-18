@@ -134,6 +134,12 @@ Print = { type = "exec", exec = { shell = "grim -o DP-3 \"$(xdg-user-dir PICTURE
 
 logo-l = { type = "exec", exec = { shell = "noctalia msg session lock" } }
 
+alt-shift-e = { type = "exec", exec = [
+  "noctalia",
+  "msg",
+  "panel-toggle",
+  "session",
+] }
 
 ctrl-alt-F1 = { type = "switch-to-vt", num = 1 }
 ctrl-alt-F2 = { type = "switch-to-vt", num = 2 }
