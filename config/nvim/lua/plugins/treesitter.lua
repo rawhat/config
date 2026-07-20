@@ -5,7 +5,7 @@ local function sto(selector, query_group)
 end
 
 return {
-	"arborist-ts/arborist.nvim",
+	"nvim-treesitter/nvim-treesitter",
 	dependencies = {
 		{ "nvim-treesitter/nvim-treesitter-context", opts = {} },
 		{
@@ -22,9 +22,8 @@ return {
 		"RRethy/nvim-treesitter-endwise",
 	},
 	lazy = false,
-	version = "*",
 	keys = {
-		{ "<leader>ts", desc = "TS Update", "<cmd>ArboristUpdate<cr>" },
+		{ "<leader>ts", desc = "TS Update", "<cmd>TSUpdate all<cr>" },
 	},
 	init = function()
 		vim.treesitter.query.set(
@@ -117,44 +116,42 @@ return {
 	config = function(plug)
 		vim.opt.rtp:prepend(plug.dir)
 
-		require("arborist").setup({
-			ensure_installed = {
-				"bash",
-				"caddy",
-				"css",
-				"dockerfile",
-				"elixir",
-				"erlang",
-				"fish",
-				"gdscript",
-				"git_config",
-				"git_rebase",
-				"gitcommit",
-				"gitignore",
-				"gleam",
-				"go",
-				"heex",
-				"html",
-				"ini",
-				"javascript",
-				"java",
-				"json",
-				"jsonnet",
-				"lua",
-				"markdown",
-				"proto",
-				"python",
-				"regex",
-				"rust",
-				"scala",
-				"scss",
-				"sql",
-				"starlark",
-				"toml",
-				"tsx",
-				"typescript",
-				"yaml",
-			},
+		require("nvim-treesitter").install({
+			"bash",
+			"caddy",
+			"css",
+			"dockerfile",
+			"elixir",
+			"erlang",
+			"fish",
+			"gdscript",
+			"git_config",
+			"git_rebase",
+			"gitcommit",
+			"gitignore",
+			"gleam",
+			"go",
+			"heex",
+			"html",
+			"ini",
+			"javascript",
+			"java",
+			"json",
+			"jsonnet",
+			"lua",
+			"markdown",
+			"proto",
+			"python",
+			"regex",
+			"rust",
+			"scala",
+			"scss",
+			"sql",
+			"starlark",
+			"toml",
+			"tsx",
+			"typescript",
+			"yaml",
 		})
 
 		local indent_cache = {}
