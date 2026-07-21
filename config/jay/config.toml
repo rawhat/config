@@ -9,6 +9,7 @@
 keymap.rmlvo = { layout = "us", variants = "" }
 
 on-graphics-initialized = [
+  { type = "exec", exec = "/usr/lib/pam_kwallet_init" },
   # { type = "exec", exec = "mako" },
   # { type = "exec", exec = "wl-tray-bridge" },
   { type = "exec", exec = "wayland-pipewire-idle-inhibit" },
@@ -27,7 +28,7 @@ show-titles = false
 
 auto-reload = true
 
-idle = { minutes = 5, grace-period = { seconds = 3 } }
+idle = { minutes = 10, grace-period = { seconds = 3 } }
 on-idle = { type = "exec", exec = { shell = "noctalia msg session lock" } }
 
 [[outputs]]
