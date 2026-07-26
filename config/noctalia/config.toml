@@ -16,6 +16,28 @@ enabled = false
 auto_hide = true
 reserve_space = false
 # smart_auto_hide = true
+show_on_workspace_switch = false
 [bar.main.monitor.DP-3]
 enabled = true
 reserve_space = false
+
+[idle]
+behavior_order = ["lock", "screen-off", "lock-and-suspend"]
+
+[idle.behavior.Screen-off]
+action = "command"
+command = "jay randr output DP-3 disable; jay randr output HDMI-A-1 disable"
+enabled = true
+resume_command = "jay randr output DP-3 enable; jay randr output HDMI-A-1 enable"
+timeout = 300.0
+
+[idle.behavior.lock]
+action = "lock"
+enabled = true
+timeout = 600.0
+
+[idle.behavior.lock-and-suspend]
+action = "suspend"
+enabled = true
+lock_before_suspend = false
+timeout = 900.0
