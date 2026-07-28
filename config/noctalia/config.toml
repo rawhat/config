@@ -41,3 +41,6 @@ action = "suspend"
 enabled = true
 lock_before_suspend = false
 timeout = 900.0
+
+[widget.clock]
+format = "{:%I:%M %p %a %e %b}"
