@@ -235,7 +235,7 @@ capabilities = "all"
 [[windows]]
 match.any = [
   # { app-id = "com.shellyorg.shelly" },
-  { app-id = "org.kde.dolphin" },
+  # { app-id = "org.kde.dolphin" },
   { x-class = "steam", not.title-regex = "^[Ss]team$" },
   { title-regex = "^Steam Settings$" },
   { title-regex = "^(Open File)(.*)$" },
