@@ -1,3 +1,4 @@
+"$schema" = "https://raw.githubusercontent.com/mahkoh/jay/master/toml-spec/spec/spec.generated.json"
 # keymap = """
 #     xkb_keymap {
 #         xkb_keycodes { include "evdev+aliases(qwerty)" };
@@ -39,16 +40,16 @@ render-device.name = "dedicated"
 
 [env]
 XDG_CURRENT_DESKTOP = "jay"
-xDG_SESSION_TYPE = "wayland"
+XDG_SESSION_TYPE = "wayland"
 XDG_SESSION_DESKTOP = "jay"
 XDG_MENU_PREFIX = "arch-"
 
 PROTON_DXVK_LOWLATENCY = "1"
 
-DXVK_FRAME_PACE = "low-latency-vrr-340"
-DXVK_FRAME_RATE = "340"
+# DXVK_FRAME_PACE = "low-latency-vrr-340"
+# DXVK_FRAME_RATE = "340"
 
-VKD3D_FRAME_RATE = "340"
+# VKD3D_FRAME_RATE = "340"
 PROTON_VKD3D_LOWLATENCY = "1"
 VKD3D_CONFIG = "descriptor_heap"
 VKD3D_SWAPCHAIN_PRESENT_MODE = "FIFO"
@@ -171,6 +172,7 @@ logo-e = { type = "exec", exec = { prog = "dolphin", env = { XDG_CURRENT_DESKTOP
 
 alt-shift-s = { type = "exec", exec = { shell = "grim -g \"$(slurp)\" - | wl-copy --type image/png" } }
 Print = { type = "exec", exec = { shell = "grim -o DP-3 \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"" } }
+alt-Print = { type = "exec", exec = { shell = "grim \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"" } }
 
 logo-l = { type = "exec", exec = { shell = "noctalia msg session lock" } }
 
