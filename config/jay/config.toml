@@ -14,7 +14,7 @@ on-graphics-initialized = [
   # { type = "exec", exec = "mako" },
   # { type = "exec", exec = "wl-tray-bridge" },
   { type = "exec", exec = "wayland-pipewire-idle-inhibit" },
-  { type = "exec", exec = ["xrandr", "--output", "DP-3", "--primary"] },
+  { type = "exec", exec = ["xrandr", "--output", "DP-1", "--primary"] },
   { type = "exec", exec = ["vicinae", "server"] },
   { type = "exec", exec = ["solaar", "-w", "hide"] },
   { type = "exec", exec = ["discord"] },
@@ -28,6 +28,8 @@ show-bar = false
 show-titles = false
 
 auto-reload = true
+
+workspace-display-order = "sorted"
 
 idle = { minutes = 10, grace-period = { seconds = 3 } }
 on-idle = { type = "exec", exec = { shell = "noctalia msg session lock" } }
@@ -73,7 +75,7 @@ accel-speed = 0.0
 
 [[outputs]]
 name = "right"
-match.connector = "DP-3"
+match.connector = "DP-1"
 x = 1920
 y = 0
 mode = { width = 2560, height = 1440, refresh-rate = 359.979 }
@@ -88,7 +90,7 @@ y = 0
 mode = { width = 1920, height = 1080, refresh-rate = 100.0 }
 
 [[windows]]
-match.x-class = "discord"
+match.app-id = "discord"
 match.just-mapped = true
 action = { type = "move-to-workspace", name = "5" }
 
@@ -130,11 +132,11 @@ enabled = true
 
 
 [workspaces."1"]
-initial-output.connector = "DP-3"
+initial-output.connector = "DP-1"
 [workspaces."2"]
-initial-output.connector = "DP-3"
+initial-output.connector = "DP-1"
 [workspaces."3"]
-initial-output.connector = "DP-3"
+initial-output.connector = "DP-1"
 [workspaces."4"]
 initial-output.connector = "HDMI-A-1"
 [workspaces."5"]
@@ -152,7 +154,7 @@ alt-shift-k = "move-up"
 alt-shift-l = "move-right"
 
 alt-z = "split-horizontal"
-alt-v = "split-vertical"
+# alt-v = "split-vertical"
 
 alt-t = "toggle-split"
 alt-m = "toggle-mono"
@@ -171,7 +173,7 @@ alt-shift-r = "reload-config-toml"
 logo-e = { type = "exec", exec = { prog = "dolphin", env = { XDG_CURRENT_DESKTOP = "KDE" } } }
 
 alt-shift-s = { type = "exec", exec = { shell = "grim -g \"$(slurp)\" - | wl-copy --type image/png" } }
-Print = { type = "exec", exec = { shell = "grim -o DP-3 \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"" } }
+Print = { type = "exec", exec = { shell = "grim -o DP-1 \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"" } }
 alt-Print = { type = "exec", exec = { shell = "grim \"$(xdg-user-dir PICTURES)/$(date +'%s_grim.png')\"" } }
 
 logo-l = { type = "exec", exec = { shell = "noctalia msg session lock" } }
@@ -191,6 +193,10 @@ alt-shift-b = { type = "exec", exec = [
   "output",
   "HDMI-A-1",
   "enable",
+] }
+
+alt-shift-m = { type = "exec", exec = [
+  "/home/alex/bin/jay-restart-monitors.sh",
 ] }
 
 ctrl-alt-F1 = { type = "switch-to-vt", num = 1 }

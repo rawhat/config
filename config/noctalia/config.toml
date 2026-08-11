@@ -7,7 +7,7 @@ enabled = true
 auto_hide = false
 reserve_space = true
 layer = "top"
-[bar.secondary.monitor.DP-3]
+[bar.secondary.monitor.DP-1]
 enabled = false
 
 [bar.main]
@@ -17,18 +17,33 @@ auto_hide = true
 reserve_space = false
 # smart_auto_hide = true
 show_on_workspace_switch = false
-[bar.main.monitor.DP-3]
+[bar.main.monitor.DP-1]
 enabled = true
 reserve_space = false
+
+[lockscreen_widgets]
+enabled = true
+
+[lockscreen_widgets.widget.clock_main]
+type = "clock"
+output = "DP-1"
+cx = 1600.0
+cy = 120.0
+box_width = 360.0
+box_height = 120.0
+rotation = 0.0
+
+[lockscreen_widgets.widget.clock_main.settings]
+format = "{:%H:%M}"
 
 [idle]
 behavior_order = ["lock", "screen-off", "lock-and-suspend"]
 
-[idle.behavior.Screen-off]
+[idle.behavior.screen-off]
 action = "command"
-command = "jay randr output DP-3 disable; jay randr output HDMI-A-1 disable"
+command = "jay randr output DP-1 disable; jay randr output HDMI-A-1 disable"
 enabled = true
-resume_command = "jay randr output DP-3 enable; jay randr output HDMI-A-1 enable"
+resume_command = "jay randr output DP-1 enable; jay randr output HDMI-A-1 enable"
 timeout = 300.0
 
 [idle.behavior.lock]
