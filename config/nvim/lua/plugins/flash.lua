@@ -83,7 +83,7 @@ return {
 			end,
 		},
 	},
-	setup = function()
+	config = function()
 		patch_flash_searchstate()
 		require("flash").setup({})
 	end,

@@ -123,6 +123,8 @@ return {
 					},
 				},
 			},
+			---@type lspconfig.settings.postgres_lsp
+			postgres_lsp = {},
 			---@type lspconfig.settings.pyrefly
 			pyrefly = {},
 			---@type lspconfig.settings.rust_analyzer

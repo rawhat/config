@@ -6,9 +6,6 @@ fish_add_path \
   $HOME/.cargo/bin \
   $HOME/bin
 
-# mise activate fish | source
-~/.local/bin/mise activate fish | source
-
 function fish_mode_symbol
   switch $fish_bind_mode
     case default
@@ -170,3 +167,6 @@ case Darwin
   # for scala support
   fish_add_path "/Users/amanning/Library/Application Support/Coursier/bin"
 end
+
+mise activate fish | source
+# ~/.local/bin/mise activate fish | source

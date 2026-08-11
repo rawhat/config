@@ -1,9 +1,10 @@
 return {
 	"b0o/incline.nvim",
 	opts = {
-		-- hide = {
-		-- 	cursorline = "focused_win",
-		-- },
+		hide = {
+			-- cursorline = "focused_win",
+			focused_win = true,
+		},
 		window = {
 			margin = {
 				vertical = { bottom = 0, top = 0 },
