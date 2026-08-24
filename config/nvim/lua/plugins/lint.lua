@@ -20,7 +20,7 @@ return {
 		})
 
 		local elixir_linters = { "credo" }
-		local javascript_linters = { "eslint_d" }
+		local javascript_linters = { "biomejs" }
 		return {
 			linters_by_ft = {
 				bzl = { "buildifier" },
@@ -32,6 +32,7 @@ return {
 				javascript = javascript_linters,
 				javascriptreact = javascript_linters,
 				json = { "jq" },
+				lua = { "selene" },
 				typescript = javascript_linters,
 				typescriptreact = javascript_linters,
 				proto = { "buf_lint" },
