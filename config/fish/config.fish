@@ -150,6 +150,8 @@ set fish_cursor_visual block
 function fish_mode_prompt; end
 
 switch (uname)
+case Linux
+  ~/.local/bin/mise activate fish | source
 case Darwin
   fish_add_path /opt/homebrew/bin
   eval "$(brew shellenv)"
@@ -166,7 +168,6 @@ case Darwin
   fish_add_path /opt/homebrew/opt/gnu-sed/libexec/gnubin
   # for scala support
   fish_add_path "/Users/amanning/Library/Application Support/Coursier/bin"
+  mise activate fish | source
 end
 
-mise activate fish | source
-# ~/.local/bin/mise activate fish | source
