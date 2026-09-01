@@ -152,9 +152,6 @@ return {
 			taplo = {},
 			---@type lspconfig.settings.ts_ls
 			tsc = {
-				cmd = function(dispatchers)
-					return vim.lsp.rpc.start({ "tsgo", "--lsp", "--stdio" }, dispatchers)
-				end,
 				cmd_env = {
 					GOMEMLIMIT = "2048MiB",
 				},

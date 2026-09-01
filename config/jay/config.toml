@@ -46,21 +46,21 @@ XDG_SESSION_TYPE = "wayland"
 XDG_SESSION_DESKTOP = "jay"
 XDG_MENU_PREFIX = "arch-"
 
-PROTON_DXVK_LOWLATENCY = "1"
+# PROTON_DXVK_LOWLATENCY = "1"
 
 # DXVK_FRAME_PACE = "low-latency-vrr-340"
 # DXVK_FRAME_RATE = "340"
 
 # VKD3D_FRAME_RATE = "340"
-PROTON_VKD3D_LOWLATENCY = "1"
+# PROTON_VKD3D_LOWLATENCY = "1"
 VKD3D_CONFIG = "descriptor_heap"
-VKD3D_SWAPCHAIN_PRESENT_MODE = "FIFO"
+# VKD3D_SWAPCHAIN_PRESENT_MODE = "FIFO"
 
 ENABLE_LAYER_MESA_ANTI_LAG = "1"
-RADV_EXPERIMENTAL = "heap"
+# RADV_EXPERIMENTAL = "heap"
 
 [theme]
-container-borders = "full"
+container-borders = "full-smart"
 border-width = 1
 
 [[drm-devices]]
