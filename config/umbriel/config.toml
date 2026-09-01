@@ -538,16 +538,19 @@ default_maximize_to_edges = true
 
 [[window_rule]]
 match.app_id = "discord"
-default_workspace = 5
+default_output = "HDMI-A-1"
+default_workspace = 2
 default_maximize_to_edges = true
 
 [[window_rule]]
 match.app_id = "signal"
-default_workspace = 5
+default_output = "HDMI-A-1"
+default_workspace = 2
 default_maximize_to_edges = true
 
 [[window_rule]]
 match.title = "^Steam$"
+default_output = "DP-1"
 default_workspace = 3
 default_maximize_to_edges = true
 
@@ -574,7 +577,7 @@ default_floating = true
 # Games on workspace 4, fullscreen
 [[window_rule]]
 match.app_id = "^(steam.*|overwatch|overwatch\\.exe|WoW\\.exe)$"
-default_workspace = 10
+default_workspace = 7
 
 [[window_rule]]
 match.app_id = "^(steam_proton|steam_app.*|overwatch|overwatch\\.exe|WoW\\.exe)$"
